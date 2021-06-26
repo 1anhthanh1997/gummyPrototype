@@ -1,0 +1,73 @@
+{
+  "id":4,
+  "levelScore":0,
+  "tags":[
+    1,
+    2
+  ],
+  "gameType":0,
+  "orderIndex":0,
+  "gameName":"Game tính toán",
+  "parentId":0,
+  "createDate":0,
+  "gameAssets":"assets/images/",
+  "gameData":[
+    {
+      "id":1,
+      "parentId":4,
+      "gameType":4,
+      "items": [
+        {
+          "id":0,
+          "image":"target_item.svg",
+          "type": 0,
+          "position": {
+            "dx": 200.0,
+            "dy": 0.0
+          },
+          "groupId": 0,
+          "width":213.0,
+          "height":284.0
+        },
+        {
+          "id":1,
+          "image":"square.svg",
+          "type": 1,
+          "position": {
+            "dx": 200.0,
+            "dy": 0.0
+          },
+          "groupId": 0,
+          "width":100.0,
+          "height":100.0
+        },
+        {
+          "id":2,
+          "image":"triangle.svg",
+          "type": 1,
+          "position": {
+            "dx": 300.0,
+            "dy": 0.0
+          },
+          "groupId": 1,
+          "width":120.0,
+          "height":120.0
+        },
+        {
+          "id":3,
+          "image":"circle.svg",
+          "type": 1,
+          "position": {
+            "dx": 400.0,
+            "dy": 0.0
+          },
+          "groupId": 1,
+          "width":100.0,
+          "height":100.0
+        }
+      ],
+      "width":213.0,
+      "height":284.0
+    }
+  ]
+}
