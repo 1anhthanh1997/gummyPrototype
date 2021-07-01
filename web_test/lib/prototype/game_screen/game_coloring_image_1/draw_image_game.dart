@@ -1,0 +1,269 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_archive/flutter_archive.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:svg_path_parser/svg_path_parser.dart';
+import 'package:web_test/model/color_model.dart';
+import 'package:web_test/model/game_draw_model.dart';
+import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/animation_character_item.dart';
+import 'package:web_test/widgets/animation_color.dart';
+
+class DrawImageGame extends StatefulWidget {
+  _DrawImageGameState createState() => _DrawImageGameState();
+}
+
+class _DrawImageGameState extends State<DrawImageGame> {
+  List<Path> _imagePath = [];
+  List<String> imageLink = [];
+  List<Offset> imagePosition = [];
+  List<String> color = [];
+  List<bool> canDraw = [];
+  List<int> type = [];
+
+  // List<ItemModel>gameData=[];
+  List<ItemModel> imageData = [];
+  List data = [];
+  List secondData = [];
+  List<ItemModel> colorData = [];
+  String currentColor = '';
+  double bonusHeight;
+  List<bool> isCompleted = [];
+  List<double> height = [];
+  List<double> width = [];
+  List<List<Map>> imagePoint = [];
+  List<bool> isPlayAnimation = [];
+  double screenWidth;
+  double screenHeight;
+  double ratio;
+  ScreenModel screenModel;
+  bool isFirstTime = true;
+  String assetFolder;
+  var fullData;
+  int countSum = 0;
+  double centerHeight = 0;
+  bool isDragging=false;
+
+  Future<void> loadImageData() async {
+    var jsonData =
+        await rootBundle.loadString('assets/coloring_parrot_data.json');
+    fullData = json.decode(jsonData);
+    data = fullData['gameData'][0]['items'];
+    centerHeight = fullData['gameData'][0]['height'];
+    // secondData = fullData['colorItem'];
+    assetFolder = fullData['gameAssets'];
+    imageData =
+        data.map((imageInfo) => new ItemModel.fromJson(imageInfo)).toList();
+
+    for (int index = 0; index < imageData.length; index++) {
+      if (imageData[index].type == 1) {
+        setState(() {
+          colorData.add(imageData[index]);
+        });
+      } else {
+        setState(() {
+          imagePoint.add([]);
+          _imagePath.add(parseSvgPath(imageData[index].path));
+          imageLink.add(assetFolder + imageData[index].image);
+          imagePosition.add(imageData[index].position);
+          color.add(imageData[index].color);
+          canDraw.add(imageData[index].canDraw);
+          isCompleted.add(false);
+          height.add(imageData[index].height);
+          width.add(imageData[index].width);
+          type.add(imageData[index].type);
+          isPlayAnimation.add(false);
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    this.loadImageData();
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    Timer(Duration(milliseconds: 500), () {
+      countingColor();
+      editPath();
+    });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    bonusHeight = (screenHeight - 348 * ratio) / 2;
+    super.didChangeDependencies();
+  }
+
+  void countingColor() {
+    for (int index = 0; index < colorData.length; index++) {
+      setState(() {
+        countSum += colorData[index].count;
+      });
+    }
+  }
+
+  void editPath() {
+    for (int index = 0; index < _imagePath.length; index++) {
+      _imagePath[index] = screenModel.scalePath(_imagePath[index]);
+    }
+  }
+
+  void onTapDown(Offset position) {
+    for (int index = 0; index < _imagePath.length; index++) {
+      Offset localOffset = Offset(
+          position.dx - imagePosition[index].dx * ratio,
+          position.dy -
+              imagePosition[index].dy * ratio +
+              15 * ratio -
+              bonusHeight);
+      if (_imagePath[index].contains(localOffset) &&
+          color[index] == currentColor) {
+        setState(() {
+          countSum--;
+          isPlayAnimation[index] = true;
+          imagePoint[index].add({
+            'offset': Offset(
+                position.dx - imagePosition[index].dx * ratio,
+                position.dy -
+                    imagePosition[index].dy * ratio +
+                    15 * ratio -
+                    bonusHeight),
+            'color': HexColor(color[index])
+          });
+        });
+        if (countSum == 0) {
+          print('Finish');
+        }
+        return;
+      }
+    }
+  }
+
+  Widget displayImage() {
+    List<int> imageIndex = Iterable<int>.generate(_imagePath.length).toList();
+    imageIndex.sort((a, b) => b.compareTo(a));
+    return Stack(
+      children: imageIndex.map((index) {
+        return type[index] == 0
+            ? Positioned(
+                top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
+                left: imagePosition[index].dx * ratio,
+                child: AnimationCharacterItem(
+                    imageLink[index],
+                    width[index] * ratio,
+                    height[index] * ratio,
+                    HexColor(color[index]),
+                    _imagePath[index],
+                    imagePoint[index],
+                    isPlayAnimation[index]),
+              )
+            : Positioned(
+                top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
+                left: imagePosition[index].dx * ratio,
+                child: Container(
+                    height: height[index] * ratio,
+                    width: width[index] * ratio,
+                    child: SvgPicture.asset(imageLink[index])),
+              );
+      }).toList(),
+    );
+  }
+
+  Widget displayColor() {
+    List<int> colorIndex = Iterable<int>.generate(colorData.length).toList();
+    return Stack(
+        children: colorIndex.map((colorIndex) {
+      ItemModel color = colorData[colorIndex];
+      return Positioned(
+          top: color.position.dy * ratio - 15 * ratio + bonusHeight,
+          left: color.position.dx * ratio,
+          child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  currentColor = color.color;
+                });
+              },
+              child: Draggable(
+                child: Container(
+                    height: color.height * ratio,
+                    width: color.width * ratio,
+                    child: SvgPicture.asset(
+                      assetFolder + color.image,
+                      fit: BoxFit.contain,
+                    )),
+                feedback: Container(
+                  height: 40,
+                  width: 40,
+                  // alignment: Alignment,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: HexColor(color.color)
+                  ),
+                ),
+                childWhenDragging: Container(
+                    height: color.height * ratio,
+                    width: color.width * ratio,
+                    child: SvgPicture.asset(
+                      assetFolder + color.image,
+                      fit: BoxFit.contain,
+                    )),
+                onDragStarted: () {
+                  setState(() {
+                    currentColor = color.color;
+                    isDragging=true;
+                  });
+                },
+                onDraggableCanceled: (velocity, offset) {
+                  onTapDown(Offset(offset.dx + 20, offset.dy + 20));
+                },
+              )));
+    }).toList());
+  }
+
+  Widget displayBackgroundImage() {
+    return Container(
+        decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage(assetFolder + fullData['gameData'][0]['background']),
+        fit: BoxFit.fill,
+      ),
+    ));
+  }
+
+  List<Widget> displayScreen() {
+    List<Widget> widgets = [];
+    widgets.add(displayBackgroundImage());
+    widgets.add(displayImage());
+    widgets.add(displayColor());
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: imageData.length != 0
+            ? Container(
+                child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTapDown: (details) {
+                      onTapDown(details.localPosition);
+                    },
+                    child: Stack(
+                      children: displayScreen(),
+                    )))
+            : Container());
+  }
+}

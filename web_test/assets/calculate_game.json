@@ -1,0 +1,97 @@
+{
+  "id": 4,
+  "levelScore": 0,
+  "tags": [
+    1,
+    2
+  ],
+  "gameType": 0,
+  "orderIndex": 0,
+  "gameName": "Game tính toán",
+  "parentId": 0,
+  "createDate": 0,
+  "gameAssets": "assets/images/game_calculate_4/",
+  "gameData": [
+    {
+      "id": 0,
+      "parentId": 4,
+      "gameType": 4,
+      "items": [
+        {
+          "id": 0,
+          "image": "result_target.svg",
+          "type": 0,
+          "position": {
+            "dx": 523.0,
+            "dy": 169.0
+          },
+          "groupId": 0,
+          "width": 130.0,
+          "height": 111.0
+        },
+        {
+          "id": 1,
+          "image": "third_draggable.svg",
+          "type": 1,
+          "position": {
+            "dx": 248.0,
+            "dy": 31.0
+          },
+          "groupId": 0,
+          "width": 97.0,
+          "height": 84.0
+        },
+        {
+          "id": 2,
+          "image": "first_draggable.svg",
+          "type": 1,
+          "position": {
+            "dx": 369.0,
+            "dy": 30.0
+          },
+          "groupId": 1,
+          "width": 87.0,
+          "height": 85.0
+        },
+        {
+          "id": 3,
+          "image": "second_draggable.svg",
+          "type": 1,
+          "position": {
+            "dx": 490.0,
+            "dy": 31.0
+          },
+          "groupId": 2,
+          "width": 83.0,
+          "height": 83.0
+        },
+        {
+          "id": 4,
+          "image": "calculation.svg",
+          "type": 1,
+          "position": {
+            "dx": 178.0,
+            "dy": 186.0
+          },
+          "groupId": 1,
+          "width": 331.0,
+          "height": 79.0
+        },
+        {
+          "id": 5,
+          "image": "draggable_background.svg",
+          "type": 2,
+          "position": {
+            "dx": 197.0,
+            "dy": 16.0
+          },
+          "groupId": 1,
+          "width": 419.0,
+          "height": 109.0
+        }
+      ],
+      "width": 213.0,
+      "height": 284.0
+    }
+  ]
+}
