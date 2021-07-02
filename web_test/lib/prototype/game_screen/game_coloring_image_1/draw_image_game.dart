@@ -49,14 +49,15 @@ class _DrawImageGameState extends State<DrawImageGame> {
   var fullData;
   int countSum = 0;
   double centerHeight = 0;
-  bool isDragging=false;
+  bool isDragging = false;
+  int stepIndex = 1;
 
   Future<void> loadImageData() async {
     var jsonData =
         await rootBundle.loadString('assets/coloring_parrot_data.json');
     fullData = json.decode(jsonData);
-    data = fullData['gameData'][0]['items'];
-    centerHeight = fullData['gameData'][0]['height'];
+    data = fullData['gameData'][1]['items'];
+    centerHeight = fullData['gameData'][1]['height'];
     // secondData = fullData['colorItem'];
     assetFolder = fullData['gameAssets'];
     imageData =
@@ -113,12 +114,43 @@ class _DrawImageGameState extends State<DrawImageGame> {
         countSum += colorData[index].count;
       });
     }
+    print(countSum);
   }
 
   void editPath() {
     for (int index = 0; index < _imagePath.length; index++) {
       _imagePath[index] = screenModel.scalePath(_imagePath[index]);
     }
+  }
+
+  void resetState() {
+    setState(() {
+      stepIndex++;
+      _imagePath = [];
+      imageLink = [];
+      imagePosition = [];
+      color = [];
+      canDraw = [];
+      type = [];
+      imageData = [];
+      data = [];
+      secondData = [];
+      colorData = [];
+      currentColor = '';
+      isCompleted = [];
+      height = [];
+      width = [];
+      imagePoint = [];
+      isPlayAnimation = [];
+    });
+  }
+
+  void callNextStep() {
+    resetState();
+    loadImageData();
+    setState(() {
+
+    });
   }
 
   void onTapDown(Offset position) {
@@ -145,7 +177,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
           });
         });
         if (countSum == 0) {
-          print('Finish');
+          Timer(Duration(milliseconds: 1000),(){
+            callNextStep();
+          });
         }
         return;
       }
@@ -203,31 +237,36 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     child: SvgPicture.asset(
                       assetFolder + color.image,
                       fit: BoxFit.contain,
+                      color: HexColor(color.color),
                     )),
                 feedback: Container(
-                  height: 40,
-                  width: 40,
-                  // alignment: Alignment,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: HexColor(color.color)
-                  ),
-                ),
+                    height: color.height * ratio,
+                    width: color.width * ratio,
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      // alignment: Alignment,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: HexColor(color.color)),
+                    )),
                 childWhenDragging: Container(
                     height: color.height * ratio,
                     width: color.width * ratio,
                     child: SvgPicture.asset(
                       assetFolder + color.image,
                       fit: BoxFit.contain,
+                      color:HexColor(color.color)
                     )),
                 onDragStarted: () {
                   setState(() {
                     currentColor = color.color;
-                    isDragging=true;
+                    isDragging = true;
                   });
                 },
                 onDraggableCanceled: (velocity, offset) {
-                  onTapDown(Offset(offset.dx + 20, offset.dy + 20));
+                  onTapDown(Offset(offset.dx + color.width / 2 * ratio,
+                      offset.dy + color.height / 2 * ratio));
                 },
               )));
     }).toList());
