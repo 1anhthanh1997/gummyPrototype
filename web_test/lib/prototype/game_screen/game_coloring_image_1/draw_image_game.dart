@@ -54,7 +54,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   Future<void> loadImageData() async {
     var jsonData =
-        await rootBundle.loadString('assets/coloring_parrot_data.json');
+        await rootBundle.loadString('assets/coloring_fruit_data.json');
     fullData = json.decode(jsonData);
     data = fullData['gameData'][1]['items'];
     centerHeight = fullData['gameData'][1]['height'];
