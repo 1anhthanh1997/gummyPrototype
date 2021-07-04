@@ -1,43 +1,120 @@
 {
-  "draggable": [
+  "id": 6,
+  "levelScore": 0,
+  "tags": [
+    1,
+    2
+  ],
+  "gameType": 6,
+  "orderIndex": 0,
+  "gameName": "Classify game",
+  "parentId": 0,
+  "createDate": 0,
+  "gameAssets": "assets/images/game_classify_5/classify_item_1/",
+  "gameData": [
     {
       "id": 0,
-      "image": "images/ball_type_1.svg",
-      "groupId": 0,
-      "position": {
-        "dx": 376.0,
-        "dy": 50.0
-      },
-      "endPosition": {
-        "dx": 100.0,
-        "dy": 100.0
-      }
-    },
-    {
-      "id": 1,
-      "image": "images/ball_type_1.svg",
-      "groupId": 0,
-      "position": {
-        "dx": 376.0,
-        "dy": 150.0
-      },
-      "endPosition": {
-        "dx": 200.0,
-        "dy": 100.0
-      }
-    },
-    {
-      "id": 2,
-      "image": "images/ball_type_2.svg",
-      "groupId": 1,
-      "position": {
-        "dx": 376.0,
-        "dy": 250.0
-      },
-      "endPosition": {
-        "dx": 560.0,
-        "dy": 100.0
-      }
+      "parentId": 0,
+      "gameType": 0,
+      "background": "background_image.png",
+      "items": [
+        {
+          "id": 0,
+          "image": "first_item.svg",
+          "groupId": 0,
+          "position": {
+            "dx": 359.0,
+            "dy": 21.0
+          },
+          "type": 1,
+          "endPosition": {
+            "dx": 100.0,
+            "dy": 100.0
+          },
+          "width": 95.0,
+          "height": 82.0
+        },
+        {
+          "id": 1,
+          "image": "second_item.svg",
+          "groupId": 0,
+          "position": {
+            "dx": 353.0,
+            "dy": 131.0
+          },
+          "type": 1,
+          "endPosition": {
+            "dx": 200.0,
+            "dy": 100.0
+          },
+          "width": 107.0,
+          "height": 93.0
+        },
+        {
+          "id": 2,
+          "image": "third_item.svg",
+          "groupId": 1,
+          "position": {
+            "dx": 353.0,
+            "dy": 252.0
+          },
+          "type": 1,
+          "endPosition": {
+            "dx": 560.0,
+            "dy": 100.0
+          },
+          "width": 107.0,
+          "height": 93.0
+        },
+        {
+          "id": 3,
+          "image": "left_target.svg",
+          "groupId": 1,
+          "position": {
+            "dx": 75.0,
+            "dy": 88.0
+          },
+          "type": 2,
+          "endPosition": {
+            "dx": 560.0,
+            "dy": 100.0
+          },
+          "width": 207.0,
+          "height": 202.0
+        },
+        {
+          "id": 4,
+          "image": "right_target.svg",
+          "groupId": 1,
+          "position": {
+            "dx": 530.0,
+            "dy": 85.0
+          },
+          "type": 2,
+          "endPosition": {
+            "dx": 560.0,
+            "dy": 100.0
+          },
+          "width": 212.0,
+          "height": 205.0
+        },
+        {
+          "id": 5,
+          "image": "conveyor.svg",
+          "groupId": 1,
+          "position": {
+            "dx": 320.0,
+            "dy": 0.0
+          },
+          "type": 2,
+          "endPosition": {
+            "dx": 560.0,
+            "dy": 100.0
+          },
+          "width": 172.0,
+          "height": 375.0
+        }
+      ]
     }
   ]
 }

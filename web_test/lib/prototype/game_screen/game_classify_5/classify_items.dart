@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_test/model/game_classify_model.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/widgets/correct_animation.dart';
 
 class ClassifyItem extends StatefulWidget {
   @override
@@ -17,21 +18,24 @@ class _ClassifyItemState extends State<ClassifyItem>
   List<bool> isAccepted = [false, false, false, false];
   Offset firstOffset = Offset(812 / 2 - 30, 375 / 2 - 30);
   int durationTime = 0;
-   AnimationController controller;
-  List<GameClassifyModel> items = [];
-   Animation<double> _transAnimation;
-   var data;
+  AnimationController controller;
+  List<ItemModel> items = [];
+  Animation<double> _transAnimation;
+  var data;
   List<GameClassifyModel> classifyData = [];
+  String assetFolder;
 
   Future<void> loadClassifyData() async {
     var jsonData =
         await rootBundle.loadString('assets/classify_game_data.json');
     data = json.decode(jsonData);
-    List draggable = data['draggable'];
+    List draggable = data['gameData'][0]['items'];
+    assetFolder = data['gameAssets'];
     print(draggable);
     items = draggable
-        .map((classifyInfo) => new GameClassifyModel.fromJson(classifyInfo))
+        .map((classifyInfo) => new ItemModel.fromJson(classifyInfo))
         .toList();
+    setState(() {});
     print(items);
   }
 
@@ -39,16 +43,16 @@ class _ClassifyItemState extends State<ClassifyItem>
   void initState() {
     this.loadClassifyData();
     controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
+        vsync: this, duration: Duration(milliseconds: 3000));
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _transAnimation = Tween(begin: 600.0, end: 0.0).animate(
+    _transAnimation = Tween(begin: -300.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
-        curve: Interval(0.0, 0.75, curve: Curves.easeOutBack),
+        curve: Interval(0.0, 0.75, curve: Curves.linear),
       ),
     );
 
@@ -57,65 +61,50 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   Widget displayBackground() {
     return Container(
-      child: Row(
-        children: [
-          Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.topCenter,
-                child: Container(height: 30, width: 60, color: Colors.red),
-              )),
-          Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.green,
-                alignment: Alignment.center,
-              )),
-          Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.topCenter,
-                child: Container(height: 30, width: 60, color: Colors.blue),
-              )),
-        ],
-      ),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                assetFolder + data['gameData'][0]['background'],
+              ),
+              fit: BoxFit.fill)),
     );
   }
 
-  Widget displayFirstDraggableItem(GameClassifyModel item) {
+  Widget displayFirstDraggableItem(ItemModel item) {
     print(item.image);
     Offset position = item.position;
+
     return AnimatedPositioned(
       top: position.dy,
       left: position.dx,
-      curve: Curves.easeOutBack,
+      curve: Curves.linear,
       duration: Duration(milliseconds: durationTime),
-      child: item.status
-          ? Container(
-              height: 50,
-              width: 50,
-              child: SvgPicture.asset(
-                'assets/${item.image}',
-                fit: BoxFit.contain,
-              ),
-              )
+      child: item.status == 1
+          ? CorrectAnimation(
+              isCorrect: item.status == 1,
+              child: Container(
+                height: item.height,
+                width: item.width,
+                child: SvgPicture.asset(
+                  assetFolder + item.image,
+                  fit: BoxFit.contain,
+                ),
+              ))
           : Draggable(
               data: 0,
               child: Container(
-                height: 50,
-                width: 50,
+                height: item.height,
+                width: item.width,
                 child: SvgPicture.asset(
-                  'assets/${item.image}',
+                  assetFolder + item.image,
                   fit: BoxFit.contain,
                 ),
               ),
               feedback: Container(
-                height: 50,
-                width: 50,
+                height: item.height,
+                width: item.width,
                 child: SvgPicture.asset(
-                  'assets/${item.image}',
+                  assetFolder + item.image,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -129,28 +118,27 @@ class _ClassifyItemState extends State<ClassifyItem>
                 if (offset.dx <= 812 / 2 - 812 / 14 - 30 && item.groupId == 0) {
                   offsetSource = item.endPosition;
                   setState(() {
-                    item.status = true;
+                    item.status = 1;
                   });
                   Timer(Duration(milliseconds: 600), () {
                     for (int idx = item.id + 1; idx < items.length; idx++) {
-                      if (!items[idx].status) {
+                      if (!(item.status == 1)) {
                         print(idx);
                         items[idx].position = Offset(items[idx].position.dx,
                             items[idx].position.dy - 100);
                       }
                     }
-
                     setState(() {});
                   });
                 } else if (offset.dx >= 812 / 2 + 812 / 14 &&
                     item.groupId == 1) {
                   offsetSource = item.endPosition;
                   setState(() {
-                    item.status = true;
+                    item.status = 1;
                   });
                   Timer(Duration(milliseconds: 600), () {
                     for (int idx = item.id + 1; idx < items.length; idx++) {
-                      if (!items[idx].status) {
+                      if (!(item.status == 1)) {
                         print(idx);
                         items[idx].position = Offset(items[idx].position.dx,
                             items[idx].position.dy - 100);
@@ -175,7 +163,7 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   Widget displayDraggableItem() {
     return AnimatedBuilder(
-        animation: _transAnimation,
+        animation: controller,
         builder: (context, child) {
           return Transform.translate(
             offset: Offset(0, _transAnimation.value),
@@ -184,19 +172,43 @@ class _ClassifyItemState extends State<ClassifyItem>
         },
         child: Container(
             child: Stack(
-                children: items.map((value) {
-          return displayFirstDraggableItem(value);
+                children: items.map((item) {
+          return item.type == 1 ? displayFirstDraggableItem(item) : Container();
         }).toList())));
+  }
+
+  Widget displayNormalItem() {
+    return Stack(
+      children: items.map((item) {
+        return item.type == 2
+            ? Positioned(
+                top: item.position.dy,
+                left: item.position.dx,
+                child: Container(
+                  width: item.width,
+                  height: item.height,
+                  child: SvgPicture.asset(assetFolder + item.image,
+                      fit: BoxFit.contain),
+                ))
+            : Container();
+      }).toList(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Stack(
-          children: [displayBackground(), displayDraggableItem()],
-        ),
-      ),
+      body: data == null
+          ? Container()
+          : Container(
+              child: Stack(
+                children: [
+                  displayBackground(),
+                  displayNormalItem(),
+                  displayDraggableItem()
+                ],
+              ),
+            ),
     );
   }
 }

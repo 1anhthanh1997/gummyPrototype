@@ -51,6 +51,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   double centerHeight = 0;
   bool isDragging = false;
   int stepIndex = 1;
+  int currentColorIndex;
 
   Future<void> loadImageData() async {
     var jsonData =
@@ -148,9 +149,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   void callNextStep() {
     resetState();
     loadImageData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   void onTapDown(Offset position) {
@@ -163,7 +162,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
               bonusHeight);
       if (_imagePath[index].contains(localOffset) &&
           color[index] == currentColor) {
+        print(currentColorIndex);
         setState(() {
+          colorData[currentColorIndex].count--;
           countSum--;
           isPlayAnimation[index] = true;
           imagePoint[index].add({
@@ -177,7 +178,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           });
         });
         if (countSum == 0) {
-          Timer(Duration(milliseconds: 1000),(){
+          Timer(Duration(milliseconds: 1000), () {
             callNextStep();
           });
         }
@@ -225,10 +226,12 @@ class _DrawImageGameState extends State<DrawImageGame> {
           top: color.position.dy * ratio - 15 * ratio + bonusHeight,
           left: color.position.dx * ratio,
           child: GestureDetector(
-              onTap: () {
+              onTapDown: (details) {
                 setState(() {
                   currentColor = color.color;
+                  currentColorIndex=colorIndex;
                 });
+                print(currentColorIndex);
               },
               child: Draggable(
                 child: Container(
@@ -244,8 +247,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     width: color.width * ratio,
                     alignment: Alignment.center,
                     child: Container(
-                      height: 30,
-                      width: 30,
+                      height: 30 * ratio,
+                      width: 30 * ratio,
                       // alignment: Alignment,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: HexColor(color.color)),
@@ -253,11 +256,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
                 childWhenDragging: Container(
                     height: color.height * ratio,
                     width: color.width * ratio,
-                    child: SvgPicture.asset(
-                      assetFolder + color.image,
-                      fit: BoxFit.contain,
-                      color:HexColor(color.color)
-                    )),
+                    child: SvgPicture.asset(assetFolder + color.image,
+                        fit: BoxFit.contain, color: HexColor(color.color))),
                 onDragStarted: () {
                   setState(() {
                     currentColor = color.color;
@@ -282,11 +282,73 @@ class _DrawImageGameState extends State<DrawImageGame> {
     ));
   }
 
+  Widget displayCounting() {
+    List<int> colorIndex = Iterable<int>.generate(colorData.length).toList();
+    return Stack(
+        children: colorIndex.map((colorIndex) {
+      ItemModel color = colorData[colorIndex];
+      return Positioned(
+          top: color.position.dy * ratio - 15 * ratio + bonusHeight,
+          left: color.position.dx * ratio,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                currentColor = color.color;
+              });
+            },
+            child: Container(
+                height: color.height * ratio,
+                width: color.width * ratio,
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 22 * ratio,
+                  width: 24 * ratio,
+                  child: SvgPicture.asset(
+                    'assets/images/game_coloring_image_1/counting.svg',
+                    fit: BoxFit.contain,
+                  ),
+                )),
+          ));
+    }).toList());
+  }
+
+  Widget displayCountingNumber() {
+    List<int> colorIndex = Iterable<int>.generate(colorData.length).toList();
+    return Stack(
+        children: colorIndex.map((colorIndex) {
+          ItemModel color = colorData[colorIndex];
+          return Positioned(
+              top: color.position.dy * ratio - 15 * ratio + bonusHeight,
+              left: color.position.dx * ratio,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    currentColor = color.color;
+                  });
+                },
+                child: Container(
+                    height: color.height * ratio,
+                    width: color.width * ratio,
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      height: 22 * ratio,
+                      width: 24 * ratio,
+                      alignment: Alignment.center,
+                      child: Text(color.count.toString(),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    )),
+              ));
+        }).toList());
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayBackgroundImage());
     widgets.add(displayImage());
     widgets.add(displayColor());
+    widgets.add(displayCounting());
+    widgets.add(displayCountingNumber());
     return widgets;
   }
 

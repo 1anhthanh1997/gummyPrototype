@@ -49,9 +49,10 @@ class ItemModel {
     count = json['count'] == null ? 0 : json['count'];
     canDraw = json['canDraw'] == null ? false : json['canDraw'];
     startPosition =
-        json['startPosition'] == null ? Offset(0, 0) : json['startPosition'];
+        json['startPosition'] == null ? Offset(0, 0) : Offset(json['startPosition']['dx'], json['startPosition']['dy']);
     endPosition =
-        json['endPosition'] == null ? Offset(0, 0) : json['endPosition'];
-    path = json['path'] == null ? Offset(0, 0) : json['path'];
+        json['endPosition'] == null ? Offset(0, 0) : Offset(json['endPosition']['dx'], json['endPosition']['dy']);
+    path = json['path'] == null ? '' : json['path'];
+    status=0;
   }
 }
