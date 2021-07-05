@@ -1,5 +1,5 @@
 {
-  "id":6,
+  "id":5,
   "levelScore":0,
   "tags":[
     1,
@@ -10,84 +10,109 @@
   "gameName":"Game chọn cặp 1",
   "parentId":0,
   "createDate":0,
-  "gameAssets":"assets/images/",
+  "gameAssets":"assets/images/game_choose_pair_6/",
   "gameData":[
     {
       "id":1,
-      "parentId":6,
-      "gameType":6,
+      "parentId":5,
+      "gameType":5,
+      "background": "background_image.png",
       "items": [
         {
           "id":0,
-          "image":"square.svg",
+          "image":"first_item.svg",
           "type": 1,
           "position": {
-            "dx": 200.0,
-            "dy": 50.0
+            "dx": 160.0,
+            "dy": 65.0
           },
           "groupId": 0,
-          "width":100.0,
-          "height":100.0
+          "width":105.0,
+          "height":90.0
         },
         {
           "id":1,
-          "image":"square.svg",
+          "image":"first_item.svg",
           "type": 1,
           "position": {
-            "dx": 350.0,
-            "dy": 200.0
+            "dx": 298.0,
+            "dy": 201.0
           },
           "groupId": 0,
-          "width":100.0,
-          "height":100.0
+          "width":105.0,
+          "height":90.0
         },
         {
           "id":2,
-          "image":"triangle.svg",
+          "image":"second_item.svg",
           "type": 1,
           "position": {
-            "dx": 350.0,
-            "dy": 50.0
+            "dx": 320.0,
+            "dy": 65.0
           },
           "groupId": 1,
-          "width":100.0,
-          "height":100.0
+          "width":90.0,
+          "height":89.0
         },
         {
           "id":3,
-          "image":"triangle.svg",
+          "image":"second_item.svg",
           "type": 1,
           "position": {
-            "dx": 500.0,
-            "dy": 200.0
+            "dx": 565.0,
+            "dy": 201.0
           },
           "groupId": 1,
-          "width":100.0,
-          "height":100.0
+          "width":90.0,
+          "height":89.0
         },
         {
           "id":4,
-          "image":"circle.svg",
+          "image":"third_item.svg",
           "type": 1,
           "position": {
-            "dx": 500.0,
-            "dy": 50.0
+            "dx": 457.0,
+            "dy": 65.0
           },
           "groupId": 2,
-          "width":100.0,
-          "height":100.0
+          "width":91.0,
+          "height":90.0
         },
         {
           "id":5,
-          "image":"circle.svg",
+          "image":"third_item.svg",
           "type": 1,
           "position": {
-            "dx": 200.0,
-            "dy": 200.0
+            "dx": 152.0,
+            "dy": 201.0
           },
           "groupId": 2,
-          "width":100.0,
-          "height":100.0
+          "width":91.0,
+          "height":90.0
+        },
+        {
+          "id":6,
+          "image":"fourth_item.svg",
+          "type": 1,
+          "position": {
+            "dx": 594.0,
+            "dy": 65.0
+          },
+          "groupId": 2,
+          "width":91.0,
+          "height":90.0
+        },
+        {
+          "id":7,
+          "image":"fourth_item.svg",
+          "type": 1,
+          "position": {
+            "dx": 457.0,
+            "dy": 201.0
+          },
+          "groupId": 2,
+          "width":91.0,
+          "height":90.0
         }
       ],
       "width":213.0,

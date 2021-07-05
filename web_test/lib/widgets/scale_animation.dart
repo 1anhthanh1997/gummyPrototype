@@ -19,7 +19,7 @@ class _ScaleAnimationState extends State<ScaleAnimation>
     // TODO: implement initState
     super.initState();
     _animationController =
-        AnimationController(duration: Duration(milliseconds: 400), vsync: this);
+        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
   }
 
   @override

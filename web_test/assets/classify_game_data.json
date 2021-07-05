@@ -28,8 +28,8 @@
           },
           "type": 1,
           "endPosition": {
-            "dx": 100.0,
-            "dy": 100.0
+            "dx": 180.0,
+            "dy": 174.0
           },
           "width": 95.0,
           "height": 82.0
@@ -37,15 +37,15 @@
         {
           "id": 1,
           "image": "second_item.svg",
-          "groupId": 0,
+          "groupId": 1,
           "position": {
             "dx": 353.0,
             "dy": 131.0
           },
           "type": 1,
           "endPosition": {
-            "dx": 200.0,
-            "dy": 100.0
+            "dx": 543.0,
+            "dy": 121.0
           },
           "width": 107.0,
           "height": 93.0
@@ -60,21 +60,21 @@
           },
           "type": 1,
           "endPosition": {
-            "dx": 560.0,
-            "dy": 100.0
+            "dx": 543.0,
+            "dy": 121.0
           },
           "width": 107.0,
           "height": 93.0
         },
         {
           "id": 3,
-          "image": "left_target.svg",
-          "groupId": 1,
+          "image": "left_target.png",
+          "groupId": 0,
           "position": {
             "dx": 75.0,
             "dy": 88.0
           },
-          "type": 2,
+          "type": 0,
           "endPosition": {
             "dx": 560.0,
             "dy": 100.0
@@ -84,13 +84,13 @@
         },
         {
           "id": 4,
-          "image": "right_target.svg",
+          "image": "right_target.png",
           "groupId": 1,
           "position": {
             "dx": 530.0,
             "dy": 85.0
           },
-          "type": 2,
+          "type": 0,
           "endPosition": {
             "dx": 560.0,
             "dy": 100.0
@@ -100,8 +100,8 @@
         },
         {
           "id": 5,
-          "image": "conveyor.svg",
-          "groupId": 1,
+          "image": "conveyor.png",
+          "groupId": 0,
           "position": {
             "dx": 320.0,
             "dy": 0.0

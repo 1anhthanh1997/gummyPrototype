@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +33,9 @@ class _CalculateGameState extends State<CalculateGame> {
   double screenHeight;
   double ratio;
   double bonusHeight;
+  int firstElement;
+  int secondElement;
+  int result;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/calculate_game.json');
@@ -64,6 +68,7 @@ class _CalculateGameState extends State<CalculateGame> {
     this.loadAlphabetData();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    genElement();
   }
 
   @override
@@ -74,6 +79,20 @@ class _CalculateGameState extends State<CalculateGame> {
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 111 * ratio) / 2;
     print(ratio);
+  }
+
+  void genElement(){
+    Random random=new Random();
+    int firstItem=random.nextInt(8)+1;
+    int secondItem=random.nextInt(8-firstItem)+1;
+    setState(() {
+      firstElement=firstItem;
+      secondElement=secondItem;
+      result=firstItem+secondItem;
+    });
+    print(firstItem);
+    print(secondItem);
+    print(firstItem+secondItem);
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
@@ -132,6 +151,8 @@ class _CalculateGameState extends State<CalculateGame> {
       });
     }
   }
+
+  Widget displayNumber(){}
 
   Widget displayItemImage(double height, double width, String image) {
     return Container(

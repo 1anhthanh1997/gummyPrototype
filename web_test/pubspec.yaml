@@ -86,6 +86,7 @@ flutter:
     - assets/images/game_coloring_image_1/coloring_fruit/
     - assets/images/game_classify_5/classify_item_1/
     - assets/images/game_classify_5/
+    - assets/images/common/number/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -52,6 +52,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   bool isDragging = false;
   int stepIndex = 1;
   int currentColorIndex;
+  List<int> status = [];
 
   Future<void> loadImageData() async {
     var jsonData =
@@ -82,6 +83,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           width.add(imageData[index].width);
           type.add(imageData[index].type);
           isPlayAnimation.add(false);
+          status.add(0);
         });
       }
     }
@@ -143,6 +145,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
       width = [];
       imagePoint = [];
       isPlayAnimation = [];
+      status=[];
     });
   }
 
@@ -161,11 +164,13 @@ class _DrawImageGameState extends State<DrawImageGame> {
               15 * ratio -
               bonusHeight);
       if (_imagePath[index].contains(localOffset) &&
-          color[index] == currentColor) {
-        print(currentColorIndex);
+          color[index] == currentColor &&
+          status[index] == 0) {
         setState(() {
           colorData[currentColorIndex].count--;
           countSum--;
+          status[index] = 1;
+          imageData[index].status = 1;
           isPlayAnimation[index] = true;
           imagePoint[index].add({
             'offset': Offset(
@@ -225,50 +230,54 @@ class _DrawImageGameState extends State<DrawImageGame> {
       return Positioned(
           top: color.position.dy * ratio - 15 * ratio + bonusHeight,
           left: color.position.dx * ratio,
-          child: GestureDetector(
-              onTapDown: (details) {
-                setState(() {
-                  currentColor = color.color;
-                  currentColorIndex=colorIndex;
-                });
-                print(currentColorIndex);
-              },
-              child: Draggable(
-                child: Container(
-                    height: color.height * ratio,
-                    width: color.width * ratio,
-                    child: SvgPicture.asset(
-                      assetFolder + color.image,
-                      fit: BoxFit.contain,
-                      color: HexColor(color.color),
-                    )),
-                feedback: Container(
-                    height: color.height * ratio,
-                    width: color.width * ratio,
-                    alignment: Alignment.center,
+          child: color.count == 0
+              ? Container()
+              : GestureDetector(
+                  onTapDown: (details) {
+                    print(colorIndex);
+                    setState(() {
+                      currentColor = color.color;
+                      currentColorIndex = colorIndex;
+                    });
+                  },
+                  child: Draggable(
                     child: Container(
-                      height: 30 * ratio,
-                      width: 30 * ratio,
-                      // alignment: Alignment,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: HexColor(color.color)),
-                    )),
-                childWhenDragging: Container(
-                    height: color.height * ratio,
-                    width: color.width * ratio,
-                    child: SvgPicture.asset(assetFolder + color.image,
-                        fit: BoxFit.contain, color: HexColor(color.color))),
-                onDragStarted: () {
-                  setState(() {
-                    currentColor = color.color;
-                    isDragging = true;
-                  });
-                },
-                onDraggableCanceled: (velocity, offset) {
-                  onTapDown(Offset(offset.dx + color.width / 2 * ratio,
-                      offset.dy + color.height / 2 * ratio));
-                },
-              )));
+                        height: color.height * ratio,
+                        width: color.width * ratio,
+                        child: SvgPicture.asset(
+                          assetFolder + color.image,
+                          fit: BoxFit.contain,
+                          color: HexColor(color.color),
+                        )),
+                    feedback: Container(
+                        height: color.height * ratio,
+                        width: color.width * ratio,
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: 50 * ratio,
+                          width: 50 * ratio,
+                          // alignment: Alignment,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: HexColor(color.color)),
+                        )),
+                    childWhenDragging: Container(
+                        height: color.height * ratio,
+                        width: color.width * ratio,
+                        child: SvgPicture.asset(assetFolder + color.image,
+                            fit: BoxFit.contain, color: HexColor(color.color))),
+                    onDragStarted: () {
+                      setState(() {
+                        currentColor = color.color;
+                        currentColorIndex = colorIndex;
+                        isDragging = true;
+                      });
+                    },
+                    onDraggableCanceled: (velocity, offset) {
+                      onTapDown(Offset(offset.dx + color.width / 2 * ratio,
+                          offset.dy + color.height / 2 * ratio));
+                    },
+                  )));
     }).toList());
   }
 
@@ -290,25 +299,28 @@ class _DrawImageGameState extends State<DrawImageGame> {
       return Positioned(
           top: color.position.dy * ratio - 15 * ratio + bonusHeight,
           left: color.position.dx * ratio,
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                currentColor = color.color;
-              });
-            },
-            child: Container(
-                height: color.height * ratio,
-                width: color.width * ratio,
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  height: 22 * ratio,
-                  width: 24 * ratio,
-                  child: SvgPicture.asset(
-                    'assets/images/game_coloring_image_1/counting.svg',
-                    fit: BoxFit.contain,
-                  ),
-                )),
-          ));
+          child: color.count == 0
+              ? Container()
+              : GestureDetector(
+                  onTapDown: (details) {
+                    setState(() {
+                      currentColor = color.color;
+                      currentColorIndex = colorIndex;
+                    });
+                  },
+                  child: Container(
+                      height: color.height * ratio,
+                      width: color.width * ratio,
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        height: 22 * ratio,
+                        width: 24 * ratio,
+                        child: SvgPicture.asset(
+                          'assets/images/game_coloring_image_1/counting.svg',
+                          fit: BoxFit.contain,
+                        ),
+                      )),
+                ));
     }).toList());
   }
 
@@ -316,30 +328,33 @@ class _DrawImageGameState extends State<DrawImageGame> {
     List<int> colorIndex = Iterable<int>.generate(colorData.length).toList();
     return Stack(
         children: colorIndex.map((colorIndex) {
-          ItemModel color = colorData[colorIndex];
-          return Positioned(
-              top: color.position.dy * ratio - 15 * ratio + bonusHeight,
-              left: color.position.dx * ratio,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    currentColor = color.color;
-                  });
-                },
-                child: Container(
-                    height: color.height * ratio,
-                    width: color.width * ratio,
-                    alignment: Alignment.bottomRight,
-                    child: Container(
-                      height: 22 * ratio,
-                      width: 24 * ratio,
-                      alignment: Alignment.center,
-                      child: Text(color.count.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      )
-                    )),
-              ));
-        }).toList());
+      ItemModel color = colorData[colorIndex];
+      return Positioned(
+          top: color.position.dy * ratio - 15 * ratio + bonusHeight,
+          left: color.position.dx * ratio,
+          child: color.count == 0
+              ? Container()
+              : GestureDetector(
+                  onTapDown: (details) {
+                    setState(() {
+                      currentColor = color.color;
+                      currentColorIndex = colorIndex;
+                    });
+                  },
+                  child: Container(
+                      height: color.height * ratio,
+                      width: color.width * ratio,
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                          height: 22 * ratio,
+                          width: 24 * ratio,
+                          alignment: Alignment.center,
+                          child: Text(
+                            color.count.toString(),
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ))),
+                ));
+    }).toList());
   }
 
   List<Widget> displayScreen() {
