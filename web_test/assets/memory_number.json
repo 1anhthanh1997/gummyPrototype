@@ -10,122 +10,123 @@
   "gameName": "Game memory number",
   "parentId": 0,
   "createDate": 0,
-  "gameAssets": "assets/images/",
+  "gameAssets": "assets/images/game_memory_number_7/",
   "gameData": [
     {
       "id": 1,
       "parentId": 7,
       "gameType": 7,
+      "background": "background_image.png",
       "items": [
         {
           "id": 0,
-          "image": "red_1.svg",
+          "image": "one.svg",
           "type": 0,
           "position": {
             "dx": 350.0,
             "dy": 100.0
           },
           "groupId": 0,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#FF0000"
+          "width": 44.0,
+          "height": 194.0,
+          "color": "#F47B2A"
         },
         {
           "id": 1,
-          "image": "red_1.svg",
+          "image": "one.svg",
           "type": 1,
           "position": {
             "dx": 178.0,
             "dy": 67.0
           },
           "groupId": 0,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#FF0000"
+          "width": 44.0,
+          "height": 194.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 2,
-          "image": "red_1.svg",
+          "image": "one.svg",
           "type": 1,
           "position": {
             "dx": 426.0,
             "dy": 208.0
           },
           "groupId": 0,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#FF0000"
+          "width": 44.0,
+          "height": 194.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 3,
-          "image": "blue_1.svg",
+          "image": "two.svg",
           "type": 1,
           "position": {
             "dx": 170.0,
             "dy": 226.0
           },
           "groupId": 1,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#0084FE"
+          "width": 59.0,
+          "height": 194.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 4,
-          "image": "blue_1.svg",
+          "image": "two.svg",
           "type": 1,
           "position": {
             "dx": 592.0,
             "dy": 138.0
           },
           "groupId": 2,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#0084FE"
+          "width": 59.0,
+          "height": 194.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 5,
-          "image": "blue_1.svg",
+          "image": "two.svg",
           "type": 1,
           "position": {
             "dx": 372.0,
             "dy": 76.0
           },
           "groupId": 2,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#0084FE"
+          "width": 59.0,
+          "height": 194.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 6,
-          "image": "yellow_1.svg",
+          "image": "three.svg",
           "type": 1,
           "position": {
             "dx": 267.0,
             "dy": 157.0
           },
           "groupId": 2,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#FFFF00"
+          "width": 61.0,
+          "height": 196.0,
+          "color": "#F47B2A"
 
         },
         {
           "id": 7,
-          "image": "yellow_1.svg",
+          "image": "three.svg",
           "type": 1,
           "position": {
             "dx": 511.0,
             "dy": 39.0
           },
           "groupId": 2,
-          "width": 70.0,
-          "height": 149.0,
-          "color": "#FFFF00"
+          "width": 61.0,
+          "height": 196.0,
+          "color": "#F47B2A"
 
         }
       ],

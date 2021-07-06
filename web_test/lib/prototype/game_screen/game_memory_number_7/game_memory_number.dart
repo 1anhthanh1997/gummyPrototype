@@ -25,13 +25,12 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   List<Offset> answerPositionTmp = [];
   List<GameCalculateModel> answerData = [];
   final List<List<SquareParticle>> particles = [];
-  bool isDisplayAnswer=false;
+  bool isDisplayAnswer = false;
+  var allGameData;
 
   Future<void> loadGameData() async {
-    var directory = await Directory('dir').create(recursive: true);
-    print(directory.path);
     var jsonData = await rootBundle.loadString('assets/memory_number.json');
-    var allGameData = json.decode(jsonData);
+    allGameData = json.decode(jsonData);
     data = allGameData['gameData'][0]['items'];
     assetFolder = allGameData['gameAssets'];
     itemData = data
@@ -60,16 +59,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       questionData.position = questionPositionTmp;
       setState(() {});
     });
-    Timer(Duration(milliseconds: 4000),(){
+    Timer(Duration(milliseconds: 4000), () {
       Timer(Duration(milliseconds: 500), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
         }
-        setState(() {
-        });
+        setState(() {});
       });
       setState(() {
-        isDisplayAnswer=true;
+        isDisplayAnswer = true;
       });
     });
   }
@@ -89,9 +87,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   _hitSquare(Duration time, int index) {
     // _setSquareVisible(false);
     // Timer(Duration(milliseconds: 800),(){
-      setState(() {
-        answerData[index].status=1;
-      });
+    setState(() {
+      answerData[index].status = 1;
+    });
     // });
     Iterable.generate(50)
         .forEach((i) => particles[index].add(SquareParticle(time)));
@@ -113,20 +111,22 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   Widget _buildParticle(int index) {
-    GameCalculateModel item =answerData[index];
+    GameCalculateModel item = answerData[index];
     return Rendering(
       // onTick: (time) => _manageParticleLife(time),
       builder: (context, time) {
         return Stack(
           overflow: Overflow.visible,
           children: [
-            item.status == 0 ?
-            GestureDetector(
-                onTap: () {
-                  _hitSquare(time, index);
-                },
-                child: _square(index)):Container(),
-            ...particles[index].map((it) => it.buildWidget(time,HexColor(item.color)))
+            item.status == 0
+                ? GestureDetector(
+                    onTap: () {
+                      _hitSquare(time, index);
+                    },
+                    child: _square(index))
+                : Container(),
+            ...particles[index]
+                .map((it) => it.buildWidget(time, HexColor(item.color)))
           ],
         );
       },
@@ -142,16 +142,20 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             left: item.position.dx,
             top: item.position.dy,
             duration: Duration(milliseconds: 1000),
-            child:  _buildParticle(index));
+            child: _buildParticle(index));
       }).toList(),
     );
   }
 
+  Widget bubbleAnimation(){
+
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
-    if(isDisplayAnswer){
+    if (isDisplayAnswer) {
       widgets.add(displayAnswer());
-    }else{
+    } else {
       widgets.add(displayQuestion());
     }
 
@@ -164,6 +168,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         body: itemData.length == 0
             ? Container()
             : Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(assetFolder +
+                            allGameData['gameData'][0]['background']))),
                 child: Stack(
                   children: displayScreen(),
                 ),

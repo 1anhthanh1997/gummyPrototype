@@ -22,6 +22,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   int chosenIndex = -1;
   var allGameData;
   int step = 0;
+  List<int> isScale = [];
 
   Future<void> loadGameData() async {
     var jsonData = await rootBundle.loadString('assets/choose_pair_data.json');
@@ -31,6 +32,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     itemData = data
         .map((itemData) => new GameCalculateModel.fromJson(itemData))
         .toList();
+    for(int idx=0;idx<itemData.length;idx++){
+      isScale.add(0);
+    }
   }
 
   @override
@@ -39,54 +43,67 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     this.loadGameData();
   }
 
+  void resetScaleArray(){
+    for(int idx=0;idx<isScale.length;idx++){
+      isScale[idx]=0;
+    }
+  }
+
   Widget displayContent() {
     List<int> targetIndex = Iterable<int>.generate(itemData.length).toList();
     return Stack(
       children: targetIndex.map((index) {
         GameCalculateModel item = itemData[index];
-        return Positioned(
-            left: item.position.dx,
-            top: item.position.dy,
-            child: item.status == 0
-                ? ScaleAnimation(
-                    onTab: () {
-                      if (chosenIndex == -1) {
-                        setState(() {
-                          chosenIndex = index;
+        return item.status == 0
+            ? Positioned(
+                left: item.position.dx,
+                top: item.position.dy - item.height * 0.1,
+                child: ScaleAnimation(
+                  isPlayAnimation: isScale[index],
+                  onTab: () {
+                    if (chosenIndex == -1) {
+                      setState(() {
+                        chosenIndex = index;
+                        isScale[index]=1;
+                      });
+                    } else {
+                      if (itemData[chosenIndex].groupId == item.groupId &&
+                          index != chosenIndex) {
+                        Timer(Duration(milliseconds: 330), () {
+                          setState(() {
+                            itemData[chosenIndex].status = 1;
+                            itemData[index].status = 1;
+                            chosenIndex = -1;
+                          });
                         });
                       } else {
-                        if (itemData[chosenIndex].groupId == item.groupId &&
-                            index != chosenIndex) {
-                          Timer(Duration(milliseconds: 330), () {
-                            setState(() {
-                              itemData[chosenIndex].status = 1;
-                              itemData[index].status = 1;
-                              chosenIndex = -1;
-                            });
-                          });
-                        } else {}
+                        resetScaleArray();
                       }
-                    },
-                    child: Container(
-                      height: item.height,
-                      width: item.width,
-                      child: SvgPicture.asset(
-                        assetFolder + item.image,
-                        fit: BoxFit.contain,
-                      ),
+                    }
+                  },
+                  child: Container(
+                    height: item.height,
+                    width: item.width,
+                    child: SvgPicture.asset(
+                      assetFolder + item.image,
+                      fit: BoxFit.contain,
                     ),
-                  )
-                : CorrectAnimation(
-                    isCorrect: item.status == 1,
-                    child: Container(
-                      height: item.height,
-                      width: item.width,
-                      child: SvgPicture.asset(
-                        assetFolder + item.image,
-                        fit: BoxFit.contain,
-                      ),
+                  ),
+                ))
+            : Positioned(
+                left: item.position.dx - item.width * 0.1,
+                top: item.position.dy - item.height * 0.2,
+                child: CorrectAnimation(
+                  isCorrect: item.status == 1,
+                  child: Container(
+                    height: item.height * 1.2,
+                    width: item.width * 1.2,
+                    child: SvgPicture.asset(
+                      assetFolder + item.image,
+                      fit: BoxFit.contain,
                     ),
-                  ));
+                  ),
+                ));
       }).toList(),
     );
   }

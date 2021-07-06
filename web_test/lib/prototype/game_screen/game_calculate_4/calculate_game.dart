@@ -36,6 +36,9 @@ class _CalculateGameState extends State<CalculateGame> {
   int firstElement;
   int secondElement;
   int result;
+  int firstRandomValue;
+  int secondRandomValue;
+  int randomIndex = 0;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/calculate_game.json');
@@ -81,18 +84,23 @@ class _CalculateGameState extends State<CalculateGame> {
     print(ratio);
   }
 
-  void genElement(){
-    Random random=new Random();
-    int firstItem=random.nextInt(8)+1;
-    int secondItem=random.nextInt(8-firstItem)+1;
+  void genElement() {
+    Random random = new Random();
+    int firstItem = random.nextInt(8) + 1;
+    int secondItem = random.nextInt(8 - firstItem) + 1;
+    firstRandomValue = firstItem + secondItem;
+    secondRandomValue = firstRandomValue;
+    while (firstRandomValue == secondRandomValue ||
+        firstRandomValue == firstItem + secondItem ||
+        secondRandomValue == firstItem + secondItem) {
+      firstRandomValue = random.nextInt(8) + 1;
+      secondRandomValue = random.nextInt(8) + 1;
+    }
     setState(() {
-      firstElement=firstItem;
-      secondElement=secondItem;
-      result=firstItem+secondItem;
+      firstElement = firstItem;
+      secondElement = secondItem;
+      result = firstItem + secondItem;
     });
-    print(firstItem);
-    print(secondItem);
-    print(firstItem+secondItem);
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
@@ -152,17 +160,100 @@ class _CalculateGameState extends State<CalculateGame> {
     }
   }
 
-  Widget displayNumber(){}
+  String getNumberLink(int value) {
+    switch (value) {
+      case 1:
+        return 'assets/images/common/number/one.svg';
+      case 2:
+        return 'assets/images/common/number/two.svg';
+      case 3:
+        return 'assets/images/common/number/three.svg';
+      case 4:
+        return 'assets/images/common/number/four.svg';
+      case 5:
+        return 'assets/images/common/number/five.svg';
+      case 6:
+        return 'assets/images/common/number/six.svg';
+      case 7:
+        return 'assets/images/common/number/seven.svg';
+      case 8:
+        return 'assets/images/common/number/eight.svg';
+      case 9:
+        return 'assets/images/common/number/nine.svg';
+    }
+  }
 
-  Widget displayItemImage(double height, double width, String image) {
+  Widget displayNumber(int number, double width, double height) {
     return Container(
+      // color: Colors.red,
       height: height * ratio,
       width: width * ratio,
-      child: SvgPicture.asset(
-        image,
-        fit: BoxFit.contain,
-      ),
+      child: SvgPicture.asset(getNumberLink(number), fit: BoxFit.contain),
     );
+  }
+
+  Widget displayCalculation() {
+    return Stack(
+      children: [
+        Positioned(
+            top: 186 * ratio,
+            left: 186 * ratio,
+            child: displayNumber(firstElement, 58, 79)),
+        Positioned(
+            top: 186 * ratio,
+            left: 367 * ratio,
+            child: displayNumber(secondElement, 58, 79)),
+        Positioned(
+            top: 194 * ratio,
+            left: 274 * ratio,
+            child: Container(
+              height: 62 * ratio,
+              width: 62 * ratio,
+              child: SvgPicture.asset(
+                "assets/images/common/plus.svg",
+                fit: BoxFit.contain,
+              ),
+            )),
+        Positioned(
+            top: 206 * ratio,
+            left: 456 * ratio,
+            child: Container(
+              height: 39 * ratio,
+              width: 62 * ratio,
+              child: SvgPicture.asset(
+                "assets/images/common/equal.svg",
+                fit: BoxFit.contain,
+              ),
+            ))
+      ],
+    );
+  }
+
+  Widget displayItemImage(
+      double height, double width, String image, int value, bool isScale) {
+    if (value == 0) {
+      return Container(
+        height: height * ratio,
+        width: width * ratio,
+        child: SvgPicture.asset(
+          image,
+          fit: BoxFit.contain,
+        ),
+      );
+    } else {
+      return Container(
+        height: height * ratio,
+        width: width * ratio,
+        decoration: BoxDecoration(
+            image:
+                DecorationImage(image: AssetImage(image), fit: BoxFit.contain)),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(top: 20*ratio),
+        child: isScale
+            ? displayNumber(value, 29 * 1.3, 36 * 1.3)
+            : displayNumber(value, 29, 36),
+      );
+    }
   }
 
   Widget displayTarget() {
@@ -178,10 +269,11 @@ class _CalculateGameState extends State<CalculateGame> {
                 String fullInitUrl = assetFolder + item.image;
                 String fullCompleteUrl = assetFolder + sourceModel[index].image;
                 return item.status == 0
-                    ? displayItemImage(item.height, item.width, fullInitUrl)
+                    ? displayItemImage(
+                        item.height, item.width, fullInitUrl, 0, false)
                     : AnimatedMatchedTarget(
-                        child: displayItemImage(
-                            item.height, item.width, fullCompleteUrl),
+                        child: displayItemImage(item.height, item.width,
+                            fullCompleteUrl, result, true),
                       );
               },
               onWillAccept: (data) {
@@ -205,10 +297,20 @@ class _CalculateGameState extends State<CalculateGame> {
 
   Widget displayDraggable() {
     List<int> sourceIndex = Iterable<int>.generate(sourceModel.length).toList();
+    int randomIndex = 0;
     return Stack(
       children: sourceIndex.map((index) {
+        int number;
         GameCalculateModel item = sourceModel[index];
         String fullInitUrl = assetFolder + item.image;
+        if (item.groupId == 0) {
+          number = result;
+        } else if (randomIndex % 2 == 0) {
+          number = firstRandomValue;
+        } else {
+          number = secondRandomValue;
+        }
+        randomIndex++;
         return AnimatedPositioned(
             duration: Duration(milliseconds: item.duration),
             top: item.position.dy * ratio,
@@ -219,11 +321,12 @@ class _CalculateGameState extends State<CalculateGame> {
                 child: AnimationHitFail(
                   isDisplayAnimation: isHitFail,
                   child: item.status == 0
-                      ? displayItemImage(item.height, item.width, fullInitUrl)
+                      ? displayItemImage(
+                          item.height, item.width, fullInitUrl, number, false)
                       : Container(),
                 ),
-                feedback:
-                    displayItemImage(item.height, item.width, fullInitUrl),
+                feedback: displayItemImage(
+                    item.height, item.width, fullInitUrl, number, false),
                 childWhenDragging: Container(),
                 onDragStarted: () {
                   item.duration = 0;
@@ -258,6 +361,7 @@ class _CalculateGameState extends State<CalculateGame> {
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayNormalItem());
+    widgets.add(displayCalculation());
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
     return widgets;

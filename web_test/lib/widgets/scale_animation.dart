@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ScaleAnimation extends StatefulWidget {
-   final Widget child;
-   final VoidCallback onTab;
+  final Widget child;
+  final VoidCallback onTab;
+  final int isPlayAnimation;
 
-  ScaleAnimation({ this.child,  this.onTab});
+  ScaleAnimation({this.child, this.onTab, this.isPlayAnimation});
 
   _ScaleAnimationState createState() => _ScaleAnimationState();
 }
 
 class _ScaleAnimationState extends State<ScaleAnimation>
     with TickerProviderStateMixin {
-   AnimationController _animationController;
-   Animation<double> _scaleAnimation;
+  AnimationController _animationController;
+  Animation<double> _scaleAnimation;
 
   @override
   void initState() {

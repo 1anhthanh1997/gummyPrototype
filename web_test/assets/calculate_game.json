@@ -31,7 +31,7 @@
         },
         {
           "id": 1,
-          "image": "third_draggable.svg",
+          "image": "first_draggable.png",
           "type": 1,
           "position": {
             "dx": 248.0,
@@ -43,7 +43,7 @@
         },
         {
           "id": 2,
-          "image": "first_draggable.svg",
+          "image": "second_draggable.png",
           "type": 1,
           "position": {
             "dx": 369.0,
@@ -55,7 +55,7 @@
         },
         {
           "id": 3,
-          "image": "second_draggable.svg",
+          "image": "third_draggable.png",
           "type": 1,
           "position": {
             "dx": 490.0,
@@ -64,18 +64,6 @@
           "groupId": 2,
           "width": 83.0,
           "height": 83.0
-        },
-        {
-          "id": 4,
-          "image": "calculation.svg",
-          "type": 1,
-          "position": {
-            "dx": 178.0,
-            "dy": 186.0
-          },
-          "groupId": 1,
-          "width": 331.0,
-          "height": 79.0
         },
         {
           "id": 5,
