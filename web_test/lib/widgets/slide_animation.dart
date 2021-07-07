@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-class BubbleAnimation extends StatefulWidget {
+class SlideAnimation extends StatefulWidget {
   final Widget child;
   final VoidCallback onTab;
   final int isPlayAnimation;
@@ -10,33 +11,37 @@ class BubbleAnimation extends StatefulWidget {
   final double endValue;
   final int time;
 
+  SlideAnimation(
+      {this.child,
+      this.onTab,
+      this.isPlayAnimation,
+      this.beginValue = -5.0,
+      this.endValue = 5.0,
+      this.time});
 
-  BubbleAnimation(
-      {this.child, this.onTab, this.isPlayAnimation, this.beginValue=-5.0, this.endValue=5.0, this.time});
-
-  _BubbleAnimationState createState() => _BubbleAnimationState();
+  _SlideAnimationState createState() => _SlideAnimationState();
 }
 
-class _BubbleAnimationState extends State<BubbleAnimation>
+class _SlideAnimationState extends State<SlideAnimation>
     with TickerProviderStateMixin {
   AnimationController _animationController;
-  Animation<double> _bubbleAnimation;
+  Animation<double> _slideAnimation;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Random rdm = Random();
-    int time=widget.time==null?(rdm.nextInt(20)+40)*20:widget.time;
+    int time = widget.time == null ? (rdm.nextInt(20) + 40) * 20 : widget.time;
     _animationController =
         AnimationController(duration: Duration(milliseconds: time), vsync: this)
-          ..repeat(reverse: true);
+          ..repeat(reverse: true );
   }
 
   @override
   void dispose() {
-    if(_animationController!=null){
-    _animationController.dispose();
+    if (_animationController != null) {
+      _animationController.dispose();
     }
     // TODO: implement dispose
     super.dispose();
@@ -45,7 +50,8 @@ class _BubbleAnimationState extends State<BubbleAnimation>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bubbleAnimation = Tween(begin: widget.beginValue, end: widget.endValue).animate(
+    _slideAnimation =
+        Tween(begin: widget.beginValue, end: widget.endValue).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Interval(0.0, 0.75, curve: Curves.linear),
@@ -59,7 +65,7 @@ class _BubbleAnimationState extends State<BubbleAnimation>
         animation: _animationController,
         builder: (BuildContext context, Widget child) {
           return Transform.translate(
-              offset: Offset(0, _bubbleAnimation.value), child: widget.child);
+              offset: Offset(_slideAnimation.value, 0), child: widget.child);
         });
   }
 }

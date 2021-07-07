@@ -8,7 +8,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/model/game_calculate_model.dart';
+import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/particle.dart';
+import 'package:web_test/widgets/slide_animation.dart';
 
 class GameMemoryNumber extends StatefulWidget {
   _GameMemoryNumberState createState() => _GameMemoryNumberState();
@@ -48,7 +51,6 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         particles.add([]);
       }
     }
-    print(questionData);
   }
 
   @override
@@ -59,7 +61,11 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       questionData.position = questionPositionTmp;
       setState(() {});
     });
-    Timer(Duration(milliseconds: 4000), () {
+    Timer(Duration(milliseconds: 5000), () {
+      questionData.position = Offset(questionPositionTmp.dx,-300.0);
+      setState(() {});
+    });
+    Timer(Duration(milliseconds: 5500), () {
       Timer(Duration(milliseconds: 500), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
@@ -100,14 +106,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         duration: Duration(milliseconds: 1000),
         top: questionData.position.dy,
         left: questionData.position.dx,
-        child: Container(
+        child: BubbleAnimation(
+            child: Container(
           height: questionData.height,
           width: questionData.width,
           child: SvgPicture.asset(
             assetFolder + questionData.image,
             fit: BoxFit.contain,
           ),
-        ));
+        )));
   }
 
   Widget _buildParticle(int index) {
@@ -138,26 +145,97 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     return Stack(
       children: answerIndex.map((index) {
         GameCalculateModel item = answerData[index];
-        return AnimatedPositioned(
-            left: item.position.dx,
-            top: item.position.dy,
-            duration: Duration(milliseconds: 1000),
-            child: _buildParticle(index));
+        return item.type == 1 && item.groupId == questionData.groupId
+            ? AnimatedPositioned(
+                left: item.position.dx,
+                top: item.position.dy,
+                duration: Duration(milliseconds: 1000),
+                child: BubbleAnimation(
+                  child: _buildParticle(index),
+                ))
+            : AnimatedPositioned(
+                left: item.position.dx,
+                top: item.position.dy,
+                duration: Duration(milliseconds: 1000),
+                child: BubbleAnimation(
+                  child: Container(
+                    height: item.height,
+                    width: item.width,
+                    child: SvgPicture.asset(
+                      assetFolder + item.image,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ));
       }).toList(),
     );
   }
 
-  Widget bubbleAnimation(){
+  Widget displayHotAirBalloon() {
+    return Positioned(
+        top: 33,
+        left: 665,
+        child: BubbleAnimation(
+          child: Container(
+            height: 96,
+            width: 71,
+            child: SvgPicture.asset(
+              'assets/images/game_memory_number_7/hot_air_balloon.svg',
+              fit: BoxFit.contain,
+            ),
+          ),
+        ));
+  }
 
+  Widget displayCloud() {
+    return Stack(
+      children: [
+        Positioned(
+            top: 32,
+            left: 56,
+            child: SlideAnimation(
+              beginValue: 0,
+              endValue: 812.0,
+              time: 20000,
+              child: Container(
+                height: 108,
+                width: 190,
+                child: SvgPicture.asset(
+                  'assets/images/game_memory_number_7/cloud_1.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            )),
+        Positioned(
+            top: 146,
+            left: 667,
+            child: SlideAnimation(
+              beginValue: 145.0,
+              endValue: -812.0,
+              time: 20000,
+              child: Container(
+                height: 58,
+                width: 110,
+                child: SvgPicture.asset(
+                  'assets/images/game_memory_number_7/cloud_2.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ))
+      ],
+    );
   }
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
+    widgets.add(displayHotAirBalloon());
     if (isDisplayAnswer) {
       widgets.add(displayAnswer());
     } else {
       widgets.add(displayQuestion());
     }
+    widgets.add(displayCloud());
+    widgets.add(BasicItem());
 
     return widgets;
   }
