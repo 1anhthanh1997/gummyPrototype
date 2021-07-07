@@ -35,6 +35,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     for(int idx=0;idx<itemData.length;idx++){
       isScale.add(0);
     }
+    setState(() {
+
+    });
   }
 
   @override

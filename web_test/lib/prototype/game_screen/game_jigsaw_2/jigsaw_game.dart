@@ -1,193 +1,227 @@
-// import 'dart:convert';
-//
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-// import 'package:web_test/model/game_jigsaw_draggable_model.dart';
-// import 'package:web_test/model/game_jigsaw_target_model.dart';
-// import 'package:web_test/widgets/animation_draggable_tap.dart';
-// import 'package:web_test/widgets/animation_hit_fail.dart';
-// import 'package:web_test/widgets/animation_rotate.dart';
-// import 'package:web_test/widgets/appear_animation.dart';
-//
-// class JigsawGame extends StatefulWidget {
-//   _JigsawGameState createState() => _JigsawGameState();
-// }
-//
-// class _JigsawGameState extends State<JigsawGame> {
-//   List<GameJigsawDraggableModel> draggableData = [];
-//   List<GameJigsawTargetModel> targetData = [];
-//   List firstData = [];
-//   List secondData = [];
-//   double bonusHeight = 0;
-//   double ratio=1;
-//   bool isHitFail=false;
-//   bool isWrongTarget=false;
-//
-//   Future<void> loadAlphabetData() async {
-//     var jsonData = await rootBundle.loadString('assets/jigsaw_game_data.json');
-//     var allGameData = json.decode(jsonData);
-//     firstData = allGameData['gameData'][0]['items']['draggable'];
-//     secondData = allGameData['gameData'][0]['items']['target'];
-//     double objectHeight = allGameData['gameData'][0]['height'];
-//     bonusHeight = (375 - objectHeight) / 2;
-//     draggableData = firstData
-//         .map((draggableInfo) =>
-//             new GameJigsawDraggableModel.fromJson(draggableInfo))
-//         .toList();
-//     print(draggableData);
-//     targetData = secondData
-//         .map((targetInfo) => new GameJigsawTargetModel.fromJson(targetInfo))
-//         .toList();
-//     print(targetData);
-//   }
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     this.loadAlphabetData().whenComplete(() => {setState(() {})});
-//   }
-//
-//   Widget puzzleWidget(double width, double height, GameJigsawDraggableModel item) {
-//     return item == null
-//         ? Container()
-//         : Container(
-//       width: width * ratio,
-//       height: height * ratio,
-//       child: Image.asset(item.images[0], fit: BoxFit.contain),
-//     );
-//   }
-//
-//   Widget genFeedBack(int id) {
-//     return Container(
-//       height: draggableData[id].height,
-//       width: draggableData[id].width,
-//       child: Image.asset(draggableData[id].images[0], fit: BoxFit.contain),
-//     );
-//   }
-//
-//
-//   Widget displayDraggable() {
-//     List<int> indexGenerate =
-//     Iterable<int>.generate(draggableData.length).toList();
-//     return Stack(
-//       children: indexGenerate.map((index){
-//         GameJigsawDraggableModel sourceModel = draggableData[index];
-//         double topAlign = sourceModel.position.dy;
-//         double leftAlign = sourceModel.position.dx;
-//         return AnimatedPositioned(
-//             key: Key(index.toString()),
-//             top: topAlign * ratio + bonusHeight,
-//             left: leftAlign * ratio,
-//             duration: Duration(milliseconds: sourceModel.duration),
-//             child: AppearAnimation(
-//                 onTab: (){
-//
-//                 },
-//                 isMultiTab: true,
-//                 child: AnimationDraggableTap(
-//                     onTab: (){
-//
-//                     },
-//                     buttonName: 'draggable_${sourceModel.groupId}',
-//                     isMultiTab: true,
-//                     child: AnimationRotate(
-//                       onTab: () {
-//                         setState(() {
-//                           rotateTime[sourceModel.groupId] = isFirstRotateTime[sourceModel.groupId]
-//                               ? (rotateTime[sourceModel.groupId] + 2) % 4
-//                               : (rotateTime[sourceModel.groupId] + 1) % 4;
-//                           isFirstRotateTime[sourceModel.groupId] = false;
-//                         });
-//                       },
-//                       child: Draggable(
-//                         data: sourceModel.groupId,
-//                         child: AnimationHitFail(
-//                             isDisplayAnimation: isHitFail,
-//                             child: puzzleWidget(
-//                               sourceModel.width,
-//                               sourceModel.height,
-//                               sourceModel
-//                             )),
-//                         feedback: genFeedBack(sourceModel.groupId),
-//                         childWhenDragging: puzzleWidget(
-//                             sourceModel.width, sourceModel.height, sourceModel),
-//                         onDragEnd: (details) {
-//                           // santaJigsawLogic.totalDrag++;
-//                           if (details.wasAccepted) {
-//                           } else {}
-//                         },
-//                         onDragStarted: () {
-//                           sourceModel.duration = 0;
-//                         },
-//                         maxSimultaneousDrags: 1,
-//                         onDraggableCanceled: (velocity, offset) {
-//                           if (isWrongTarget) {
-//                             Offset offsetSource = sourceModel.position;
-//                             sourceModel.position = Offset((offset.dx) / ratio,
-//                                 ((offset.dy - bonusHeight) / ratio));
-//                             int status = sourceModel.status;
-//                             if (status == STATUS_NOT_MATCH) {
-//                               sourceModel.status = STATUS_INIT;
-//                             }
-//                             setState(() {
-//                               isHitFail = true;
-//                             });
-//                             Timer(Duration(milliseconds: 200), () {
-//                               setState(() {
-//                                 isHitFail = false;
-//                                 isWrongTarget = false;
-//                               });
-//                             });
-//                             Timer(Duration(milliseconds: 800), () {
-//                               double denta = screenModel.getBiggerSpace(
-//                                   offsetSource, offset);
-//                               if (denta < 200 && status == STATUS_NOT_MATCH) {
-//                                 denta = 200;
-//                               }
-//                               sourceModel.duration = editValue(denta.toInt());
-//                               sourceModel.position = offsetSource;
-//                               setState(() {});
-//                             });
-//                           } else {
-//                             Offset offsetSource = sourceModel.position;
-//                             sourceModel.position = Offset((offset.dx) / ratio,
-//                                 ((offset.dy - bonusHeight) / ratio));
-//                             int status = sourceModel.status;
-//                             if (status == STATUS_NOT_MATCH) {
-//                               sourceModel.status = STATUS_INIT;
-//                             }
-//                             setState(() {});
-//                             Timer(Duration(milliseconds: 50), () {
-//                               double denta = screenModel.getBiggerSpace(
-//                                   offsetSource, offset);
-//                               if (denta < 200 && status == STATUS_NOT_MATCH) {
-//                                 denta = 200;
-//                               }
-//                               sourceModel.duration = editValue(denta.toInt());
-//                               sourceModel.position = offsetSource;
-//                               setState(() {});
-//                             });
-//                           }
-//                         },
-//                       ),
-//                     ))));
-//       }).toList(),
-//     );
-//   }
-//
-//   List<Widget> displayScreen() {
-//     List<Widget> widgets = [];
-//     widgets.add(displayDraggable());
-//     return widgets;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//           child: Stack(
-//         children: displayScreen(),
-//       )),
-//     );
-//   }
-// }
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:web_test/model/item_model.dart';
+import 'package:web_test/widgets/animated_matched_target.dart';
+import 'package:web_test/widgets/basic_item.dart';
+
+class JigsawGame extends StatefulWidget {
+  _JigsawGameState createState() => _JigsawGameState();
+}
+
+class _JigsawGameState extends State<JigsawGame> {
+  List<ItemModel> imageData = [];
+  List data = [];
+  double bonusHeight = 0;
+  double ratio = 1;
+  bool isWrongTarget = false;
+  String assetFolder;
+  var allGameData;
+  List<ItemModel> sourceModel = [];
+  List<ItemModel> targetModel = [];
+  int count = 0;
+
+  Future<void> loadAlphabetData() async {
+    var jsonData = await rootBundle.loadString('assets/jigsaw_game_data.json');
+    allGameData = json.decode(jsonData);
+    data = allGameData['gameData'][0]['items'];
+    double objectHeight = allGameData['gameData'][0]['height'];
+    assetFolder = allGameData['gameAssets'];
+    bonusHeight = (375 - objectHeight) / 2;
+    imageData = data
+        .map((draggableInfo) => new ItemModel.fromJson(draggableInfo))
+        .toList();
+    for (int index = 0; index < imageData.length; index++) {
+      if (imageData[index].type == 0) {
+        setState(() {
+          targetModel.add(imageData[index]);
+        });
+      }
+      if (imageData[index].type == 1) {
+        sourceModel.add(imageData[index]);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.loadAlphabetData().whenComplete(() => {setState(() {})});
+  }
+
+  void bringToFront(ItemModel chosenItem) {
+    for (int idx = 0; idx < sourceModel.length; idx++) {
+      if (sourceModel[idx].id == chosenItem.id) {
+        sourceModel.removeAt(idx);
+        break;
+      }
+    }
+    sourceModel.add(chosenItem);
+    setState(() {});
+  }
+
+  void setCompletedStatus(ItemModel chosenTarget) {
+    chosenTarget.status = 1;
+    for (int idx = 0; idx < sourceModel.length; idx++) {
+      if (sourceModel[idx].groupId == chosenTarget.groupId) {
+        sourceModel[idx].status = 1;
+        break;
+      }
+    }
+    setState(() {});
+  }
+
+  Widget displayShadow() {
+    return Stack(
+      children: imageData.map((item) {
+        return item.type == 2
+            ? Positioned(
+                top: item.position.dy,
+                left: item.position.dx,
+                child: Container(
+                    height: item.height,
+                    width: item.width,
+                    child: Image.asset(
+                      assetFolder + item.image,
+                      fit: BoxFit.contain,
+                    )))
+            : Container();
+      }).toList(),
+    );
+  }
+
+  Widget displayCompletedImage() {
+    return Stack(
+      children: imageData.map((item) {
+        return item.type == 3
+            ? Positioned(
+                top: item.position.dy,
+                left: item.position.dx,
+                child: Container(
+                    height: item.height,
+                    width: item.width,
+                    child: Image.asset(
+                      assetFolder + item.image,
+                      fit: BoxFit.contain,
+                    )))
+            : Container();
+      }).toList(),
+    );
+  }
+
+  Widget displayDraggable() {
+    return Stack(
+      children: sourceModel.map((item) {
+        return Positioned(
+            top: item.position.dy,
+            left: item.position.dx,
+            child: Draggable(
+              data: item.groupId,
+              child: item.status == 0
+                  ? Container(
+                      height: item.height,
+                      width: item.width,
+                      child: Image.asset(
+                        assetFolder + item.image,
+                        fit: BoxFit.contain,
+                      ))
+                  : Container(),
+              feedback: Container(
+                height: item.height,
+                width: item.width,
+                child: Image.asset(
+                  assetFolder + item.image,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              childWhenDragging: Container(),
+              onDragEnd: (details) {
+                bringToFront(item);
+              },
+              onDraggableCanceled: (velocity, offset) {
+                item.position = offset;
+                setState(() {});
+              },
+            ));
+      }).toList(),
+    );
+  }
+
+  Widget displayTarget() {
+    return Stack(
+      children: targetModel.map((item) {
+        return Positioned(
+            top: item.position.dy,
+            left: item.position.dx,
+            child: DragTarget<int>(
+              builder: (context, candidateData, rejectedData) {
+                return item.status == 0
+                    ? Container(
+                        height: item.height,
+                        width: item.width,
+                      )
+                    : AnimatedMatchedTarget(
+                        child: Container(
+                            height: item.height,
+                            width: item.width,
+                            child: Image.asset(
+                              assetFolder + item.image,
+                              fit: BoxFit.contain,
+                            )));
+              },
+              onWillAccept: (data) {
+                return data == item.groupId;
+              },
+              onAccept: (data) {
+                setCompletedStatus(item);
+                if (count == sourceModel.length - 1) {
+                  Timer(Duration(milliseconds: 2000), () {
+                    setState(() {
+                      count++;
+                    });
+                  });
+                } else {
+                  setState(() {
+                    count++;
+                  });
+                }
+              },
+            ));
+      }).toList(),
+    );
+  }
+
+  List<Widget> displayScreen() {
+    List<Widget> widgets = [];
+    print('Count:');
+    print(count);
+    if (count == sourceModel.length) {
+      widgets.add(displayCompletedImage());
+    } else {
+      widgets.add(displayShadow());
+      widgets.add(displayTarget());
+      widgets.add(displayDraggable());
+    }
+    widgets.add(BasicItem());
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: data.length == 0
+          ? Container()
+          : Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(assetFolder +
+                          allGameData['gameData'][0]['background']),
+                      fit: BoxFit.fill)),
+              child: Stack(
+                children: displayScreen(),
+              )),
+    );
+  }
+}
