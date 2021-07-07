@@ -7,6 +7,7 @@ import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/scale_animation.dart';
 
 class JigsawGame extends StatefulWidget {
   _JigsawGameState createState() => _JigsawGameState();
@@ -121,7 +122,9 @@ class _JigsawGameState extends State<JigsawGame> {
             child: Draggable(
               data: item.groupId,
               child: item.status == 0
-                  ? AnimationDraggableTap(
+                  ? ScaleAnimation(
+                      beginValue: 0.9,
+                      endValue: 1.0,
                       child: Container(
                           height: item.height,
                           width: item.width,
