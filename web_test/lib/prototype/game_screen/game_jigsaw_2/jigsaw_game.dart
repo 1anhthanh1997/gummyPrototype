@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
+import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/basic_item.dart';
 
 class JigsawGame extends StatefulWidget {
@@ -120,13 +121,15 @@ class _JigsawGameState extends State<JigsawGame> {
             child: Draggable(
               data: item.groupId,
               child: item.status == 0
-                  ? Container(
-                      height: item.height,
-                      width: item.width,
-                      child: Image.asset(
-                        assetFolder + item.image,
-                        fit: BoxFit.contain,
-                      ))
+                  ? AnimationDraggableTap(
+                      child: Container(
+                          height: item.height,
+                          width: item.width,
+                          child: Image.asset(
+                            assetFolder + item.image,
+                            fit: BoxFit.contain,
+                          )),
+                    )
                   : Container(),
               feedback: Container(
                 height: item.height,
