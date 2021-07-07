@@ -4,8 +4,19 @@ class ScaleAnimation extends StatefulWidget {
   final Widget child;
   final VoidCallback onTab;
   final int isPlayAnimation;
+  final int time;
+  final double beginValue;
+  final double endValue;
+  final bool isScale;
 
-  ScaleAnimation({this.child, this.onTab, this.isPlayAnimation});
+  ScaleAnimation(
+      {this.child,
+      this.onTab,
+      this.isPlayAnimation,
+      this.time = 300,
+      this.beginValue = 1.0,
+      this.endValue = 1.2,
+      this.isScale=false});
 
   _ScaleAnimationState createState() => _ScaleAnimationState();
 }
@@ -19,14 +30,15 @@ class _ScaleAnimationState extends State<ScaleAnimation>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 300), vsync: this);
+    _animationController = AnimationController(
+        duration: Duration(milliseconds: widget.time), vsync: this);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _scaleAnimation = Tween(begin: 1.0, end: 1.2).animate(
+    _scaleAnimation =
+        Tween(begin: widget.beginValue, end: widget.endValue).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Interval(0.0, 0.75, curve: Curves.linear),
@@ -36,6 +48,12 @@ class _ScaleAnimationState extends State<ScaleAnimation>
 
   @override
   Widget build(BuildContext context) {
+    if(widget.isScale){
+      _animationController.forward();
+    }else{
+      _animationController.reverse();
+    }
+
     return GestureDetector(
         onTap: () {
           widget.onTab();

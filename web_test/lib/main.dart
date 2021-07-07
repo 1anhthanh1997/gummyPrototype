@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
-      child: GameMemoryNumber(),
+      child: ChoosePairGame(),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:web_test/model/game_classify_model.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
+import 'package:web_test/widgets/scale_animation.dart';
 
 class ClassifyItem extends StatefulWidget {
   @override
@@ -207,19 +208,22 @@ class _ClassifyItemState extends State<ClassifyItem>
       children: items.map((item) {
         return item.type == 0
             ? Positioned(
-                top: isSelected[item.groupId]
-                    ? item.position.dy - 10
-                    : item.position.dy,
-                left: isSelected[item.groupId]
-                    ? item.position.dx - 10
-                    : item.position.dx,
-                child: Container(
-                  width:
-                      isSelected[item.groupId] ? item.width + 20 : item.width,
-                  height:
-                      isSelected[item.groupId] ? item.height + 20 : item.height,
-                  child: Image.asset(assetFolder + item.image,
-                      fit: BoxFit.contain),
+                top: item.position.dy,
+                left: item.position.dx,
+                child:
+                ScaleAnimation(
+                  isScale: isSelected[item.groupId],
+                  beginValue: 1.0,
+                  endValue: 1.1,
+                  onTab:(){
+
+                  },
+                  child: Container(
+                    width: item.width,
+                    height: item.height,
+                    child: Image.asset(assetFolder + item.image,
+                        fit: BoxFit.contain),
+                  ),
                 ))
             : Container();
       }).toList(),
