@@ -26,7 +26,8 @@ class _JigsawGameState extends State<JigsawGame> {
   int count = 0;
 
   Future<void> loadAlphabetData() async {
-    var jsonData = await rootBundle.loadString('assets/jigsaw_game_data.json');
+    var jsonData =
+        await rootBundle.loadString('assets/jigsaw_game_data_3.json');
     allGameData = json.decode(jsonData);
     data = allGameData['gameData'][0]['items'];
     double objectHeight = allGameData['gameData'][0]['height'];
@@ -101,13 +102,15 @@ class _JigsawGameState extends State<JigsawGame> {
             ? Positioned(
                 top: item.position.dy,
                 left: item.position.dx,
-                child: Container(
-                    height: item.height,
-                    width: item.width,
-                    child: Image.asset(
-                      assetFolder + item.image,
-                      fit: BoxFit.contain,
-                    )))
+                child: Opacity(
+                    opacity: count == sourceModel.length ? 1.0 : 0.0,
+                    child: Container(
+                        height: item.height,
+                        width: item.width,
+                        child: Image.asset(
+                          assetFolder + item.image,
+                          fit: BoxFit.contain,
+                        ))))
             : Container();
       }).toList(),
     );
@@ -122,17 +125,13 @@ class _JigsawGameState extends State<JigsawGame> {
             child: Draggable(
               data: item.groupId,
               child: item.status == 0
-                  ? ScaleAnimation(
-                      beginValue: 0.9,
-                      endValue: 1.0,
-                      child: Container(
-                          height: item.height,
-                          width: item.width,
-                          child: Image.asset(
-                            assetFolder + item.image,
-                            fit: BoxFit.contain,
-                          )),
-                    )
+                  ? Container(
+                      height: item.height * 0.9,
+                      width: item.width * 0.9,
+                      child: Image.asset(
+                        assetFolder + item.image,
+                        fit: BoxFit.contain,
+                      ))
                   : Container(),
               feedback: Container(
                 height: item.height,
@@ -201,10 +200,9 @@ class _JigsawGameState extends State<JigsawGame> {
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
-    print('Count:');
-    print(count);
+    widgets.add(displayCompletedImage());
+    widgets.add(displayCompletedImage());
     if (count == sourceModel.length) {
-      widgets.add(displayCompletedImage());
     } else {
       widgets.add(displayShadow());
       widgets.add(displayTarget());

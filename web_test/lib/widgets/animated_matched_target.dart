@@ -47,7 +47,7 @@ class _AnimatedMatchedTargetState extends State<AnimatedMatchedTarget>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _scaleAnimation = Tween(begin: 1.3, end: 1.0).animate(
+    _scaleAnimation = Tween(begin: 1.1, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Interval(0.0, 0.75, curve: easeOutBack),

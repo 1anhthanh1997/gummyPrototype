@@ -1,0 +1,433 @@
+{
+  "id": 1,
+  "levelScore": 0,
+  "tags": [
+    1,
+    2
+  ],
+  "gameType": 0,
+  "orderIndex": 0,
+  "gameName": "Game ghép hình",
+  "parentId": 0,
+  "createDate": 0,
+  "gameAssets": "assets/images/game_jigsaw_2/jigsaw_3/",
+  "gameData": [
+    {
+      "id": 1,
+      "parentId": 1,
+      "gameType": 1,
+      "background": "background_image.png",
+      "items": [
+        {
+          "id": 0,
+          "image": "unicorn_jigsaw_1.png",
+          "groupId": 0,
+          "position": {
+            "dx": 35.0,
+            "dy": 26.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 1,
+          "image": "unicorn_jigsaw_2.png",
+          "groupId": 1,
+          "position": {
+            "dx": 702.0,
+            "dy": 205.0
+          },
+          "type": 1,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 2,
+          "image": "unicorn_jigsaw_3.png",
+          "groupId": 2,
+          "position": {
+            "dx": 183.0,
+            "dy": 116.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 3,
+          "image": "unicorn_jigsaw_4.png",
+          "groupId": 3,
+          "position": {
+            "dx": 571.0,
+            "dy": 43.0
+          },
+          "type": 1,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 4,
+          "image": "unicorn_jigsaw_5.png",
+          "groupId": 4,
+          "position": {
+            "dx": 35.0,
+            "dy": 188.0
+          },
+          "type": 1,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 5,
+          "image": "unicorn_jigsaw_6.png",
+          "groupId": 5,
+          "position": {
+            "dx": 571.0,
+            "dy": 129.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 6,
+          "image": "unicorn_jigsaw_7.png",
+          "groupId": 6,
+          "position": {
+            "dx": 665.0,
+            "dy": 36.0
+          },
+          "type": 1,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 7,
+          "image": "unicorn_jigsaw_8.png",
+          "groupId": 7,
+          "position": {
+            "dx": 118.0,
+            "dy": 169.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 8,
+          "image": "unicorn_jigsaw_9.png",
+          "groupId": 8,
+          "position": {
+            "dx": 726.0,
+            "dy": 95.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 114.0
+        },
+        {
+          "id": 9,
+          "image": "unicorn_jigsaw_10.png",
+          "groupId": 9,
+          "position": {
+            "dx": 36.0,
+            "dy": 116.0
+          },
+          "type": 1,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 10,
+          "image": "unicorn_jigsaw_11.png",
+          "groupId": 10,
+          "position": {
+            "dx": 137.0,
+            "dy": 24.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 11,
+          "image": "unicorn_jigsaw_12.png",
+          "groupId": 11,
+          "position": {
+            "dx": 561.0,
+            "dy": 251.0
+          },
+          "type": 1,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 12,
+          "image": "unicorn_jigsaw_13.png",
+          "groupId": 12,
+          "position": {
+            "dx": 164.0,
+            "dy": 268.0
+          },
+          "type": 1,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 13,
+          "image": "unicorn_jigsaw_14.png",
+          "groupId": 13,
+          "position": {
+            "dx": 45.0,
+            "dy": 258.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 14,
+          "image": "unicorn_jigsaw_15.png",
+          "groupId": 14,
+          "position": {
+            "dx": 666.0,
+            "dy": 275.0
+          },
+          "type": 1,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 15,
+          "image": "unicorn_jigsaw_16.png",
+          "groupId": 15,
+          "position": {
+            "dx": 652.0,
+            "dy": 125.0
+          },
+          "type": 1,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 0,
+          "image": "unicorn_jigsaw_1.png",
+          "groupId": 0,
+          "position": {
+            "dx": 263.0,
+            "dy": 44.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 1,
+          "image": "unicorn_jigsaw_2.png",
+          "groupId": 1,
+          "position": {
+            "dx": 314.0,
+            "dy": 44.0
+          },
+          "type": 0,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 2,
+          "image": "unicorn_jigsaw_3.png",
+          "groupId": 2,
+          "position": {
+            "dx": 406.0,
+            "dy": 44.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 3,
+          "image": "unicorn_jigsaw_4.png",
+          "groupId": 3,
+          "position": {
+            "dx": 457.0,
+            "dy": 44.0
+          },
+          "type": 0,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 4,
+          "image": "unicorn_jigsaw_5.png",
+          "groupId": 4,
+          "position": {
+            "dx": 264.0,
+            "dy": 116.0
+          },
+          "type": 0,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 5,
+          "image": "unicorn_jigsaw_6.png",
+          "groupId": 5,
+          "position": {
+            "dx": 335.0,
+            "dy": 96.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 6,
+          "image": "unicorn_jigsaw_7.png",
+          "groupId": 6,
+          "position": {
+            "dx": 386.0,
+            "dy": 116.0
+          },
+          "type": 0,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 7,
+          "image": "unicorn_jigsaw_8.png",
+          "groupId": 7,
+          "position": {
+            "dx": 477.0,
+            "dy": 96.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 8,
+          "image": "unicorn_jigsaw_9.png",
+          "groupId": 8,
+          "position": {
+            "dx": 264.0,
+            "dy": 166.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 114.0
+        },
+        {
+          "id": 9,
+          "image": "unicorn_jigsaw_10.png",
+          "groupId": 9,
+          "position": {
+            "dx": 315.0,
+            "dy": 187.0
+          },
+          "type": 0,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 10,
+          "image": "unicorn_jigsaw_11.png",
+          "groupId": 10,
+          "position": {
+            "dx": 406.0,
+            "dy": 167.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 113.0
+        },
+        {
+          "id": 11,
+          "image": "unicorn_jigsaw_12.png",
+          "groupId": 11,
+          "position": {
+            "dx": 457.0,
+            "dy": 187.0
+          },
+          "type": 0,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 12,
+          "image": "unicorn_jigsaw_13.png",
+          "groupId": 12,
+          "position": {
+            "dx": 264.0,
+            "dy": 258.0
+          },
+          "type": 0,
+          "width": 93.0,
+          "height": 72.0
+        },
+        {
+          "id": 13,
+          "image": "unicorn_jigsaw_14.png",
+          "groupId": 13,
+          "position": {
+            "dx": 335.0,
+            "dy": 238.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "id": 14,
+          "image": "unicorn_jigsaw_15.png",
+          "groupId": 14,
+          "position": {
+            "dx": 385.0,
+            "dy": 258.0
+          },
+          "type": 0,
+          "width": 113.0,
+          "height": 72.0
+        },
+        {
+          "id": 15,
+          "image": "unicorn_jigsaw_16.png",
+          "groupId": 15,
+          "position": {
+            "dx": 477.0,
+            "dy": 238.0
+          },
+          "type": 0,
+          "width": 72.0,
+          "height": 93.0
+        },
+        {
+          "image": "shadow_image.png",
+          "groupId": 3,
+          "position": {
+            "dx": 263.0,
+            "dy": 44.0
+          },
+          "type": 2,
+          "width": 286.0,
+          "height": 286.0
+        },
+        {
+          "image": "completed_image.png",
+          "groupId": 3,
+          "position": {
+            "dx": 263.0,
+            "dy": 44.0
+          },
+          "type": 3,
+          "width": 286.0,
+          "height": 286.0
+        }
+
+      ],
+      "width": 213.0,
+      "height": 298.0
+    }
+  ]
+}

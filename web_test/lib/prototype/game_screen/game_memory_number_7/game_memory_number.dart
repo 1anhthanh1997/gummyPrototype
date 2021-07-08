@@ -10,6 +10,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/model/game_calculate_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
+import 'package:web_test/widgets/opacity_animation.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/slide_animation.dart';
 
@@ -62,7 +63,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       setState(() {});
     });
     Timer(Duration(milliseconds: 5000), () {
-      questionData.position = Offset(questionPositionTmp.dx,-300.0);
+      questionData.position = Offset(questionPositionTmp.dx, -300.0);
       setState(() {});
     });
     Timer(Duration(milliseconds: 5500), () {
@@ -175,49 +176,73 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     return Positioned(
         top: 33,
         left: 665,
-        child: BubbleAnimation(
-          child: Container(
-            height: 96,
-            width: 71,
-            child: SvgPicture.asset(
-              'assets/images/game_memory_number_7/hot_air_balloon.svg',
-              fit: BoxFit.contain,
-            ),
-          ),
-        ));
+        child: SlideAnimation(
+            beginValue: -900,
+            endValue: 250.0,
+            time: 40000,
+            child: Opacity(
+              opacity: 0.75,
+              child: BubbleAnimation(
+                child: Container(
+                  height: 96,
+                  width: 71,
+                  child: SvgPicture.asset(
+                    'assets/images/game_memory_number_7/hot_air_balloon.svg',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            )));
   }
 
   Widget displayCloud() {
     return Stack(
       children: [
         Positioned(
-            top: 32,
-            left: 56,
+          top: 32,
+          left: 56,
+          child: SlideAnimation(
+            beginValue: -200,
+            endValue: 850.0,
+            time: 45000,
+            child: Container(
+              height: 108,
+              width: 190,
+              child: Image.asset(
+                'assets/images/game_memory_number_7/cloud_1.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+            top: 146,
+            left: 667,
             child: SlideAnimation(
-              beginValue: 0,
-              endValue: 812.0,
-              time: 20000,
+              beginValue: 300.0,
+              endValue: -812.0,
+              time: 35000,
               child: Container(
-                height: 108,
-                width: 190,
-                child: SvgPicture.asset(
-                  'assets/images/game_memory_number_7/cloud_1.svg',
+                height: 58,
+                width: 110,
+                child: Image.asset(
+                  'assets/images/game_memory_number_7/cloud_2.png',
                   fit: BoxFit.contain,
                 ),
               ),
             )),
         Positioned(
-            top: 146,
-            left: 667,
+            top: 250,
+            left: 435,
             child: SlideAnimation(
-              beginValue: 145.0,
+              beginValue: 450.0,
               endValue: -812.0,
-              time: 20000,
+              time: 30000,
               child: Container(
-                height: 58,
-                width: 110,
-                child: SvgPicture.asset(
-                  'assets/images/game_memory_number_7/cloud_2.svg',
+                height: 48,
+                width: 85,
+                child: Image.asset(
+                  'assets/images/game_memory_number_7/cloud_3.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -228,13 +253,14 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
+    widgets.add(displayCloud());
     widgets.add(displayHotAirBalloon());
     if (isDisplayAnswer) {
       widgets.add(displayAnswer());
     } else {
       widgets.add(displayQuestion());
     }
-    widgets.add(displayCloud());
+
     widgets.add(BasicItem());
 
     return widgets;

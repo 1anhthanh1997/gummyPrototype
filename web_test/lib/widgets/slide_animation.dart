@@ -35,7 +35,7 @@ class _SlideAnimationState extends State<SlideAnimation>
     int time = widget.time == null ? (rdm.nextInt(20) + 40) * 20 : widget.time;
     _animationController =
         AnimationController(duration: Duration(milliseconds: time), vsync: this)
-          ..repeat(reverse: true );
+          ..repeat(reverse: false );
   }
 
   @override
