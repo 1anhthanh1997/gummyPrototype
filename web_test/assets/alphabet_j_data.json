@@ -10,7 +10,7 @@
   "gameName":"Game tô chữ cái",
   "parentId":0,
   "createDate":0,
-  "gameAssets":"assets/images/",
+  "gameAssets":"assets/images/game_draw_alphabet_3/",
   "gameData":[
     {
       "id":1,
@@ -35,6 +35,56 @@
           },
           "width":178.0,
           "height":284.0
+        }
+      ],
+      "width":213.0,
+      "height":284.0
+    },
+    {
+      "id":1,
+      "parentId":0,
+      "gameType":0,
+      "background": "background_image.png",
+      "items":[
+        {
+          "image":"ant.png",
+          "position": {
+            "dx": 231.0,
+            "dy": 34.0
+          },
+          "status": 0,
+          "width":124.0,
+          "height":81.0
+        },
+        {
+          "image":"ambulance.png",
+          "position": {
+            "dx": 411.0,
+            "dy": 209.0
+          },
+          "status": 0,
+          "width":120.0,
+          "height":82.0
+        },
+        {
+          "image":"airplane.png",
+          "position": {
+            "dx": 231.0,
+            "dy": 209.0
+          },
+          "status": 0,
+          "width":125.0,
+          "height":44.0
+        },
+        {
+          "image":"arrow.png",
+          "position": {
+            "dx": 411.0,
+            "dy": 34.0
+          },
+          "status": 0,
+          "width":117.0,
+          "height":13.0
         }
       ],
       "width":213.0,

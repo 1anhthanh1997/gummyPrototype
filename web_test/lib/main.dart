@@ -8,6 +8,7 @@ import 'package:web_test/prototype/game_screen/game_choose_pair_6/choose_pair_ga
 import 'package:web_test/prototype/game_screen/game_classify_5/classify_items.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/draw_alphabet.dart';
 import 'package:web_test/prototype/game_screen/game_coloring_image_1/draw_image_game.dart';
+import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/scratcher_game.dart';
 import 'package:web_test/prototype/game_screen/game_memory_number_7/game_memory_number.dart';
 import 'package:web_test/prototype/game_screen/game_jigsaw_2/jigsaw_game.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -56,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
-      child: JigsawGame(),
+      child: ScratcherGame(),
     );
   }
 }

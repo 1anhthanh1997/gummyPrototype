@@ -1,20 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
-import 'package:web_test/model/color_model.dart';
-import 'package:web_test/model/game_draw_model.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
-import 'package:web_test/widgets/animation_color.dart';
 
 class DrawImageGame extends StatefulWidget {
   _DrawImageGameState createState() => _DrawImageGameState();
@@ -117,7 +112,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
         countSum += colorData[index].count;
       });
     }
-    print(countSum);
   }
 
   void editPath() {

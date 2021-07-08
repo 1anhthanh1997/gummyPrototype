@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/widgets/character_item.dart';
@@ -30,14 +31,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   List<Offset> startPosition = [];
   List<Offset> endPosition = [];
   int currentIndex = 0;
-  double bonusHeight=0;
+  double bonusHeight = 0;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
     var allGameData = json.decode(jsonData);
     data = allGameData['gameData'][0]['items'];
-    double objectHeight=allGameData['gameData'][0]['height'];
-    bonusHeight=50.0;
+    double objectHeight = allGameData['gameData'][0]['height'];
+    bonusHeight = 50.0;
     alphabetData = data
         .map((alphabetInfo) => new GameDataModel.fromJson(alphabetInfo))
         .toList();
@@ -76,7 +77,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   addPoints(String action, Offset position) {
     if (!alphabetPath[currentIndex].contains(Offset(
         position.dx - imagePosition[currentIndex].dx,
-        position.dy - imagePosition[currentIndex].dy-bonusHeight))) {
+        position.dy - imagePosition[currentIndex].dy - bonusHeight))) {
       // removePoint();
       setState(() {
         _focusingItem = '';
@@ -85,7 +86,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     }
     if (alphabetPath[currentIndex].contains(Offset(
             position.dx - imagePosition[currentIndex].dx,
-            position.dy - imagePosition[currentIndex].dy-bonusHeight)) &&
+            position.dy - imagePosition[currentIndex].dy - bonusHeight)) &&
         ((_focusingItem == '' && action == 'start') ||
             _focusingItem == 'alphabet')) {
       if (action != 'start' &&
@@ -95,7 +96,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                       previousPoint.dx) /
                   2,
               (position.dy -
-                      imagePosition[currentIndex].dy-bonusHeight +
+                      imagePosition[currentIndex].dy -
+                      bonusHeight +
                       previousPoint.dy) /
                   2))) {
         removePoint();
@@ -107,11 +109,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       setState(() {
         _alphabetPoint[currentIndex].add({
           'offset': Offset(position.dx - imagePosition[currentIndex].dx,
-              position.dy - imagePosition[currentIndex].dy-bonusHeight),
+              position.dy - imagePosition[currentIndex].dy - bonusHeight),
           'color': Colors.red
         });
         previousPoint = Offset(position.dx - imagePosition[currentIndex].dx,
-            position.dy - imagePosition[currentIndex].dy-bonusHeight);
+            position.dy - imagePosition[currentIndex].dy - bonusHeight);
       });
       if (action == 'start') {
         setState(() {
@@ -131,7 +133,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             child: CharacterItem(imageLink[index], 213, 284, Colors.red,
                 alphabetPath[index], _alphabetPoint[index], isCorrect),
             left: imagePosition[index].dx,
-            top: imagePosition[index].dy+bonusHeight);
+            top: imagePosition[index].dy + bonusHeight);
       }).toList(),
     );
   }
@@ -180,6 +182,28 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     }
   }
 
+  Widget scratcher() {
+    return Stack(
+      children: [
+        Positioned(
+            top: 100,
+            left: 100,
+            child: Scratcher(
+              brushSize: 30,
+              threshold: 50,
+              color: Colors.red,
+              onChange: (value) => print("Scratch progress: $value%"),
+              onThreshold: () => print("Threshold reached, you won!"),
+              child: Container(
+                height: 100,
+                width: 100,
+                color: Colors.blue,
+              ),
+            ))
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,7 +220,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                     onPanEnd: (details) {
                       onPanEndAction();
                     },
-                    child: displayAlphabet())
+                    child: scratcher())
                 : Container()));
   }
 }
