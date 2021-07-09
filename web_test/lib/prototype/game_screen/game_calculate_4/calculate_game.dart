@@ -1,17 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/game_calculate_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
+import 'package:http/http.dart' as http;
 
 class CalculateGame extends StatefulWidget {
   _CalculateGameState createState() => _CalculateGameState();
@@ -39,10 +45,13 @@ class _CalculateGameState extends State<CalculateGame> {
   int firstRandomValue;
   int secondRandomValue;
   int randomIndex = 0;
+  String _localPath;
+  final debug = true;
 
-  Future<void> loadAlphabetData() async {
-    var jsonData = await rootBundle.loadString('assets/calculate_game.json');
-    var allGameData = json.decode(jsonData);
+  Future<void> getGameData() async {
+    final response = await http.get(Uri.parse(
+        'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
+    var allGameData = json.decode(response.body);
     data = allGameData['gameData'][0]['items'];
     assetFolder = allGameData['gameAssets'];
     itemData = data
@@ -63,15 +72,43 @@ class _CalculateGameState extends State<CalculateGame> {
         normalItemModel.add(itemData[index]);
       }
     }
+    await _prepareSaveDir();
+    // await FlutterDownloader.initialize();
+    final taskId = await FlutterDownloader.enqueue(
+      url:
+          'https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip',
+      savedDir: _localPath,
+      showNotification: true,
+      // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
+  }
+
+  Future<void> _prepareSaveDir() async {
+    _localPath = (await _findLocalPath()) + Platform.pathSeparator + 'Thanh';
+    final savedDir = Directory(_localPath);
+    bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
+    }
+  }
+
+  Future<String> _findLocalPath() async {
+    final directory = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+    return directory?.path;
   }
 
   @override
   void initState() {
     super.initState();
-    this.loadAlphabetData();
+    getGameData();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     genElement();
+
   }
 
   @override
@@ -81,13 +118,22 @@ class _CalculateGameState extends State<CalculateGame> {
     screenWidth = screenModel.getScreenWidth();
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 111 * ratio) / 2;
-    print(ratio);
+  }
+
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    print(
+        'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
+
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send.send([id, status, progress]);
   }
 
   void genElement() {
     Random random = new Random();
     int firstItem = random.nextInt(8) + 1;
-    int secondItem = random.nextInt(8 - firstItem) + 1;
+    int secondItem = random.nextInt(9 - firstItem) + 1;
     firstRandomValue = firstItem + secondItem;
     secondRandomValue = firstRandomValue;
     while (firstRandomValue == secondRandomValue ||
@@ -248,7 +294,7 @@ class _CalculateGameState extends State<CalculateGame> {
             image:
                 DecorationImage(image: AssetImage(image), fit: BoxFit.contain)),
         alignment: Alignment.center,
-        padding: EdgeInsets.only(top: 20*ratio),
+        padding: EdgeInsets.only(top: 20 * ratio),
         child: isScale
             ? displayNumber(value, 29 * 1.3, 36 * 1.3)
             : displayNumber(value, 29, 36),

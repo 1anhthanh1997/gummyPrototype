@@ -5,6 +5,7 @@ class ScreenModel extends ChangeNotifier {
   double screenHeight;
   double ratio;
   BuildContext currentContext;
+  int currentGameId=4;
 
   void setContext(BuildContext context) {
     currentContext = context;

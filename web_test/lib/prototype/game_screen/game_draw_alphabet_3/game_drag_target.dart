@@ -10,11 +10,11 @@ import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/character_item.dart';
 
-class ScratcherGame extends StatefulWidget {
-  _ScratcherGameState createState() => _ScratcherGameState();
+class GameDragTarget extends StatefulWidget {
+  _GameDragTargetState createState() => _GameDragTargetState();
 }
 
-class _ScratcherGameState extends State<ScratcherGame>
+class _GameDragTargetState extends State<GameDragTarget>
     with TickerProviderStateMixin {
   List<Path> alphabetPath = [];
   List<List<Map>> _alphabetPoint = [];
@@ -38,11 +38,13 @@ class _ScratcherGameState extends State<ScratcherGame>
   var allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
+  List<ItemModel> sourceModel = [];
+  List<ItemModel> targetModel = [];
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
     allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][1]['items'];
+    data = allGameData['gameData'][2]['items'];
     assetFolder = allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
@@ -50,6 +52,15 @@ class _ScratcherGameState extends State<ScratcherGame>
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
     }
+    imageData.map((item) {
+      if (item.type == 0) {
+        targetModel.add(item);
+      } else if (item.type == 1) {
+        sourceModel.add(item);
+      }
+      setState(() {});
+    }).toList();
+
     setState(() {});
   }
 
@@ -59,59 +70,45 @@ class _ScratcherGameState extends State<ScratcherGame>
     this.loadAlphabetData().whenComplete(() => {setState(() {})});
   }
 
-  Widget displayScratcherItem(ItemModel item, int index) {
-    return isCompleted[index]
-        ? Positioned(
+  Widget displayDraggable() {
+    return Stack(
+      children: sourceModel.map((item) {
+        return Positioned(
             top: item.position.dy,
             left: item.position.dx,
-            child: Container(
-              height: 144,
-              width: 144,
-              alignment: Alignment.center,
-              child: Container(
+            child: Draggable(
+              child: item.status == 1
+                  ? Container()
+                  : Container(
+                      height: item.height * 0.9,
+                      width: item.width * 0.9,
+                      child: Image.asset(
+                        assetFolder + item.image,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+              feedback: Container(
                 height: item.height,
                 width: item.width,
-                child: Image.asset(assetFolder + item.image),
-              ),
-            ),
-          )
-        : Positioned(
-            top: item.position.dy,
-            left: item.position.dx,
-            child: Scratcher(
-              brushSize: 30,
-              threshold: 70,
-              color: HexColor('#00FFFFFF'),
-              image: Image.asset(
-                'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',
-                fit: BoxFit.fill,
-              ),
-              onChange: (value) => print("Scratch progress: $value%"),
-              onThreshold: () => {
-                setState(() {
-                  isCompleted[index] = true;
-                })
-              },
-              child: Container(
-                height: 144,
-                width: 144,
-                alignment: Alignment.center,
-                child: Container(
-                  height: item.height,
-                  width: item.width,
-                  child: Image.asset(assetFolder + item.image),
+                child: Image.asset(
+                  assetFolder + item.image,
+                  fit: BoxFit.contain,
                 ),
               ),
+              childWhenDragging: Container(),
             ));
-  }
-
-  Widget scratcher() {
-    List<int> imageIndex = Iterable<int>.generate(imageData.length).toList();
-    return Stack(
-      children: imageIndex.map((index) {
-        return displayScratcherItem(imageData[index], index);
       }).toList(),
     );
+  }
+
+  Widget displayTarget() {
+
+  }
+
+  List<Widget> displayScreen() {
+    List<Widget> widgets = [];
+    widgets.add(displayDraggable());
+    return widgets;
   }
 
   @override
@@ -123,8 +120,10 @@ class _ScratcherGameState extends State<ScratcherGame>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][1]['background']),
+                            allGameData['gameData'][2]['background']),
                         fit: BoxFit.fill)),
-                child: scratcher()));
+                child: Stack(
+                  children: displayScreen(),
+                )));
   }
 }

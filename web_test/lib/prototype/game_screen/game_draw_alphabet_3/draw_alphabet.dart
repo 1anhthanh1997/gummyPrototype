@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
+import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/character_item.dart';
 
 class DrawAlphabet extends StatefulWidget {
@@ -18,29 +19,32 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   List<List<Map>> _alphabetPoint = [];
   String _focusingItem = '';
   String currentColor = '#000000';
-  bool isCorrect = false;
+  // bool isCorrect = false;
   Offset previousPoint = Offset(0, 0);
   bool isColoringFromStart = false;
   Timer deleteTimer;
   Timer secondDeleteTimer;
   Timer thirdDeleteTimer;
   List data;
-  List<GameDataModel> alphabetData = [];
+  List<ItemModel> alphabetData = [];
   List<String> imageLink = [];
   List<Offset> imagePosition = [];
   List<Offset> startPosition = [];
   List<Offset> endPosition = [];
   int currentIndex = 0;
   double bonusHeight = 0;
+  var allGameData;
+  var assetFolder;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
-    var allGameData = json.decode(jsonData);
+    allGameData = json.decode(jsonData);
     data = allGameData['gameData'][0]['items'];
     double objectHeight = allGameData['gameData'][0]['height'];
-    bonusHeight = 50.0;
+    assetFolder = allGameData['gameAssets'];
+    bonusHeight = 0.0;
     alphabetData = data
-        .map((alphabetInfo) => new GameDataModel.fromJson(alphabetInfo))
+        .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
     for (int index = 0; index < alphabetData.length; index++) {
       setState(() {
@@ -48,8 +52,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
         imageLink.add(allGameData['gameAssets'] + alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
-        startPosition.add(alphabetData[index].startPoint);
-        endPosition.add(alphabetData[index].endPoint);
+        startPosition.add(alphabetData[index].startPosition);
+        endPosition.add(alphabetData[index].endPosition);
       });
     }
   }
@@ -127,11 +131,12 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   Widget displayAlphabet() {
     List<int> indexGenerate =
         Iterable<int>.generate(alphabetData.length).toList();
+    indexGenerate.sort((a, b) => b.compareTo(a));
     return Stack(
       children: indexGenerate.map((index) {
         return Positioned(
-            child: CharacterItem(imageLink[index], 213, 284, Colors.red,
-                alphabetPath[index], _alphabetPoint[index], isCorrect),
+            child: CharacterItem(imageLink[index], alphabetData[index].width, alphabetData[index].height, Colors.red,
+                alphabetPath[index], _alphabetPoint[index], alphabetData[index].status==1),
             left: imagePosition[index].dx,
             top: imagePosition[index].dy + bonusHeight);
       }).toList(),
@@ -139,6 +144,9 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   void onPanStartAction(Offset localPosition) {
+    // print(localPosition);
+    // print(startPosition[currentIndex]);
+
     if (currentColor != '' &&
         localPosition.dx < startPosition[currentIndex].dx + 50 &&
         localPosition.dx > startPosition[currentIndex].dx &&
@@ -159,7 +167,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
           isColoringFromStart &&
           _alphabetPoint[currentIndex].length > 2) {
         setState(() {
-          isCorrect = true;
+          alphabetData[currentIndex].status = 1;
         });
       }
     }
@@ -167,60 +175,46 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   void onPanEndAction() {
     if (currentColor != '') {
-      if (!isCorrect) {
+      if (alphabetData[currentIndex].status == 0) {
         removePoint();
         setState(() {
           isColoringFromStart = false;
         });
+      }else{
+        setState(() {
+          currentIndex = currentIndex < alphabetData.length - 1
+              ? currentIndex + 1
+              : currentIndex;
+          _focusingItem = '';
+        });
       }
-      setState(() {
-        currentIndex = currentIndex < alphabetData.length - 1
-            ? currentIndex + 1
-            : currentIndex;
-        _focusingItem = '';
-      });
     }
-  }
-
-  Widget scratcher() {
-    return Stack(
-      children: [
-        Positioned(
-            top: 100,
-            left: 100,
-            child: Scratcher(
-              brushSize: 30,
-              threshold: 50,
-              color: Colors.red,
-              onChange: (value) => print("Scratch progress: $value%"),
-              onThreshold: () => print("Threshold reached, you won!"),
-              child: Container(
-                height: 100,
-                width: 100,
-                color: Colors.blue,
-              ),
-            ))
-      ],
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            child: alphabetData.length != 0
-                ? GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onPanStart: (details) {
-                      onPanStartAction(details.localPosition);
-                    },
-                    onPanUpdate: (details) {
-                      onPanUpdateAction(details.localPosition);
-                    },
-                    onPanEnd: (details) {
-                      onPanEndAction();
-                    },
-                    child: scratcher())
-                : Container()));
+        body: alphabetData.length == 0
+            ? Container()
+            : Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(assetFolder +
+                            allGameData['gameData'][0]['background']),
+                        fit: BoxFit.fill)),
+                child: alphabetData.length != 0
+                    ? GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onPanStart: (details) {
+                          onPanStartAction(details.localPosition);
+                        },
+                        onPanUpdate: (details) {
+                          onPanUpdateAction(details.localPosition);
+                        },
+                        onPanEnd: (details) {
+                          onPanEndAction();
+                        },
+                        child: displayAlphabet())
+                    : Container()));
   }
 }
