@@ -9,6 +9,7 @@ class ScreenModel extends ChangeNotifier {
   int currentGameId = 2;
   var currentGame;
   int currentStep = 0;
+  String localPath;
 
   void setContext(BuildContext context) {
     currentContext = context;

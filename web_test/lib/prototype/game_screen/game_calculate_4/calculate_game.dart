@@ -74,40 +74,13 @@ class _CalculateGameState extends State<CalculateGame> {
     }
   }
 
-  Future<void> _prepareSaveDir() async {
-    await FlutterDownloader.loadTasks();
-    _localPath = (await _findLocalPath()) + Platform.pathSeparator + 'Thanh';
-    final savedDir = Directory(_localPath);
-    bool hasExisted = await savedDir.exists();
-    if (!hasExisted) {
-      savedDir.create();
-    }
-  }
 
-  Future<String> _findLocalPath() async {
-    final directory = Platform.isAndroid
-        ? await getExternalStorageDirectory()
-        : await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
 
-  Future<void> requestDownload()async{
-    await _prepareSaveDir();
-    final taskId = await FlutterDownloader.enqueue(
-      url:
-      'https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip',
-      savedDir: _localPath,
-      showNotification: true,
-      // show download progress in status bar (for Android)
-      openFileFromNotification:
-      true, // click on notification to open downloaded file (for Android)
-    );
-  }
+
 
   @override
   void initState() {
     super.initState();
-    getGameData();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     genElement();
@@ -123,15 +96,6 @@ class _CalculateGameState extends State<CalculateGame> {
     bonusHeight = (screenHeight - 111 * ratio) / 2;
   }
 
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
-    print(
-        'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
-
-    final SendPort send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send.send([id, status, progress]);
-  }
 
   void genElement() {
     Random random = new Random();
@@ -334,7 +298,6 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
               },
               onAccept: (data) {
-                requestDownload();
                 setState(() {
                   sourceModel[index].status = 1;
                   targetModel[index].status = 1;

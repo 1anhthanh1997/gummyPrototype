@@ -26,17 +26,21 @@ class MainGameRoute extends StatefulWidget {
 class _MainGameRouteState extends State<MainGameRoute> {
   ScreenModel screenModel;
 
-  var allGameData;
+  var data;
   var currentGameData;
   bool debug = true;
   String _localPath;
   bool _permissionReady;
   TargetPlatform platform;
+  String assetsUrl;
+  bool isComplete = false;
 
   Future<void> loadGameData() async {
     var jsonData = await rootBundle.loadString('assets/game_data.json');
-    allGameData = json.decode(jsonData);
-    allGameData.map((game) {
+    var allGameData = json.decode(jsonData);
+    assetsUrl = allGameData['assetsUrl'];
+    data = allGameData['data'];
+    data.map((game) {
       if (screenModel.currentGameId == game['id']) {
         screenModel.currentGame = game;
         setState(() {
@@ -46,6 +50,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
     }).toList();
     print(currentGameData);
     setState(() {});
+    downloadAssets();
   }
 
   @override
@@ -54,7 +59,6 @@ class _MainGameRouteState extends State<MainGameRoute> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData();
-    downloadAssets();
     super.initState();
   }
 
@@ -62,9 +66,9 @@ class _MainGameRouteState extends State<MainGameRoute> {
     FlutterDownloader.registerCallback(downloadCallback);
     await _prepare();
     _requestDownload();
-    Timer(Duration(milliseconds: 3000), () {
-      extractFile();
-    });
+    // Timer(Duration(milliseconds: 3000), () {
+    //   extractFile();
+    // });
   }
 
   void extractFile() {
@@ -73,6 +77,9 @@ class _MainGameRouteState extends State<MainGameRoute> {
     try {
       ZipFile.extractToDirectory(
           zipFile: zipFile, destinationDir: destinationDir);
+      setState(() {
+        isComplete = true;
+      });
     } catch (e) {
       print(e);
     }
@@ -90,8 +97,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
 
   void _requestDownload() async {
     final taskId = await FlutterDownloader.enqueue(
-        url:
-            'https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip',
+        url: assetsUrl,
         headers: {"auth": "test_for_sql_encoding"},
         savedDir: _localPath,
         showNotification: true,
@@ -127,12 +133,17 @@ class _MainGameRouteState extends State<MainGameRoute> {
 
   Future<void> _prepareSaveDir() async {
     _localPath = (await _findLocalPath()) + Platform.pathSeparator + 'Download';
-    print(_localPath);
     final savedDir = Directory(_localPath);
     bool hasExisted = await savedDir.exists();
     if (!hasExisted) {
       savedDir.create();
     }
+    if(hasExisted){
+      setState(() {
+        isComplete=true;
+      });
+    }
+    screenModel.localPath = _localPath;
   }
 
   Future<String> _findLocalPath() async {
@@ -165,8 +176,12 @@ class _MainGameRouteState extends State<MainGameRoute> {
           )
         : Consumer<ScreenModel>(
             builder: (context, ScreenModel value, child) {
-              return displayGame(currentGameData['gameData']
-                  [screenModel.currentStep]['gameType']);
+              return isComplete
+                  ? displayGame(currentGameData['gameData']
+                      [screenModel.currentStep]['gameType'])
+                  : Scaffold(
+                      body: Container(),
+                    );
             },
           );
   }

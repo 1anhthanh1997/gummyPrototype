@@ -54,7 +54,7 @@ class _GameDragTargetState extends State<GameDragTarget>
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
     allGameData = json.decode(jsonData);
     data = allGameData['gameData'][2]['items'];
-    assetFolder = allGameData['gameAssets'];
+    assetFolder = screenModel.localPath+allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();

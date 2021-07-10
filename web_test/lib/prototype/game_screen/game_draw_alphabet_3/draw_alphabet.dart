@@ -21,6 +21,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   List<List<Map>> _alphabetPoint = [];
   String _focusingItem = '';
   String currentColor = '#000000';
+
   // bool isCorrect = false;
   Offset previousPoint = Offset(0, 0);
   bool isColoringFromStart = false;
@@ -49,11 +50,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     alphabetData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
+    // print(screenModel.localPath);
     for (int index = 0; index < alphabetData.length; index++) {
       setState(() {
         _alphabetPoint.add([]);
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
-        imageLink.add(allGameData['gameAssets'] + alphabetData[index].image);
+        imageLink.add(screenModel.localPath +
+            allGameData['gameAssets'] +
+            alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
         startPosition.add(alphabetData[index].startPosition);
         endPosition.add(alphabetData[index].endPosition);
@@ -140,8 +144,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     return Stack(
       children: indexGenerate.map((index) {
         return Positioned(
-            child: CharacterItem(imageLink[index], alphabetData[index].width, alphabetData[index].height, Colors.red,
-                alphabetPath[index], _alphabetPoint[index], alphabetData[index].status==1),
+            child: CharacterItem(
+                imageLink[index],
+                alphabetData[index].width,
+                alphabetData[index].height,
+                Colors.red,
+                alphabetPath[index],
+                _alphabetPoint[index],
+                alphabetData[index].status == 1),
             left: imagePosition[index].dx,
             top: imagePosition[index].dy + bonusHeight);
       }).toList(),
@@ -185,8 +195,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         setState(() {
           isColoringFromStart = false;
         });
-      }else{
-        if(currentIndex==alphabetData.length - 1){
+      } else {
+        if (currentIndex == alphabetData.length - 1) {
           screenModel.nextStep();
         }
         setState(() {
@@ -195,7 +205,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
               : currentIndex;
           _focusingItem = '';
         });
-
       }
     }
   }
@@ -208,7 +217,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(assetFolder +
+                        image: AssetImage(screenModel.localPath +
+                            assetFolder +
                             allGameData['gameData'][0]['background']),
                         fit: BoxFit.fill)),
                 child: alphabetData.length != 0
