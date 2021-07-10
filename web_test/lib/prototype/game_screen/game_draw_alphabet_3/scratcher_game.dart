@@ -7,7 +7,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
-import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/character_item.dart';
@@ -29,7 +28,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   Timer secondDeleteTimer;
   Timer thirdDeleteTimer;
   List data;
-  List<GameDataModel> alphabetData = [];
+  List<ItemModel> alphabetData = [];
   List<String> imageLink = [];
   List<Offset> imagePosition = [];
   List<Offset> startPosition = [];

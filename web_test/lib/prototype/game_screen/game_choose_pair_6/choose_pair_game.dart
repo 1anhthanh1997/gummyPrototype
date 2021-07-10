@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:web_test/model/game_calculate_model.dart';
+import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -15,7 +15,7 @@ class ChoosePairGame extends StatefulWidget {
 
 class _ChoosePairGameState extends State<ChoosePairGame> {
   List data;
-  List<GameCalculateModel> itemData = [];
+  List<ItemModel> itemData = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
   String assetFolder = '';
@@ -30,7 +30,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     data = allGameData['gameData'][step]['items'];
     assetFolder = allGameData['gameAssets'];
     itemData = data
-        .map((itemData) => new GameCalculateModel.fromJson(itemData))
+        .map((itemData) => new ItemModel.fromJson(itemData))
         .toList();
     for(int idx=0;idx<itemData.length;idx++){
       isScale.add(0);
@@ -56,7 +56,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     List<int> targetIndex = Iterable<int>.generate(itemData.length).toList();
     return Stack(
       children: targetIndex.map((index) {
-        GameCalculateModel item = itemData[index];
+        ItemModel item = itemData[index];
         return item.status == 0
             ? Positioned(
                 left: item.position.dx,

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:web_test/model/game_classify_model.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
@@ -24,7 +23,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   List<ItemModel> items = [];
   Animation<double> _transAnimation;
   var data;
-  List<GameClassifyModel> classifyData = [];
+  List<ItemModel> classifyData = [];
   String assetFolder;
   int step = 0;
   List<bool> isSelected = [false, false];

@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:web_test/model/game_calculate_model.dart';
+import 'package:web_test/model/item_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
@@ -20,14 +20,14 @@ class GameMemoryNumber extends StatefulWidget {
 
 class _GameMemoryNumberState extends State<GameMemoryNumber> {
   List data;
-  List<GameCalculateModel> itemData = [];
+  List<ItemModel> itemData = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
   String assetFolder = '';
-  GameCalculateModel questionData;
+  ItemModel questionData;
   Offset questionPositionTmp = Offset(0, 0);
   List<Offset> answerPositionTmp = [];
-  List<GameCalculateModel> answerData = [];
+  List<ItemModel> answerData = [];
   final List<List<SquareParticle>> particles = [];
   bool isDisplayAnswer = false;
   var allGameData;
@@ -38,7 +38,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     data = allGameData['gameData'][0]['items'];
     assetFolder = allGameData['gameAssets'];
     itemData = data
-        .map((itemData) => new GameCalculateModel.fromJson(itemData))
+        .map((itemData) => new ItemModel.fromJson(itemData))
         .toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
@@ -80,7 +80,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   Widget _square(int index) {
-    GameCalculateModel item = answerData[index];
+    ItemModel item = answerData[index];
     return Container(
       height: item.height,
       width: item.width,
@@ -119,7 +119,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   Widget _buildParticle(int index) {
-    GameCalculateModel item = answerData[index];
+    ItemModel item = answerData[index];
     return Rendering(
       // onTick: (time) => _manageParticleLife(time),
       builder: (context, time) {
@@ -145,7 +145,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     List<int> answerIndex = Iterable<int>.generate(answerData.length).toList();
     return Stack(
       children: answerIndex.map((index) {
-        GameCalculateModel item = answerData[index];
+        ItemModel item = answerData[index];
         return item.type == 1 && item.groupId == questionData.groupId
             ? AnimatedPositioned(
                 left: item.position.dx,

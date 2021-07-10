@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:web_test/model/game_calculate_model.dart';
+import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
@@ -25,10 +25,10 @@ class CalculateGame extends StatefulWidget {
 
 class _CalculateGameState extends State<CalculateGame> {
   List data;
-  List<GameCalculateModel> itemData = [];
-  List<GameCalculateModel> sourceModel = [];
-  List<GameCalculateModel> targetModel = [];
-  List<GameCalculateModel> normalItemModel = [];
+  List<ItemModel> itemData = [];
+  List<ItemModel> sourceModel = [];
+  List<ItemModel> targetModel = [];
+  List<ItemModel> normalItemModel = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
   String assetFolder = '';
@@ -55,7 +55,7 @@ class _CalculateGameState extends State<CalculateGame> {
     data = allGameData['gameData'][0]['items'];
     assetFolder = allGameData['gameAssets'];
     itemData = data
-        .map((itemData) => new GameCalculateModel.fromJson(itemData))
+        .map((itemData) => new ItemModel.fromJson(itemData))
         .toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
@@ -73,10 +73,6 @@ class _CalculateGameState extends State<CalculateGame> {
       }
     }
   }
-
-
-
-
 
   @override
   void initState() {
@@ -135,7 +131,7 @@ class _CalculateGameState extends State<CalculateGame> {
       return -1 * val;
   }
 
-  void onDraggableCancelled(GameCalculateModel item, Offset offset) {
+  void onDraggableCancelled(ItemModel item, Offset offset) {
     if (isWrongTarget) {
       Offset offsetSource = item.position;
       item.position = Offset(offset.dx / ratio, offset.dy / ratio);
@@ -273,7 +269,7 @@ class _CalculateGameState extends State<CalculateGame> {
     List<int> targetIndex = Iterable<int>.generate(targetModel.length).toList();
     return Stack(
       children: targetIndex.map((index) {
-        GameCalculateModel item = targetModel[index];
+        ItemModel item = targetModel[index];
         return Positioned(
             top: item.position.dy * ratio - 139 * ratio + bonusHeight,
             left: item.position.dx * ratio,
@@ -314,7 +310,7 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: sourceIndex.map((index) {
         int number;
-        GameCalculateModel item = sourceModel[index];
+        ItemModel item = sourceModel[index];
         String fullInitUrl = assetFolder + item.image;
         if (item.groupId == 0) {
           number = result;
