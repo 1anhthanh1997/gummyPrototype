@@ -8,6 +8,9 @@ import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/widgets/animated_matched_target.dart';
+import 'package:web_test/widgets/animation_draggable_tap.dart';
+import 'package:web_test/widgets/animation_hit_fail.dart';
 import 'package:web_test/widgets/character_item.dart';
 
 class GameDragTarget extends StatefulWidget {
@@ -40,6 +43,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   List<bool> isCompleted = [];
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
+  bool isWrongTarget = false;
+  bool isHitFail = false;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
@@ -53,7 +58,9 @@ class _GameDragTargetState extends State<GameDragTarget>
       isCompleted.add(false);
     }
     imageData.map((item) {
+      print(item.type);
       if (item.type == 0) {
+        print(item.image);
         targetModel.add(item);
       } else if (item.type == 1) {
         sourceModel.add(item);
@@ -70,6 +77,63 @@ class _GameDragTargetState extends State<GameDragTarget>
     this.loadAlphabetData().whenComplete(() => {setState(() {})});
   }
 
+  double getBiggerSpace(Offset offsetSource, Offset offset) {
+    double verticalSpace = offsetSource.dy - offset.dy > 0
+        ? offsetSource.dy - offset.dy
+        : offset.dy - offsetSource.dy;
+    double horizontalSpace = offsetSource.dx - offset.dx > 0
+        ? offsetSource.dx - offset.dx
+        : offset.dx - offsetSource.dx;
+    double denta =
+        verticalSpace > horizontalSpace ? verticalSpace : horizontalSpace;
+    return denta;
+  }
+
+  int editValue(int val) {
+    if (val >= 0)
+      return val;
+    else
+      return -1 * val;
+  }
+
+  void callOnDraggableCancelled(ItemModel item, Offset offset) {
+    if (isWrongTarget) {
+      Offset offsetSource = item.position;
+      item.position = Offset(offset.dx, offset.dy);
+      setState(() {
+        isHitFail = true;
+      });
+      Timer(Duration(milliseconds: 200), () {
+        setState(() {
+          isHitFail = false;
+          isWrongTarget = false;
+        });
+      });
+      Timer(Duration(milliseconds: 800), () {
+        double denta = getBiggerSpace(offsetSource, offset);
+        if (denta < 200 && item.status == 0) {
+          denta = 200;
+        }
+        item.duration = editValue(denta.toInt());
+        item.position = offsetSource;
+        setState(() {});
+      });
+    } else {
+      Offset offsetSource = item.position;
+      item.position = Offset(offset.dx, offset.dy);
+      setState(() {});
+      Timer(Duration(milliseconds: 50), () {
+        double denta = getBiggerSpace(offsetSource, offset);
+        if (denta < 200 && item.status == 0) {
+          denta = 200;
+        }
+        item.duration = editValue(denta.toInt());
+        item.position = offsetSource;
+        setState(() {});
+      });
+    }
+  }
+
   Widget displayDraggable() {
     return Stack(
       children: sourceModel.map((item) {
@@ -77,14 +141,20 @@ class _GameDragTargetState extends State<GameDragTarget>
             top: item.position.dy,
             left: item.position.dx,
             child: Draggable(
+              data: item.groupId,
               child: item.status == 1
                   ? Container()
-                  : Container(
-                      height: item.height * 0.9,
-                      width: item.width * 0.9,
-                      child: Image.asset(
-                        assetFolder + item.image,
-                        fit: BoxFit.contain,
+                  : AnimationDraggableTap(
+                      child: AnimationHitFail(
+                        isDisplayAnimation: isHitFail,
+                        child: Container(
+                          height: item.height * 0.9,
+                          width: item.width * 0.9,
+                          child: Image.asset(
+                            assetFolder + item.image,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
                       ),
                     ),
               feedback: Container(
@@ -96,17 +166,61 @@ class _GameDragTargetState extends State<GameDragTarget>
                 ),
               ),
               childWhenDragging: Container(),
+              onDraggableCanceled: (velocity, offset) {
+                callOnDraggableCancelled(item, offset);
+              },
             ));
       }).toList(),
     );
   }
 
   Widget displayTarget() {
-
+    return Stack(
+      children: targetModel.map((item) {
+        int index = targetModel.indexOf(item);
+        return Positioned(
+          top: item.position.dy,
+          left: item.position.dx,
+          child: DragTarget<int>(
+            builder: (context, candidateData, rejectedData) {
+              return item.status == 0
+                  ? Container(
+                      height: item.height,
+                      width: item.width,
+                      child: Image.asset(assetFolder + item.image,
+                          fit: BoxFit.contain),
+                    )
+                  : AnimatedMatchedTarget(
+                      child: Container(
+                      height: item.height,
+                      width: item.width,
+                      child: Image.asset(assetFolder + sourceModel[index].image,
+                          fit: BoxFit.contain),
+                    ));
+            },
+            onWillAccept: (data) {
+              return data == item.groupId;
+            },
+            onLeave: (data){
+              setState(() {
+                isWrongTarget = true;
+              });
+            },
+            onAccept: (data) {
+              setState(() {
+                item.status = 1;
+                sourceModel[index].status = 1;
+              });
+            },
+          ),
+        );
+      }).toList(),
+    );
   }
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
+    widgets.add(displayTarget());
     widgets.add(displayDraggable());
     return widgets;
   }

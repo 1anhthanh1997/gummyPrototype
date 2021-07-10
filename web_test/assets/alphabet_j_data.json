@@ -169,7 +169,7 @@
       "height": 284.0
     },
     {
-      "id": 1,
+      "id": 2,
       "parentId": 0,
       "gameType": 0,
       "background": "background_image_3.png",
@@ -180,6 +180,7 @@
             "dx": 435.0,
             "dy": 69.0
           },
+          "groupId": 0,
           "status": 0,
           "type": 1,
           "width": 124.0,
@@ -192,6 +193,7 @@
             "dy": 69.0
           },
           "status": 0,
+          "groupId": 1,
           "type": 1,
           "width": 69.0,
           "height": 81.0
@@ -203,6 +205,7 @@
             "dy": 94.0
           },
           "status": 0,
+          "groupId": 2,
           "type": 1,
           "width": 125.0,
           "height": 44.0
@@ -214,6 +217,7 @@
             "dy": 102.0
           },
           "status": 0,
+          "groupId": 3,
           "type": 1,
           "width": 117.0,
           "height": 13.0
@@ -221,32 +225,35 @@
         {
           "image": "ant_shadow.png",
           "position": {
-            "dx": 231.0,
-            "dy": 34.0
+            "dx": 430.0,
+            "dy": 250.0
           },
           "status": 0,
+          "groupId": 0,
           "type": 0,
           "width": 124.0,
           "height": 81.0
         },
         {
-          "image": "ambulance_shadow.png",
+          "image": "apple_shadow.png",
           "position": {
-            "dx": 411.0,
-            "dy": 209.0
+            "dx": 276.0,
+            "dy": 247.0
           },
           "status": 0,
+          "groupId": 1,
           "type": 0,
-          "width": 120.0,
+          "width": 69.0,
           "height": 82.0
         },
         {
           "image": "airplane_shadow.png",
           "position": {
-            "dx": 231.0,
-            "dy": 209.0
+            "dx": 66.0,
+            "dy": 275.0
           },
           "status": 0,
+          "groupId": 2,
           "type": 0,
           "width": 125.0,
           "height": 44.0
@@ -254,10 +261,11 @@
         {
           "image": "arrow_shadow.png",
           "position": {
-            "dx": 411.0,
-            "dy": 34.0
+            "dx": 637.0,
+            "dy": 289.0
           },
           "status": 0,
+          "groupId": 3,
           "type": 0,
           "width": 117.0,
           "height": 13.0
