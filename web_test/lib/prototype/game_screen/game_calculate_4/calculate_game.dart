@@ -72,20 +72,10 @@ class _CalculateGameState extends State<CalculateGame> {
         normalItemModel.add(itemData[index]);
       }
     }
-    await _prepareSaveDir();
-    // await FlutterDownloader.initialize();
-    final taskId = await FlutterDownloader.enqueue(
-      url:
-          'https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip',
-      savedDir: _localPath,
-      showNotification: true,
-      // show download progress in status bar (for Android)
-      openFileFromNotification:
-          true, // click on notification to open downloaded file (for Android)
-    );
   }
 
   Future<void> _prepareSaveDir() async {
+    await FlutterDownloader.loadTasks();
     _localPath = (await _findLocalPath()) + Platform.pathSeparator + 'Thanh';
     final savedDir = Directory(_localPath);
     bool hasExisted = await savedDir.exists();
@@ -98,7 +88,20 @@ class _CalculateGameState extends State<CalculateGame> {
     final directory = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationDocumentsDirectory();
-    return directory?.path;
+    return directory.path;
+  }
+
+  Future<void> requestDownload()async{
+    await _prepareSaveDir();
+    final taskId = await FlutterDownloader.enqueue(
+      url:
+      'https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip',
+      savedDir: _localPath,
+      showNotification: true,
+      // show download progress in status bar (for Android)
+      openFileFromNotification:
+      true, // click on notification to open downloaded file (for Android)
+    );
   }
 
   @override
@@ -331,6 +334,7 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
               },
               onAccept: (data) {
+                requestDownload();
                 setState(() {
                   sourceModel[index].status = 1;
                   targetModel[index].status = 1;

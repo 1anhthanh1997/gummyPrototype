@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
@@ -45,6 +47,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   List<ItemModel> targetModel = [];
   bool isWrongTarget = false;
   bool isHitFail = false;
+  int count=0;
+  ScreenModel screenModel;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
@@ -75,6 +79,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   void initState() {
     super.initState();
     this.loadAlphabetData().whenComplete(() => {setState(() {})});
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
@@ -177,6 +183,7 @@ class _GameDragTargetState extends State<GameDragTarget>
   Widget displayTarget() {
     return Stack(
       children: targetModel.map((item) {
+        // print(item);
         int index = targetModel.indexOf(item);
         return Positioned(
           top: item.position.dy,
@@ -208,9 +215,13 @@ class _GameDragTargetState extends State<GameDragTarget>
             },
             onAccept: (data) {
               setState(() {
+                count++;
                 item.status = 1;
                 sourceModel[index].status = 1;
               });
+              if(count==sourceModel.length){
+                screenModel.nextStep();
+              }
             },
           ),
         );

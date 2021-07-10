@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/character_item.dart';
 
 class ScratcherGame extends StatefulWidget {
@@ -38,6 +40,8 @@ class _ScratcherGameState extends State<ScratcherGame>
   var allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
+  int count=0;
+  ScreenModel screenModel;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
@@ -57,6 +61,8 @@ class _ScratcherGameState extends State<ScratcherGame>
   void initState() {
     super.initState();
     this.loadAlphabetData().whenComplete(() => {setState(() {})});
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {
@@ -87,10 +93,14 @@ class _ScratcherGameState extends State<ScratcherGame>
                 fit: BoxFit.fill,
               ),
               onChange: (value) => print("Scratch progress: $value%"),
-              onThreshold: () => {
+              onThreshold: (){
                 setState(() {
                   isCompleted[index] = true;
-                })
+                  count++;
+                });
+                if(count==isCompleted.length){
+                  screenModel.nextStep();
+                }
               },
               child: Container(
                 height: 144,

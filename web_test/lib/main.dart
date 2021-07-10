@@ -5,18 +5,12 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
-import 'package:web_test/prototype/game_screen/game_choose_pair_6/choose_pair_game.dart';
-import 'package:web_test/prototype/game_screen/game_classify_5/classify_items.dart';
-import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/draw_alphabet.dart';
-import 'package:web_test/prototype/game_screen/game_coloring_image_1/draw_image_game.dart';
-import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/game_drag_target.dart';
-import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/scratcher_game.dart';
-import 'package:web_test/prototype/game_screen/game_memory_number_7/game_memory_number.dart';
-import 'package:web_test/prototype/game_screen/game_jigsaw_2/jigsaw_game.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/provider/screen_model.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true);
   runApp(MyApp());
 }
 
@@ -60,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
-      child: GameDragTarget(),
+      child: MainGameRoute(),
     );
   }
 }
+

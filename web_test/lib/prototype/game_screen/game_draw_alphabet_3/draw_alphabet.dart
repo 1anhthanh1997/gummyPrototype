@@ -3,10 +3,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/game_data_model.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/character_item.dart';
 
 class DrawAlphabet extends StatefulWidget {
@@ -35,6 +37,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   double bonusHeight = 0;
   var allGameData;
   var assetFolder;
+  ScreenModel screenModel;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
@@ -62,6 +65,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   void initState() {
     super.initState();
     this.loadAlphabetData().whenComplete(() => {setState(() {})});
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
   }
 
   removePoint() {
@@ -181,12 +186,16 @@ class _DrawAlphabetState extends State<DrawAlphabet>
           isColoringFromStart = false;
         });
       }else{
+        if(currentIndex==alphabetData.length - 1){
+          screenModel.nextStep();
+        }
         setState(() {
           currentIndex = currentIndex < alphabetData.length - 1
               ? currentIndex + 1
               : currentIndex;
           _focusingItem = '';
         });
+
       }
     }
   }
