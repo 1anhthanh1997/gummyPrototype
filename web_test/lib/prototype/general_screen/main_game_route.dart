@@ -66,9 +66,13 @@ class _MainGameRouteState extends State<MainGameRoute> {
     FlutterDownloader.registerCallback(downloadCallback);
     await _prepare();
     _requestDownload();
-    // Timer(Duration(milliseconds: 3000), () {
-    //   extractFile();
-    // });
+    Timer(Duration(milliseconds: 3000), () {
+      extractFile();
+      print('Completed');
+      setState(() {
+
+      });
+    });
   }
 
   void extractFile() {
@@ -79,6 +83,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
           zipFile: zipFile, destinationDir: destinationDir);
       setState(() {
         isComplete = true;
+        print('completed');
       });
     } catch (e) {
       print(e);
@@ -176,12 +181,14 @@ class _MainGameRouteState extends State<MainGameRoute> {
           )
         : Consumer<ScreenModel>(
             builder: (context, ScreenModel value, child) {
-              return isComplete
-                  ? displayGame(currentGameData['gameData']
-                      [screenModel.currentStep]['gameType'])
-                  : Scaffold(
-                      body: Container(),
-                    );
+              return
+                // isComplete
+                //   ?
+                displayGame(currentGameData['gameData']
+                      [screenModel.currentStep]['gameType']);
+                  // : Scaffold(
+                  //     body: Container(),
+                  //   );
             },
           );
   }

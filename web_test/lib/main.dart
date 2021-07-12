@@ -5,6 +5,8 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
+import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/draw_alphabet.dart';
+import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/scratcher_game.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/provider/screen_model.dart';
 
@@ -54,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
-      child: MainGameRoute(),
+      child: ScratcherGame(),
     );
   }
 }

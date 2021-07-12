@@ -39,6 +39,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   var allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
+  List<Offset>positionListTmp=[];
   int count=0;
   ScreenModel screenModel;
 
@@ -46,12 +47,20 @@ class _ScratcherGameState extends State<ScratcherGame>
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
     allGameData = json.decode(jsonData);
     data = allGameData['gameData'][1]['items'];
-    assetFolder = screenModel.localPath+allGameData['gameAssets'];
+    // assetFolder = screenModel.localPath+allGameData['gameAssets'];
+    assetFolder = allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
+      positionListTmp.add(imageData[idx].position);
+      imageData[idx].position=Offset(812/2-72,375/2-72);
+      Timer(Duration(milliseconds: (idx+1)*1500),(){
+        setState(() {
+          imageData[idx].position=positionListTmp[idx];
+        });
+      });
     }
     setState(() {});
   }
@@ -80,9 +89,10 @@ class _ScratcherGameState extends State<ScratcherGame>
               ),
             ),
           )
-        : Positioned(
+        : AnimatedPositioned(
             top: item.position.dy,
             left: item.position.dx,
+            duration: Duration(milliseconds:500),
             child: Scratcher(
               brushSize: 30,
               threshold: 70,

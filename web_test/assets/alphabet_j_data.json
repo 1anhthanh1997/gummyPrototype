@@ -10,7 +10,7 @@
   "gameName": "Game tô chữ cái",
   "parentId": 0,
   "createDate": 0,
-  "gameAssets": "/assets/images/game_draw_alphabet_3/draw_A/",
+  "gameAssets": "assets/images/game_draw_alphabet_3/draw_A/",
   "gameData": [
     {
       "id": 1,

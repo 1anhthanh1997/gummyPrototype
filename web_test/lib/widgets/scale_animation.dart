@@ -8,6 +8,7 @@ class ScaleAnimation extends StatefulWidget {
   final double beginValue;
   final double endValue;
   final bool isScale;
+  final Curve curve;
 
   ScaleAnimation(
       {this.child,
@@ -16,7 +17,8 @@ class ScaleAnimation extends StatefulWidget {
       this.time = 300,
       this.beginValue = 1.0,
       this.endValue = 1.2,
-      this.isScale=false});
+      this.isScale = false,
+      this.curve = Curves.linear});
 
   _ScaleAnimationState createState() => _ScaleAnimationState();
 }
@@ -41,16 +43,16 @@ class _ScaleAnimationState extends State<ScaleAnimation>
         Tween(begin: widget.beginValue, end: widget.endValue).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: Interval(0.0, 0.75, curve: Curves.linear),
+        curve: Interval(0.0, 0.75, curve: widget.curve),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isScale){
+    if (widget.isScale) {
       _animationController.forward();
-    }else{
+    } else {
       _animationController.reverse();
     }
 

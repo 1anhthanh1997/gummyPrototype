@@ -9,6 +9,7 @@ import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/character_item.dart';
+import 'package:web_test/widgets/scale_animation.dart';
 
 class DrawAlphabet extends StatefulWidget {
   _DrawAlphabetState createState() => _DrawAlphabetState();
@@ -38,6 +39,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   var allGameData;
   var assetFolder;
   ScreenModel screenModel;
+  bool scaleNumber=true;
 
   Future<void> loadAlphabetData() async {
     var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
@@ -54,9 +56,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       setState(() {
         _alphabetPoint.add([]);
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
-        imageLink.add(screenModel.localPath +
-            allGameData['gameAssets'] +
-            alphabetData[index].image);
+        imageLink.add(allGameData['gameAssets'] + alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
         startPosition.add(alphabetData[index].startPosition);
         endPosition.add(alphabetData[index].endPosition);
@@ -143,16 +143,17 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     return Stack(
       children: indexGenerate.map((index) {
         return Positioned(
-            child: CharacterItem(
-                imageLink[index],
-                alphabetData[index].width,
-                alphabetData[index].height,
-                Colors.red,
-                alphabetPath[index],
-                _alphabetPoint[index],
-                alphabetData[index].status == 1),
-            left: imagePosition[index].dx,
-            top: imagePosition[index].dy + bonusHeight);
+          left: imagePosition[index].dx,
+          top: imagePosition[index].dy + bonusHeight,
+          child: CharacterItem(
+              imageLink[index],
+              alphabetData[index].width,
+              alphabetData[index].height,
+              Colors.red,
+              alphabetPath[index],
+              _alphabetPoint[index],
+              alphabetData[index].status == 1),
+        );
       }).toList(),
     );
   }
@@ -196,9 +197,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         });
       } else {
         if (currentIndex == alphabetData.length - 1) {
-          screenModel.nextStep();
+          // screenModel.nextStep();
+          setState(() {
+            scaleNumber=false;
+          });
         }
+
         setState(() {
+
           currentIndex = currentIndex < alphabetData.length - 1
               ? currentIndex + 1
               : currentIndex;
@@ -216,23 +222,28 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(screenModel.localPath +
-                            assetFolder +
+                        image: AssetImage(assetFolder +
                             allGameData['gameData'][0]['background']),
                         fit: BoxFit.fill)),
-                child: alphabetData.length != 0
-                    ? GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onPanStart: (details) {
-                          onPanStartAction(details.localPosition);
-                        },
-                        onPanUpdate: (details) {
-                          onPanUpdateAction(details.localPosition);
-                        },
-                        onPanEnd: (details) {
-                          onPanEndAction();
-                        },
-                        child: displayAlphabet())
-                    : Container()));
+                child:  ScaleAnimation(
+                        beginValue: 0.0,
+                        endValue: 1.0,
+                        time: 1500,
+                        isScale: scaleNumber,
+                        curve: Curves.easeOutBack,
+                        child: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onPanStart: (details) {
+                              onPanStartAction(details.localPosition);
+                            },
+                            onPanUpdate: (details) {
+                              onPanUpdateAction(details.localPosition);
+                            },
+                            onPanEnd: (details) {
+                              onPanEndAction();
+                            },
+                            child: displayAlphabet()),
+                      )
+                  ));
   }
 }
