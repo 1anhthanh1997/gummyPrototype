@@ -55,25 +55,23 @@ class _MainGameRouteState extends State<MainGameRoute> {
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
-    loadGameData().whenComplete(() =>{
-      downloadAssets()
-    });
+    loadGameData().whenComplete(() => {downloadAssets()});
     super.initState();
   }
 
   Future<void> downloadAssets() async {
-    // String localPath =
-    //     (await _findLocalPath()) + Platform.pathSeparator + 'Download/assets';
-    // final savedDir = Directory(localPath);
-    // bool hasExisted = await savedDir.exists();
-    // if (hasExisted) {
-    //   setState(() {
-    //     isComplete = true;
-    //   });
-    //   return;
-    // }
+    _localPath =
+        (await _findLocalPath()) + Platform.pathSeparator + 'Download/assets';
+    final savedDir = Directory(_localPath);
+    bool hasExisted = await savedDir.exists();
     FlutterDownloader.registerCallback(downloadCallback);
     await _prepare();
+    if (hasExisted) {
+      setState(() {
+        isComplete = true;
+      });
+      return;
+    }
     _requestDownload();
     // print(_localPath);
     Timer(Duration(milliseconds: 3000), () {
@@ -84,14 +82,6 @@ class _MainGameRouteState extends State<MainGameRoute> {
   void extractFile() async {
     final zipFile = File('${_localPath}/assets.zip');
     final destinationDir = Directory(_localPath);
-    bool hasExisted = await destinationDir.exists();
-    print(hasExisted);
-    // if (hasExisted){
-    //   setState(() {
-    //     isComplete = true;
-    //   });
-    //   return;
-    // }
     try {
       ZipFile.extractToDirectory(
               zipFile: zipFile, destinationDir: destinationDir)

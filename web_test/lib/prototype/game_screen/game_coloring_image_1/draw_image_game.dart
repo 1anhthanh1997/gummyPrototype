@@ -184,31 +184,42 @@ class _DrawImageGameState extends State<DrawImageGame> {
   Widget displayImage() {
     List<int> imageIndex = Iterable<int>.generate(_imagePath.length).toList();
     imageIndex.sort((a, b) => b.compareTo(a));
-    return Stack(
-      children: imageIndex.map((index) {
-        return type[index] == 0
-            ? Positioned(
-                top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
-                left: imagePosition[index].dx * ratio,
-                child: AnimationCharacterItem(
-                    imageLink[index],
-                    width[index] * ratio,
-                    height[index] * ratio,
-                    HexColor(color[index]),
-                    _imagePath[index],
-                    imagePoint[index],
-                    isPlayAnimation[index]),
-              )
-            : Positioned(
-                top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
-                left: imagePosition[index].dx * ratio,
-                child: Container(
-                    height: height[index] * ratio,
-                    width: width[index] * ratio,
-                    child: SvgPicture.asset(imageLink[index])),
-              );
-      }).toList(),
-    );
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTapDown: (details) {
+          print('OK');
+          print(details.globalPosition);
+          onTapDown(details.globalPosition);
+        },
+        child: Stack(
+          children: imageIndex.map((index) {
+            return type[index] == 0
+                ? Positioned(
+                    top: imagePosition[index].dy * ratio -
+                        15 * ratio +
+                        bonusHeight,
+                    left: imagePosition[index].dx * ratio,
+                    child: AnimationCharacterItem(
+                        imageLink[index],
+                        width[index] * ratio,
+                        height[index] * ratio,
+                        HexColor(color[index]),
+                        _imagePath[index],
+                        imagePoint[index],
+                        isPlayAnimation[index]),
+                  )
+                : Positioned(
+                    top: imagePosition[index].dy * ratio -
+                        15 * ratio +
+                        bonusHeight,
+                    left: imagePosition[index].dx * ratio,
+                    child: Container(
+                        height: height[index] * ratio,
+                        width: width[index] * ratio,
+                        child: SvgPicture.asset(imageLink[index])),
+                  );
+          }).toList(),
+        ));
   }
 
   Widget displayColor() {
@@ -362,14 +373,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
     return Scaffold(
         body: imageData.length != 0
             ? Container(
-                child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTapDown: (details) {
-                      onTapDown(details.localPosition);
-                    },
-                    child: Stack(
-                      children: displayScreen(),
-                    )))
+                child: Stack(
+                children: displayScreen(),
+              ))
             : Container());
   }
 }

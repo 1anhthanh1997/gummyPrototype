@@ -69,12 +69,6 @@ class _AnimationCharacterItemState extends State<AnimationCharacterItem>
         AnimatedBuilder(
             animation: _scaleAnimation,
             builder: (context, child) {
-              // print(_scaleAnimation.value);
-              // return Container(
-              //   height: _scaleAnimation.value,
-              //   width: _scaleAnimation.value,
-              //   color:Colors.blue
-              // );
               return CustomPaint(
                 size: Size(widget.imgWidth, widget.imgHeight),
                 foregroundPainter: AnimationCharacterItemPaint(

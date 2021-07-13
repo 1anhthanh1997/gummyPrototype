@@ -28,12 +28,17 @@ class _BasicItemState extends State<BasicItem> {
         Positioned(
             top: 9,
             left: 10,
-            child: Container(
-              height: 35,
-              width: 89,
-              child: SvgPicture.asset(
-                'assets/images/common/back_button.svg',
-                fit: BoxFit.contain,
+            child: GestureDetector(
+              onHorizontalDragDown: (details) {
+                print('Horizontal');
+              },
+              child: Container(
+                height: 35,
+                width: 89,
+                child: SvgPicture.asset(
+                  'assets/images/common/back_button.svg',
+                  fit: BoxFit.contain,
+                ),
               ),
             )),
       ],
