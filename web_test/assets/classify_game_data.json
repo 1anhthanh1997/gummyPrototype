@@ -1,11 +1,11 @@
 {
-  "id": 6,
+  "id": 4,
   "levelScore": 0,
   "tags": [
     1,
     2
   ],
-  "gameType": 6,
+  "gameType": 4,
   "orderIndex": 0,
   "gameName": "Classify game",
   "parentId": 0,
@@ -14,8 +14,8 @@
   "gameData": [
     {
       "id": 0,
-      "parentId": 0,
-      "gameType": 0,
+      "parentId": 4,
+      "gameType": 4,
       "background": "background_image.png",
       "items": [
         {

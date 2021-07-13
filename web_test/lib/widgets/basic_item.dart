@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/prototype/general_screen/tutorial_animal.dart';
 import 'package:web_test/provider/screen_model.dart';
 
 class BasicItem extends StatefulWidget {
@@ -19,19 +20,11 @@ class _BasicItemState extends State<BasicItem> {
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       children: [
-        Positioned(
-            top: 290,
-            left: -9,
-            child: Container(
-              height: 98,
-              width: 98,
-              child: SvgPicture.asset(
-                'assets/images/common/dog.svg',
-                fit: BoxFit.contain,
-              ),
-            )),
+        TutorialAnimals(
+          tutorialImage: 'assets/images/common/dog.svg',
+        ),
         Positioned(
             top: 9,
             left: 10,

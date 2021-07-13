@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
@@ -31,15 +33,16 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   final List<List<SquareParticle>> particles = [];
   bool isDisplayAnswer = false;
   var allGameData;
+  ScreenModel screenModel;
+  int count = 0;
+  int answerCount = 0;
 
-  Future<void> loadGameData() async {
-    var jsonData = await rootBundle.loadString('assets/memory_number.json');
-    allGameData = json.decode(jsonData);
+  void loadGameData() {
+    allGameData = screenModel.currentGame;
     data = allGameData['gameData'][0]['items'];
-    assetFolder = allGameData['gameAssets'];
-    itemData = data
-        .map((itemData) => new ItemModel.fromJson(itemData))
-        .toList();
+    assetFolder = screenModel.localPath + '/' + allGameData['gameAssets'];
+    itemData =
+        data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         questionPositionTmp = itemData[index].position;
@@ -52,12 +55,23 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         particles.add([]);
       }
     }
+    for (int index = 0; index < itemData.length; index++) {
+      if (itemData[index].groupId == questionData.groupId &&
+          itemData[index].type == 1) {
+        setState(() {
+          answerCount++;
+        });
+      }
+    }
+    print(answerCount);
   }
 
   @override
   void initState() {
     super.initState();
-    this.loadGameData();
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    loadGameData();
     Timer(Duration(milliseconds: 500), () {
       questionData.position = questionPositionTmp;
       setState(() {});
@@ -95,8 +109,14 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     // _setSquareVisible(false);
     // Timer(Duration(milliseconds: 800),(){
     setState(() {
+      count++;
       answerData[index].status = 1;
     });
+    if (count == answerCount) {
+      Timer(Duration(milliseconds: 2000), () {
+        screenModel.nextStep();
+      });
+    }
     // });
     Iterable.generate(50)
         .forEach((i) => particles[index].add(SquareParticle(time)));
@@ -275,7 +295,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][0]['background']))),
+                            allGameData['gameData'][screenModel.currentStep]['background']))),
                 child: Stack(
                   children: displayScreen(),
                 ),

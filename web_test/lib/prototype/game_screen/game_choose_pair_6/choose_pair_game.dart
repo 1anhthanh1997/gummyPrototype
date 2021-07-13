@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -21,29 +23,38 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   String assetFolder = '';
   int chosenIndex = -1;
   var allGameData;
-  int step = 0;
   List<int> isScale = [];
+  ScreenModel screenModel;
+  int count=0;
+  int pairCount=0;
+  int stepIndex;
 
-  Future<void> loadGameData() async {
-    var jsonData = await rootBundle.loadString('assets/choose_pair_data.json');
-    allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][step]['items'];
-    assetFolder = allGameData['gameAssets'];
+  void loadGameData() {
+    stepIndex=screenModel.currentStep;
+    allGameData = screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    assetFolder = screenModel.localPath+'/'+allGameData['gameAssets'];
     itemData = data
         .map((itemData) => new ItemModel.fromJson(itemData))
         .toList();
     for(int idx=0;idx<itemData.length;idx++){
       isScale.add(0);
+      if(itemData[idx].type==1){
+        pairCount++;
+      }
     }
     setState(() {
-
+      pairCount=pairCount~/2;
     });
+    print(pairCount);
   }
 
   @override
   void initState() {
     super.initState();
-    this.loadGameData();
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    loadGameData();
   }
 
   void resetScaleArray(){
@@ -74,10 +85,16 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                           index != chosenIndex) {
                         Timer(Duration(milliseconds: 330), () {
                           setState(() {
+                            count++;
                             itemData[chosenIndex].status = 1;
                             itemData[index].status = 1;
                             chosenIndex = -1;
                           });
+                          if(count==pairCount){
+                            Timer(Duration(milliseconds: 1500),(){
+                              screenModel.nextStep();
+                            });
+                          }
                         });
                       } else {
                         resetScaleArray();
@@ -139,7 +156,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         return Positioned(
             top: 9,
             left: 779 - 18.0 * index,
-            child: index == step
+            child: index == stepIndex
                 ? Container(
                     height: 18,
                     width: 18,
@@ -181,7 +198,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(assetFolder +
-                          allGameData['gameData'][0]['background']),
+                          allGameData['gameData'][stepIndex]['background']),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

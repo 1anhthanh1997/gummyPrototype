@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +7,11 @@ import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
+import 'package:web_test/widgets/basic_item.dart';
 
 class DrawImageGame extends StatefulWidget {
+  DrawImageGame({Key key}) : super(key: key);
+
   _DrawImageGameState createState() => _DrawImageGameState();
 }
 
@@ -22,8 +22,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
   List<String> color = [];
   List<bool> canDraw = [];
   List<int> type = [];
-
-  // List<ItemModel>gameData=[];
   List<ItemModel> imageData = [];
   List data = [];
   List secondData = [];
@@ -45,21 +43,19 @@ class _DrawImageGameState extends State<DrawImageGame> {
   int countSum = 0;
   double centerHeight = 0;
   bool isDragging = false;
-  int stepIndex = 1;
   int currentColorIndex;
   List<int> status = [];
+  var currentGameData;
+  int stepIndex;
 
-  Future<void> loadImageData() async {
-    var jsonData =
-        await rootBundle.loadString('assets/coloring_fruit_data.json');
-    fullData = json.decode(jsonData);
-    data = fullData['gameData'][1]['items'];
-    centerHeight = fullData['gameData'][1]['height'];
-    // secondData = fullData['colorItem'];
-    assetFolder = fullData['gameAssets'];
+  void loadImageData() {
+    currentGameData = screenModel.currentGame;
+    stepIndex = screenModel.currentStep;
+    data = currentGameData['gameData'][stepIndex]['items'];
+    centerHeight = currentGameData['gameData'][stepIndex]['height'];
+    assetFolder = screenModel.localPath + currentGameData['gameAssets'];
     imageData =
         data.map((imageInfo) => new ItemModel.fromJson(imageInfo)).toList();
-
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 1) {
         setState(() {
@@ -87,13 +83,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
   @override
   void initState() {
     // TODO: implement initState
-    this.loadImageData();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
-    Timer(Duration(milliseconds: 500), () {
-      countingColor();
-      editPath();
-    });
+    loadImageData();
     super.initState();
   }
 
@@ -103,6 +95,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
     screenHeight = screenModel.getScreenHeight();
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 348 * ratio) / 2;
+    countingColor();
+    editPath();
     super.didChangeDependencies();
   }
 
@@ -139,12 +133,13 @@ class _DrawImageGameState extends State<DrawImageGame> {
       width = [];
       imagePoint = [];
       isPlayAnimation = [];
-      status=[];
+      status = [];
     });
   }
 
   void callNextStep() {
     resetState();
+    screenModel.nextStep();
     loadImageData();
     setState(() {});
   }
@@ -228,7 +223,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
               ? Container()
               : GestureDetector(
                   onTapDown: (details) {
-                    print(colorIndex);
                     setState(() {
                       currentColor = color.color;
                       currentColorIndex = colorIndex;
@@ -279,7 +273,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
     return Container(
         decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(assetFolder + fullData['gameData'][0]['background']),
+        image: AssetImage(
+            assetFolder + currentGameData['gameData'][stepIndex]['background']),
         fit: BoxFit.fill,
       ),
     ));
@@ -358,6 +353,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     widgets.add(displayColor());
     widgets.add(displayCounting());
     widgets.add(displayCountingNumber());
+    widgets.add(BasicItem());
     return widgets;
   }
 

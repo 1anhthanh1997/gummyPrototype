@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
-import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
-import 'package:web_test/widgets/character_item.dart';
 
 class ScratcherGame extends StatefulWidget {
   _ScratcherGameState createState() => _ScratcherGameState();
@@ -18,8 +13,6 @@ class ScratcherGame extends StatefulWidget {
 class _ScratcherGameState extends State<ScratcherGame>
     with TickerProviderStateMixin {
   List<Path> alphabetPath = [];
-  List<List<Map>> _alphabetPoint = [];
-  String _focusingItem = '';
   String currentColor = '#000000';
   bool isCorrect = false;
   Offset previousPoint = Offset(0, 0);
@@ -39,26 +32,27 @@ class _ScratcherGameState extends State<ScratcherGame>
   var allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
-  List<Offset>positionListTmp=[];
-  int count=0;
+  List<Offset> positionListTmp = [];
+  int count = 0;
   ScreenModel screenModel;
+  int stepIndex;
 
-  Future<void> loadAlphabetData() async {
-    var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
-    allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][1]['items'];
-    // assetFolder = screenModel.localPath+allGameData['gameAssets'];
-    assetFolder = allGameData['gameAssets'];
+  void loadAlphabetData() {
+    stepIndex = screenModel.currentStep;
+    allGameData = screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    assetFolder = screenModel.localPath + '/' + allGameData['gameAssets'];
+    // assetFolder = allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
       positionListTmp.add(imageData[idx].position);
-      imageData[idx].position=Offset(812/2-72,375/2-72);
-      Timer(Duration(milliseconds: (idx+1)*1500),(){
+      imageData[idx].position = Offset(812 / 2 - 72, 375 / 2 - 72);
+      Timer(Duration(milliseconds: (idx + 1) * 500), () {
         setState(() {
-          imageData[idx].position=positionListTmp[idx];
+          imageData[idx].position = positionListTmp[idx];
         });
       });
     }
@@ -68,9 +62,9 @@ class _ScratcherGameState extends State<ScratcherGame>
   @override
   void initState() {
     super.initState();
-    this.loadAlphabetData().whenComplete(() => {setState(() {})});
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    loadAlphabetData();
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {
@@ -92,7 +86,7 @@ class _ScratcherGameState extends State<ScratcherGame>
         : AnimatedPositioned(
             top: item.position.dy,
             left: item.position.dx,
-            duration: Duration(milliseconds:500),
+            duration: Duration(milliseconds: 500),
             child: Scratcher(
               brushSize: 30,
               threshold: 70,
@@ -102,13 +96,15 @@ class _ScratcherGameState extends State<ScratcherGame>
                 fit: BoxFit.fill,
               ),
               onChange: (value) => print("Scratch progress: $value%"),
-              onThreshold: (){
+              onThreshold: () {
                 setState(() {
                   isCompleted[index] = true;
                   count++;
                 });
-                if(count==isCompleted.length){
-                  screenModel.nextStep();
+                if (count == isCompleted.length) {
+                  Timer(Duration(milliseconds: 1000),(){
+                    screenModel.nextStep();
+                  });
                 }
               },
               child: Container(
@@ -142,7 +138,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][1]['background']),
+                            allGameData['gameData'][stepIndex]['background']),
                         fit: BoxFit.fill)),
                 child: scratcher()));
   }

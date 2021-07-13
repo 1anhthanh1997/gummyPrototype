@@ -13,11 +13,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
+import 'package:web_test/prototype/game_screen/game_choose_pair_6/choose_pair_game.dart';
+import 'package:web_test/prototype/game_screen/game_classify_5/classify_items.dart';
 import 'package:web_test/prototype/game_screen/game_coloring_image_1/draw_image_game.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/draw_alphabet.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/game_drag_target.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/scratcher_game.dart';
+import 'package:web_test/prototype/game_screen/game_jigsaw_2/jigsaw_game.dart';
+import 'package:web_test/prototype/game_screen/game_memory_number_7/game_memory_number.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:http/http.dart' as http;
 
 class MainGameRoute extends StatefulWidget {
   _MainGameRouteState createState() => _MainGameRouteState();
@@ -36,21 +41,13 @@ class _MainGameRouteState extends State<MainGameRoute> {
   bool isComplete = false;
 
   Future<void> loadGameData() async {
-    var jsonData = await rootBundle.loadString('assets/game_data.json');
-    var allGameData = json.decode(jsonData);
+    final response = await http.get(Uri.parse(
+        'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
+    var allGameData = json.decode(response.body);
     assetsUrl = allGameData['assetsUrl'];
-    data = allGameData['data'];
-    data.map((game) {
-      if (screenModel.currentGameId == game['id']) {
-        screenModel.currentGame = game;
-        setState(() {
-          currentGameData = game;
-        });
-      }
-    }).toList();
-    print(currentGameData);
+    screenModel.gameData = allGameData['data'];
+    screenModel.getCurrentGame();
     setState(() {});
-    downloadAssets();
   }
 
   @override
@@ -58,32 +55,50 @@ class _MainGameRouteState extends State<MainGameRoute> {
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
-    loadGameData();
+    loadGameData().whenComplete(() =>{
+      downloadAssets()
+    });
     super.initState();
   }
 
   Future<void> downloadAssets() async {
+    // String localPath =
+    //     (await _findLocalPath()) + Platform.pathSeparator + 'Download/assets';
+    // final savedDir = Directory(localPath);
+    // bool hasExisted = await savedDir.exists();
+    // if (hasExisted) {
+    //   setState(() {
+    //     isComplete = true;
+    //   });
+    //   return;
+    // }
     FlutterDownloader.registerCallback(downloadCallback);
     await _prepare();
     _requestDownload();
+    // print(_localPath);
     Timer(Duration(milliseconds: 3000), () {
       extractFile();
-      print('Completed');
-      setState(() {
-
-      });
     });
   }
 
-  void extractFile() {
+  void extractFile() async {
     final zipFile = File('${_localPath}/assets.zip');
     final destinationDir = Directory(_localPath);
+    bool hasExisted = await destinationDir.exists();
+    print(hasExisted);
+    // if (hasExisted){
+    //   setState(() {
+    //     isComplete = true;
+    //   });
+    //   return;
+    // }
     try {
       ZipFile.extractToDirectory(
-          zipFile: zipFile, destinationDir: destinationDir);
-      setState(() {
-        isComplete = true;
-        print('completed');
+              zipFile: zipFile, destinationDir: destinationDir)
+          .whenComplete(() {
+        setState(() {
+          isComplete = true;
+        });
       });
     } catch (e) {
       print(e);
@@ -143,11 +158,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
     if (!hasExisted) {
       savedDir.create();
     }
-    if(hasExisted){
-      setState(() {
-        isComplete=true;
-      });
-    }
+    if (hasExisted) {}
     screenModel.localPath = _localPath;
   }
 
@@ -161,7 +172,11 @@ class _MainGameRouteState extends State<MainGameRoute> {
   Widget displayGame(int gameId) {
     switch (gameId) {
       case GAME_COLORING_ID:
-        return DrawImageGame();
+      case GAME_COLORING_2_ID:
+        return DrawImageGame(
+            key: Key(DateTime.now().millisecondsSinceEpoch.toString()));
+      case GAME_JIGSAW_ID:
+        return JigsawGame();
       case GAME_DRAW_ALPHABET_ID:
         return DrawAlphabet();
       case GAME_SCRATCHER_ID:
@@ -170,25 +185,26 @@ class _MainGameRouteState extends State<MainGameRoute> {
         return GameDragTarget();
       case GAME_CALCULATE_ID:
         return CalculateGame();
+      case GAME_CHOOSE_PAIR_ID:
+        return ChoosePairGame();
+      case GAME_CLASSIFY_MODEL:
+        return ClassifyItem();
+      case GAME_MEMORY_NUMBER:
+        return GameMemoryNumber();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return currentGameData == null
+    return !isComplete
         ? Scaffold(
             body: Container(),
           )
         : Consumer<ScreenModel>(
             builder: (context, ScreenModel value, child) {
-              return
-                // isComplete
-                //   ?
-                displayGame(currentGameData['gameData']
-                      [screenModel.currentStep]['gameType']);
-                  // : Scaffold(
-                  //     body: Container(),
-                  //   );
+              print(screenModel.currentGame);
+              return displayGame(screenModel.currentGame['gameData']
+                  [screenModel.currentStep]['gameType']);
             },
           );
   }

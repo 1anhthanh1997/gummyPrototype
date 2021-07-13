@@ -314,7 +314,7 @@
         {
           "id": 1,
           "parentId": 0,
-          "gameType": 0,
+          "gameType": 10,
           "background": "background_image.png",
           "items": [
             {
@@ -778,29 +778,170 @@
       ]
     },
     {
-      "id": 3,
+      "id": 1,
       "levelScore": 0,
       "tags": [
         1,
         2
       ],
-      "gameType": 0,
+      "gameType": 1,
+      "orderIndex": 0,
+      "gameName": "Game ghép hình",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
+      "gameData": [
+        {
+          "id": 1,
+          "parentId": 1,
+          "gameType": 1,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 58.0,
+                "dy": 181.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 1,
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 18.0,
+                "dy": 12.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 2,
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 616.0,
+                "dy": 222.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 3,
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 617.0,
+                "dy": 15.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 187.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 406.0,
+                "dy": 147.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "levelScore": 0,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 2,
       "orderIndex": 0,
       "gameName": "Game tính toán",
       "parentId": 0,
       "createDate": 0,
-      "gameAssets": "assets/images/game_calculate_4/",
+      "gameAssets": "/assets/images/game_calculate_4/",
       "assetsUrl": "",
       "gameData": [
         {
           "id": 0,
-          "parentId": 4,
-          "gameType": 3,
+          "parentId": 2,
+          "gameType": 2,
           "items": [
             {
               "id": 0,
               "image": "result_target.svg",
               "type": 0,
+              "status": 0,
               "position": {
                 "dx": 523.0,
                 "dy": 169.0
@@ -813,6 +954,7 @@
               "id": 1,
               "image": "first_draggable.png",
               "type": 1,
+              "status": 0,
               "position": {
                 "dx": 248.0,
                 "dy": 31.0
@@ -825,6 +967,7 @@
               "id": 2,
               "image": "second_draggable.png",
               "type": 1,
+              "status": 0,
               "position": {
                 "dx": 369.0,
                 "dy": 30.0
@@ -837,6 +980,7 @@
               "id": 3,
               "image": "third_draggable.png",
               "type": 1,
+              "status": 0,
               "position": {
                 "dx": 490.0,
                 "dy": 31.0
@@ -864,6 +1008,385 @@
       ]
     },
     {
+      "id": 3,
+      "levelScore": 0,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 3,
+      "orderIndex": 0,
+      "gameName": "Classify game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_classify_5/classify_item_1/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 3,
+          "gameType": 3,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "first_item.svg",
+              "groupId": 0,
+              "position": {
+                "dx": 359.0,
+                "dy": 21.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 180.0,
+                "dy": 174.0
+              },
+              "width": 95.0,
+              "height": 82.0
+            },
+            {
+              "id": 1,
+              "image": "second_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 131.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 2,
+              "image": "third_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 3,
+              "image": "left_target.png",
+              "groupId": 0,
+              "position": {
+                "dx": 75.0,
+                "dy": 88.0
+              },
+              "type": 0,
+              "endPosition": {
+                "dx": 560.0,
+                "dy": 100.0
+              },
+              "width": 207.0,
+              "height": 202.0
+            },
+            {
+              "id": 4,
+              "image": "right_target.png",
+              "groupId": 1,
+              "position": {
+                "dx": 530.0,
+                "dy": 85.0
+              },
+              "type": 0,
+              "endPosition": {
+                "dx": 560.0,
+                "dy": 100.0
+              },
+              "width": 212.0,
+              "height": 205.0
+            },
+            {
+              "id": 5,
+              "image": "conveyor.png",
+              "groupId": 0,
+              "position": {
+                "dx": 320.0,
+                "dy": 0.0
+              },
+              "type": 2,
+              "endPosition": {
+                "dx": 560.0,
+                "dy": 100.0
+              },
+              "width": 172.0,
+              "height": 375.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id":4,
+      "levelScore":0,
+      "tags":[
+        1,
+        2
+      ],
+      "gameType":0,
+      "orderIndex":0,
+      "gameName":"Game chọn cặp 1",
+      "parentId":4,
+      "createDate":0,
+      "gameAssets":"/assets/images/game_choose_pair_6/",
+      "gameData":[
+        {
+          "id":1,
+          "parentId":4,
+          "gameType":4,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id":0,
+              "image":"first_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 160.0,
+                "dy": 65.0
+              },
+              "groupId": 0,
+              "width":105.0,
+              "height":90.0
+            },
+            {
+              "id":1,
+              "image":"first_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 298.0,
+                "dy": 201.0
+              },
+              "groupId": 0,
+              "width":105.0,
+              "height":90.0
+            },
+            {
+              "id":2,
+              "image":"second_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 320.0,
+                "dy": 65.0
+              },
+              "groupId": 1,
+              "width":90.0,
+              "height":89.0
+            },
+            {
+              "id":3,
+              "image":"second_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 565.0,
+                "dy": 201.0
+              },
+              "groupId": 1,
+              "width":90.0,
+              "height":89.0
+            },
+            {
+              "id":4,
+              "image":"third_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 457.0,
+                "dy": 65.0
+              },
+              "groupId": 2,
+              "width":91.0,
+              "height":90.0
+            },
+            {
+              "id":5,
+              "image":"third_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 152.0,
+                "dy": 201.0
+              },
+              "groupId": 2,
+              "width":91.0,
+              "height":90.0
+            },
+            {
+              "id":6,
+              "image":"fourth_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 594.0,
+                "dy": 65.0
+              },
+              "groupId": 2,
+              "width":91.0,
+              "height":90.0
+            },
+            {
+              "id":7,
+              "image":"fourth_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 457.0,
+                "dy": 201.0
+              },
+              "groupId": 2,
+              "width":91.0,
+              "height":90.0
+            }
+          ],
+          "width":213.0,
+          "height":284.0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "levelScore": 0,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 5,
+      "orderIndex": 0,
+      "gameName": "Game memory number",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "assets/images/game_memory_number_7/",
+      "gameData": [
+        {
+          "id": 1,
+          "parentId": 5,
+          "gameType": 5,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "one.svg",
+              "type": 0,
+              "position": {
+                "dx": 350.0,
+                "dy": 100.0
+              },
+              "groupId": 0,
+              "width": 44.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+            },
+            {
+              "id": 1,
+              "image": "one.svg",
+              "type": 1,
+              "position": {
+                "dx": 178.0,
+                "dy": 67.0
+              },
+              "groupId": 0,
+              "width": 44.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 2,
+              "image": "one.svg",
+              "type": 1,
+              "position": {
+                "dx": 426.0,
+                "dy": 208.0
+              },
+              "groupId": 0,
+              "width": 44.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 3,
+              "image": "two.svg",
+              "type": 1,
+              "position": {
+                "dx": 170.0,
+                "dy": 226.0
+              },
+              "groupId": 1,
+              "width": 59.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 4,
+              "image": "two.svg",
+              "type": 1,
+              "position": {
+                "dx": 592.0,
+                "dy": 138.0
+              },
+              "groupId": 2,
+              "width": 59.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 5,
+              "image": "two.svg",
+              "type": 1,
+              "position": {
+                "dx": 372.0,
+                "dy": 76.0
+              },
+              "groupId": 2,
+              "width": 59.0,
+              "height": 194.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 6,
+              "image": "three.svg",
+              "type": 1,
+              "position": {
+                "dx": 267.0,
+                "dy": 157.0
+              },
+              "groupId": 2,
+              "width": 61.0,
+              "height": 196.0,
+              "color": "#F47B2A"
+
+            },
+            {
+              "id": 7,
+              "image": "three.svg",
+              "type": 1,
+              "position": {
+                "dx": 511.0,
+                "dy": 39.0
+              },
+              "groupId": 2,
+              "width": 61.0,
+              "height": 196.0,
+              "color": "#F47B2A"
+
+            }
+          ],
+          "width": 213.0,
+          "height": 284.0
+        }
+      ]
+    },
+    {
       "id": 6,
       "levelScore": 0,
       "tags": [
@@ -872,13 +1395,13 @@
       ],
       "orderIndex": 0,
       "gameName": "Game tô chữ cái",
-      "parentId": 0,
+      "parentId": 6,
       "createDate": 0,
       "gameAssets": "assets/images/game_draw_alphabet_3/draw_A/",
       "gameData": [
         {
           "id": 1,
-          "parentId": 0,
+          "parentId": 6,
           "gameType": 6,
           "image": "alphabet.svg",
           "background": "background_image.png",
@@ -984,7 +1507,7 @@
         },
         {
           "id": 1,
-          "parentId": 0,
+          "parentId": 6,
           "gameType": 602,
           "background": "background_image.png",
           "items": [
@@ -1034,7 +1557,7 @@
         },
         {
           "id": 2,
-          "parentId": 0,
+          "parentId": 6,
           "gameType": 603,
           "background": "background_image_3.png",
           "items": [

@@ -1,11 +1,11 @@
 {
-  "id": 7,
+  "id": 5,
   "levelScore": 0,
   "tags": [
     1,
     2
   ],
-  "gameType": 0,
+  "gameType": 5,
   "orderIndex": 0,
   "gameName": "Game memory number",
   "parentId": 0,
@@ -14,8 +14,8 @@
   "gameData": [
     {
       "id": 1,
-      "parentId": 7,
-      "gameType": 7,
+      "parentId": 5,
+      "gameType": 5,
       "background": "background_image.png",
       "items": [
         {

@@ -6,10 +6,12 @@ class ScreenModel extends ChangeNotifier {
   double screenHeight;
   double ratio;
   BuildContext currentContext;
-  int currentGameId = 2;
+  var gameData;
+  int currentGameId = 0;
   var currentGame;
   int currentStep = 0;
   String localPath;
+
 
   void setContext(BuildContext context) {
     currentContext = context;
@@ -39,21 +41,28 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void nextStep() async {
-    print('Next Step');
-    if (currentStep != currentGame['gameData'].length) {
+    print(currentStep < currentGame['gameData'].length - 1);
+    if (currentStep < currentGame['gameData'].length - 1) {
       currentStep++;
     } else {
       nextGame();
     }
-
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();
   }
 
   void nextGame() async {
+    print('Next Game');
     currentGameId++;
+    currentGameId = currentGameId % 7;
     currentStep = 0;
+    getCurrentGame();
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();
+  }
+
+  void getCurrentGame(){
+    print('Current Game Id:${currentGameId}');
+    currentGame=gameData[currentGameId];
   }
 }

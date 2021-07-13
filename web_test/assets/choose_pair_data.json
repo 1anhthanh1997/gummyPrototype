@@ -1,5 +1,5 @@
 {
-  "id":5,
+  "id":4,
   "levelScore":0,
   "tags":[
     1,
@@ -14,8 +14,8 @@
   "gameData":[
     {
       "id":1,
-      "parentId":5,
-      "gameType":5,
+      "parentId":4,
+      "gameType":4,
       "background": "background_image.png",
       "items": [
         {

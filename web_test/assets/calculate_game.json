@@ -1,5 +1,5 @@
 {
-  "id": 4,
+  "id": 2,
   "levelScore": 0,
   "tags": [
     1,
@@ -15,8 +15,8 @@
   "gameData": [
     {
       "id": 0,
-      "parentId": 4,
-      "gameType": 4,
+      "parentId": 2,
+      "gameType": 2,
       "items": [
         {
           "id": 0,

@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/basic_item.dart';
@@ -24,14 +26,15 @@ class _JigsawGameState extends State<JigsawGame> {
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
   int count = 0;
+  ScreenModel screenModel;
+  int stepIndex;
 
-  Future<void> loadAlphabetData() async {
-    var jsonData =
-        await rootBundle.loadString('assets/jigsaw_game_data_3.json');
-    allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][0]['items'];
-    double objectHeight = allGameData['gameData'][0]['height'];
-    assetFolder = allGameData['gameAssets'];
+  void loadAlphabetData() {
+    stepIndex=screenModel.currentStep;
+    allGameData=screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    double objectHeight = allGameData['gameData'][stepIndex]['height'];
+    assetFolder = screenModel.localPath+allGameData['gameAssets'];
     bonusHeight = (375 - objectHeight) / 2;
     imageData = data
         .map((draggableInfo) => new ItemModel.fromJson(draggableInfo))
@@ -51,7 +54,9 @@ class _JigsawGameState extends State<JigsawGame> {
   @override
   void initState() {
     super.initState();
-    this.loadAlphabetData().whenComplete(() => {setState(() {})});
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    loadAlphabetData();
   }
 
   void bringToFront(ItemModel chosenItem) {
@@ -187,6 +192,9 @@ class _JigsawGameState extends State<JigsawGame> {
                       count++;
                     });
                   });
+                  Timer(Duration(milliseconds: 2500),(){
+                    screenModel.nextStep();
+                  });
                 } else {
                   setState(() {
                     count++;
@@ -200,7 +208,6 @@ class _JigsawGameState extends State<JigsawGame> {
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
-    widgets.add(displayCompletedImage());
     widgets.add(displayCompletedImage());
     if (count == sourceModel.length) {
     } else {
@@ -221,7 +228,7 @@ class _JigsawGameState extends State<JigsawGame> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(assetFolder +
-                          allGameData['gameData'][0]['background']),
+                          allGameData['gameData'][stepIndex]['background']),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

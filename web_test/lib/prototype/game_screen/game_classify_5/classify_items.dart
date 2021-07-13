@@ -4,7 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -27,24 +29,34 @@ class _ClassifyItemState extends State<ClassifyItem>
   String assetFolder;
   int step = 0;
   List<bool> isSelected = [false, false];
+  ScreenModel screenModel;
+  int count=0;
+  int draggableCount=0;
+  int stepIndex;
 
-  Future<void> loadClassifyData() async {
-    var jsonData =
-        await rootBundle.loadString('assets/classify_game_data.json');
-    data = json.decode(jsonData);
-    List draggable = data['gameData'][0]['items'];
-    assetFolder = data['gameAssets'];
+  void loadClassifyData() {
+    stepIndex=screenModel.currentStep;
+    data = screenModel.currentGame;
+    List draggable = data['gameData'][stepIndex]['items'];
+    assetFolder = screenModel.localPath+data['gameAssets'];
     items = draggable
         .map((classifyInfo) => new ItemModel.fromJson(classifyInfo))
         .toList();
+    for(int idx=0;idx<items.length;idx++){
+      if(items[idx].type==1){
+        draggableCount++;
+      }
+    }
     setState(() {});
   }
 
   @override
   void initState() {
-    this.loadClassifyData();
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    this.loadClassifyData();
     super.initState();
   }
 
@@ -75,7 +87,7 @@ class _ClassifyItemState extends State<ClassifyItem>
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                assetFolder + data['gameData'][0]['background'],
+                assetFolder + data['gameData'][stepIndex]['background'],
               ),
               fit: BoxFit.fill)),
     );
@@ -130,11 +142,13 @@ class _ClassifyItemState extends State<ClassifyItem>
           offsetSource = item.endPosition;
           setState(() {
             item.status = 1;
+            count++;
           });
         } else if (offset.dx >= 812 / 2 + 812 / 14 && item.groupId == 1) {
           offsetSource = item.endPosition;
           setState(() {
             item.status = 1;
+            count++;
           });
         } else {
           offsetSource = item.position;
@@ -151,6 +165,11 @@ class _ClassifyItemState extends State<ClassifyItem>
             isSelected[item.groupId] = false;
             setState(() {});
           });
+          if(count==draggableCount){
+            Timer(Duration(milliseconds: 2000),(){
+              screenModel.nextStep();
+            });
+          }
           setState(() {});
         });
       },
@@ -288,11 +307,11 @@ class _ClassifyItemState extends State<ClassifyItem>
               child: Stack(
                 children: [
                   displayBackground(),
-                  BasicItem(),
                   displayStep(),
                   displayNormalItem(),
                   displayTargetItem(),
-                  displayDraggableItem()
+                  displayDraggableItem(),
+                  BasicItem(),
                 ],
               ),
             ),

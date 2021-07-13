@@ -1,23 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
-import 'package:http/http.dart' as http;
+import 'package:web_test/widgets/basic_item.dart';
 
 class CalculateGame extends StatefulWidget {
   _CalculateGameState createState() => _CalculateGameState();
@@ -45,18 +38,16 @@ class _CalculateGameState extends State<CalculateGame> {
   int firstRandomValue;
   int secondRandomValue;
   int randomIndex = 0;
-  String _localPath;
   final debug = true;
+  int stepIndex;
 
-  Future<void> getGameData() async {
-    final response = await http.get(Uri.parse(
-        'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
-    var allGameData = json.decode(response.body);
-    data = allGameData['gameData'][0]['items'];
-    assetFolder = allGameData['gameAssets'];
-    itemData = data
-        .map((itemData) => new ItemModel.fromJson(itemData))
-        .toList();
+  void getGameData()  {
+    stepIndex=screenModel.currentStep;
+    var allGameData = screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    assetFolder = screenModel.localPath + allGameData['gameAssets'];
+    itemData =
+        data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         setState(() {
@@ -80,7 +71,7 @@ class _CalculateGameState extends State<CalculateGame> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     genElement();
-
+    getGameData();
   }
 
   @override
@@ -91,7 +82,6 @@ class _CalculateGameState extends State<CalculateGame> {
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 111 * ratio) / 2;
   }
-
 
   void genElement() {
     Random random = new Random();
@@ -267,6 +257,7 @@ class _CalculateGameState extends State<CalculateGame> {
 
   Widget displayTarget() {
     List<int> targetIndex = Iterable<int>.generate(targetModel.length).toList();
+    print(targetIndex.length);
     return Stack(
       children: targetIndex.map((index) {
         ItemModel item = targetModel[index];
@@ -297,6 +288,9 @@ class _CalculateGameState extends State<CalculateGame> {
                 setState(() {
                   sourceModel[index].status = 1;
                   targetModel[index].status = 1;
+                });
+                Timer(Duration(milliseconds: 1500),(){
+                  screenModel.nextStep();
                 });
               },
             ));
@@ -373,17 +367,20 @@ class _CalculateGameState extends State<CalculateGame> {
     widgets.add(displayCalculation());
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
+    widgets.add(BasicItem());
     return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          color: HexColor('#DE2463'),
-          child: Stack(
-            children: displayScreen(),
-          )),
+      body: itemData.length != 0
+          ? Container(
+              color: HexColor('#DE2463'),
+              child: Stack(
+                children: displayScreen(),
+              ))
+          : Container(),
     );
   }
 }

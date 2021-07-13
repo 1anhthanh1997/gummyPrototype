@@ -39,13 +39,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   var allGameData;
   var assetFolder;
   ScreenModel screenModel;
-  bool scaleNumber=true;
+  bool scaleNumber = true;
+  int stepIndex;
 
-  Future<void> loadAlphabetData() async {
-    var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
-    allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][0]['items'];
-    double objectHeight = allGameData['gameData'][0]['height'];
+  void loadAlphabetData() {
+    stepIndex = screenModel.currentStep;
+    allGameData = screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    double objectHeight = allGameData['gameData'][stepIndex]['height'];
     assetFolder = allGameData['gameAssets'];
     bonusHeight = 0.0;
     alphabetData = data
@@ -56,7 +57,10 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       setState(() {
         _alphabetPoint.add([]);
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
-        imageLink.add(allGameData['gameAssets'] + alphabetData[index].image);
+        imageLink.add(screenModel.localPath +
+            '/' +
+            allGameData['gameAssets'] +
+            alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
         startPosition.add(alphabetData[index].startPosition);
         endPosition.add(alphabetData[index].endPosition);
@@ -66,10 +70,10 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   @override
   void initState() {
-    super.initState();
-    this.loadAlphabetData().whenComplete(() => {setState(() {})});
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    loadAlphabetData();
+    super.initState();
   }
 
   removePoint() {
@@ -197,14 +201,15 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         });
       } else {
         if (currentIndex == alphabetData.length - 1) {
-          // screenModel.nextStep();
           setState(() {
-            scaleNumber=false;
+            scaleNumber = false;
+          });
+          Timer(Duration(milliseconds: 1500), () {
+            screenModel.nextStep();
           });
         }
 
         setState(() {
-
           currentIndex = currentIndex < alphabetData.length - 1
               ? currentIndex + 1
               : currentIndex;
@@ -222,28 +227,29 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(assetFolder +
-                            allGameData['gameData'][0]['background']),
+                        image: AssetImage(screenModel.localPath +
+                            '/' +
+                            assetFolder +
+                            allGameData['gameData'][stepIndex]['background']),
                         fit: BoxFit.fill)),
-                child:  ScaleAnimation(
-                        beginValue: 0.0,
-                        endValue: 1.0,
-                        time: 1500,
-                        isScale: scaleNumber,
-                        curve: Curves.easeOutBack,
-                        child: GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onPanStart: (details) {
-                              onPanStartAction(details.localPosition);
-                            },
-                            onPanUpdate: (details) {
-                              onPanUpdateAction(details.localPosition);
-                            },
-                            onPanEnd: (details) {
-                              onPanEndAction();
-                            },
-                            child: displayAlphabet()),
-                      )
-                  ));
+                child: ScaleAnimation(
+                  beginValue: 0.0,
+                  endValue: 1.0,
+                  time: 1500,
+                  isScale: scaleNumber,
+                  curve: Curves.easeOutBack,
+                  child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onPanStart: (details) {
+                        onPanStartAction(details.localPosition);
+                      },
+                      onPanUpdate: (details) {
+                        onPanUpdateAction(details.localPosition);
+                      },
+                      onPanEnd: (details) {
+                        onPanEndAction();
+                      },
+                      child: displayAlphabet()),
+                )));
   }
 }

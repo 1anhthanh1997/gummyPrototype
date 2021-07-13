@@ -1,18 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:scratcher/scratcher.dart';
-import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
-import 'package:web_test/widgets/character_item.dart';
+import 'package:web_test/widgets/basic_item.dart';
 
 class GameDragTarget extends StatefulWidget {
   _GameDragTargetState createState() => _GameDragTargetState();
@@ -46,14 +40,15 @@ class _GameDragTargetState extends State<GameDragTarget>
   List<ItemModel> targetModel = [];
   bool isWrongTarget = false;
   bool isHitFail = false;
-  int count=0;
+  int count = 0;
   ScreenModel screenModel;
+  int stepIndex;
 
-  Future<void> loadAlphabetData() async {
-    var jsonData = await rootBundle.loadString('assets/alphabet_j_data.json');
-    allGameData = json.decode(jsonData);
-    data = allGameData['gameData'][2]['items'];
-    assetFolder = screenModel.localPath+allGameData['gameAssets'];
+  void loadAlphabetData() {
+    stepIndex = screenModel.currentStep;
+    allGameData = screenModel.currentGame;
+    data = allGameData['gameData'][stepIndex]['items'];
+    assetFolder = screenModel.localPath +'/'+ allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
@@ -76,10 +71,10 @@ class _GameDragTargetState extends State<GameDragTarget>
 
   @override
   void initState() {
-    super.initState();
-    this.loadAlphabetData().whenComplete(() => {setState(() {})});
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    loadAlphabetData();
+    super.initState();
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
@@ -207,7 +202,7 @@ class _GameDragTargetState extends State<GameDragTarget>
             onWillAccept: (data) {
               return data == item.groupId;
             },
-            onLeave: (data){
+            onLeave: (data) {
               setState(() {
                 isWrongTarget = true;
               });
@@ -218,8 +213,10 @@ class _GameDragTargetState extends State<GameDragTarget>
                 item.status = 1;
                 sourceModel[index].status = 1;
               });
-              if(count==sourceModel.length){
-                screenModel.nextStep();
+              if (count == sourceModel.length) {
+                Timer(Duration(milliseconds: 1000), () {
+                  screenModel.nextStep();
+                });
               }
             },
           ),
@@ -232,6 +229,7 @@ class _GameDragTargetState extends State<GameDragTarget>
     List<Widget> widgets = [];
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
+    widgets.add(BasicItem());
     return widgets;
   }
 
@@ -244,7 +242,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][2]['background']),
+                            allGameData['gameData'][stepIndex]
+                                ['background']),
                         fit: BoxFit.fill)),
                 child: Stack(
                   children: displayScreen(),
