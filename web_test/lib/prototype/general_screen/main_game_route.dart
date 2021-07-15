@@ -12,6 +12,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
+import 'package:web_test/db/games_database.dart';
+import 'package:web_test/model/game_model.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
 import 'package:web_test/prototype/game_screen/game_choose_pair_6/choose_pair_game.dart';
 import 'package:web_test/prototype/game_screen/game_classify_5/classify_items.dart';
@@ -56,7 +58,17 @@ class _MainGameRouteState extends State<MainGameRoute> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData().whenComplete(() => {downloadAssets()});
+    GamesDatabase.instance.readAllGames();
+    // createGame().whenComplete((){
+    //   GamesDatabase.instance.readAllGames();
+    // });
     super.initState();
+  }
+
+  Future<void> createGame() async {
+    Game game =
+        Game(id: 1, type: 1, age: 3, skipTime: 0, level: 1, baseScore: 8);
+    await GamesDatabase.instance.create(game);
   }
 
   Future<void> downloadAssets() async {
