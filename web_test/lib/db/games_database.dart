@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:web_test/model/game_model.dart';
+import 'package:web_test/model/type_model.dart';
 
 class GamesDatabase {
   static final GamesDatabase instance = GamesDatabase._init();
@@ -25,7 +26,23 @@ class GamesDatabase {
 
   Future _createTable(db,int version) async {
     await _createGameDB(db, version);
-    await _checkTableUserGameData(db);
+    await _createTypeDB(db, version);
+    await _checkTableGameData(db);
+  }
+
+  Future _createTypeDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+    final boolType = 'BOOLEAN NOT NULL';
+    final integerType = 'INTEGER NOT NULL';
+
+    await db.execute('''
+CREATE TABLE $tableTypes ( 
+  ${TypeModel.id} $idType, 
+  ${TypeModel.skipTime} $integerType,
+  ${TypeModel.score} $integerType
+  )
+''');
   }
 
   Future _createGameDB(Database db, int version) async {
@@ -46,7 +63,7 @@ CREATE TABLE $tableGames (
 ''');
   }
 
-  Future _checkTableUserGameData(db) async {
+  Future _checkTableGameData(db) async {
     String checkFieldExistsSql = 'PRAGMA table_info("$tableGames")';
     List<Map> maps = await db.rawQuery(checkFieldExistsSql);
     print(maps.toString());
@@ -62,7 +79,28 @@ CREATE TABLE $tableGames (
     }
   }
 
+  Future _checkTableTypeData(db) async {
+    String checkFieldExistsSql = 'PRAGMA table_info("$tableTypes")';
+    List<Map> maps = await db.rawQuery(checkFieldExistsSql);
+    print(maps.toString());
+    bool foundAdditionInfoColumn = false;
+    for (int i = 0; i < maps.length; i++) {
+      if (maps[i]['name'] == 'additionInfo') {
+        foundAdditionInfoColumn = true;
+      }
+    }
+    // print("foundLastupdateColumn $foundLastupdateColumn");
+    if (foundAdditionInfoColumn == false) {
+      await db.execute(updateColumnAdditionInfoType);
+    }
+  }
+
   Future<Game> create(Game game) async {
+    Game searchedGame=await readGame(game.id);
+    if(searchedGame!=null){
+      print('Game is exist');
+      return null;
+    }
     final db = await instance.database;
     final id = await db.insert(tableGames, game.toJson());
     return game.copy(id: id);
@@ -81,7 +119,7 @@ CREATE TABLE $tableGames (
     if (maps.isNotEmpty) {
       return Game.fromJson(maps.first);
     } else {
-      throw Exception('ID $id not found');
+      print('This is new game');
     }
   }
 

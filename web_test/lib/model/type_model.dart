@@ -1,4 +1,10 @@
-final String tableNotes = 'notes';
+final String tableTypes = 'types';
+
+final String _columnAdditionInfo = 'additionInfo';
+
+final String updateColumnAdditionInfoType = '''
+        ALTER TABLE $tableTypes ADD COLUMN $_columnAdditionInfo text
+        ''';
 
 class TypeModel {
   static final List<String> values = [

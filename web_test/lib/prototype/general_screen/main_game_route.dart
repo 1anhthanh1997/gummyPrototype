@@ -58,16 +58,16 @@ class _MainGameRouteState extends State<MainGameRoute> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData().whenComplete(() => {downloadAssets()});
-    GamesDatabase.instance.readAllGames();
-    // createGame().whenComplete((){
-    //   GamesDatabase.instance.readAllGames();
-    // });
+    // GamesDatabase.instance.readAllGames();
+    createGame().whenComplete((){
+      GamesDatabase.instance.readAllGames();
+    });
     super.initState();
   }
 
   Future<void> createGame() async {
     Game game =
-        Game(id: 1, type: 1, age: 3, skipTime: 0, level: 1, baseScore: 8);
+        Game(id: 0, type: 0, age: 3, skipTime: 0, level: 1, baseScore: 8);
     await GamesDatabase.instance.create(game);
   }
 
