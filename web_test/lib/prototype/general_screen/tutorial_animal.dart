@@ -4,7 +4,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/provider/screen_model.dart';
 
 class TutorialAnimals extends StatefulWidget {
   final String tutorialImage;
@@ -21,6 +23,14 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
   int duration = 0;
   int displaySkip = 0;
   Offset currentDraggableOffset = Offset(-9, 290);
+  ScreenModel screenModel;
+
+  @override
+  void initState() {
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
+    super.initState();
+  }
 
   void onDraggableCancelled(Offset offset) {
     setState(() {
@@ -113,6 +123,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   displaySkip = 0;
                   currentOffset = Offset(723, 290);
                 });
+                screenModel.skipGame();
                 print('Accept');
               },
             )),
@@ -149,7 +160,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   displaySkip = 0;
                   currentOffset = Offset(-9, 290);
                 });
-
+                screenModel.skipGame();
                 print('Accept');
               },
             )),

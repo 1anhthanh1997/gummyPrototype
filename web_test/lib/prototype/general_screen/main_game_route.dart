@@ -53,6 +53,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
     assetsUrl = allGameData['assetsUrl'];
     screenModel.gameData = allGameData['data'];
     List<int> typeIdList = [];
+    screenModel.getTypeList();
     await addUser();
     screenModel.gameData.map((game) async {
       if (!typeIdList.contains(game['gameType'])) {
@@ -80,7 +81,12 @@ class _MainGameRouteState extends State<MainGameRoute> {
   }
 
   Future<void> addUser() async {
-    User currentUser = User(name: 'Thanh', image: '', score: MIN_BASE_SCORE);
+    User currentUser = User(
+        name: 'Thanh',
+        image: '',
+        score: MIN_BASE_SCORE,
+        correctTime: 0,
+        wrongTime: 0);
     await GamesDatabase.instance.createUser(currentUser).whenComplete(() async {
       await GamesDatabase.instance.readAllUser();
     });
@@ -99,6 +105,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
   Future<void> downloadAssets() async {
     _localPath =
         (await _findLocalPath()) + Platform.pathSeparator + 'Download/assets';
+    print(_localPath);
     final savedDir = Directory(_localPath);
     bool hasExisted = await savedDir.exists();
     FlutterDownloader.registerCallback(downloadCallback);

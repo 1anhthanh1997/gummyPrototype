@@ -19,12 +19,12 @@ class TypeModel {
 }
 
 class Type {
-  final int id;
-  final int typeId;
-  final int skipTime;
-  final double score;
+  int id;
+  int typeId;
+  int skipTime;
+  double score;
 
-  const Type({
+  Type({
     this.id,
     this.typeId,
     this.skipTime,

@@ -44,7 +44,9 @@ CREATE TABLE $tableUsers (
   ${UserModel.id} $idType, 
   ${UserModel.name} $textType,
   ${UserModel.image} $textType,
-  ${UserModel.score} $integerType
+  ${UserModel.score} $integerType,
+  ${UserModel.correctTime} $integerType,
+  ${UserModel.wrongTime} $integerType
   )
 ''');
   }
@@ -80,6 +82,7 @@ CREATE TABLE $tableGames (
   ${GameModel.type} $integerType,
   ${GameModel.level} $integerType,
   ${GameModel.age} $integerType,
+  ${GameModel.lastUpdate} $integerType,
   ${GameModel.baseScore} $integerType
   )
 ''');
@@ -261,8 +264,8 @@ CREATE TABLE $tableGames (
     return db.update(
       tableUsers,
       user.toJson(),
-      where: '${UserModel.id} = ?',
-      whereArgs: [user.id],
+      where: '${UserModel.name} = ?',
+      whereArgs: [user.name],
     );
   }
 

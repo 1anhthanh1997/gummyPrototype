@@ -8,7 +8,7 @@ final String updateColumnAdditionInfo = '''
 class GameModel {
   static final List<String> values = [
     /// Add all fields
-    id, gameId, type, level, age, baseScore
+    id, gameId, type, level, age, lastUpdate, baseScore
   ];
 
   static final String id = '_id';
@@ -16,23 +16,26 @@ class GameModel {
   static final String type = 'type';
   static final String level = 'level';
   static final String age = 'age';
+  static final String lastUpdate = 'lastUpdate';
   static final String baseScore = 'baseScore';
 }
 
 class Game {
-  final int id;
-  final int gameId;
-  final int type;
-  final int level;
-  final int age;
-  final int baseScore;
+  int id;
+  int gameId;
+  int type;
+  int level;
+  int age;
+  int lastUpdate;
+  int baseScore;
 
-  const Game({
+  Game({
     this.id,
     this.gameId,
     this.type,
     this.level,
     this.age,
+    this.lastUpdate,
     this.baseScore,
   });
 
@@ -42,7 +45,7 @@ class Game {
     int type,
     int level,
     int age,
-    int skipTime,
+    int lastUpdate,
     int baseScore,
   }) =>
       Game(
@@ -51,6 +54,7 @@ class Game {
         type: this.type,
         level: this.level,
         age: this.age,
+        lastUpdate: this.lastUpdate,
         baseScore: this.baseScore,
       );
 
@@ -61,6 +65,7 @@ class Game {
         type: json[GameModel.type],
         level: json[GameModel.level],
         age: json[GameModel.age],
+        lastUpdate: json[GameModel.lastUpdate],
         baseScore: json[GameModel.baseScore]);
   }
 
@@ -70,6 +75,7 @@ class Game {
         GameModel.type: type,
         GameModel.level: level,
         GameModel.age: age,
+        GameModel.lastUpdate: lastUpdate,
         GameModel.baseScore: baseScore,
       };
 }
