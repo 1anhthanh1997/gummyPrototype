@@ -52,13 +52,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     alphabetData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
-    // print(screenModel.localPath);
     for (int index = 0; index < alphabetData.length; index++) {
       setState(() {
         _alphabetPoint.add([]);
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
         imageLink.add(screenModel.localPath +
-            '/' +
             allGameData['gameAssets'] +
             alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
@@ -228,7 +226,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(screenModel.localPath +
-                            '/' +
                             assetFolder +
                             allGameData['gameData'][stepIndex]['background']),
                         fit: BoxFit.fill)),

@@ -2,12 +2,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:web_test/model/game_model.dart';
 import 'package:web_test/model/type_model.dart';
+import 'package:web_test/model/user_model.dart';
 
 class GamesDatabase {
   static final GamesDatabase instance = GamesDatabase._init();
 
   static Database _database;
-
 
   GamesDatabase._init();
 
@@ -24,10 +24,29 @@ class GamesDatabase {
     return await openDatabase(path, version: 1, onCreate: _createTable);
   }
 
-  Future _createTable(db,int version) async {
+  Future _createTable(db, int version) async {
     await _createGameDB(db, version);
     await _createTypeDB(db, version);
-    await _checkTableGameData(db);
+    await _createUserDB(db, version);
+    // await _checkTableGameData(db);
+    // await _checkTableTypeData(db);
+    // await _checkTableUserData(db);
+  }
+
+  Future _createUserDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+    final boolType = 'BOOLEAN NOT NULL';
+    final integerType = 'INTEGER NOT NULL';
+
+    await db.execute('''
+CREATE TABLE $tableUsers ( 
+  ${UserModel.id} $idType, 
+  ${UserModel.name} $textType,
+  ${UserModel.image} $textType,
+  ${UserModel.score} $integerType
+  )
+''');
   }
 
   Future _createTypeDB(Database db, int version) async {
@@ -35,12 +54,15 @@ class GamesDatabase {
     final textType = 'TEXT NOT NULL';
     final boolType = 'BOOLEAN NOT NULL';
     final integerType = 'INTEGER NOT NULL';
+    final doubleType = 'DOUBLE NOT NULL';
+
 
     await db.execute('''
 CREATE TABLE $tableTypes ( 
   ${TypeModel.id} $idType, 
+  ${TypeModel.typeId} $integerType,
   ${TypeModel.skipTime} $integerType,
-  ${TypeModel.score} $integerType
+  ${TypeModel.score} $doubleType
   )
 ''');
   }
@@ -54,72 +76,46 @@ CREATE TABLE $tableTypes (
     await db.execute('''
 CREATE TABLE $tableGames ( 
   ${GameModel.id} $idType, 
+  ${GameModel.gameId} $integerType, 
   ${GameModel.type} $integerType,
   ${GameModel.level} $integerType,
   ${GameModel.age} $integerType,
-  ${GameModel.skipTime} $integerType,
   ${GameModel.baseScore} $integerType
   )
 ''');
   }
 
-  Future _checkTableGameData(db) async {
-    String checkFieldExistsSql = 'PRAGMA table_info("$tableGames")';
-    List<Map> maps = await db.rawQuery(checkFieldExistsSql);
-    print(maps.toString());
-    bool foundAdditionInfoColumn = false;
-    for (int i = 0; i < maps.length; i++) {
-      if (maps[i]['name'] == 'additionInfo') {
-        foundAdditionInfoColumn = true;
-      }
-    }
-    // print("foundLastupdateColumn $foundLastupdateColumn");
-    if (foundAdditionInfoColumn == false) {
-      await db.execute(updateColumnAdditionInfo);
-    }
-  }
+  ///Action for gameTables
 
-  Future _checkTableTypeData(db) async {
-    String checkFieldExistsSql = 'PRAGMA table_info("$tableTypes")';
-    List<Map> maps = await db.rawQuery(checkFieldExistsSql);
-    print(maps.toString());
-    bool foundAdditionInfoColumn = false;
-    for (int i = 0; i < maps.length; i++) {
-      if (maps[i]['name'] == 'additionInfo') {
-        foundAdditionInfoColumn = true;
-      }
-    }
-    // print("foundLastupdateColumn $foundLastupdateColumn");
-    if (foundAdditionInfoColumn == false) {
-      await db.execute(updateColumnAdditionInfoType);
-    }
-  }
-
-  Future<Game> create(Game game) async {
-    Game searchedGame=await readGame(game.id);
-    if(searchedGame!=null){
+  Future<Game> createGame(Game game) async {
+    print(game);
+    Game searchedGame = await readGame(game.gameId);
+    if (searchedGame != null) {
       print('Game is exist');
       return null;
+    }else{
+      final db = await instance.database;
+      final id = await db.insert(tableGames, game.toJson());
+      return game.copy(id: id);
     }
-    final db = await instance.database;
-    final id = await db.insert(tableGames, game.toJson());
-    return game.copy(id: id);
+
   }
 
-  Future<Game> readGame(int id) async {
+  Future<Game> readGame(int gameId) async {
     final db = await instance.database;
 
     final maps = await db.query(
       tableGames,
       columns: GameModel.values,
-      where: '${GameModel.id} = ?',
-      whereArgs: [id],
+      where: '${GameModel.gameId} = ?',
+      whereArgs: [gameId],
     );
 
     if (maps.isNotEmpty) {
       return Game.fromJson(maps.first);
     } else {
       print('This is new game');
+      return null;
     }
   }
 
@@ -134,18 +130,18 @@ CREATE TABLE $tableGames (
     return result.map((json) => Game.fromJson(json)).toList();
   }
 
-  Future<int> update(Game game) async {
+  Future<int> updateGame(Game game) async {
     final db = await instance.database;
 
     return db.update(
       tableGames,
       game.toJson(),
-      where: '${GameModel.id} = ?',
-      whereArgs: [game.id],
+      where: '${GameModel.gameId} = ?',
+      whereArgs: [game.gameId],
     );
   }
 
-  Future<int> delete(int id) async {
+  Future<int> deleteGame(int id) async {
     final db = await instance.database;
 
     return await db.delete(
@@ -155,6 +151,132 @@ CREATE TABLE $tableGames (
     );
   }
 
+  ///Action for tableTypes
+  Future<Type> createType(Type type) async {
+    Type searchedType = await readType(type.typeId);
+    if (searchedType != null) {
+      print('Type is exist');
+      return null;
+    }
+    final db = await instance.database;
+    final id = await db.insert(tableTypes, type.toJson());
+    return type.copy(id: id);
+  }
+
+  Future<Type> readType(int typeId) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableTypes,
+      columns: TypeModel.values,
+      where: '${TypeModel.typeId} = ?',
+      whereArgs: [typeId],
+    );
+
+    if (maps.isNotEmpty) {
+      return Type.fromJson(maps.first);
+    } else {
+      print('This is new game');
+    }
+  }
+
+  Future<List<Type>> readAllTypes() async {
+    final db = await instance.database;
+
+    final orderBy = '${TypeModel.id} ASC';
+
+    final result = await db.query(tableTypes, orderBy: orderBy);
+    print('Type');
+    print(result);
+
+    return result.map((json) => Type.fromJson(json)).toList();
+  }
+
+  Future<int> updateType(Type type) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableTypes,
+      type.toJson(),
+      where: '${TypeModel.id} = ?',
+      whereArgs: [type.id],
+    );
+  }
+
+  Future<int> deleteType(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tableTypes,
+      where: '${TypeModel.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
+  ///Action for tableUsers
+  Future<User> createUser(User user) async {
+    User searchedUser = await readUser(user.name);
+    if (searchedUser != null) {
+      print('User is exist');
+      return null;
+    }
+    final db = await instance.database;
+    final id = await db.insert(tableUsers, user.toJson());
+    return user.copy(id: id);
+  }
+
+  Future<User> readUser(String name) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableUsers,
+      columns: UserModel.values,
+      where: '${UserModel.name} = ?',
+      whereArgs: [name],
+    );
+
+    if (maps.isNotEmpty) {
+      return User.fromJson(maps.first);
+    } else {
+      print('This is new game');
+      return null;
+    }
+  }
+
+  Future<List<User>> readAllUser() async {
+    final db = await instance.database;
+
+    final orderBy = '${UserModel.id} ASC';
+
+    final result = await db.query(tableUsers, orderBy: orderBy);
+    print('User');
+    print(result);
+
+    return result.map((json) => User.fromJson(json)).toList();
+  }
+
+  Future<int> updateUser(User user) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableUsers,
+      user.toJson(),
+      where: '${UserModel.id} = ?',
+      whereArgs: [user.id],
+    );
+  }
+
+  Future<int> deleteUser(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tableUsers,
+      where: '${UserModel.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
+  /// Close the db
   Future close() async {
     final db = await instance.database;
     db.close();

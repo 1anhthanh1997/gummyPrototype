@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/user_model.dart';
 
 class ScreenModel extends ChangeNotifier {
   double screenWidth;
@@ -11,7 +13,7 @@ class ScreenModel extends ChangeNotifier {
   var currentGame;
   int currentStep = 0;
   String localPath;
-
+  User currentUser = User(id: 1, name: 'Thanh', image: '', score: 8);
 
   void setContext(BuildContext context) {
     currentContext = context;
@@ -51,6 +53,11 @@ class ScreenModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // void addUserScore() async {
+  //   User newUser=currentUser;
+  //   newUser.score=
+  // }
+
   void nextGame() async {
     print('Next Game');
     currentGameId++;
@@ -61,8 +68,8 @@ class ScreenModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getCurrentGame(){
+  void getCurrentGame() {
     print('Current Game Id:${currentGameId}');
-    currentGame=gameData[currentGameId];
+    currentGame = gameData[currentGameId];
   }
 }

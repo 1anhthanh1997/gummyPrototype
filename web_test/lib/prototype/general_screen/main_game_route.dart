@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/game_model.dart';
+import 'package:web_test/model/type_model.dart';
+import 'package:web_test/model/user_model.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
 import 'package:web_test/prototype/game_screen/game_choose_pair_6/choose_pair_game.dart';
 import 'package:web_test/prototype/game_screen/game_classify_5/classify_items.dart';
@@ -46,10 +48,42 @@ class _MainGameRouteState extends State<MainGameRoute> {
     final response = await http.get(Uri.parse(
         'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
     var allGameData = json.decode(response.body);
+    // var jsonData = await rootBundle.loadString('assets/game_data.json');
+    // var allGameData = json.decode(jsonData);
     assetsUrl = allGameData['assetsUrl'];
     screenModel.gameData = allGameData['data'];
+    List<int> typeIdList = [];
+    await addUser();
+    screenModel.gameData.map((game) async {
+      if (!typeIdList.contains(game['gameType'])) {
+        typeIdList.add(game['gameType']);
+      }
+      Game currentGame = Game(
+          gameId: game['id'],
+          type: game['gameType'],
+          level: game['level'],
+          age: game['age'],
+          baseScore: game['levelScore']);
+
+      await GamesDatabase.instance.createGame(currentGame);
+    }).toList();
+    typeIdList.map((id) async {
+      Type currentType = Type(
+        typeId: id,
+        skipTime: 0,
+        score: 100 / typeIdList.length,
+      );
+      await GamesDatabase.instance.createType(currentType);
+    }).toList();
     screenModel.getCurrentGame();
-    setState(() {});
+    // setState(() {});
+  }
+
+  Future<void> addUser() async {
+    User currentUser = User(name: 'Thanh', image: '', score: MIN_BASE_SCORE);
+    await GamesDatabase.instance.createUser(currentUser).whenComplete(() async {
+      await GamesDatabase.instance.readAllUser();
+    });
   }
 
   @override
@@ -58,17 +92,8 @@ class _MainGameRouteState extends State<MainGameRoute> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData().whenComplete(() => {downloadAssets()});
-    // GamesDatabase.instance.readAllGames();
-    createGame().whenComplete((){
-      GamesDatabase.instance.readAllGames();
-    });
+    GamesDatabase.instance.readAllGames();
     super.initState();
-  }
-
-  Future<void> createGame() async {
-    Game game =
-        Game(id: 0, type: 0, age: 3, skipTime: 0, level: 1, baseScore: 8);
-    await GamesDatabase.instance.create(game);
   }
 
   Future<void> downloadAssets() async {

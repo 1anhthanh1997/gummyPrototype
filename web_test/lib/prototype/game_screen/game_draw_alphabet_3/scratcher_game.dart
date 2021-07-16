@@ -41,7 +41,7 @@ class _ScratcherGameState extends State<ScratcherGame>
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
     data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath + '/' + allGameData['gameAssets'];
+    assetFolder = screenModel.localPath  + allGameData['gameAssets'];
     // assetFolder = allGameData['gameAssets'];
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))

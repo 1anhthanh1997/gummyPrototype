@@ -40,7 +40,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   void loadGameData() {
     allGameData = screenModel.currentGame;
     data = allGameData['gameData'][0]['items'];
-    assetFolder = screenModel.localPath + '/' + allGameData['gameAssets'];
+    assetFolder = screenModel.localPath  + allGameData['gameAssets'];
     itemData =
         data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {

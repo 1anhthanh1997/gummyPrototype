@@ -33,7 +33,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     stepIndex=screenModel.currentStep;
     allGameData = screenModel.currentGame;
     data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath+'/'+allGameData['gameAssets'];
+    assetFolder = screenModel.localPath+allGameData['gameAssets'];
     itemData = data
         .map((itemData) => new ItemModel.fromJson(itemData))
         .toList();
