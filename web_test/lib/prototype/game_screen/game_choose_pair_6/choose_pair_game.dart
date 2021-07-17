@@ -73,6 +73,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                 left: item.position.dx,
                 top: item.position.dy - item.height * 0.1,
                 child: ScaleAnimation(
+                  itemId: item.id,
                   isPlayAnimation: isScale[index],
                   onTab: () {
                     if (chosenIndex == -1) {

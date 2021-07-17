@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "788115566803",
+    "project_id": "gummy-ae0d3",
+    "storage_bucket": "gummy-ae0d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788115566803:android:7d028e9501b856bdb92426",
+        "android_client_info": {
+          "package_name": "com.example.gummy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788115566803-7u3soj8a8s90u2r379rhh7cnmnht7nvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRTYnbw0N5PHcYYqVncf_rc67ZQNptqkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788115566803-7u3soj8a8s90u2r379rhh7cnmnht7nvj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788115566803-5nj0jeqbf15osfej85o779h57vbdvalg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.abc.gummy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788115566803:android:cddccff0733dd578b92426",
+        "android_client_info": {
+          "package_name": "com.example.web_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788115566803-7u3soj8a8s90u2r379rhh7cnmnht7nvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRTYnbw0N5PHcYYqVncf_rc67ZQNptqkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788115566803-7u3soj8a8s90u2r379rhh7cnmnht7nvj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788115566803-5nj0jeqbf15osfej85o779h57vbdvalg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.abc.gummy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

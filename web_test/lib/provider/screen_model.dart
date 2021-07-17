@@ -1,6 +1,10 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:device_info/device_info.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/type_model.dart';
@@ -19,6 +23,13 @@ class ScreenModel extends ChangeNotifier {
   User currentUser = User(
       id: 1, name: 'Thanh', image: '', correctTime: 0, wrongTime: 0, score: 8);
   List<Type> typeList = [];
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
+  final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  String deviceId;
+  int startPositionId;
+  Offset startPosition;
+  int endPositionId;
+  Offset endPosition;
 
   void setContext(BuildContext context) {
     currentContext = context;
@@ -48,6 +59,8 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void nextStep() async {
+    logBasicEvent('completed_step_${currentStep}_game_${currentGameId}',
+        currentGameId, currentStep, 'completed_game');
     if (currentStep < currentGame['gameData'].length - 1) {
       currentStep++;
     } else {
@@ -99,7 +112,7 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void getNextGameId() {
-    int randomType=randomWithPiority(typeList);
+    int randomType = randomWithPiority(typeList);
   }
 
   void nextGame() async {
@@ -134,6 +147,8 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void skipGame() async {
+    logBasicEvent('skip_game_${currentGameId}_from_step_${currentStep}',
+        currentGameId, currentStep, 'skip_game');
     randomWithPiority(typeList);
     minusUserScore();
     changeTypeScore();
@@ -143,5 +158,84 @@ class ScreenModel extends ChangeNotifier {
     getCurrentGame();
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();
+  }
+
+  void logDragEvent(
+    bool isCorrect,
+  ) {
+    String actionName;
+    if(isCorrect){
+      actionName='drag_correct_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
+    }else{
+      actionName='drag_incorrect_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
+    }
+    analytics.logEvent(name: actionName, parameters: {
+      'device_id': deviceId,
+      'game_id': currentGameId,
+      'step_id': currentStep,
+      'action_type': 'Drag',
+      'time': DateTime.now().millisecondsSinceEpoch,
+      'start_position_name': startPositionId,
+      'start_position_coordinate_dx': startPosition.dx,
+      'start_position_coordinate_dy': startPosition.dy,
+      'end_position_coordinate_name': endPositionId,
+      'end_position_coordinate_dx': endPosition.dx,
+      'end_position_coordinate_dy': endPosition.dy,
+    });
+    startPosition=null;
+    endPosition=null;
+  }
+
+  void logTapEvent(
+    int itemId,
+    Offset positionOffset,
+  ) {
+    String itemIdName =
+        itemId >= 0 ? itemId.toString() : 'minus_${(itemId * -1).toString()}';
+    String actionName =
+        'tap_item_${itemIdName}_step_${currentStep}_game_${currentGameId}';
+    analytics.logEvent(name: actionName, parameters: {
+      'device_id': deviceId,
+      'game_id': currentGameId,
+      'step_id': currentStep,
+      'action_type': 'Tap',
+      'time': DateTime.now().millisecondsSinceEpoch,
+      'item_id': itemId,
+      'position_coordinate_dx': positionOffset.dx,
+      'position_coordinate_dy': positionOffset.dy,
+    });
+  }
+
+  void logBasicEvent(
+      String actionName, int gameId, int stepId, String actionType) {
+    analytics.logEvent(name: actionName, parameters: {
+      'device_id': deviceId,
+      'game_id': gameId,
+      'step_id': stepId,
+      'action_type': actionType,
+      'time': DateTime.now().millisecondsSinceEpoch,
+    });
+  }
+
+  void getDeviceId() {
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    Map<String, dynamic> deviceData = <String, dynamic>{};
+    try {
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidDeviceInfo =
+            await deviceInfoPlugin.androidInfo;
+        deviceId = androidDeviceInfo.id;
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;
+        deviceId = iosDeviceInfo.identifierForVendor;
+      }
+    } on PlatformException {
+      deviceData = <String, dynamic>{
+        'Error:': 'Failed to get platform version.'
+      };
+    }
   }
 }

@@ -30,20 +30,20 @@ class _ClassifyItemState extends State<ClassifyItem>
   int step = 0;
   List<bool> isSelected = [false, false];
   ScreenModel screenModel;
-  int count=0;
-  int draggableCount=0;
+  int count = 0;
+  int draggableCount = 0;
   int stepIndex;
 
   void loadClassifyData() {
-    stepIndex=screenModel.currentStep;
+    stepIndex = screenModel.currentStep;
     data = screenModel.currentGame;
     List draggable = data['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath+data['gameAssets'];
+    assetFolder = screenModel.localPath + data['gameAssets'];
     items = draggable
         .map((classifyInfo) => new ItemModel.fromJson(classifyInfo))
         .toList();
-    for(int idx=0;idx<items.length;idx++){
-      if(items[idx].type==1){
+    for (int idx = 0; idx < items.length; idx++) {
+      if (items[idx].type == 1) {
         draggableCount++;
       }
     }
@@ -114,6 +114,8 @@ class _ClassifyItemState extends State<ClassifyItem>
       ),
       childWhenDragging: Container(),
       onDragStarted: () {
+        screenModel.startPositionId = item.id;
+        screenModel.startPosition = item.position;
         durationTime = 0;
       },
       onDragUpdate: (details) {
@@ -138,19 +140,26 @@ class _ClassifyItemState extends State<ClassifyItem>
       maxSimultaneousDrags: 1,
       onDraggableCanceled: (velocity, offset) {
         Offset offsetSource;
+        screenModel.endPosition = offset;
         if (offset.dx <= 812 / 2 - 812 / 14 - 30 && item.groupId == 0) {
+          screenModel.endPositionId = 0;
+          screenModel.logDragEvent(true);
           offsetSource = item.endPosition;
           setState(() {
             item.status = 1;
             count++;
           });
         } else if (offset.dx >= 812 / 2 + 812 / 14 && item.groupId == 1) {
+          screenModel.endPositionId = 1;
+          screenModel.logDragEvent(true);
           offsetSource = item.endPosition;
           setState(() {
             item.status = 1;
             count++;
           });
         } else {
+          screenModel.endPositionId = -1;
+          screenModel.logDragEvent(false);
           offsetSource = item.position;
         }
         item.position = offset;
@@ -165,8 +174,8 @@ class _ClassifyItemState extends State<ClassifyItem>
             isSelected[item.groupId] = false;
             setState(() {});
           });
-          if(count==draggableCount){
-            Timer(Duration(milliseconds: 2000),(){
+          if (count == draggableCount) {
+            Timer(Duration(milliseconds: 2000), () {
               screenModel.nextStep();
             });
           }
@@ -228,14 +237,11 @@ class _ClassifyItemState extends State<ClassifyItem>
             ? Positioned(
                 top: item.position.dy,
                 left: item.position.dx,
-                child:
-                ScaleAnimation(
+                child: ScaleAnimation(
                   isScale: isSelected[item.groupId],
                   beginValue: 1.0,
                   endValue: 1.1,
-                  onTab:(){
-
-                  },
+                  onTab: () {},
                   child: Container(
                     width: item.width,
                     height: item.height,

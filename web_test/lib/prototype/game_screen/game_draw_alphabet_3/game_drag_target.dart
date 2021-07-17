@@ -145,6 +145,7 @@ class _GameDragTargetState extends State<GameDragTarget>
               child: item.status == 1
                   ? Container()
                   : AnimationDraggableTap(
+                      buttonId: item.id,
                       child: AnimationHitFail(
                         isDisplayAnimation: isHitFail,
                         child: Container(

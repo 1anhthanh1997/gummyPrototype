@@ -148,6 +148,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           children: [
             item.status == 0
                 ? GestureDetector(
+                    onTapDown: (details){
+                      screenModel.logTapEvent(item.id, details.globalPosition);
+                    },
                     onTap: () {
                       _hitSquare(time, index);
                     },

@@ -146,11 +146,18 @@ class _JigsawGameState extends State<JigsawGame> {
                   fit: BoxFit.contain,
                 ),
               ),
+              onDragStarted:(){
+                screenModel.startPositionId=item.id;
+                screenModel.startPosition=item.position;
+              },
               childWhenDragging: Container(),
               onDragEnd: (details) {
                 bringToFront(item);
               },
               onDraggableCanceled: (velocity, offset) {
+                screenModel.endPositionId=-1;
+                screenModel.endPosition=offset;
+                screenModel.logDragEvent(false);
                 item.position = offset;
                 setState(() {});
               },
@@ -185,6 +192,8 @@ class _JigsawGameState extends State<JigsawGame> {
                 return data == item.groupId;
               },
               onAccept: (data) {
+                screenModel.endPositionId=item.id;
+                screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
                   Timer(Duration(milliseconds: 2000), () {

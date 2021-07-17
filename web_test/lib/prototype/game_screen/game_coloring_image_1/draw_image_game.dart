@@ -46,6 +46,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   int currentColorIndex;
   List<int> status = [];
   var currentGameData;
+  List<int> id = [];
   int stepIndex;
 
   void loadImageData() {
@@ -63,6 +64,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
         });
       } else {
         setState(() {
+          id.add(imageData[index].id);
           imagePoint.add([]);
           _imagePath.add(parseSvgPath(imageData[index].path));
           imageLink.add(assetFolder + imageData[index].image);
@@ -144,7 +146,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     setState(() {});
   }
 
-  void onTapDown(Offset position) {
+  void onChooseColoringImage(Offset position, int type) {
     for (int index = 0; index < _imagePath.length; index++) {
       Offset localOffset = Offset(
           position.dx - imagePosition[index].dx * ratio,
@@ -155,6 +157,12 @@ class _DrawImageGameState extends State<DrawImageGame> {
       if (_imagePath[index].contains(localOffset) &&
           color[index] == currentColor &&
           status[index] == 0) {
+        if (type == 0) {
+          screenModel.logTapEvent(id[index], position);
+        } else {
+          screenModel.endPositionId=id[index];
+          screenModel.logDragEvent(true);
+        }
         setState(() {
           colorData[currentColorIndex].count--;
           countSum--;
@@ -177,6 +185,13 @@ class _DrawImageGameState extends State<DrawImageGame> {
           });
         }
         return;
+      } else {
+        if (type == 0) {
+          screenModel.logTapEvent(-1, position);
+        } else {
+          screenModel.endPositionId = -1;
+          screenModel.logDragEvent(false);
+        }
       }
     }
   }
@@ -187,9 +202,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTapDown: (details) {
-          print('OK');
-          print(details.globalPosition);
-          onTapDown(details.globalPosition);
+          onChooseColoringImage(details.globalPosition, 1);
         },
         child: Stack(
           children: imageIndex.map((index) {
@@ -234,6 +247,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
               ? Container()
               : GestureDetector(
                   onTapDown: (details) {
+                    screenModel.logTapEvent(color.id, details.globalPosition);
                     setState(() {
                       currentColor = color.color;
                       currentColorIndex = colorIndex;
@@ -266,6 +280,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
                         child: SvgPicture.asset(assetFolder + color.image,
                             fit: BoxFit.contain, color: HexColor(color.color))),
                     onDragStarted: () {
+                      screenModel.startPositionId = color.id;
+                      screenModel.startPosition = color.position;
                       setState(() {
                         currentColor = color.color;
                         currentColorIndex = colorIndex;
@@ -273,8 +289,11 @@ class _DrawImageGameState extends State<DrawImageGame> {
                       });
                     },
                     onDraggableCanceled: (velocity, offset) {
-                      onTapDown(Offset(offset.dx + color.width / 2 * ratio,
-                          offset.dy + color.height / 2 * ratio));
+                      screenModel.endPosition = offset;
+                      onChooseColoringImage(
+                          Offset(offset.dx + color.width / 2 * ratio,
+                              offset.dy + color.height / 2 * ratio),
+                          1);
                     },
                   )));
     }).toList());
@@ -303,6 +322,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
               ? Container()
               : GestureDetector(
                   onTapDown: (details) {
+                    screenModel.logTapEvent(color.id, details.globalPosition);
                     setState(() {
                       currentColor = color.color;
                       currentColorIndex = colorIndex;
@@ -336,6 +356,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
               ? Container()
               : GestureDetector(
                   onTapDown: (details) {
+                    screenModel.logTapEvent(color.id, details.globalPosition);
                     setState(() {
                       currentColor = color.color;
                       currentColorIndex = colorIndex;

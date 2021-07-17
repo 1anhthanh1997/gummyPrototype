@@ -50,6 +50,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
     var allGameData = json.decode(response.body);
     // var jsonData = await rootBundle.loadString('assets/game_data.json');
     // var allGameData = json.decode(jsonData);
+
     assetsUrl = allGameData['assetsUrl'];
     screenModel.gameData = allGameData['data'];
     List<int> typeIdList = [];
@@ -64,6 +65,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
           type: game['gameType'],
           level: game['level'],
           age: game['age'],
+          lastUpdate: 0,
           baseScore: game['levelScore']);
 
       await GamesDatabase.instance.createGame(currentGame);
@@ -97,6 +99,7 @@ class _MainGameRouteState extends State<MainGameRoute> {
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    screenModel.getDeviceId();
     loadGameData().whenComplete(() => {downloadAssets()});
     GamesDatabase.instance.readAllGames();
     super.initState();

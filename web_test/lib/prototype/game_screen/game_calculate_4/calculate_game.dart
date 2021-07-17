@@ -285,6 +285,8 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
               },
               onAccept: (data) {
+                screenModel.endPositionId=item.id;
+                screenModel.endPosition=item.position;
                 setState(() {
                   sourceModel[index].status = 1;
                   targetModel[index].status = 1;
@@ -332,10 +334,15 @@ class _CalculateGameState extends State<CalculateGame> {
                     item.height, item.width, fullInitUrl, number, false),
                 childWhenDragging: Container(),
                 onDragStarted: () {
+                  screenModel.startPositionId=item.id;
+                  screenModel.startPosition=item.position;
                   item.duration = 0;
                 },
                 maxSimultaneousDrags: 1,
                 onDraggableCanceled: (velocity, offset) {
+                  screenModel.endPositionId=-1;
+                  screenModel.endPosition=offset;
+                  screenModel.logDragEvent(false);
                   onDraggableCancelled(item, offset);
                 },
               ),

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_test/provider/screen_model.dart';
 
 class AnimationDraggableTap extends StatefulWidget {
   final Widget child;
@@ -8,7 +10,7 @@ class AnimationDraggableTap extends StatefulWidget {
   final bool isMultiTab;
   final double size;
   final bool isPlay;
-  final String buttonName;
+  final int buttonId;
 
   // final VoidCallback onTapDown;
 
@@ -19,7 +21,7 @@ class AnimationDraggableTap extends StatefulWidget {
       this.isMultiTab,
       this.size: 0.1,
       this.isPlay: false,
-      this.buttonName = ''})
+      this.buttonId = 0})
       : super();
 
   @override
@@ -33,10 +35,12 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
   Cubic easeInBack = Cubic(0.6, -0.9, 0.735, 0.045);
   bool enable = true;
   Timer _timer;
+  ScreenModel screenModel;
 
   @override
   void initState() {
-    // TODO: implement initState
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
     super.initState();
     _animationController =
         AnimationController(duration: Duration(milliseconds: 400), vsync: this);
@@ -92,6 +96,8 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
           return;
         },
         onTapDown: (TapDownDetails tapDownDetails) {
+          screenModel.logTapEvent(
+              widget.buttonId, tapDownDetails.globalPosition);
           setState(() {
             enable = false;
           });
@@ -105,7 +111,7 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
           if (widget.onTab != null) {
             widget.onTab();
           }
-          if (widget.buttonName != null) {}
+          if (widget.buttonId != null) {}
         },
         child: AnimatedBuilder(
           animation: _scaleAnimation,

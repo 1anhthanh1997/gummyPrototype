@@ -18,6 +18,11 @@ class _BasicItemState extends State<BasicItem> {
   void initState() {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    screenModel.logBasicEvent(
+        'enter_step_${screenModel.currentStep}_game_${screenModel.currentGameId}',
+        screenModel.currentGameId,
+        screenModel.currentStep,
+        'enter_game');
     super.initState();
   }
 
