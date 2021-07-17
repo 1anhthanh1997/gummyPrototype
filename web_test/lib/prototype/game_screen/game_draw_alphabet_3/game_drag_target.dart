@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
@@ -33,7 +34,7 @@ class _GameDragTargetState extends State<GameDragTarget>
   int currentIndex = 0;
   double bonusHeight = 0;
   List<ItemModel> imageData = [];
-  var allGameData;
+  ParentGameModel allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
   List<ItemModel> sourceModel = [];
@@ -47,8 +48,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath + allGameData['gameAssets'];
+    imageData = allGameData.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath + allGameData.gameAssets;
     imageData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
         .toList();
@@ -243,8 +244,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][stepIndex]
-                                ['background']),
+                            allGameData.gameData[stepIndex].background
+                                ),
                         fit: BoxFit.fill)),
                 child: Stack(
                   children: displayScreen(),

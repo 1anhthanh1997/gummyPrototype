@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/character_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -36,8 +37,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   List<Offset> endPosition = [];
   int currentIndex = 0;
   double bonusHeight = 0;
-  var allGameData;
-  var assetFolder;
+  ParentGameModel allGameData;
+  String assetFolder;
   ScreenModel screenModel;
   bool scaleNumber = true;
   int stepIndex;
@@ -45,9 +46,9 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    double objectHeight = allGameData['gameData'][stepIndex]['height'];
-    assetFolder = allGameData['gameAssets'];
+    data = allGameData.gameData[stepIndex].items;
+    double objectHeight = 0;
+    assetFolder = allGameData.gameAssets;
     bonusHeight = 0.0;
     alphabetData = data
         .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
@@ -57,7 +58,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         _alphabetPoint.add([]);
         alphabetPath.add(parseSvgPath(alphabetData[index].path));
         imageLink.add(screenModel.localPath +
-            allGameData['gameAssets'] +
+            allGameData.gameAssets +
             alphabetData[index].image);
         imagePosition.add(alphabetData[index].position);
         startPosition.add(alphabetData[index].startPosition);
@@ -227,7 +228,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                     image: DecorationImage(
                         image: AssetImage(screenModel.localPath +
                             assetFolder +
-                            allGameData['gameData'][stepIndex]['background']),
+                            allGameData.gameData[stepIndex].background),
                         fit: BoxFit.fill)),
                 child: ScaleAnimation(
                   beginValue: 0.0,

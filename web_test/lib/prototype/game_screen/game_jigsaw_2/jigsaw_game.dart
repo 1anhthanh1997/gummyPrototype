@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
@@ -22,7 +23,7 @@ class _JigsawGameState extends State<JigsawGame> {
   double ratio = 1;
   bool isWrongTarget = false;
   String assetFolder;
-  var allGameData;
+  ParentGameModel allGameData;
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
   int count = 0;
@@ -32,9 +33,9 @@ class _JigsawGameState extends State<JigsawGame> {
   void loadAlphabetData() {
     stepIndex=screenModel.currentStep;
     allGameData=screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    double objectHeight = allGameData['gameData'][stepIndex]['height'];
-    assetFolder = screenModel.localPath+allGameData['gameAssets'];
+    data = allGameData.gameData[stepIndex].items;
+    double objectHeight = 0;
+    assetFolder = screenModel.localPath+allGameData.gameAssets;
     bonusHeight = (375 - objectHeight) / 2;
     imageData = data
         .map((draggableInfo) => new ItemModel.fromJson(draggableInfo))
@@ -237,7 +238,7 @@ class _JigsawGameState extends State<JigsawGame> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(assetFolder +
-                          allGameData['gameData'][stepIndex]['background']),
+                          allGameData.gameData[stepIndex].background),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

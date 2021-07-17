@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
 import 'package:web_test/widgets/basic_item.dart';
@@ -23,7 +24,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   List<bool> canDraw = [];
   List<int> type = [];
   List<ItemModel> imageData = [];
-  List data = [];
+  List<ItemModel> data = [];
   List secondData = [];
   List<ItemModel> colorData = [];
   String currentColor = '';
@@ -45,18 +46,18 @@ class _DrawImageGameState extends State<DrawImageGame> {
   bool isDragging = false;
   int currentColorIndex;
   List<int> status = [];
-  var currentGameData;
+  ParentGameModel currentGameData;
   List<int> id = [];
   int stepIndex;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
     stepIndex = screenModel.currentStep;
-    data = currentGameData['gameData'][stepIndex]['items'];
-    centerHeight = currentGameData['gameData'][stepIndex]['height'];
-    assetFolder = screenModel.localPath + currentGameData['gameAssets'];
-    imageData =
-        data.map((imageInfo) => new ItemModel.fromJson(imageInfo)).toList();
+    data = currentGameData.gameData[stepIndex].items;
+    // centerHeight = currentGameData.gameData[stepIndex];
+    centerHeight = 0;
+    assetFolder = screenModel.localPath + currentGameData.gameAssets;
+    imageData = data;
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 1) {
         setState(() {
@@ -160,7 +161,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
         if (type == 0) {
           screenModel.logTapEvent(id[index], position);
         } else {
-          screenModel.endPositionId=id[index];
+          screenModel.endPositionId = id[index];
           screenModel.logDragEvent(true);
         }
         setState(() {
@@ -280,6 +281,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                         child: SvgPicture.asset(assetFolder + color.image,
                             fit: BoxFit.contain, color: HexColor(color.color))),
                     onDragStarted: () {
+                      print(color.position);
                       screenModel.startPositionId = color.id;
                       screenModel.startPosition = color.position;
                       setState(() {
@@ -304,7 +306,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
         decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage(
-            assetFolder + currentGameData['gameData'][stepIndex]['background']),
+            assetFolder + currentGameData.gameData[stepIndex].background),
         fit: BoxFit.fill,
       ),
     ));

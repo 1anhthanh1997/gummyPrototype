@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/game_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/model/type_model.dart';
 import 'package:web_test/model/user_model.dart';
 import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.dart';
@@ -34,7 +35,7 @@ class MainGameRoute extends StatefulWidget {
 
 class _MainGameRouteState extends State<MainGameRoute> {
   ScreenModel screenModel;
-
+  List gameDataJson;
   var data;
   var currentGameData;
   bool debug = true;
@@ -50,23 +51,24 @@ class _MainGameRouteState extends State<MainGameRoute> {
     var allGameData = json.decode(response.body);
     // var jsonData = await rootBundle.loadString('assets/game_data.json');
     // var allGameData = json.decode(jsonData);
-
     assetsUrl = allGameData['assetsUrl'];
-    screenModel.gameData = allGameData['data'];
+    gameDataJson=allGameData['data'];
+    screenModel.gameData =
+        gameDataJson.map((parentGame) => new ParentGameModel.fromJson(parentGame)).toList();
     List<int> typeIdList = [];
     screenModel.getTypeList();
     await addUser();
     screenModel.gameData.map((game) async {
-      if (!typeIdList.contains(game['gameType'])) {
-        typeIdList.add(game['gameType']);
+      if (!typeIdList.contains(game.gameType)) {
+        typeIdList.add(game.gameType);
       }
       Game currentGame = Game(
-          gameId: game['id'],
-          type: game['gameType'],
-          level: game['level'],
-          age: game['age'],
+          gameId: game.id,
+          type: game.gameType,
+          level: game.level,
+          age: game.age,
           lastUpdate: 0,
-          baseScore: game['levelScore']);
+          baseScore: game.levelScore);
 
       await GamesDatabase.instance.createGame(currentGame);
     }).toList();
@@ -240,8 +242,8 @@ class _MainGameRouteState extends State<MainGameRoute> {
         : Consumer<ScreenModel>(
             builder: (context, ScreenModel value, child) {
               print(screenModel.currentGame);
-              return displayGame(screenModel.currentGame['gameData']
-                  [screenModel.currentStep]['gameType']);
+              return displayGame(screenModel.currentGame.gameData
+                  [screenModel.currentStep].gameType);
             },
           );
   }

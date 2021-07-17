@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
@@ -43,9 +44,9 @@ class _CalculateGameState extends State<CalculateGame> {
 
   void getGameData()  {
     stepIndex=screenModel.currentStep;
-    var allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath + allGameData['gameAssets'];
+    ParentGameModel allGameData = screenModel.currentGame;
+    data = allGameData.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath + allGameData.gameAssets;
     itemData =
         data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {

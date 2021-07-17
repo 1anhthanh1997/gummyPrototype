@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 
 class ScratcherGame extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   Timer deleteTimer;
   Timer secondDeleteTimer;
   Timer thirdDeleteTimer;
-  List data;
+  List <ItemModel>data;
   List<ItemModel> alphabetData = [];
   List<String> imageLink = [];
   List<Offset> imagePosition = [];
@@ -29,7 +30,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   int currentIndex = 0;
   double bonusHeight = 0;
   List<ItemModel> imageData = [];
-  var allGameData;
+  ParentGameModel allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
   List<Offset> positionListTmp = [];
@@ -40,12 +41,9 @@ class _ScratcherGameState extends State<ScratcherGame>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath  + allGameData['gameAssets'];
-    // assetFolder = allGameData['gameAssets'];
-    imageData = data
-        .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
-        .toList();
+    imageData = allGameData.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath  + allGameData.gameAssets;
+
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
       positionListTmp.add(imageData[idx].position);
@@ -138,7 +136,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][stepIndex]['background']),
+                            allGameData.gameData[stepIndex].background),
                         fit: BoxFit.fill)),
                 child: scratcher()));
   }

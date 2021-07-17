@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/model/type_model.dart';
 import 'package:web_test/model/user_model.dart';
 
@@ -15,9 +16,9 @@ class ScreenModel extends ChangeNotifier {
   double screenHeight;
   double ratio;
   BuildContext currentContext;
-  var gameData;
+  List<ParentGameModel> gameData;
   int currentGameId = 0;
-  var currentGame;
+  ParentGameModel currentGame;
   int currentStep = 0;
   String localPath;
   User currentUser = User(
@@ -61,7 +62,7 @@ class ScreenModel extends ChangeNotifier {
   void nextStep() async {
     logBasicEvent('completed_step_${currentStep}_game_${currentGameId}',
         currentGameId, currentStep, 'completed_game');
-    if (currentStep < currentGame['gameData'].length - 1) {
+    if (currentStep < currentGame.gameData.length - 1) {
       currentStep++;
     } else {
       nextGame();
@@ -135,7 +136,7 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void changeTypeScore() async {
-    var currentType = currentGame['gameType'];
+    var currentType = currentGame.gameType;
     typeList.map((type) async {
       if (type.typeId == currentType) {
         type.score--;
@@ -162,23 +163,24 @@ class ScreenModel extends ChangeNotifier {
 
   void logDragEvent(
     bool isCorrect,
-  ) {
+  ) async {
     String actionName;
     if(isCorrect){
       actionName='drag_correct_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
     }else{
       actionName='drag_incorrect_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
     }
-    analytics.logEvent(name: actionName, parameters: {
+
+    await analytics.logEvent(name: actionName, parameters: {
       'device_id': deviceId,
       'game_id': currentGameId,
       'step_id': currentStep,
       'action_type': 'Drag',
       'time': DateTime.now().millisecondsSinceEpoch,
-      'start_position_name': startPositionId,
+      'start_position_id': startPositionId,
       'start_position_coordinate_dx': startPosition.dx,
       'start_position_coordinate_dy': startPosition.dy,
-      'end_position_coordinate_name': endPositionId,
+      'end_position_coordinate_id': endPositionId,
       'end_position_coordinate_dx': endPosition.dx,
       'end_position_coordinate_dy': endPosition.dy,
     });
