@@ -19,3 +19,5 @@ const DRAW_ALPHABET_GAME_TYPE=6;
 
 const COEFFICIENT=2;
 const MIN_BASE_SCORE=8;
+
+const BASE_SERVER_URL='https://dev-dot-micro-enigma-235001.appspot.com';

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
@@ -16,13 +17,12 @@ class ChoosePairGame extends StatefulWidget {
 }
 
 class _ChoosePairGameState extends State<ChoosePairGame> {
-  List data;
   List<ItemModel> itemData = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
   String assetFolder = '';
   int chosenIndex = -1;
-  var allGameData;
+  ParentGameModel allGameData;
   List<int> isScale = [];
   ScreenModel screenModel;
   int count=0;
@@ -32,11 +32,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   void loadGameData() {
     stepIndex=screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath+allGameData['gameAssets'];
-    itemData = data
-        .map((itemData) => new ItemModel.fromJson(itemData))
-        .toList();
+    itemData = allGameData.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath+allGameData.gameAssets;
     for(int idx=0;idx<itemData.length;idx++){
       isScale.add(0);
       if(itemData[idx].type==1){
@@ -151,7 +148,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
 
   Widget displayStep() {
     List<int> imageIndex =
-        Iterable<int>.generate(allGameData['gameData'].length).toList();
+        Iterable<int>.generate(allGameData.gameData.length).toList();
     return Stack(
       children: imageIndex.map((index) {
         return Positioned(
@@ -199,7 +196,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(assetFolder +
-                          allGameData['gameData'][stepIndex]['background']),
+                          allGameData.gameData[stepIndex].background),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

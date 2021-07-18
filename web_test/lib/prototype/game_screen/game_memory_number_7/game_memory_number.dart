@@ -9,6 +9,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
@@ -32,15 +33,16 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   List<ItemModel> answerData = [];
   final List<List<SquareParticle>> particles = [];
   bool isDisplayAnswer = false;
-  var allGameData;
+  ParentGameModel allGameData;
   ScreenModel screenModel;
   int count = 0;
   int answerCount = 0;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
-    data = allGameData['gameData'][0]['items'];
-    assetFolder = screenModel.localPath  + allGameData['gameAssets'];
+    int stepIndex=screenModel.currentStep;
+    data = allGameData.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath  + allGameData.gameAssets;
     itemData =
         data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {
@@ -298,7 +300,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(assetFolder +
-                            allGameData['gameData'][screenModel.currentStep]['background']))),
+                            allGameData.gameData[screenModel.currentStep].background))),
                 child: Stack(
                   children: displayScreen(),
                 ),

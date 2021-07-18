@@ -45,10 +45,8 @@ class _CalculateGameState extends State<CalculateGame> {
   void getGameData()  {
     stepIndex=screenModel.currentStep;
     ParentGameModel allGameData = screenModel.currentGame;
-    data = allGameData.gameData[stepIndex].items;
+    itemData = allGameData.gameData[stepIndex].items;
     assetFolder = screenModel.localPath + allGameData.gameAssets;
-    itemData =
-        data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         setState(() {

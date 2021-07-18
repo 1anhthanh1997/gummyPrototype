@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
+import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
@@ -24,7 +25,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   AnimationController controller;
   List<ItemModel> items = [];
   Animation<double> _transAnimation;
-  var data;
+  ParentGameModel data;
   List<ItemModel> classifyData = [];
   String assetFolder;
   int step = 0;
@@ -37,11 +38,8 @@ class _ClassifyItemState extends State<ClassifyItem>
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
     data = screenModel.currentGame;
-    List draggable = data['gameData'][stepIndex]['items'];
-    assetFolder = screenModel.localPath + data['gameAssets'];
-    items = draggable
-        .map((classifyInfo) => new ItemModel.fromJson(classifyInfo))
-        .toList();
+    items = data.gameData[stepIndex].items;
+    assetFolder = screenModel.localPath + data.gameAssets;
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {
         draggableCount++;
@@ -87,7 +85,7 @@ class _ClassifyItemState extends State<ClassifyItem>
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                assetFolder + data['gameData'][stepIndex]['background'],
+                assetFolder + data.gameData[stepIndex].background,
               ),
               fit: BoxFit.fill)),
     );
@@ -273,7 +271,7 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   Widget displayStep() {
     List<int> imageIndex =
-        Iterable<int>.generate(data['gameData'].length).toList();
+        Iterable<int>.generate(data.gameData.length).toList();
     return Stack(
       children: imageIndex.map((index) {
         return Positioned(
