@@ -203,7 +203,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTapDown: (details) {
-          onChooseColoringImage(details.globalPosition, 1);
+          onChooseColoringImage(details.globalPosition, 0);
         },
         child: Stack(
           children: imageIndex.map((index) {

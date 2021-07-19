@@ -269,38 +269,7 @@ class _ClassifyItemState extends State<ClassifyItem>
     }).toList());
   }
 
-  Widget displayStep() {
-    List<int> imageIndex =
-        Iterable<int>.generate(data.gameData.length).toList();
-    return Stack(
-      children: imageIndex.map((index) {
-        return Positioned(
-            top: 9,
-            left: 779 - 18.0 * index,
-            child: index == step
-                ? Container(
-                    height: 18,
-                    width: 18,
-                    child: SvgPicture.asset(
-                      'assets/images/common/check.svg',
-                      fit: BoxFit.contain,
-                    ))
-                : Container(
-                    height: 18,
-                    width: 18,
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      child: SvgPicture.asset(
-                        'assets/images/common/uncheck.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ));
-      }).toList(),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -311,7 +280,6 @@ class _ClassifyItemState extends State<ClassifyItem>
               child: Stack(
                 children: [
                   displayBackground(),
-                  displayStep(),
                   displayNormalItem(),
                   displayTargetItem(),
                   displayDraggableItem(),

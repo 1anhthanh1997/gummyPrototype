@@ -3,7 +3,7 @@
   "data": [
     {
       "id": 0,
-      "levelScore": 0,
+      "levelScore": 8,
       "tags": [
         1,
         2
@@ -781,7 +781,7 @@
     },
     {
       "id": 1,
-      "levelScore": 0,
+      "levelScore": 8,
       "tags": [
         1,
         2
@@ -793,12 +793,13 @@
       "gameName": "Game ghép hình",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
+      "gameAssets": "assets/images/game_jigsaw_2/jigsaw_1/",
       "gameData": [
         {
           "id": 1,
           "parentId": 1,
           "gameType": 1,
+          "stepAssets": "unicorn_jigsaw/",
           "background": "background_image.png",
           "items": [
             {
@@ -918,19 +919,664 @@
           ],
           "width": 213.0,
           "height": 298.0
+        },
+        {
+          "id": 1,
+          "parentId": 1,
+          "gameType": 1,
+          "stepAssets": "park_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "park_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 631.0,
+                "dy": 28.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 1,
+              "image": "park_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 595.0,
+                "dy": 218.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 2,
+              "image": "park_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 48.0,
+                "dy": 28.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 3,
+              "image": "park_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 48.0,
+                "dy": 183.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 4,
+              "image": "park_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 5,
+              "image": "park_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 6,
+              "image": "park_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 187.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 7,
+              "image": "park_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 406.0,
+                "dy": 147.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "levelScore": 16,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 1,
+      "age": 3,
+      "level": 1,
+      "orderIndex": 0,
+      "gameName": "Game ghép hình",
+      "createDate": 0,
+      "lastUpdate": 0,
+      "gameAssets": "assets/images/game_jigsaw_2/jigsaw_2/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 102,
+          "gameType": 1,
+          "stepAssets": "unicorn_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 55.0,
+                "dy": 37.0
+              },
+              "type": 1,
+              "width": 86.0,
+              "height": 111.0
+            },
+            {
+              "id": 1,
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 118.0,
+                "dy": 244.0
+              },
+              "type": 1,
+              "width": 135.0,
+              "height": 86.0
+            },
+            {
+              "id": 2,
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 23.0,
+                "dy": 175.0
+              },
+              "type": 1,
+              "width": 86.0,
+              "height": 111.0
+            },
+            {
+              "id": 3,
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 684.0,
+                "dy": 258.0
+              },
+              "type": 1,
+              "width": 111.0,
+              "height": 86.0
+            },
+            {
+              "id": 4,
+              "image": "unicorn_jigsaw_5.png",
+              "groupId": 4,
+              "position": {
+                "dx": 569.0,
+                "dy": 195.0
+              },
+              "type": 1,
+              "width": 86.0,
+              "height": 135.0
+            },
+            {
+              "id": 5,
+              "image": "unicorn_jigsaw_6.png",
+              "groupId": 5,
+              "position": {
+                "dx": 559.0,
+                "dy": 69.0
+              },
+              "type": 1,
+              "width": 111.0,
+              "height": 86.0
+            },
+            {
+              "id": 6,
+              "image": "unicorn_jigsaw_7.png",
+              "groupId": 6,
+              "position": {
+                "dx": 684.0,
+                "dy": 22.0
+              },
+              "type": 1,
+              "width": 86.0,
+              "height": 111.0
+            },
+            {
+              "id": 7,
+              "image": "unicorn_jigsaw_8.png",
+              "groupId": 7,
+              "position": {
+                "dx": 655.0,
+                "dy": 155.0
+              },
+              "type": 1,
+              "width": 135.0,
+              "height": 86.0
+            },
+            {
+              "id": 8,
+              "image": "unicorn_jigsaw_9.png",
+              "groupId": 8,
+              "position": {
+                "dx": 156.0,
+                "dy": 77.0
+              },
+              "type": 1,
+              "width": 86.0,
+              "height": 111.0
+            },
+            {
+              "id": 0,
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 264.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 1,
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 332.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 2,
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 454.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 3,
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 139.0
+              },
+              "type": 0,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 4,
+              "image": "unicorn_jigsaw_5.png",
+              "groupId": 4,
+              "position": {
+                "dx": 358.0,
+                "dy": 112.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 150.0
+            },
+            {
+              "id": 5,
+              "image": "unicorn_jigsaw_6.png",
+              "groupId": 5,
+              "position": {
+                "dx": 427.0,
+                "dy": 139.0
+              },
+              "type": 0,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 6,
+              "image": "unicorn_jigsaw_7.png",
+              "groupId": 6,
+              "position": {
+                "dx": 263.0,
+                "dy": 208.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 7,
+              "image": "unicorn_jigsaw_8.png",
+              "groupId": 7,
+              "position": {
+                "dx": 331.0,
+                "dy": 235.0
+              },
+              "type": 0,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 8,
+              "image": "unicorn_jigsaw_9.png",
+              "groupId": 8,
+              "position": {
+                "dx": 454.0,
+                "dy": 208.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        },
+        {
+          "id": 1,
+          "parentId": 1,
+          "gameType": 1,
+          "stepAssets": "park_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "park_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 577.0,
+                "dy": 15.0
+              },
+              "type": 1,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 1,
+              "image": "park_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 17.0,
+                "dy": 26.0
+              },
+              "type": 1,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 2,
+              "image": "park_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 165.0,
+                "dy": 105.0
+              },
+              "type": 1,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 3,
+              "image": "park_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 29.0,
+                "dy": 147.0
+              },
+              "type": 1,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 4,
+              "image": "park_5.png",
+              "groupId": 4,
+              "position": {
+                "dx": 577.0,
+                "dy": 148.0
+              },
+              "type": 1,
+              "width": 96.0,
+              "height": 150.0
+            },
+            {
+              "id": 5,
+              "image": "park_6.png",
+              "groupId": 5,
+              "position": {
+                "dx": 676.0,
+                "dy": 53.0
+              },
+              "type": 1,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 6,
+              "image": "park_7.png",
+              "groupId": 6,
+              "position": {
+                "dx": 690.0,
+                "dy": 147.0
+              },
+              "type": 1,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 7,
+              "image": "park_8.png",
+              "groupId": 7,
+              "position": {
+                "dx": 641.0,
+                "dy": 269.0
+              },
+              "type": 1,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 8,
+              "image": "park_9.png",
+              "groupId": 8,
+              "position": {
+                "dx": 139.0,
+                "dy": 227.0
+              },
+              "type": 1,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 0,
+              "image": "park_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 1,
+              "image": "park_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 332.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 2,
+              "image": "park_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 454.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 3,
+              "image": "park_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 140.0
+              },
+              "type": 0,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 4,
+              "image": "park_5.png",
+              "groupId": 4,
+              "position": {
+                "dx": 359.0,
+                "dy": 113.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 150.0
+            },
+            {
+              "id": 5,
+              "image": "park_6.png",
+              "groupId": 5,
+              "position": {
+                "dx": 427.0,
+                "dy": 140.0
+              },
+              "type": 0,
+              "width": 123.0,
+              "height": 96.0
+            },
+            {
+              "id": 6,
+              "image": "park_7.png",
+              "groupId": 6,
+              "position": {
+                "dx": 263.0,
+                "dy": 208.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "id": 7,
+              "image": "park_8.png",
+              "groupId": 7,
+              "position": {
+                "dx": 332.0,
+                "dy": 235.0
+              },
+              "type": 0,
+              "width": 150.0,
+              "height": 96.0
+            },
+            {
+              "id": 8,
+              "image": "park_9.png",
+              "groupId": 8,
+              "position": {
+                "dx": 454.0,
+                "dy": 208.0
+              },
+              "type": 0,
+              "width": 96.0,
+              "height": 123.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
         }
       ]
     },
     {
       "id": 2,
-      "levelScore": 0,
+      "levelScore": 16,
       "tags": [
         1,
         2
       ],
       "gameType": 2,
       "age": 3,
-      "level": 1,
+      "level": 2,
       "orderIndex": 0,
       "gameName": "Game tính toán",
       "createDate": 0,
@@ -1015,7 +1661,7 @@
     },
     {
       "id": 3,
-      "levelScore": 0,
+      "levelScore": 8,
       "tags": [
         1,
         2
@@ -1136,132 +1782,132 @@
       ]
     },
     {
-      "id":4,
-      "levelScore":0,
-      "tags":[
+      "id": 4,
+      "levelScore": 8,
+      "tags": [
         1,
         2
       ],
-      "gameType":4,
+      "gameType": 4,
       "age": 3,
       "level": 1,
-      "orderIndex":0,
-      "gameName":"Game chọn cặp 1",
-      "createDate":0,
+      "orderIndex": 0,
+      "gameName": "Game chọn cặp 1",
+      "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets":"/assets/images/game_choose_pair_6/",
-      "gameData":[
+      "gameAssets": "/assets/images/game_choose_pair_6/",
+      "gameData": [
         {
-          "id":1,
-          "parentId":4,
-          "gameType":4,
+          "id": 1,
+          "parentId": 4,
+          "gameType": 4,
           "background": "background_image.png",
           "items": [
             {
-              "id":0,
-              "image":"first_item.svg",
+              "id": 0,
+              "image": "first_item.svg",
               "type": 1,
               "position": {
                 "dx": 160.0,
                 "dy": 65.0
               },
               "groupId": 0,
-              "width":105.0,
-              "height":90.0
+              "width": 105.0,
+              "height": 90.0
             },
             {
-              "id":1,
-              "image":"first_item.svg",
+              "id": 1,
+              "image": "first_item.svg",
               "type": 1,
               "position": {
                 "dx": 298.0,
                 "dy": 201.0
               },
               "groupId": 0,
-              "width":105.0,
-              "height":90.0
+              "width": 105.0,
+              "height": 90.0
             },
             {
-              "id":2,
-              "image":"second_item.svg",
+              "id": 2,
+              "image": "second_item.svg",
               "type": 1,
               "position": {
                 "dx": 320.0,
                 "dy": 65.0
               },
               "groupId": 1,
-              "width":90.0,
-              "height":89.0
+              "width": 90.0,
+              "height": 89.0
             },
             {
-              "id":3,
-              "image":"second_item.svg",
+              "id": 3,
+              "image": "second_item.svg",
               "type": 1,
               "position": {
                 "dx": 565.0,
                 "dy": 201.0
               },
               "groupId": 1,
-              "width":90.0,
-              "height":89.0
+              "width": 90.0,
+              "height": 89.0
             },
             {
-              "id":4,
-              "image":"third_item.svg",
+              "id": 4,
+              "image": "third_item.svg",
               "type": 1,
               "position": {
                 "dx": 457.0,
                 "dy": 65.0
               },
               "groupId": 2,
-              "width":91.0,
-              "height":90.0
+              "width": 91.0,
+              "height": 90.0
             },
             {
-              "id":5,
-              "image":"third_item.svg",
+              "id": 5,
+              "image": "third_item.svg",
               "type": 1,
               "position": {
                 "dx": 152.0,
                 "dy": 201.0
               },
               "groupId": 2,
-              "width":91.0,
-              "height":90.0
+              "width": 91.0,
+              "height": 90.0
             },
             {
-              "id":6,
-              "image":"fourth_item.svg",
+              "id": 6,
+              "image": "fourth_item.svg",
               "type": 1,
               "position": {
                 "dx": 594.0,
                 "dy": 65.0
               },
               "groupId": 2,
-              "width":91.0,
-              "height":90.0
+              "width": 91.0,
+              "height": 90.0
             },
             {
-              "id":7,
-              "image":"fourth_item.svg",
+              "id": 7,
+              "image": "fourth_item.svg",
               "type": 1,
               "position": {
                 "dx": 457.0,
                 "dy": 201.0
               },
               "groupId": 2,
-              "width":91.0,
-              "height":90.0
+              "width": 91.0,
+              "height": 90.0
             }
           ],
-          "width":213.0,
-          "height":284.0
+          "width": 213.0,
+          "height": 284.0
         }
       ]
     },
     {
       "id": 5,
-      "levelScore": 0,
+      "levelScore": 8,
       "tags": [
         1,
         2
@@ -1306,7 +1952,6 @@
               "width": 44.0,
               "height": 194.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 2,
@@ -1320,7 +1965,6 @@
               "width": 44.0,
               "height": 194.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 3,
@@ -1334,7 +1978,6 @@
               "width": 59.0,
               "height": 194.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 4,
@@ -1348,7 +1991,6 @@
               "width": 59.0,
               "height": 194.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 5,
@@ -1362,7 +2004,6 @@
               "width": 59.0,
               "height": 194.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 6,
@@ -1376,7 +2017,6 @@
               "width": 61.0,
               "height": 196.0,
               "color": "#F47B2A"
-
             },
             {
               "id": 7,
@@ -1390,7 +2030,6 @@
               "width": 61.0,
               "height": 196.0,
               "color": "#F47B2A"
-
             }
           ],
           "width": 213.0,
@@ -1400,12 +2039,12 @@
     },
     {
       "id": 6,
-      "levelScore": 0,
+      "levelScore": 8,
       "tags": [
         1,
         2
       ],
-      "gameType":6,
+      "gameType": 6,
       "age": 3,
       "level": 1,
       "orderIndex": 0,

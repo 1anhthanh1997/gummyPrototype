@@ -6,6 +6,7 @@ import 'package:scratcher/scratcher.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/basic_item.dart';
 
 class ScratcherGame extends StatefulWidget {
   _ScratcherGameState createState() => _ScratcherGameState();
@@ -118,12 +119,22 @@ class _ScratcherGameState extends State<ScratcherGame>
             ));
   }
 
+
   Widget scratcher() {
     List<int> imageIndex = Iterable<int>.generate(imageData.length).toList();
     return Stack(
       children: imageIndex.map((index) {
         return displayScratcherItem(imageData[index], index);
       }).toList(),
+    );
+  }
+
+  Widget displayScreen(){
+    return Stack(
+      children: [
+        scratcher(),
+        BasicItem()
+      ],
     );
   }
 
@@ -138,6 +149,6 @@ class _ScratcherGameState extends State<ScratcherGame>
                         image: AssetImage(assetFolder +
                             allGameData.gameData[stepIndex].background),
                         fit: BoxFit.fill)),
-                child: scratcher()));
+                child: displayScreen()));
   }
 }

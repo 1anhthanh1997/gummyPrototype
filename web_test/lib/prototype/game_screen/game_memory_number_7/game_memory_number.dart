@@ -41,10 +41,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   void loadGameData() {
     allGameData = screenModel.currentGame;
     int stepIndex=screenModel.currentStep;
-    data = allGameData.gameData[stepIndex].items;
+    itemData = allGameData.gameData[stepIndex].items;
     assetFolder = screenModel.localPath  + allGameData.gameAssets;
-    itemData =
-        data.map((itemData) => new ItemModel.fromJson(itemData)).toList();
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         questionPositionTmp = itemData[index].position;

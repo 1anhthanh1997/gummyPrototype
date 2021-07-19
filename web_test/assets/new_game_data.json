@@ -1,0 +1,278 @@
+{
+  "assetsUrl": "https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip",
+  "data": [
+    {
+      "id": 1,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 1,
+      "age": 3,
+      "level": 1,
+      "orderIndex": 0,
+      "gameName": "Game ghép hình",
+      "createDate": 0,
+      "lastUpdate": 0,
+      "gameAssets": "assets/images/game_jigsaw_2/jigsaw_1/",
+      "gameData": [
+        {
+          "id": 1,
+          "parentId": 1,
+          "gameType": 1,
+          "stepAssets": "unicorn_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 58.0,
+                "dy": 181.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 1,
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 18.0,
+                "dy": 12.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 2,
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 616.0,
+                "dy": 222.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 3,
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 617.0,
+                "dy": 15.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "unicorn_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "unicorn_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "image": "unicorn_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 187.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "image": "unicorn_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 406.0,
+                "dy": 147.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        },
+        {
+          "id": 1,
+          "parentId": 1,
+          "gameType": 1,
+          "stepAssets": "park_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "park_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 631.0,
+                "dy": 28.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 1,
+              "image": "park_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 595.0,
+                "dy": 218.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 2,
+              "image": "park_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 48.0,
+                "dy": 28.0
+              },
+              "type": 1,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 3,
+              "image": "park_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 48.0,
+                "dy": 183.0
+              },
+              "type": 1,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 4,
+              "image": "park_shadow_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "id": 5,
+              "image": "park_shadow_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 44.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 6,
+              "image": "park_shadow_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 187.0
+              },
+              "type": 0,
+              "width": 184.0,
+              "height": 144.0
+            },
+            {
+              "id": 7,
+              "image": "park_shadow_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 406.0,
+                "dy": 147.0
+              },
+              "type": 0,
+              "width": 144.0,
+              "height": 184.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        }
+      ]
+    }
+
+  ]
+}

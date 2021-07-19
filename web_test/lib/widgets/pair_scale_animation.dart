@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/provider/screen_model.dart';
 
-class ScaleAnimation extends StatefulWidget {
+class PairScaleAnimation extends StatefulWidget {
   final Widget child;
   final VoidCallback onTab;
-  final int isPlayAnimation;
   final int time;
   final double beginValue;
   final double endValue;
@@ -13,9 +12,8 @@ class ScaleAnimation extends StatefulWidget {
   final Curve curve;
   final int itemId;
 
-  ScaleAnimation({this.child,
+  PairScaleAnimation({this.child,
     this.onTab,
-    this.isPlayAnimation,
     this.time = 300,
     this.beginValue = 1.0,
     this.endValue = 1.2,
@@ -23,10 +21,10 @@ class ScaleAnimation extends StatefulWidget {
     this.curve = Curves.linear,
     this.itemId = 0});
 
-  _ScaleAnimationState createState() => _ScaleAnimationState();
+  _PairScaleAnimationState createState() => _PairScaleAnimationState();
 }
 
-class _ScaleAnimationState extends State<ScaleAnimation>
+class _PairScaleAnimationState extends State<PairScaleAnimation>
     with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _scaleAnimation;
@@ -55,6 +53,7 @@ class _ScaleAnimationState extends State<ScaleAnimation>
 
   @override
   Widget build(BuildContext context) {
+    print(widget.isScale);
     if (widget.isScale) {
       _animationController.forward();
     } else {
@@ -64,6 +63,9 @@ class _ScaleAnimationState extends State<ScaleAnimation>
     return GestureDetector(
         onTapDown: (details) {
           screenModel.logTapEvent(widget.itemId, details.globalPosition);
+        },
+        onTap: (){
+          widget.onTab();
         },
         child: ScaleTransition(scale: _scaleAnimation, child: widget.child));
   }

@@ -50,9 +50,6 @@ class _GameDragTargetState extends State<GameDragTarget>
     allGameData = screenModel.currentGame;
     imageData = allGameData.gameData[stepIndex].items;
     assetFolder = screenModel.localPath + allGameData.gameAssets;
-    imageData = data
-        .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
-        .toList();
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
     }

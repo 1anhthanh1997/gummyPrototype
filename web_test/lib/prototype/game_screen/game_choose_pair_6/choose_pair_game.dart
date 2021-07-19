@@ -10,6 +10,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
+import 'package:web_test/widgets/pair_scale_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 
 class ChoosePairGame extends StatefulWidget {
@@ -28,6 +29,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   int count=0;
   int pairCount=0;
   int stepIndex;
+  int firstItem=-1;
 
   void loadGameData() {
     stepIndex=screenModel.currentStep;
@@ -69,16 +71,27 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
             ? Positioned(
                 left: item.position.dx,
                 top: item.position.dy - item.height * 0.1,
-                child: ScaleAnimation(
+                child: PairScaleAnimation(
                   itemId: item.id,
-                  isPlayAnimation: isScale[index],
+                  isScale: isScale[index]==1,
                   onTab: () {
                     if (chosenIndex == -1) {
+                      if(firstItem!=item.id){
+                        setState(() {
+                          chosenIndex = index;
+                          firstItem=item.id;
+                          isScale[index]=1;
+                        });
+                      }
+                    } else if(firstItem==item.id){
+                      print('Scale down');
                       setState(() {
-                        chosenIndex = index;
-                        isScale[index]=1;
+                        chosenIndex = -1;
+                        firstItem=-1;
+                        isScale[index]=0;
                       });
-                    } else {
+                    }
+                    {
                       if (itemData[chosenIndex].groupId == item.groupId &&
                           index != chosenIndex) {
                         Timer(Duration(milliseconds: 330), () {

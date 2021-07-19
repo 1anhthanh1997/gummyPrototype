@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/prototype/general_screen/home_screen.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/fade_animation.dart';
 
@@ -141,6 +142,10 @@ class _CustomSliderState extends State<CustomSlider> {
                           setState(() {
                             value = 39;
                           });
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomeScreen()),
+                              ModalRoute.withName("/Home"));
                         }
                       },
                     )))),

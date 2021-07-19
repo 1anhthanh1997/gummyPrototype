@@ -26,6 +26,40 @@ class _BasicItemState extends State<BasicItem> {
     super.initState();
   }
 
+  Widget displayStep() {
+    List<int> imageIndex =
+    Iterable<int>.generate(screenModel.currentGame.gameData.length).toList();
+    return Stack(
+      children: imageIndex.map((index) {
+        return Positioned(
+            top: 9,
+            left: 779 - 18.0 * index,
+            child: index == screenModel.currentStep
+                ? Container(
+                height: 18,
+                width: 18,
+                child: SvgPicture.asset(
+                  'assets/images/common/check.svg',
+                  fit: BoxFit.contain,
+                ))
+                : Container(
+              height: 18,
+              width: 18,
+              alignment: Alignment.center,
+              child: Container(
+                height: 10,
+                width: 10,
+                child: SvgPicture.asset(
+                  'assets/images/common/uncheck.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ));
+      }).toList(),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,7 +67,8 @@ class _BasicItemState extends State<BasicItem> {
         TutorialAnimals(
           tutorialImage: 'assets/images/common/dog.svg',
         ),
-        CustomSlider()
+        CustomSlider(),
+        displayStep()
       ],
     );
   }

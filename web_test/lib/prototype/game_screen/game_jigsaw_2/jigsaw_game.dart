@@ -18,7 +18,6 @@ class JigsawGame extends StatefulWidget {
 
 class _JigsawGameState extends State<JigsawGame> {
   List<ItemModel> imageData = [];
-  List data = [];
   double bonusHeight = 0;
   double ratio = 1;
   bool isWrongTarget = false;
@@ -33,13 +32,11 @@ class _JigsawGameState extends State<JigsawGame> {
   void loadAlphabetData() {
     stepIndex=screenModel.currentStep;
     allGameData=screenModel.currentGame;
-    data = allGameData.gameData[stepIndex].items;
+    imageData = allGameData.gameData[stepIndex].items;
     double objectHeight = 0;
-    assetFolder = screenModel.localPath+allGameData.gameAssets;
+    // assetFolder = screenModel.localPath+allGameData.gameAssets;
+    assetFolder = allGameData.gameAssets+allGameData.gameData[stepIndex].stepAssets;
     bonusHeight = (375 - objectHeight) / 2;
-    imageData = data
-        .map((draggableInfo) => new ItemModel.fromJson(draggableInfo))
-        .toList();
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 0) {
         setState(() {
@@ -194,6 +191,7 @@ class _JigsawGameState extends State<JigsawGame> {
               },
               onAccept: (data) {
                 screenModel.endPositionId=item.id;
+                screenModel.endPosition=item.position;
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
@@ -232,7 +230,7 @@ class _JigsawGameState extends State<JigsawGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: data.length == 0
+      body: imageData.length == 0
           ? Container()
           : Container(
               decoration: BoxDecoration(

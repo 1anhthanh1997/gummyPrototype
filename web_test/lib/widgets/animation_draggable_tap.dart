@@ -108,6 +108,9 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
           });
           _animationController.reset();
           _animationController.forward();
+
+        },
+        onTap: (){
           if (widget.onTab != null) {
             widget.onTab();
           }

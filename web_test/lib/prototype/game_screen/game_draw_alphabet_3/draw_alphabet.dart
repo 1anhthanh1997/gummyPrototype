@@ -9,6 +9,7 @@ import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/character_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 
@@ -46,13 +47,10 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    data = allGameData.gameData[stepIndex].items;
+    alphabetData = allGameData.gameData[stepIndex].items;
     double objectHeight = 0;
     assetFolder = allGameData.gameAssets;
     bonusHeight = 0.0;
-    alphabetData = data
-        .map((alphabetInfo) => new ItemModel.fromJson(alphabetInfo))
-        .toList();
     for (int index = 0; index < alphabetData.length; index++) {
       setState(() {
         _alphabetPoint.add([]);
@@ -137,6 +135,21 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         });
       }
     }
+  }
+
+  Widget displayItem() {
+    return Stack(
+      children: [
+        ScaleAnimation(
+            beginValue: 0.0,
+            endValue: 1.0,
+            time: 1500,
+            isScale: scaleNumber,
+            curve: Curves.easeOutBack,
+            child: displayAlphabet()),
+        BasicItem()
+      ],
+    );
   }
 
   Widget displayAlphabet() {
@@ -230,24 +243,18 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                             assetFolder +
                             allGameData.gameData[stepIndex].background),
                         fit: BoxFit.fill)),
-                child: ScaleAnimation(
-                  beginValue: 0.0,
-                  endValue: 1.0,
-                  time: 1500,
-                  isScale: scaleNumber,
-                  curve: Curves.easeOutBack,
-                  child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onPanStart: (details) {
-                        onPanStartAction(details.localPosition);
-                      },
-                      onPanUpdate: (details) {
-                        onPanUpdateAction(details.localPosition);
-                      },
-                      onPanEnd: (details) {
-                        onPanEndAction();
-                      },
-                      child: displayAlphabet()),
-                )));
+                child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onPanStart: (details) {
+                      onPanStartAction(details.localPosition);
+                    },
+                    onPanUpdate: (details) {
+                      onPanUpdateAction(details.localPosition);
+                    },
+                    onPanEnd: (details) {
+                      onPanEndAction();
+                    },
+                    child: displayItem()),
+              ));
   }
 }

@@ -37,9 +37,10 @@ class ParentGameModel {
   }
 
   ParentGameModel.fromJson(Map<String, dynamic> json) {
+    print (json['tags']);
     id = json['id'] == null ? 0 : json['id'];
     levelScore = json['levelScore'] == null ? 0 : json['levelScore'];
-    tags=json['tags']==null?[]:json['tags'];
+    tags=json['tags']==null?[]:[];
     gameType = json['gameType'] == null ? 0 : json['gameType'];
     age=json['age']==null?0:json['age'];
     level=json['level']==null?0:json['level'];
