@@ -62,11 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadGameData() async {
-    final response = await http.get(Uri.parse(
-        'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
-    var allGameData = json.decode(response.body);
-    // var jsonData = await rootBundle.loadString('assets/game_data.json');
-    // var allGameData = json.decode(jsonData);
+    // final response = await http.get(Uri.parse(
+    //     'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
+    // var allGameData = json.decode(response.body);
+    var jsonData = await rootBundle.loadString('assets/game_data.json');
+    var allGameData = json.decode(jsonData);
 
     assetsUrl = allGameData['assetsUrl'];
     gameDataJson = allGameData['data'];

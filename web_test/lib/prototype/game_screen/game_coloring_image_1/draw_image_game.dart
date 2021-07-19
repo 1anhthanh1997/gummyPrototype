@@ -56,7 +56,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
     data = currentGameData.gameData[stepIndex].items;
     // centerHeight = currentGameData.gameData[stepIndex];
     centerHeight = 0;
-    assetFolder = screenModel.localPath + currentGameData.gameAssets;
+    // assetFolder = screenModel.localPath + currentGameData.gameAssets;
+    assetFolder = currentGameData.gameAssets;
+
     imageData = data;
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 1) {

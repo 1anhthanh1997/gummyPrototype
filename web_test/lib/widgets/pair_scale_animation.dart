@@ -53,7 +53,6 @@ class _PairScaleAnimationState extends State<PairScaleAnimation>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.isScale);
     if (widget.isScale) {
       _animationController.forward();
     } else {

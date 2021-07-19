@@ -26,24 +26,25 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   ParentGameModel allGameData;
   List<int> isScale = [];
   ScreenModel screenModel;
-  int count=0;
-  int pairCount=0;
+  int count = 0;
+  int pairCount = 0;
   int stepIndex;
-  int firstItem=-1;
+  int firstItem = -1;
 
   void loadGameData() {
-    stepIndex=screenModel.currentStep;
+    stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
     itemData = allGameData.gameData[stepIndex].items;
-    assetFolder = screenModel.localPath+allGameData.gameAssets;
-    for(int idx=0;idx<itemData.length;idx++){
+    assetFolder = allGameData.gameAssets;
+    print(assetFolder);
+    for (int idx = 0; idx < itemData.length; idx++) {
       isScale.add(0);
-      if(itemData[idx].type==1){
+      if (itemData[idx].type == 1) {
         pairCount++;
       }
     }
     setState(() {
-      pairCount=pairCount~/2;
+      pairCount = pairCount ~/ 2;
     });
     print(pairCount);
   }
@@ -56,9 +57,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     loadGameData();
   }
 
-  void resetScaleArray(){
-    for(int idx=0;idx<isScale.length;idx++){
-      isScale[idx]=0;
+  void resetScaleArray() {
+    for (int idx = 0; idx < isScale.length; idx++) {
+      isScale[idx] = 0;
     }
   }
 
@@ -73,44 +74,74 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                 top: item.position.dy - item.height * 0.1,
                 child: PairScaleAnimation(
                   itemId: item.id,
-                  isScale: isScale[index]==1,
+                  isScale: isScale[index] == 1,
                   onTab: () {
-                    if (chosenIndex == -1) {
-                      if(firstItem!=item.id){
+                    if (firstItem != item.id) {
+                      if (chosenIndex != -1) {
+                        if (itemData[chosenIndex].groupId == item.groupId &&
+                            index != chosenIndex) {
+                          setState(() {
+                            isScale[index] = 1;
+                          });
+                          Timer(Duration(milliseconds: 330), () {
+                            print(chosenIndex);
+                            print(index);
+                            setState(() {
+                              count++;
+                              itemData[chosenIndex].status = 1;
+                              itemData[index].status = 1;
+                              chosenIndex = -1;
+                              firstItem=-1;
+                            });
+                            if (count == pairCount) {
+                              Timer(Duration(milliseconds: 1500), () {
+                                screenModel.nextStep();
+                              });
+                            }
+                          });
+                        } else {
+                          setState(() {
+                            chosenIndex = -1;
+                            firstItem = -1;
+                            isScale[index] = 0;
+                          });
+                          resetScaleArray();
+                        }
+                      } else {
                         setState(() {
                           chosenIndex = index;
-                          firstItem=item.id;
-                          isScale[index]=1;
+                          firstItem = item.id;
+                          isScale[index] = 1;
                         });
                       }
-                    } else if(firstItem==item.id){
+                    } else {
                       print('Scale down');
                       setState(() {
                         chosenIndex = -1;
-                        firstItem=-1;
-                        isScale[index]=0;
+                        firstItem = -1;
+                        isScale[index] = 0;
                       });
                     }
-                    {
-                      if (itemData[chosenIndex].groupId == item.groupId &&
-                          index != chosenIndex) {
-                        Timer(Duration(milliseconds: 330), () {
-                          setState(() {
-                            count++;
-                            itemData[chosenIndex].status = 1;
-                            itemData[index].status = 1;
-                            chosenIndex = -1;
-                          });
-                          if(count==pairCount){
-                            Timer(Duration(milliseconds: 1500),(){
-                              screenModel.nextStep();
-                            });
-                          }
-                        });
-                      } else {
-                        resetScaleArray();
-                      }
-                    }
+                    // {
+                    //   if (itemData[chosenIndex].groupId == item.groupId &&
+                    //       index != chosenIndex) {
+                    //     Timer(Duration(milliseconds: 330), () {
+                    //       setState(() {
+                    //         count++;
+                    //         itemData[chosenIndex].status = 1;
+                    //         itemData[index].status = 1;
+                    //         chosenIndex = -1;
+                    //       });
+                    //       if(count==pairCount){
+                    //         Timer(Duration(milliseconds: 1500),(){
+                    //           screenModel.nextStep();
+                    //         });
+                    //       }
+                    //     });
+                    //   } else {
+                    //     resetScaleArray();
+                    //   }
+                    // }
                   },
                   child: Container(
                     height: item.height,

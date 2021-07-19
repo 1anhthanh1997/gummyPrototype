@@ -145,7 +145,7 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void getCurrentGame() {
-    currentGame = gameData[currentGameId];
+    currentGame = gameData[1];
   }
 
   Future<void> getTypeList() async {
