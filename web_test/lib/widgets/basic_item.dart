@@ -13,6 +13,9 @@ class BasicItem extends StatefulWidget {
 
 class _BasicItemState extends State<BasicItem> {
   ScreenModel screenModel;
+  double screenHeight;
+  double screenWidth;
+  double ratio;
 
   @override
   void initState() {
@@ -26,39 +29,47 @@ class _BasicItemState extends State<BasicItem> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    super.didChangeDependencies();
+  }
+
   Widget displayStep() {
     List<int> imageIndex =
-    Iterable<int>.generate(screenModel.currentGame.gameData.length).toList();
+        Iterable<int>.generate(screenModel.currentGame.gameData.length)
+            .toList();
     return Stack(
       children: imageIndex.map((index) {
         return Positioned(
-            top: 9,
-            left: 779 - 18.0 * index,
+            top: 9 * ratio,
+            left: screenWidth - 33 * ratio - 18.0 * ratio * index,
             child: index == screenModel.currentStep
                 ? Container(
-                height: 18,
-                width: 18,
-                child: SvgPicture.asset(
-                  'assets/images/common/check.svg',
-                  fit: BoxFit.contain,
-                ))
+                    height: 18 * ratio,
+                    width: 18 * ratio,
+                    child: SvgPicture.asset(
+                      'assets/images/common/check.svg',
+                      fit: BoxFit.contain,
+                    ))
                 : Container(
-              height: 18,
-              width: 18,
-              alignment: Alignment.center,
-              child: Container(
-                height: 10,
-                width: 10,
-                child: SvgPicture.asset(
-                  'assets/images/common/uncheck.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ));
+                    height: 18 * ratio,
+                    width: 18 * ratio,
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 10 * ratio,
+                      width: 10 * ratio,
+                      child: SvgPicture.asset(
+                        'assets/images/common/uncheck.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ));
       }).toList(),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

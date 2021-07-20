@@ -303,7 +303,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                     image: DecorationImage(
                         image: FileImage(File(assetFolder +
                             allGameData.gameData[screenModel.currentStep]
-                                .background)))),
+                                .background)),
+                    fit: BoxFit.fill)),
                 child: Stack(
                   children: displayScreen(),
                 ),

@@ -19,11 +19,14 @@ class TutorialAnimals extends StatefulWidget {
 }
 
 class _TutorialAnimalsState extends State<TutorialAnimals> {
-  Offset currentOffset = Offset(-9, 290);
+  Offset currentOffset;
   int duration = 0;
   int displaySkip = 0;
   Offset currentDraggableOffset = Offset(-9, 290);
   ScreenModel screenModel;
+  double screenWidth;
+  double screenHeight;
+  double ratio;
 
   @override
   void initState() {
@@ -32,18 +35,29 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
+    super.didChangeDependencies();
+  }
+
   void onDraggableCancelled(Offset offset) {
     setState(() {
       displaySkip = 0;
     });
     Offset offsetSource;
-    if (offset.dx < 357) {
-      offsetSource = Offset(-9, 290);
+    if (offset.dx < screenWidth / 2 - 49 * ratio) {
+      offsetSource = Offset(-9 * ratio, screenHeight - 85 * ratio);
     } else {
-      offsetSource = Offset(723, 290);
+      offsetSource =
+          Offset(screenWidth - 89 * ratio, screenHeight - 85 * ratio);
     }
 
     currentOffset = offset;
+    print(offsetSource);
     setState(() {});
     Timer(Duration(milliseconds: 50), () {
       // double denta = screenModel.getBiggerSpace(
@@ -53,7 +67,6 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
       // }
       duration = 400;
       currentOffset = offsetSource;
-
       setState(() {});
     });
   }
@@ -90,25 +103,32 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     return Stack(
       children: [
         Positioned(
-            top: 330 -
-                34 -
+            top: screenHeight -
+                79 * ratio -
                 countVerticalDistance(
-                        currentDraggableOffset, Offset(760, 330)) *
+                        currentDraggableOffset,
+                        Offset(screenWidth - 52 * ratio,
+                            screenHeight - 45 * ratio)) *
                     0.1,
-            left: 760 -
-                34 -
+            left: screenWidth -
+                86 * ratio -
                 countHorizontalDistance(
-                        currentDraggableOffset, Offset(760, 330)) *
+                        currentDraggableOffset,
+                        Offset(screenWidth - 52 * ratio,
+                            screenHeight - 45 * ratio)) *
                     0.1,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 return Opacity(
                   opacity: displaySkip == 1
-                      ? countOpacity(currentDraggableOffset, Offset(760, 330))
+                      ? countOpacity(
+                          currentDraggableOffset,
+                          Offset(screenWidth - 52 * ratio,
+                              screenHeight - 45 * ratio))
                       : 0.0,
                   child: Container(
-                      height: 68,
-                      width: 68,
+                      height: 68 * ratio,
+                      width: 68 * ratio,
                       child: SvgPicture.asset(
                         'assets/images/common/skip_target.svg',
                         fit: BoxFit.contain,
@@ -121,31 +141,32 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               onAccept: (data) {
                 setState(() {
                   displaySkip = 0;
-                  currentOffset = Offset(723, 290);
+                  currentOffset = Offset(screenWidth - 89 * ratio, screenHeight - 85 * ratio);
                 });
                 screenModel.skipGame();
                 print('Accept');
               },
             )),
         Positioned(
-            top: 330 -
-                34 -
-                countVerticalDistance(currentDraggableOffset, Offset(60, 330)) *
+            top: screenHeight -
+                79 * ratio -
+                countVerticalDistance(currentDraggableOffset,
+                        Offset(60 * ratio, screenHeight - 45 * ratio)) *
                     0.1,
-            left: 60 -
-                34 -
-                countHorizontalDistance(
-                        currentDraggableOffset, Offset(60, 330)) *
+            left: 26 * ratio -
+                countHorizontalDistance(currentDraggableOffset,
+                        Offset(60 * ratio, screenHeight - 45 * ratio)) *
                     0.1,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 return Opacity(
                     opacity: displaySkip == 2
-                        ? countOpacity(currentDraggableOffset, Offset(60, 330))
+                        ? countOpacity(currentDraggableOffset,
+                            Offset(60 * ratio, screenHeight - 45 * ratio))
                         : 0.0,
                     child: Container(
-                      height: 68,
-                      width: 68,
+                      height: 68 * ratio,
+                      width: 68 * ratio,
                       child: SvgPicture.asset(
                         'assets/images/common/skip_target.svg',
                         fit: BoxFit.contain,
@@ -158,7 +179,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               onAccept: (data) {
                 setState(() {
                   displaySkip = 0;
-                  currentOffset = Offset(-9, 290);
+                  currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
                 });
                 screenModel.skipGame();
                 print('Accept');
@@ -172,16 +193,16 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
           child: Draggable(
             data: 0,
             child: Container(
-              height: 98,
-              width: 98,
+              height: 98 * ratio,
+              width: 98 * ratio,
               child: SvgPicture.asset(
                 widget.tutorialImage,
                 fit: BoxFit.contain,
               ),
             ),
             feedback: Container(
-              height: 98,
-              width: 98,
+              height: 98 * ratio,
+              width: 98 * ratio,
               child: SvgPicture.asset(
                 widget.tutorialImage,
                 fit: BoxFit.contain,
@@ -191,13 +212,15 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
             onDragStarted: () {
               duration = 0;
               setState(() {
-                displaySkip = currentOffset.dx < 357 ? 1 : 2;
+                displaySkip =
+                    currentOffset.dx < screenWidth / 2 - 49 * ratio ? 1 : 2;
               });
             },
             onDragUpdate: (details) {
               setState(() {
-                currentDraggableOffset = Offset(details.globalPosition.dx + 49,
-                    details.globalPosition.dy + 49);
+                currentDraggableOffset = Offset(
+                    details.globalPosition.dx + 49 * ratio,
+                    details.globalPosition.dy + 49 * ratio);
               });
             },
             maxSimultaneousDrags: 1,

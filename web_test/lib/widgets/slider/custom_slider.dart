@@ -39,13 +39,13 @@ class _CustomSliderState extends State<CustomSlider> {
     return Stack(
       children: [
         Positioned(
-            top: 9,
-            left: 10,
+            top: 9 * ratio,
+            left: 10 * ratio,
             child: Opacity(
                 opacity: isDisplayArrow ? 1.0 : 0.6,
                 child: Container(
-                  height: 35,
-                  width: 89,
+                  height: 35 * ratio,
+                  width: 89 * ratio,
                   child: SvgPicture.asset(
                     'assets/images/common/back_ray.svg',
                     fit: BoxFit.contain,
@@ -53,11 +53,11 @@ class _CustomSliderState extends State<CustomSlider> {
                 ))),
         !isDisplayArrow
             ? Positioned(
-                top: 24,
-                left: 26,
+                top: 24*ratio,
+                left: 26*ratio,
                 child: Container(
-                  height: 7,
-                  width: 7,
+                  height: 7*ratio,
+                  width: 7*ratio,
                   child: SvgPicture.asset(
                     'assets/images/common/back_dot.svg',
                     fit: BoxFit.contain,
@@ -66,14 +66,14 @@ class _CustomSliderState extends State<CustomSlider> {
               )
             : Container(),
         Positioned(
-            top: 14,
-            left: 18,
+            top: 14*ratio,
+            left: 18*ratio,
             child: FadeAnimation(
               // time: 500,
               isFade: isDisplayArrow,
               child: Container(
-                height: 26,
-                width: 70,
+                height: 26*ratio,
+                width: 70*ratio,
                 child: SvgPicture.asset(
                   'assets/images/common/back_arrow.svg',
                   fit: BoxFit.contain,
@@ -81,25 +81,25 @@ class _CustomSliderState extends State<CustomSlider> {
               ),
             )),
         Positioned(
-            top: 9,
-            left: 10,
+            top: 9*ratio,
+            left: 10*ratio,
             child: Opacity(
                 opacity: isDisplayArrow ? 1.0 : 0.8,
                 child: Container(
-                    height: 35,
-                    width: 89,
+                    height: 35*ratio,
+                    width: 89*ratio,
                     child: FlutterSlider(
                       values: [value],
                       max: 39,
                       min: 7,
                       maximumDistance: 300,
                       rtl: true,
-                      handlerWidth: 40,
+                      handlerWidth: 40*ratio,
                       handler: FlutterSliderHandler(
                         decoration: BoxDecoration(),
                         child: Container(
-                          height: 32,
-                          width: 33,
+                          height: 32*ratio,
+                          width: 33*ratio,
                           color: Colors.transparent,
                           child: SvgPicture.asset(
                             'assets/images/common/thumb_image.svg',
@@ -144,7 +144,8 @@ class _CustomSliderState extends State<CustomSlider> {
                           });
                           Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (context) => HomeScreen()),
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()),
                               ModalRoute.withName("/Home"));
                         }
                       },
