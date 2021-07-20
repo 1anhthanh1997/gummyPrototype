@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -42,8 +43,8 @@ class _CalculateGameState extends State<CalculateGame> {
   final debug = true;
   int stepIndex;
 
-  void getGameData()  {
-    stepIndex=screenModel.currentStep;
+  void getGameData() {
+    stepIndex = screenModel.currentStep;
     ParentGameModel allGameData = screenModel.currentGame;
     itemData = allGameData.gameData[stepIndex].items;
     assetFolder = screenModel.localPath + allGameData.gameAssets;
@@ -67,11 +68,12 @@ class _CalculateGameState extends State<CalculateGame> {
 
   @override
   void initState() {
-    super.initState();
+    print('InitState');
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     genElement();
     getGameData();
+    super.initState();
   }
 
   @override
@@ -234,8 +236,8 @@ class _CalculateGameState extends State<CalculateGame> {
       return Container(
         height: height * ratio,
         width: width * ratio,
-        child: SvgPicture.asset(
-          image,
+        child: SvgPicture.file(
+          File(image),
           fit: BoxFit.contain,
         ),
       );
@@ -245,7 +247,7 @@ class _CalculateGameState extends State<CalculateGame> {
         width: width * ratio,
         decoration: BoxDecoration(
             image:
-                DecorationImage(image: AssetImage(image), fit: BoxFit.contain)),
+                DecorationImage(image: FileImage(File(image)), fit: BoxFit.contain)),
         alignment: Alignment.center,
         padding: EdgeInsets.only(top: 20 * ratio),
         child: isScale
@@ -285,13 +287,13 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
               },
               onAccept: (data) {
-                screenModel.endPositionId=item.id;
-                screenModel.endPosition=item.position;
+                screenModel.endPositionId = item.id;
+                screenModel.endPosition = item.position;
                 setState(() {
                   sourceModel[index].status = 1;
                   targetModel[index].status = 1;
                 });
-                Timer(Duration(milliseconds: 1500),(){
+                Timer(Duration(milliseconds: 1500), () {
                   screenModel.nextStep();
                 });
               },
@@ -334,14 +336,14 @@ class _CalculateGameState extends State<CalculateGame> {
                     item.height, item.width, fullInitUrl, number, false),
                 childWhenDragging: Container(),
                 onDragStarted: () {
-                  screenModel.startPositionId=item.id;
-                  screenModel.startPosition=item.position;
+                  screenModel.startPositionId = item.id;
+                  screenModel.startPosition = item.position;
                   item.duration = 0;
                 },
                 maxSimultaneousDrags: 1,
                 onDraggableCanceled: (velocity, offset) {
-                  screenModel.endPositionId=-1;
-                  screenModel.endPosition=offset;
+                  screenModel.endPositionId = -1;
+                  screenModel.endPosition = offset;
                   screenModel.logDragEvent(false);
                   onDraggableCancelled(item, offset);
                 },
@@ -360,8 +362,8 @@ class _CalculateGameState extends State<CalculateGame> {
           child: Container(
             height: item.height * ratio,
             width: item.width * ratio,
-            child: SvgPicture.asset(
-              assetFolder + item.image,
+            child: SvgPicture.file(
+              File(assetFolder + item.image),
               fit: BoxFit.contain,
             ),
           ));

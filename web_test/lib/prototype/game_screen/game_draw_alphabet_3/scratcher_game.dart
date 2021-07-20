@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   Timer deleteTimer;
   Timer secondDeleteTimer;
   Timer thirdDeleteTimer;
-  List <ItemModel>data;
+  List<ItemModel> data;
   List<ItemModel> alphabetData = [];
   List<String> imageLink = [];
   List<Offset> imagePosition = [];
@@ -43,7 +44,7 @@ class _ScratcherGameState extends State<ScratcherGame>
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
     imageData = allGameData.gameData[stepIndex].items;
-    assetFolder = screenModel.localPath  + allGameData.gameAssets;
+    assetFolder = screenModel.localPath + allGameData.gameAssets;
 
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
@@ -78,7 +79,7 @@ class _ScratcherGameState extends State<ScratcherGame>
               child: Container(
                 height: item.height,
                 width: item.width,
-                child: Image.asset(assetFolder + item.image),
+                child: Image.file(File(assetFolder + item.image)),
               ),
             ),
           )
@@ -101,7 +102,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                   count++;
                 });
                 if (count == isCompleted.length) {
-                  Timer(Duration(milliseconds: 1000),(){
+                  Timer(Duration(milliseconds: 1000), () {
                     screenModel.nextStep();
                   });
                 }
@@ -113,12 +114,11 @@ class _ScratcherGameState extends State<ScratcherGame>
                 child: Container(
                   height: item.height,
                   width: item.width,
-                  child: Image.asset(assetFolder + item.image),
+                  child: Image.file(File(assetFolder + item.image)),
                 ),
               ),
             ));
   }
-
 
   Widget scratcher() {
     List<int> imageIndex = Iterable<int>.generate(imageData.length).toList();
@@ -129,12 +129,9 @@ class _ScratcherGameState extends State<ScratcherGame>
     );
   }
 
-  Widget displayScreen(){
+  Widget displayScreen() {
     return Stack(
-      children: [
-        scratcher(),
-        BasicItem()
-      ],
+      children: [scratcher(), BasicItem()],
     );
   }
 
@@ -146,8 +143,8 @@ class _ScratcherGameState extends State<ScratcherGame>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(assetFolder +
-                            allGameData.gameData[stepIndex].background),
+                        image: FileImage(File(assetFolder +
+                            allGameData.gameData[stepIndex].background)),
                         fit: BoxFit.fill)),
                 child: displayScreen()));
   }

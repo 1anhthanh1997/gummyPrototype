@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item_paint.dart';
 
 class AnimationCharacterItem extends StatefulWidget {
@@ -26,12 +29,16 @@ class _AnimationCharacterItemState extends State<AnimationCharacterItem>
   AnimationController _animationController;
   Animation<double> _scaleAnimation;
   bool isFirstTime = true;
+  ScreenModel screenModel;
 
   @override
   void initState() {
-    super.initState();
+    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel.setContext(context);
     _animationController =
         AnimationController(duration: Duration(milliseconds: 700), vsync: this);
+    super.initState();
+
   }
 
   @override
@@ -62,7 +69,7 @@ class _AnimationCharacterItemState extends State<AnimationCharacterItem>
     }
     return Stack(
       children: [
-        SvgPicture.asset(widget.img,
+        SvgPicture.file(File(widget.img),
             height: widget.imgHeight,
             width: widget.imgWidth,
             allowDrawingOutsideViewBox: true),

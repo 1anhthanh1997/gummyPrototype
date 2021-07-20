@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,12 +31,13 @@ class _JigsawGameState extends State<JigsawGame> {
   int stepIndex;
 
   void loadAlphabetData() {
-    stepIndex=screenModel.currentStep;
-    allGameData=screenModel.currentGame;
+    stepIndex = screenModel.currentStep;
+    allGameData = screenModel.currentGame;
     imageData = allGameData.gameData[stepIndex].items;
     double objectHeight = 0;
     // assetFolder = screenModel.localPath+allGameData.gameAssets;
-    assetFolder = allGameData.gameAssets+allGameData.gameData[stepIndex].stepAssets;
+    assetFolder =
+        allGameData.gameAssets + allGameData.gameData[stepIndex].stepAssets;
     bonusHeight = (375 - objectHeight) / 2;
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 0) {
@@ -51,10 +53,11 @@ class _JigsawGameState extends State<JigsawGame> {
 
   @override
   void initState() {
-    super.initState();
+    print('InitState');
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadAlphabetData();
+    super.initState();
   }
 
   void bringToFront(ItemModel chosenItem) {
@@ -89,8 +92,8 @@ class _JigsawGameState extends State<JigsawGame> {
                 child: Container(
                     height: item.height,
                     width: item.width,
-                    child: Image.asset(
-                      assetFolder + item.image,
+                    child: Image.file(
+                      File(assetFolder + item.image),
                       fit: BoxFit.contain,
                     )))
             : Container();
@@ -110,8 +113,8 @@ class _JigsawGameState extends State<JigsawGame> {
                     child: Container(
                         height: item.height,
                         width: item.width,
-                        child: Image.asset(
-                          assetFolder + item.image,
+                        child: Image.file(
+                          File(assetFolder + item.image),
                           fit: BoxFit.contain,
                         ))))
             : Container();
@@ -131,30 +134,30 @@ class _JigsawGameState extends State<JigsawGame> {
                   ? Container(
                       height: item.height * 0.9,
                       width: item.width * 0.9,
-                      child: Image.asset(
-                        assetFolder + item.image,
+                      child: Image.file(
+                        File(assetFolder + item.image),
                         fit: BoxFit.contain,
                       ))
                   : Container(),
               feedback: Container(
                 height: item.height,
                 width: item.width,
-                child: Image.asset(
-                  assetFolder + item.image,
+                child: Image.file(
+                  File(assetFolder + item.image),
                   fit: BoxFit.contain,
                 ),
               ),
-              onDragStarted:(){
-                screenModel.startPositionId=item.id;
-                screenModel.startPosition=item.position;
+              onDragStarted: () {
+                screenModel.startPositionId = item.id;
+                screenModel.startPosition = item.position;
               },
               childWhenDragging: Container(),
               onDragEnd: (details) {
                 bringToFront(item);
               },
               onDraggableCanceled: (velocity, offset) {
-                screenModel.endPositionId=-1;
-                screenModel.endPosition=offset;
+                screenModel.endPositionId = -1;
+                screenModel.endPosition = offset;
                 screenModel.logDragEvent(false);
                 item.position = offset;
                 setState(() {});
@@ -181,8 +184,8 @@ class _JigsawGameState extends State<JigsawGame> {
                         child: Container(
                             height: item.height,
                             width: item.width,
-                            child: Image.asset(
-                              assetFolder + item.image,
+                            child: Image.file(
+                              File(assetFolder + item.image),
                               fit: BoxFit.contain,
                             )));
               },
@@ -190,8 +193,8 @@ class _JigsawGameState extends State<JigsawGame> {
                 return data == item.groupId;
               },
               onAccept: (data) {
-                screenModel.endPositionId=item.id;
-                screenModel.endPosition=item.position;
+                screenModel.endPositionId = item.id;
+                screenModel.endPosition = item.position;
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
@@ -200,7 +203,7 @@ class _JigsawGameState extends State<JigsawGame> {
                       count++;
                     });
                   });
-                  Timer(Duration(milliseconds: 2500),(){
+                  Timer(Duration(milliseconds: 2500), () {
                     screenModel.nextStep();
                   });
                 } else {
@@ -235,8 +238,8 @@ class _JigsawGameState extends State<JigsawGame> {
           : Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(assetFolder +
-                          allGameData.gameData[stepIndex].background),
+                      image: FileImage(File(assetFolder +
+                          allGameData.gameData[stepIndex].background)),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

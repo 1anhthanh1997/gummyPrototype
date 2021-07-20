@@ -37,6 +37,10 @@ class ScreenModel extends ChangeNotifier {
   int endPositionId;
   Offset endPosition;
 
+  bool checkIsAndroidPlatform(){
+    return Platform.isAndroid;
+  }
+
   void setContext(BuildContext context) {
     currentContext = context;
   }

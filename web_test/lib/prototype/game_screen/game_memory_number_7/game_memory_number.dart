@@ -40,9 +40,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
-    int stepIndex=screenModel.currentStep;
+    int stepIndex = screenModel.currentStep;
     itemData = allGameData.gameData[stepIndex].items;
-    assetFolder = screenModel.localPath  + allGameData.gameAssets;
+    assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         questionPositionTmp = itemData[index].position;
@@ -98,8 +98,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     return Container(
       height: item.height,
       width: item.width,
-      child: SvgPicture.asset(
-        assetFolder + item.image,
+      child: SvgPicture.file(
+        File(assetFolder + item.image),
         fit: BoxFit.contain,
       ),
     );
@@ -131,8 +131,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             child: Container(
           height: questionData.height,
           width: questionData.width,
-          child: SvgPicture.asset(
-            assetFolder + questionData.image,
+          child: SvgPicture.file(
+            File(assetFolder + questionData.image),
             fit: BoxFit.contain,
           ),
         )));
@@ -148,7 +148,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           children: [
             item.status == 0
                 ? GestureDetector(
-                    onTapDown: (details){
+                    onTapDown: (details) {
                       screenModel.logTapEvent(item.id, details.globalPosition);
                     },
                     onTap: () {
@@ -185,8 +185,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                   child: Container(
                     height: item.height,
                     width: item.width,
-                    child: SvgPicture.asset(
-                      assetFolder + item.image,
+                    child: SvgPicture.file(
+                      File(assetFolder + item.image),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -297,8 +297,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(assetFolder +
-                            allGameData.gameData[screenModel.currentStep].background))),
+                        image: FileImage(File(assetFolder +
+                            allGameData.gameData[screenModel.currentStep]
+                                .background)))),
                 child: Stack(
                   children: displayScreen(),
                 ),

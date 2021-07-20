@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,10 +52,11 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
 
   @override
   void initState() {
-    super.initState();
+    print('InitState');
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData();
+    super.initState();
   }
 
   void resetScaleArray() {
@@ -146,8 +148,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                   child: Container(
                     height: item.height,
                     width: item.width,
-                    child: SvgPicture.asset(
-                      assetFolder + item.image,
+                    child: SvgPicture.file(
+                      File(assetFolder + item.image),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -160,8 +162,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                   child: Container(
                     height: item.height * 1.2,
                     width: item.width * 1.2,
-                    child: SvgPicture.asset(
-                      assetFolder + item.image,
+                    child: SvgPicture.file(
+                      File(assetFolder + item.image),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -180,8 +182,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                 ? Container(
                     height: item.height,
                     width: item.width,
-                    child: SvgPicture.asset(
-                      assetFolder + item.image,
+                    child: SvgPicture.file(
+                      File(assetFolder + item.image),
                       fit: BoxFit.contain,
                     ),
                   )
@@ -190,44 +192,10 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     );
   }
 
-  Widget displayStep() {
-    List<int> imageIndex =
-        Iterable<int>.generate(allGameData.gameData.length).toList();
-    return Stack(
-      children: imageIndex.map((index) {
-        return Positioned(
-            top: 9,
-            left: 779 - 18.0 * index,
-            child: index == stepIndex
-                ? Container(
-                    height: 18,
-                    width: 18,
-                    child: SvgPicture.asset(
-                      'assets/images/common/check.svg',
-                      fit: BoxFit.contain,
-                    ))
-                : Container(
-                    height: 18,
-                    width: 18,
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 10,
-                      width: 10,
-                      child: SvgPicture.asset(
-                        'assets/images/common/uncheck.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ));
-      }).toList(),
-    );
-  }
-
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayContent());
     widgets.add(BasicItem());
-    widgets.add(displayStep());
     return widgets;
   }
 
@@ -239,8 +207,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
           : Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(assetFolder +
-                          allGameData.gameData[stepIndex].background),
+                      image: FileImage(File(assetFolder +
+                          allGameData.gameData[stepIndex].background)),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

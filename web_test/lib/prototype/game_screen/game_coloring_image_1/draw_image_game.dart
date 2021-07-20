@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -53,15 +54,16 @@ class _DrawImageGameState extends State<DrawImageGame> {
   void loadImageData() {
     currentGameData = screenModel.currentGame;
     stepIndex = screenModel.currentStep;
-    data = currentGameData.gameData[stepIndex].items;
+    imageData = currentGameData.gameData[stepIndex].items;
     // centerHeight = currentGameData.gameData[stepIndex];
     centerHeight = 0;
     assetFolder = screenModel.localPath + currentGameData.gameAssets;
     // assetFolder = currentGameData.gameAssets;
 
-    imageData = data;
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 1) {
+        print(currentGameData.gameData[stepIndex].items[index].count);
+        // print(imageData[index].count);
         setState(() {
           colorData.add(imageData[index]);
         });
@@ -87,6 +89,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   @override
   void initState() {
+    print('InitState');
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
@@ -182,6 +185,11 @@ class _DrawImageGameState extends State<DrawImageGame> {
             'color': HexColor(color[index])
           });
         });
+        for (int index = 0; index < imageData.length; index++) {
+          if (imageData[index].type == 1) {
+            print(currentGameData.gameData[stepIndex].items[index].count);
+          }
+        }
         if (countSum == 0) {
           Timer(Duration(milliseconds: 1000), () {
             callNextStep();
@@ -232,7 +240,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     child: Container(
                         height: height[index] * ratio,
                         width: width[index] * ratio,
-                        child: SvgPicture.asset(imageLink[index])),
+                        child: SvgPicture.file(File(imageLink[index]))),
                   );
           }).toList(),
         ));
@@ -260,8 +268,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     child: Container(
                         height: color.height * ratio,
                         width: color.width * ratio,
-                        child: SvgPicture.asset(
-                          assetFolder + color.image,
+                        child: SvgPicture.file(
+                          File(assetFolder + color.image),
                           fit: BoxFit.contain,
                           color: HexColor(color.color),
                         )),
@@ -280,7 +288,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     childWhenDragging: Container(
                         height: color.height * ratio,
                         width: color.width * ratio,
-                        child: SvgPicture.asset(assetFolder + color.image,
+                        child: SvgPicture.file(File(assetFolder + color.image),
                             fit: BoxFit.contain, color: HexColor(color.color))),
                     onDragStarted: () {
                       print(color.position);
@@ -307,8 +315,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
     return Container(
         decoration: BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(
-            assetFolder + currentGameData.gameData[stepIndex].background),
+        image: FileImage(
+            File(assetFolder + currentGameData.gameData[stepIndex].background)),
         fit: BoxFit.fill,
       ),
     ));

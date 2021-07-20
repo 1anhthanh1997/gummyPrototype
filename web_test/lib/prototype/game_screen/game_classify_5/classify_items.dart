@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,6 +51,7 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   @override
   void initState() {
+    print('InitState');
     controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
     screenModel = Provider.of<ScreenModel>(context, listen: false);
@@ -84,8 +86,8 @@ class _ClassifyItemState extends State<ClassifyItem>
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                assetFolder + data.gameData[stepIndex].background,
+              image: FileImage(
+                File(assetFolder + data.gameData[stepIndex].background),
               ),
               fit: BoxFit.fill)),
     );
@@ -97,16 +99,16 @@ class _ClassifyItemState extends State<ClassifyItem>
       child: Container(
         height: item.height,
         width: item.width,
-        child: SvgPicture.asset(
-          assetFolder + item.image,
+        child: SvgPicture.file(
+          File(assetFolder + item.image),
           fit: BoxFit.contain,
         ),
       ),
       feedback: Container(
         height: item.height,
         width: item.width,
-        child: SvgPicture.asset(
-          assetFolder + item.image,
+        child: SvgPicture.file(
+          File(assetFolder + item.image),
           fit: BoxFit.contain,
         ),
       ),
@@ -189,8 +191,8 @@ class _ClassifyItemState extends State<ClassifyItem>
         child: Container(
           height: item.height,
           width: item.width,
-          child: SvgPicture.asset(
-            assetFolder + item.image,
+          child: SvgPicture.file(
+            File(assetFolder + item.image),
             fit: BoxFit.contain,
           ),
         ));
@@ -243,7 +245,7 @@ class _ClassifyItemState extends State<ClassifyItem>
                   child: Container(
                     width: item.width,
                     height: item.height,
-                    child: Image.asset(assetFolder + item.image,
+                    child: Image.file(File(assetFolder + item.image),
                         fit: BoxFit.contain),
                   ),
                 ))
@@ -262,14 +264,12 @@ class _ClassifyItemState extends State<ClassifyItem>
               child: Container(
                 width: item.width,
                 height: item.height,
-                child:
-                    Image.asset(assetFolder + item.image, fit: BoxFit.contain),
+                child: Image.file(File(assetFolder + item.image),
+                    fit: BoxFit.contain),
               ))
           : Container();
     }).toList());
   }
-
-
 
   @override
   Widget build(BuildContext context) {

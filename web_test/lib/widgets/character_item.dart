@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_test/widgets/character_item_paint.dart';
@@ -30,12 +32,12 @@ class _CharacterItemState extends State<CharacterItem> {
     return Stack(
       children: [
         widget.isCompleted
-            ? SvgPicture.asset(widget.img,
+            ? SvgPicture.file(File(widget.img),
                 height: widget.imgHeight,
                 width: widget.imgWidth,
                 color: Colors.red,
                 allowDrawingOutsideViewBox: true)
-            : SvgPicture.asset(widget.img,
+            : SvgPicture.file(File(widget.img),
                 height: widget.imgHeight,
                 width: widget.imgWidth,
                 allowDrawingOutsideViewBox: true),

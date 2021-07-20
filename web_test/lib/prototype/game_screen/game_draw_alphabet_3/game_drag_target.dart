@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
@@ -149,8 +150,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                         child: Container(
                           height: item.height * 0.9,
                           width: item.width * 0.9,
-                          child: Image.asset(
-                            assetFolder + item.image,
+                          child: Image.file(
+                            File(assetFolder + item.image),
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -159,8 +160,8 @@ class _GameDragTargetState extends State<GameDragTarget>
               feedback: Container(
                 height: item.height,
                 width: item.width,
-                child: Image.asset(
-                  assetFolder + item.image,
+                child: Image.file(
+                  File(assetFolder + item.image),
                   fit: BoxFit.contain,
                 ),
               ),
@@ -187,14 +188,15 @@ class _GameDragTargetState extends State<GameDragTarget>
                   ? Container(
                       height: item.height,
                       width: item.width,
-                      child: Image.asset(assetFolder + item.image,
+                      child: Image.file(File(assetFolder + item.image),
                           fit: BoxFit.contain),
                     )
                   : AnimatedMatchedTarget(
                       child: Container(
                       height: item.height,
                       width: item.width,
-                      child: Image.asset(assetFolder + sourceModel[index].image,
+                      child: Image.file(
+                          File(assetFolder + sourceModel[index].image),
                           fit: BoxFit.contain),
                     ));
             },
@@ -240,9 +242,8 @@ class _GameDragTargetState extends State<GameDragTarget>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(assetFolder +
-                            allGameData.gameData[stepIndex].background
-                                ),
+                        image: FileImage(File(assetFolder +
+                            allGameData.gameData[stepIndex].background)),
                         fit: BoxFit.fill)),
                 child: Stack(
                   children: displayScreen(),

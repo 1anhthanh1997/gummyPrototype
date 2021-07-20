@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,6 +68,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   @override
   void initState() {
+    print('InitState');
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadAlphabetData();
@@ -239,9 +241,9 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(screenModel.localPath +
+                        image: FileImage(File(screenModel.localPath +
                             assetFolder +
-                            allGameData.gameData[stepIndex].background),
+                            allGameData.gameData[stepIndex].background)),
                         fit: BoxFit.fill)),
                 child: GestureDetector(
                     behavior: HitTestBehavior.translucent,

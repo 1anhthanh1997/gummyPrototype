@@ -75,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .toList();
     await addUser();
     await addDataToDB();
-    // Timer(Duration(milliseconds: 500), () async {
+    // Timer(Duration(milliseconds: 500), ()  {
+    await Future.delayed(Duration(milliseconds: 500));
     await screenModel.getTypeList().whenComplete(() {
       screenModel.getNextGameId();
       screenModel.getCurrentGame();
@@ -243,6 +244,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       MaterialPageRoute(builder: (context) => MainGameRoute()),
                       ModalRoute.withName("/Home"));
                 },
+                // child: Container(
+                //   height: 140,
+                //   width: 140,
+                //   child: Image.asset('assets/images/home/play_button.png',
+                //       fit: BoxFit.contain),
+                // ),
                 child: Container(
                   height: 140,
                   width: 140,
