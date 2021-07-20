@@ -1,17 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
-import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/basic_item.dart';
-import 'package:web_test/widgets/scale_animation.dart';
 
 class JigsawGame extends StatefulWidget {
   _JigsawGameState createState() => _JigsawGameState();
@@ -20,7 +16,7 @@ class JigsawGame extends StatefulWidget {
 class _JigsawGameState extends State<JigsawGame> {
   List<ItemModel> imageData = [];
   double bonusHeight = 0;
-  double ratio = 1;
+  double ratio;
   bool isWrongTarget = false;
   String assetFolder;
   ParentGameModel allGameData;
@@ -29,6 +25,8 @@ class _JigsawGameState extends State<JigsawGame> {
   int count = 0;
   ScreenModel screenModel;
   int stepIndex;
+  double screenWidth;
+  double screenHeight;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -64,6 +62,14 @@ class _JigsawGameState extends State<JigsawGame> {
     super.initState();
   }
 
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    super.didChangeDependencies();
+  }
+
   void bringToFront(ItemModel chosenItem) {
     for (int idx = 0; idx < sourceModel.length; idx++) {
       if (sourceModel[idx].id == chosenItem.id) {
@@ -91,11 +97,11 @@ class _JigsawGameState extends State<JigsawGame> {
       children: imageData.map((item) {
         return item.type == 2
             ? Positioned(
-                top: item.position.dy,
-                left: item.position.dx,
+                top: item.position.dy * ratio,
+                left: item.position.dx * ratio,
                 child: Container(
-                    height: item.height,
-                    width: item.width,
+                    height: item.height * ratio,
+                    width: item.width * ratio,
                     child: Image.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
@@ -110,13 +116,13 @@ class _JigsawGameState extends State<JigsawGame> {
       children: imageData.map((item) {
         return item.type == 3
             ? Positioned(
-                top: item.position.dy,
-                left: item.position.dx,
+                top: item.position.dy * ratio,
+                left: item.position.dx * ratio,
                 child: Opacity(
                     opacity: count == sourceModel.length ? 1.0 : 0.0,
                     child: Container(
-                        height: item.height,
-                        width: item.width,
+                        height: item.height * ratio,
+                        width: item.width * ratio,
                         child: Image.file(
                           File(assetFolder + item.image),
                           fit: BoxFit.contain,
@@ -130,22 +136,22 @@ class _JigsawGameState extends State<JigsawGame> {
     return Stack(
       children: sourceModel.map((item) {
         return Positioned(
-            top: item.position.dy,
-            left: item.position.dx,
+            top: item.position.dy * ratio,
+            left: item.position.dx * ratio,
             child: Draggable(
               data: item.groupId,
               child: item.status == 0
                   ? Container(
-                      height: item.height * 0.9,
-                      width: item.width * 0.9,
+                      height: item.height * 0.9 * ratio,
+                      width: item.width * 0.9 * ratio,
                       child: Image.file(
                         File(assetFolder + item.image),
                         fit: BoxFit.contain,
                       ))
                   : Container(),
               feedback: Container(
-                height: item.height,
-                width: item.width,
+                height: item.height * ratio,
+                width: item.width * ratio,
                 child: Image.file(
                   File(assetFolder + item.image),
                   fit: BoxFit.contain,
@@ -153,7 +159,8 @@ class _JigsawGameState extends State<JigsawGame> {
               ),
               onDragStarted: () {
                 screenModel.startPositionId = item.id;
-                screenModel.startPosition = item.position;
+                screenModel.startPosition =
+                    Offset(item.position.dx * ratio, item.position.dy * ratio);
               },
               childWhenDragging: Container(),
               onDragEnd: (details) {
@@ -175,19 +182,19 @@ class _JigsawGameState extends State<JigsawGame> {
     return Stack(
       children: targetModel.map((item) {
         return Positioned(
-            top: item.position.dy,
-            left: item.position.dx,
+            top: item.position.dy * ratio,
+            left: item.position.dx * ratio,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 return item.status == 0
                     ? Container(
-                        height: item.height,
-                        width: item.width,
+                        height: item.height * ratio,
+                        width: item.width * ratio,
                       )
                     : AnimatedMatchedTarget(
                         child: Container(
-                            height: item.height,
-                            width: item.width,
+                            height: item.height*ratio,
+                            width: item.width*ratio,
                             child: Image.file(
                               File(assetFolder + item.image),
                               fit: BoxFit.contain,
@@ -198,7 +205,7 @@ class _JigsawGameState extends State<JigsawGame> {
               },
               onAccept: (data) {
                 screenModel.endPositionId = item.id;
-                screenModel.endPosition = item.position;
+                screenModel.endPosition = Offset(item.position.dx * ratio, item.position.dy * ratio);
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {

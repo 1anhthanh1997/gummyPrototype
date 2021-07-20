@@ -388,7 +388,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                           alignment: Alignment.center,
                           child: Text(
                             color.count.toString(),
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15*ratio),
                           ))),
                 ));
     }).toList());
