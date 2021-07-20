@@ -102,7 +102,6 @@ CREATE TABLE $tableGames (
       final id = await db.insert(tableGames, game.toJson());
       return game.copy(id: id);
     }
-
   }
 
   Future<Game> readGame(int gameId) async {

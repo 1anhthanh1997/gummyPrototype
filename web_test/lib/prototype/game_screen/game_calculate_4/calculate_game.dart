@@ -46,7 +46,11 @@ class _CalculateGameState extends State<CalculateGame> {
   void getGameData() {
     stepIndex = screenModel.currentStep;
     ParentGameModel allGameData = screenModel.currentGame;
-    itemData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      itemData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
@@ -246,8 +250,8 @@ class _CalculateGameState extends State<CalculateGame> {
         height: height * ratio,
         width: width * ratio,
         decoration: BoxDecoration(
-            image:
-                DecorationImage(image: FileImage(File(image)), fit: BoxFit.contain)),
+            image: DecorationImage(
+                image: FileImage(File(image)), fit: BoxFit.contain)),
         alignment: Alignment.center,
         padding: EdgeInsets.only(top: 20 * ratio),
         child: isScale

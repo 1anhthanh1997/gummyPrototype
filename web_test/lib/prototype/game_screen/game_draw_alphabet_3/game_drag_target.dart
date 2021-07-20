@@ -49,7 +49,11 @@ class _GameDragTargetState extends State<GameDragTarget>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    imageData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);

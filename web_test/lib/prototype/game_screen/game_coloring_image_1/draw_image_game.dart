@@ -54,7 +54,11 @@ class _DrawImageGameState extends State<DrawImageGame> {
   void loadImageData() {
     currentGameData = screenModel.currentGame;
     stepIndex = screenModel.currentStep;
-    imageData = currentGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < currentGameData.gameData[stepIndex].items.length;
+        idx++) {
+      imageData.add(currentGameData.gameData[stepIndex].items[idx].copy());
+    }
     // centerHeight = currentGameData.gameData[stepIndex];
     centerHeight = 0;
     assetFolder = screenModel.localPath + currentGameData.gameAssets;

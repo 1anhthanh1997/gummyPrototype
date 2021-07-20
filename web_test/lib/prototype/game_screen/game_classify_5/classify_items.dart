@@ -39,7 +39,9 @@ class _ClassifyItemState extends State<ClassifyItem>
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
     data = screenModel.currentGame;
-    items = data.gameData[stepIndex].items;
+    for (int idx = 0; idx < data.gameData[stepIndex].items.length; idx++) {
+      items.add(data.gameData[stepIndex].items[idx].copy());
+    }
     assetFolder = screenModel.localPath + data.gameAssets;
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {

@@ -48,7 +48,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    alphabetData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      alphabetData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     double objectHeight = 0;
     assetFolder = allGameData.gameAssets;
     bonusHeight = 0.0;

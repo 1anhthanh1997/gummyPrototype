@@ -34,6 +34,23 @@ class ItemModel {
       this.endPosition,
       this.path});
 
+  ItemModel copy() => ItemModel(
+      id: this.id,
+      image: this.image,
+      type: this.type,
+      position: this.position,
+      groupId: this.groupId,
+      height: this.height,
+      width: this.width,
+      status: this.status,
+      color: this.color,
+      duration: this.duration,
+      count: this.count,
+      canDraw: this.canDraw,
+      startPosition: this.startPosition,
+      endPosition: this.endPosition,
+      path: this.path);
+
   ItemModel.fromJson(Map<String, dynamic> json) {
     image = json['image'] == null ? '' : json['image'];
     type = json['type'] == null ? 0 : json['type'];
@@ -48,11 +65,13 @@ class ItemModel {
     duration = json['duration'] == null ? 0 : json['duration'];
     count = json['count'] == null ? 0 : json['count'];
     canDraw = json['canDraw'] == null ? false : json['canDraw'];
-    startPosition =
-        json['startPosition'] == null ? Offset(0, 0) : Offset(json['startPosition']['dx'], json['startPosition']['dy']);
-    endPosition =
-        json['endPosition'] == null ? Offset(0, 0) : Offset(json['endPosition']['dx'], json['endPosition']['dy']);
+    startPosition = json['startPosition'] == null
+        ? Offset(0, 0)
+        : Offset(json['startPosition']['dx'], json['startPosition']['dy']);
+    endPosition = json['endPosition'] == null
+        ? Offset(0, 0)
+        : Offset(json['endPosition']['dx'], json['endPosition']['dy']);
     path = json['path'] == null ? '' : json['path'];
-    status=0;
+    status = 0;
   }
 }

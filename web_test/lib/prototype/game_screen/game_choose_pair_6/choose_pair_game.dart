@@ -35,7 +35,11 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   void loadGameData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    itemData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      itemData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     print(assetFolder);
     for (int idx = 0; idx < itemData.length; idx++) {

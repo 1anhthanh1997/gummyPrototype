@@ -41,7 +41,11 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   void loadGameData() {
     allGameData = screenModel.currentGame;
     int stepIndex = screenModel.currentStep;
-    itemData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      itemData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {

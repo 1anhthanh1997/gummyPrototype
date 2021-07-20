@@ -33,7 +33,11 @@ class _JigsawGameState extends State<JigsawGame> {
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
-    imageData = allGameData.gameData[stepIndex].items;
+    for (int idx = 0;
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
+      imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
+    }
     double objectHeight = 0;
     // assetFolder = screenModel.localPath+allGameData.gameAssets;
     assetFolder =
