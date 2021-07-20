@@ -49,6 +49,7 @@ class _CalculateGameState extends State<CalculateGame> {
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
+        // print(itemData[index].status);
         setState(() {
           targetModel.add(itemData[index]);
           targetKey.add(itemData[index].id);
@@ -379,6 +380,7 @@ class _CalculateGameState extends State<CalculateGame> {
 
   @override
   Widget build(BuildContext context) {
+    print(targetModel[0].status);
     return Scaffold(
       body: itemData.length != 0
           ? Container(

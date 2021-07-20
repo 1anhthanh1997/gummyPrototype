@@ -11,7 +11,7 @@ class SquareParticle {
   SquareParticle(Duration time) {
     final random = Random();
     final x = (100 + 50) * random.nextDouble() * (random.nextBool() ? 1 : -1);
-    final y = (100 + 500) * random.nextDouble() * (random.nextBool() ? 1 : -0.2);
+    final y = (100 + 50) * random.nextDouble() * (random.nextBool() ? 1 : -1);
 
     tween = MultiTrackTween([
       Track("x").add(Duration(seconds: 1), Tween(begin: 0.0, end: x)),

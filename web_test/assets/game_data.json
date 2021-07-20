@@ -15,7 +15,7 @@
       "gameName": "Game tô màu",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "assets/images/game_coloring_image_1/coloring_parrot/",
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_parrot/",
       "gameData": [
         {
           "id": 0,
@@ -691,7 +691,7 @@
       "gameName": "Coloring game",
       "parentId": 0,
       "createDate": 0,
-      "gameAssets": "assets/images/game_coloring_image_1/coloring_fruit/",
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_fruit/",
       "gameData": [
         {
           "id": 0,
@@ -878,7 +878,7 @@
               },
               "color": "#8BD739",
               "type": 1,
-              "count": 3,
+              "count": 2,
               "canDraw": false,
               "width": 57.0,
               "height": 53.0
@@ -937,7 +937,7 @@
                 "dy": 234.0
               },
               "color": "#6D20E7",
-              "count": 1,
+              "count": 0,
               "type": 1,
               "canDraw": false,
               "width": 57.0,
@@ -1441,7 +1441,7 @@
       "gameName": "Game ghép hình",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "assets/images/game_jigsaw_2/jigsaw_1/",
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
       "gameData": [
         {
           "id": 1,
@@ -1714,7 +1714,7 @@
       "gameName": "Game ghép hình",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "assets/images/game_jigsaw_2/jigsaw_2/",
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_2/",
       "gameData": [
         {
           "id": 0,
@@ -2444,7 +2444,7 @@
       "gameName": "Game chọn cặp 1",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "assets/images/game_choose_pair_6/",
+      "gameAssets": "/assets/images/game_choose_pair_6/",
       "gameData": [
         {
           "id": 1,

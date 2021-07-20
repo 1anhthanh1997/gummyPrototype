@@ -77,6 +77,7 @@ class ScreenModel extends ChangeNotifier {
     if (currentStep < currentGame.gameData.length - 1) {
       currentStep++;
     } else {
+      print('nextGame');
       nextGame();
     }
     await Future.delayed(Duration(milliseconds: 300));
@@ -127,17 +128,26 @@ class ScreenModel extends ChangeNotifier {
 
   void getNextGameId() {
     int randomType = randomWithPiority(typeList);
-    print(randomType);
-    currentGameId=randomType;
     print('Random type:');
     print(randomType);
+    List<int>gameIndex=[];
+    for(int idx =0;idx<gameData.length;idx++){
+      if(gameData[idx].gameType==randomType){
+        gameIndex.add(idx);
+      }
+    }
+    print(gameIndex);
+    Random random=Random();
+    int randomIdx=gameIndex [random.nextInt(gameIndex.length)];
+    print(randomIdx);
+    currentGameId=randomIdx;
+
   }
 
   void nextGame() async {
     addUserScore();
     changeTypeScore();
-    // getNextGameId();
-    currentGameId++;
+    getNextGameId();
     currentStep = 0;
     getCurrentGame();
     await Future.delayed(Duration(milliseconds: 300));
@@ -145,7 +155,7 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void getCurrentGame() {
-    currentGame = gameData[1];
+    currentGame = gameData[currentGameId];
   }
 
   Future<void> getTypeList() async {
@@ -176,9 +186,8 @@ class ScreenModel extends ChangeNotifier {
         currentGameId, currentStep, 'skip_game');
     // randomWithPiority(typeList);
     changeTypeScore();
-    // getNextGameId();
+    getNextGameId();
     minusUserScore();
-    currentGameId++;
     currentStep = 0;
     getCurrentGame();
     await Future.delayed(Duration(milliseconds: 300));

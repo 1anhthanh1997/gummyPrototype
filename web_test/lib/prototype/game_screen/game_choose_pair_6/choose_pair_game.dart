@@ -35,7 +35,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
     itemData = allGameData.gameData[stepIndex].items;
-    assetFolder = allGameData.gameAssets;
+    assetFolder = screenModel.localPath + allGameData.gameAssets;
     print(assetFolder);
     for (int idx = 0; idx < itemData.length; idx++) {
       isScale.add(0);
@@ -91,7 +91,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                               itemData[chosenIndex].status = 1;
                               itemData[index].status = 1;
                               chosenIndex = -1;
-                              firstItem=-1;
+                              firstItem = -1;
                             });
                             if (count == pairCount) {
                               Timer(Duration(milliseconds: 1500), () {
