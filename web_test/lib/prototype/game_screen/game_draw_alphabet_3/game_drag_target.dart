@@ -45,6 +45,9 @@ class _GameDragTargetState extends State<GameDragTarget>
   int count = 0;
   ScreenModel screenModel;
   int stepIndex;
+  double screenHeight;
+  double screenWidth;
+  double ratio;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -78,6 +81,14 @@ class _GameDragTargetState extends State<GameDragTarget>
     screenModel.setContext(context);
     loadAlphabetData();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies(){
+    screenWidth=screenModel.getScreenWidth();
+    screenHeight=screenModel.getScreenHeight();
+    ratio=screenModel.getRatio();
+    super.didChangeDependencies();
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {

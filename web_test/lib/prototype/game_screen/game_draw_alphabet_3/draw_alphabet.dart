@@ -44,6 +44,10 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   ScreenModel screenModel;
   bool scaleNumber = true;
   int stepIndex;
+  double screenHeight;
+  double screenWidth;
+  double ratio;
+
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -77,6 +81,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     screenModel.setContext(context);
     loadAlphabetData();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies(){
+    screenWidth=screenModel.getScreenWidth();
+    screenHeight=screenModel.getScreenHeight();
+    ratio=screenModel.getRatio();
+    super.didChangeDependencies();
   }
 
   removePoint() {

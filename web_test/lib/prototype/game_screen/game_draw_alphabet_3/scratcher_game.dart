@@ -39,6 +39,9 @@ class _ScratcherGameState extends State<ScratcherGame>
   int count = 0;
   ScreenModel screenModel;
   int stepIndex;
+  double screenWidth;
+  double screenHeight;
+  double ratio;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -69,6 +72,14 @@ class _ScratcherGameState extends State<ScratcherGame>
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadAlphabetData();
+  }
+
+  @override
+  void didChangeDependencies(){
+    screenWidth=screenModel.getScreenWidth();
+    screenHeight=screenModel.getScreenHeight();
+    ratio=screenModel.getRatio();
+    super.didChangeDependencies();
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {

@@ -35,6 +35,9 @@ class _ClassifyItemState extends State<ClassifyItem>
   int count = 0;
   int draggableCount = 0;
   int stepIndex;
+  double screenWidth;
+  double screenHeight;
+  double ratio;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -64,13 +67,17 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
+    screenWidth=screenModel.getScreenWidth();
+    screenHeight=screenModel.getScreenHeight();
+    ratio=screenModel.getRatio();
     _transAnimation = Tween(begin: -500.0, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
         curve: Interval(0.0, 0.75, curve: Curves.easeInOutBack),
       ),
     );
+    super.didChangeDependencies();
+
 
     controller.forward();
   }

@@ -38,6 +38,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   int count = 0;
   int answerCount = 0;
 
+  double screenWidth;
+  double screenHeight;
+  double ratio;
+
   void loadGameData() {
     allGameData = screenModel.currentGame;
     int stepIndex = screenModel.currentStep;
@@ -95,6 +99,14 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         isDisplayAnswer = true;
       });
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    super.didChangeDependencies();
   }
 
   Widget _square(int index) {
@@ -302,9 +314,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: FileImage(File(assetFolder +
-                            allGameData.gameData[screenModel.currentStep]
-                                .background)),
-                    fit: BoxFit.fill)),
+                            allGameData
+                                .gameData[screenModel.currentStep].background)),
+                        fit: BoxFit.fill)),
                 child: Stack(
                   children: displayScreen(),
                 ),

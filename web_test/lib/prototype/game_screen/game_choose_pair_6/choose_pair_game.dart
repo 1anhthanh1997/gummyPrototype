@@ -31,6 +31,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   int pairCount = 0;
   int stepIndex;
   int firstItem = -1;
+  double screenWidth;
+  double screenHeight;
+  double ratio;
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -61,6 +64,14 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     screenModel.setContext(context);
     loadGameData();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies(){
+    screenWidth=screenModel.getScreenWidth();
+    screenHeight=screenModel.getScreenHeight();
+    ratio=screenModel.getRatio();
+    super.didChangeDependencies();
   }
 
   void resetScaleArray() {
