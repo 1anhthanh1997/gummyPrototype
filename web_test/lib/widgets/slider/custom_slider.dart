@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/prototype/general_screen/home_screen.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/fade_animation.dart';
@@ -34,6 +35,12 @@ class _CustomSliderState extends State<CustomSlider> {
     super.didChangeDependencies();
   }
 
+  Future<void> setCurrentPlayGameSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    prefs.setInt('currentPlayGame', screenModel.currentGameId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -53,11 +60,11 @@ class _CustomSliderState extends State<CustomSlider> {
                 ))),
         !isDisplayArrow
             ? Positioned(
-                top: 24*ratio,
-                left: 26*ratio,
+                top: 24 * ratio,
+                left: 26 * ratio,
                 child: Container(
-                  height: 7*ratio,
-                  width: 7*ratio,
+                  height: 7 * ratio,
+                  width: 7 * ratio,
                   child: SvgPicture.asset(
                     'assets/images/common/back_dot.svg',
                     fit: BoxFit.contain,
@@ -66,14 +73,14 @@ class _CustomSliderState extends State<CustomSlider> {
               )
             : Container(),
         Positioned(
-            top: 14*ratio,
-            left: 18*ratio,
+            top: 14 * ratio,
+            left: 18 * ratio,
             child: FadeAnimation(
               // time: 500,
               isFade: isDisplayArrow,
               child: Container(
-                height: 26*ratio,
-                width: 70*ratio,
+                height: 26 * ratio,
+                width: 70 * ratio,
                 child: SvgPicture.asset(
                   'assets/images/common/back_arrow.svg',
                   fit: BoxFit.contain,
@@ -81,25 +88,25 @@ class _CustomSliderState extends State<CustomSlider> {
               ),
             )),
         Positioned(
-            top: 9*ratio,
-            left: 10*ratio,
+            top: 9 * ratio,
+            left: 10 * ratio,
             child: Opacity(
                 opacity: isDisplayArrow ? 1.0 : 0.8,
                 child: Container(
-                    height: 35*ratio,
-                    width: 89*ratio,
+                    height: 35 * ratio,
+                    width: 89 * ratio,
                     child: FlutterSlider(
                       values: [value],
                       max: 39,
                       min: 7,
                       maximumDistance: 300,
                       rtl: true,
-                      handlerWidth: 40*ratio,
+                      handlerWidth: 40 * ratio,
                       handler: FlutterSliderHandler(
                         decoration: BoxDecoration(),
                         child: Container(
-                          height: 32*ratio,
-                          width: 33*ratio,
+                          height: 32 * ratio,
+                          width: 33 * ratio,
                           color: Colors.transparent,
                           child: SvgPicture.asset(
                             'assets/images/common/thumb_image.svg',
@@ -142,6 +149,7 @@ class _CustomSliderState extends State<CustomSlider> {
                           setState(() {
                             value = 39;
                           });
+                          setCurrentPlayGameSF();
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

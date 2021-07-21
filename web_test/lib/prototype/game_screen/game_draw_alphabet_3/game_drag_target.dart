@@ -118,7 +118,7 @@ class _GameDragTargetState extends State<GameDragTarget>
   void callOnDraggableCancelled(ItemModel item, Offset offset) {
     if (isWrongTarget) {
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx, offset.dy);
+      item.position = Offset(offset.dx/ratio, (offset.dy-firstBonusHeight)/ratio);
       setState(() {
         isHitFail = true;
       });
@@ -139,7 +139,7 @@ class _GameDragTargetState extends State<GameDragTarget>
       });
     } else {
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx, offset.dy);
+      item.position = Offset(offset.dx/ratio, (offset.dy-firstBonusHeight)/ratio);
       setState(() {});
       Timer(Duration(milliseconds: 50), () {
         double denta = getBiggerSpace(offsetSource, offset);

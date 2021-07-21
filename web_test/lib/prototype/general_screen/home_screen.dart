@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   TargetPlatform platform;
   String assetsUrl;
   bool isComplete = false;
+  int currentPlayGame;
 
   @override
   void initState() {
@@ -57,7 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     screenModel.getDeviceId();
-    loadGameData().whenComplete(() => {downloadAssets()});
+    getCurrentPlayGameSF();
+    loadGameData().whenComplete(()async{
+      await downloadAssets();
+    });
     super.initState();
   }
 
@@ -78,12 +83,25 @@ class _HomeScreenState extends State<HomeScreen> {
     // Timer(Duration(milliseconds: 500), ()  {
     await Future.delayed(Duration(milliseconds: 500));
     await screenModel.getTypeList().whenComplete(() {
-      screenModel.getNextGameId();
+      if(currentPlayGame>0){
+        screenModel.currentGameId=currentPlayGame;
+      }else{
+        screenModel.getNextGameId();
+      }
       screenModel.getCurrentGame();
     });
     // });
 
     // setState(() {});
+  }
+
+  Future<void>getCurrentPlayGameSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    int intValue = prefs.getInt('currentPlayGame') ?? -1;
+    setState(() {
+      currentPlayGame = intValue;
+    });
   }
 
   Future<void> addDataToDB() async {
