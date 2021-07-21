@@ -79,31 +79,32 @@ class _ScratcherGameState extends State<ScratcherGame>
     screenWidth=screenModel.getScreenWidth();
     screenHeight=screenModel.getScreenHeight();
     ratio=screenModel.getRatio();
+    bonusHeight=(screenHeight-319*ratio)/2-28*ratio;
     super.didChangeDependencies();
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {
     return isCompleted[index]
         ? Positioned(
-            top: item.position.dy,
-            left: item.position.dx,
+            top: item.position.dy*ratio+bonusHeight,
+            left: item.position.dx*ratio,
             child: Container(
-              height: 144,
-              width: 144,
+              height: 144*ratio,
+              width: 144*ratio,
               alignment: Alignment.center,
               child: Container(
-                height: item.height,
-                width: item.width,
+                height: item.height*ratio,
+                width: item.width*ratio,
                 child: Image.file(File(assetFolder + item.image)),
               ),
             ),
           )
         : AnimatedPositioned(
-            top: item.position.dy,
-            left: item.position.dx,
+            top: item.position.dy*ratio+bonusHeight,
+            left: item.position.dx*ratio,
             duration: Duration(milliseconds: 500),
             child: Scratcher(
-              brushSize: 30,
+              brushSize: 30*ratio,
               threshold: 70,
               color: HexColor('#00FFFFFF'),
               image: Image.asset(
@@ -123,12 +124,12 @@ class _ScratcherGameState extends State<ScratcherGame>
                 }
               },
               child: Container(
-                height: 144,
-                width: 144,
+                height: 144*ratio,
+                width: 144*ratio,
                 alignment: Alignment.center,
                 child: Container(
-                  height: item.height,
-                  width: item.width,
+                  height: item.height*ratio,
+                  width: item.width*ratio,
                   child: Image.file(File(assetFolder + item.image)),
                 ),
               ),

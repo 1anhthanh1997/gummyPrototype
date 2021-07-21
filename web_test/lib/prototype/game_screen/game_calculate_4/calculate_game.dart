@@ -201,15 +201,15 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: [
         Positioned(
-            top: 186 * ratio,
+            top: (screenHeight - 79 * ratio) / 2,
             left: 186 * ratio,
             child: displayNumber(firstElement, 58, 79)),
         Positioned(
-            top: 186 * ratio,
+            top: (screenHeight - 79 * ratio) / 2,
             left: 367 * ratio,
             child: displayNumber(secondElement, 58, 79)),
         Positioned(
-            top: 194 * ratio,
+            top: (screenHeight - 62 * ratio) / 2,
             left: 274 * ratio,
             child: Container(
               height: 62 * ratio,
@@ -220,7 +220,7 @@ class _CalculateGameState extends State<CalculateGame> {
               ),
             )),
         Positioned(
-            top: 206 * ratio,
+            top: (screenHeight - 39 * ratio) / 2,
             left: 456 * ratio,
             child: Container(
               height: 39 * ratio,
@@ -268,7 +268,7 @@ class _CalculateGameState extends State<CalculateGame> {
       children: targetIndex.map((index) {
         ItemModel item = targetModel[index];
         return Positioned(
-            top: item.position.dy * ratio - 139 * ratio + bonusHeight,
+            top: bonusHeight,
             left: item.position.dx * ratio,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {

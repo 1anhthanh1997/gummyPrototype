@@ -48,6 +48,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   double screenHeight;
   double screenWidth;
   double ratio;
+  double firstBonusHeight;
+  double secondBonusHeight;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -84,20 +86,23 @@ class _GameDragTargetState extends State<GameDragTarget>
   }
 
   @override
-  void didChangeDependencies(){
-    screenWidth=screenModel.getScreenWidth();
-    screenHeight=screenModel.getScreenHeight();
-    ratio=screenModel.getRatio();
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    firstBonusHeight = (screenHeight / 2 - 73 * ratio) / 2 - 69 * ratio;
+    secondBonusHeight =
+        (screenHeight * 3 / 2 - 73 * ratio) / 2 - 250 * ratio - 50 * ratio;
     super.didChangeDependencies();
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
-    double verticalSpace = offsetSource.dy - offset.dy > 0
-        ? offsetSource.dy - offset.dy
-        : offset.dy - offsetSource.dy;
-    double horizontalSpace = offsetSource.dx - offset.dx > 0
-        ? offsetSource.dx - offset.dx
-        : offset.dx - offsetSource.dx;
+    double verticalSpace = offsetSource.dy * ratio - offset.dy > 0
+        ? offsetSource.dy * ratio - offset.dy
+        : offset.dy - offsetSource.dy * ratio;
+    double horizontalSpace = offsetSource.dx * ratio - offset.dx > 0
+        ? offsetSource.dx * ratio - offset.dx
+        : offset.dx - offsetSource.dx * ratio;
     double denta =
         verticalSpace > horizontalSpace ? verticalSpace : horizontalSpace;
     return denta;
@@ -152,8 +157,8 @@ class _GameDragTargetState extends State<GameDragTarget>
     return Stack(
       children: sourceModel.map((item) {
         return Positioned(
-            top: item.position.dy,
-            left: item.position.dx,
+            top: item.position.dy * ratio + firstBonusHeight,
+            left: item.position.dx * ratio,
             child: Draggable(
               data: item.groupId,
               child: item.status == 1
@@ -163,8 +168,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                       child: AnimationHitFail(
                         isDisplayAnimation: isHitFail,
                         child: Container(
-                          height: item.height * 0.9,
-                          width: item.width * 0.9,
+                          height: item.height * 0.9 * ratio,
+                          width: item.width * 0.9 * ratio,
                           child: Image.file(
                             File(assetFolder + item.image),
                             fit: BoxFit.contain,
@@ -173,8 +178,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                       ),
                     ),
               feedback: Container(
-                height: item.height,
-                width: item.width,
+                height: item.height * ratio,
+                width: item.width * ratio,
                 child: Image.file(
                   File(assetFolder + item.image),
                   fit: BoxFit.contain,
@@ -195,25 +200,26 @@ class _GameDragTargetState extends State<GameDragTarget>
         // print(item);
         int index = targetModel.indexOf(item);
         return Positioned(
-          top: item.position.dy,
-          left: item.position.dx,
+          top: screenHeight * 3 / 4 - 50 * ratio,
+          left: item.position.dx * ratio,
           child: DragTarget<int>(
             builder: (context, candidateData, rejectedData) {
               return item.status == 0
                   ? Container(
-                      height: item.height,
-                      width: item.width,
-                      child: Image.file(File(assetFolder + item.image),
-                          fit: BoxFit.contain),
-                    )
+                      height: 100 * ratio,
+                      width: item.width * ratio,
+                      child: Container(
+                        child: Image.file(File(assetFolder + item.image),
+                            fit: BoxFit.contain),
+                      ))
                   : AnimatedMatchedTarget(
                       child: Container(
-                      height: item.height,
-                      width: item.width,
-                      child: Image.file(
-                          File(assetFolder + sourceModel[index].image),
-                          fit: BoxFit.contain),
-                    ));
+                          height: 100 * ratio,
+                          width: item.width * ratio,
+                          child: Container(
+                            child: Image.file(File(assetFolder + sourceModel[index].image),
+                                fit: BoxFit.contain),
+                          )));
             },
             onWillAccept: (data) {
               return data == item.groupId;

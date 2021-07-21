@@ -6,7 +6,7 @@ import 'package:web_test/widgets/character_item_paint.dart';
 
 class CharacterItem extends StatefulWidget {
   CharacterItem(this.img, this.imgWidth, this.imgHeight, this.paintColor,
-      this.path, this._points, this.isCompleted)
+      this.path, this._points, this.isCompleted,this.ratio)
       : super();
 
   final String img;
@@ -16,6 +16,7 @@ class CharacterItem extends StatefulWidget {
   final Path path;
   final List<Map> _points;
   final bool isCompleted;
+  final double ratio;
 
   @override
   _CharacterItemState createState() => _CharacterItemState();
@@ -43,7 +44,7 @@ class _CharacterItemState extends State<CharacterItem> {
                 allowDrawingOutsideViewBox: true),
         CustomPaint(
           size: Size(widget.imgWidth, widget.imgHeight),
-          foregroundPainter: CharacterItemPaint(widget._points, widget.path),
+          foregroundPainter: CharacterItemPaint(widget._points, widget.path,widget.ratio),
         )
       ],
     );

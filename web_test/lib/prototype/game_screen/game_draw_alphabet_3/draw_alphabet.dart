@@ -48,7 +48,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   double screenWidth;
   double ratio;
 
-
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
@@ -59,7 +58,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     }
     double objectHeight = 0;
     assetFolder = allGameData.gameAssets;
-    bonusHeight = 0.0;
+
     for (int index = 0; index < alphabetData.length; index++) {
       setState(() {
         _alphabetPoint.add([]);
@@ -84,11 +83,25 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   @override
-  void didChangeDependencies(){
-    screenWidth=screenModel.getScreenWidth();
-    screenHeight=screenModel.getScreenHeight();
-    ratio=screenModel.getRatio();
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    bonusHeight = (screenHeight - 284 * ratio) / 2 - 47 * ratio;
+    editPath();
     super.didChangeDependencies();
+  }
+
+  Path scalePath(Path path) {
+    final Matrix4 matrix4 = Matrix4.identity();
+    matrix4.scale(ratio, ratio);
+    return path.transform(matrix4.storage);
+  }
+
+  void editPath() {
+    for (int idx = 0; idx < alphabetPath.length; idx++) {
+      alphabetPath[idx] = scalePath(alphabetPath[idx]);
+    }
   }
 
   removePoint() {
@@ -106,9 +119,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   addPoints(String action, Offset position) {
+    print(position);
     if (!alphabetPath[currentIndex].contains(Offset(
-        position.dx - imagePosition[currentIndex].dx,
-        position.dy - imagePosition[currentIndex].dy - bonusHeight))) {
+        position.dx - imagePosition[currentIndex].dx * ratio,
+        position.dy - imagePosition[currentIndex].dy * ratio - bonusHeight))) {
+      print('Step 1');
       // removePoint();
       setState(() {
         _focusingItem = '';
@@ -116,35 +131,44 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       });
     }
     if (alphabetPath[currentIndex].contains(Offset(
-            position.dx - imagePosition[currentIndex].dx,
-            position.dy - imagePosition[currentIndex].dy - bonusHeight)) &&
+            position.dx - imagePosition[currentIndex].dx * ratio,
+            position.dy -
+                imagePosition[currentIndex].dy * ratio -
+                bonusHeight)) &&
         ((_focusingItem == '' && action == 'start') ||
             _focusingItem == 'alphabet')) {
-      if (action != 'start' &&
-          !alphabetPath[currentIndex].contains(Offset(
-              (position.dx -
-                      imagePosition[currentIndex].dx +
-                      previousPoint.dx) /
-                  2,
-              (position.dy -
-                      imagePosition[currentIndex].dy -
-                      bonusHeight +
-                      previousPoint.dy) /
-                  2))) {
-        removePoint();
-        setState(() {
-          isColoringFromStart = false;
-        });
-        return;
-      }
+      print('Step 2');
+      // if (action != 'start' &&
+      //     !alphabetPath[currentIndex].contains(Offset(
+      //         (position.dx -
+      //                 imagePosition[currentIndex].dx*ratio +
+      //                 previousPoint.dx*ratio) /
+      //             2,
+      //         (position.dy -
+      //                 imagePosition[currentIndex].dy*ratio -
+      //                 bonusHeight +
+      //                 previousPoint.dy*ratio) /
+      //             2))) {
+      //   print('Step 20');
+      //   removePoint();
+      //   setState(() {
+      //     isColoringFromStart = false;
+      //   });
+      //   return;
+      // }
+      print('Step 3');
       setState(() {
         _alphabetPoint[currentIndex].add({
-          'offset': Offset(position.dx - imagePosition[currentIndex].dx,
-              position.dy - imagePosition[currentIndex].dy - bonusHeight),
+          'offset': Offset(
+              position.dx - imagePosition[currentIndex].dx * ratio,
+              position.dy -
+                  imagePosition[currentIndex].dy * ratio -
+                  bonusHeight),
           'color': Colors.red
         });
-        previousPoint = Offset(position.dx - imagePosition[currentIndex].dx,
-            position.dy - imagePosition[currentIndex].dy - bonusHeight);
+        previousPoint = Offset(
+            position.dx - imagePosition[currentIndex].dx * ratio,
+            position.dy - imagePosition[currentIndex].dy * ratio - bonusHeight);
       });
       if (action == 'start') {
         setState(() {
@@ -177,16 +201,17 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     return Stack(
       children: indexGenerate.map((index) {
         return Positioned(
-          left: imagePosition[index].dx,
-          top: imagePosition[index].dy + bonusHeight,
+          left: imagePosition[index].dx * ratio,
+          top: imagePosition[index].dy * ratio + bonusHeight,
           child: CharacterItem(
               imageLink[index],
-              alphabetData[index].width,
-              alphabetData[index].height,
+              alphabetData[index].width * ratio,
+              alphabetData[index].height * ratio,
               Colors.red,
               alphabetPath[index],
               _alphabetPoint[index],
-              alphabetData[index].status == 1),
+              alphabetData[index].status == 1,
+              ratio),
         );
       }).toList(),
     );
@@ -197,10 +222,13 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     // print(startPosition[currentIndex]);
 
     if (currentColor != '' &&
-        localPosition.dx < startPosition[currentIndex].dx + 50 &&
-        localPosition.dx > startPosition[currentIndex].dx &&
-        localPosition.dy > startPosition[currentIndex].dy &&
-        localPosition.dy < startPosition[currentIndex].dy + 50) {
+        localPosition.dx <
+            startPosition[currentIndex].dx * ratio + 50 * ratio &&
+        localPosition.dx > startPosition[currentIndex].dx * ratio &&
+        localPosition.dy >
+            startPosition[currentIndex].dy * ratio + bonusHeight &&
+        localPosition.dy <
+            startPosition[currentIndex].dy * ratio + bonusHeight + 50 * ratio) {
       addPoints('start', localPosition);
     }
   }
@@ -209,10 +237,13 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     if (currentColor != '') {
       addPoints('update', localPosition);
       // print(localPosition);
-      if (localPosition.dx < endPosition[currentIndex].dx + 70 &&
-          localPosition.dx > endPosition[currentIndex].dx &&
-          localPosition.dy < endPosition[currentIndex].dy + 60 &&
-          localPosition.dy > endPosition[currentIndex].dy &&
+      if (localPosition.dx <
+              endPosition[currentIndex].dx * ratio + 70 * ratio &&
+          localPosition.dx > endPosition[currentIndex].dx * ratio &&
+          localPosition.dy <
+              endPosition[currentIndex].dy * ratio + bonusHeight + 60 * ratio &&
+          localPosition.dy >
+              endPosition[currentIndex].dy * ratio + bonusHeight &&
           isColoringFromStart &&
           _alphabetPoint[currentIndex].length > 2) {
         setState(() {

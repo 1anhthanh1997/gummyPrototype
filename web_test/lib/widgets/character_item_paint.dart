@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class CharacterItemPaint extends CustomPainter {
-  CharacterItemPaint(this._points, this.path) : super();
+  CharacterItemPaint(this._points, this.path,this.ratio) : super();
 
   List<Map> _points;
   Path path;
+  double ratio;
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.clipPath(path);
     for (int i = 0; i < _points.length - 1; i++) {
       if(_points[i]!=null){
-        canvas.drawCircle(_points[i]['offset'], 55, Paint()..color = _points[i]['color']);
+        canvas.drawCircle(_points[i]['offset'], 55*ratio, Paint()..color = _points[i]['color']);
       }
       if (_points[i] != null && _points[i + 1] != null) {
         canvas.drawLine(
@@ -20,7 +21,7 @@ class CharacterItemPaint extends CustomPainter {
             _points[i + 1]['offset'],
             Paint()
               ..color = _points[i]['color']
-              ..strokeWidth = 110);
+              ..strokeWidth = 110*ratio);
       }
 
       // if (_points[i] != null && _points[i + 1] == null) {

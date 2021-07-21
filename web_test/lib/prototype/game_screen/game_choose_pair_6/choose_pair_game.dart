@@ -34,6 +34,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   double screenWidth;
   double screenHeight;
   double ratio;
+  double firstBonusHeight;
+  double secondBonusHeight;
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -67,10 +69,12 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   }
 
   @override
-  void didChangeDependencies(){
-    screenWidth=screenModel.getScreenWidth();
-    screenHeight=screenModel.getScreenHeight();
-    ratio=screenModel.getRatio();
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    firstBonusHeight = screenHeight * 0.41 - 90 * ratio - 62 * ratio;
+    secondBonusHeight = screenHeight * 0.77 - 90 * ratio - 198 * ratio;
     super.didChangeDependencies();
   }
 
@@ -84,11 +88,14 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     List<int> targetIndex = Iterable<int>.generate(itemData.length).toList();
     return Stack(
       children: targetIndex.map((index) {
+        print(index);
         ItemModel item = itemData[index];
         return item.status == 0
             ? Positioned(
-                left: item.position.dx*ratio,
-                top: item.position.dy*ratio - item.height * 0.1*ratio,
+                left: item.position.dx * ratio,
+                top: item.position.dy * ratio -
+                    item.height * 0.1 * ratio +
+                    (index % 2 == 0 ? firstBonusHeight : secondBonusHeight),
                 child: PairScaleAnimation(
                   itemId: item.id,
                   isScale: isScale[index] == 1,
@@ -161,8 +168,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                     // }
                   },
                   child: Container(
-                    height: item.height*ratio,
-                    width: item.width*ratio,
+                    height: item.height * ratio,
+                    width: item.width * ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
@@ -170,13 +177,15 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                   ),
                 ))
             : Positioned(
-                left: item.position.dx - item.width * 0.1*ratio,
-                top: item.position.dy - item.height * 0.2*ratio,
+                left: item.position.dx * ratio - item.width * 0.1 * ratio,
+                top: item.position.dy * ratio -
+                    item.height * 0.2 * ratio +
+                    (index % 2 == 0 ? firstBonusHeight : secondBonusHeight),
                 child: CorrectAnimation(
                   isCorrect: item.status == 1,
                   child: Container(
-                    height: item.height * 1.2*ratio,
-                    width: item.width * 1.2*ratio,
+                    height: item.height * 1.2 * ratio,
+                    width: item.width * 1.2 * ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
