@@ -7,6 +7,7 @@ class StepModel {
   String stepAssets;
   String background;
   List<ItemModel> items;
+  double height;
 
   StepModel(
       {this.id = 0,
@@ -14,7 +15,8 @@ class StepModel {
       this.gameType,
       this.stepAssets,
       this.background,
-      this.items});
+      this.items,
+      this.height});
 
   List<ItemModel> getItemList(List itemListJson) {
     List<ItemModel> itemList = [];
@@ -27,10 +29,11 @@ class StepModel {
   StepModel.fromJson(Map<String, dynamic> json) {
     print(json['background']);
     id = json['id'] == null ? 0 : json['id'];
-    parentId = json['parentId'] ??0;
+    parentId = json['parentId'] ?? 0;
     gameType = json['gameType'] == null ? 0 : json['gameType'];
     stepAssets = json['stepAssets'] == null ? '' : json['stepAssets'];
     background = json['background'] == null ? '' : json['background'];
     items = json['items'] == null ? [] : getItemList(json['items']);
+    height = json['height'] == null ? 0 : json['height'];
   }
 }

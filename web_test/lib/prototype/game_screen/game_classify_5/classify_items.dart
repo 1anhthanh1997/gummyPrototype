@@ -49,6 +49,8 @@ class _ClassifyItemState extends State<ClassifyItem>
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {
         draggableCount++;
+        items[idx].position = Offset(items[idx].position.dx,
+            screenHeight / 6 * (2 * idx + 1) - items[idx].height / 2);
       }
     }
     setState(() {});
@@ -61,16 +63,16 @@ class _ClassifyItemState extends State<ClassifyItem>
         vsync: this, duration: Duration(milliseconds: 1500));
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
-    this.loadClassifyData();
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    screenWidth=screenModel.getScreenWidth();
-    screenHeight=screenModel.getScreenHeight();
-    ratio=screenModel.getRatio();
-    _transAnimation = Tween(begin: -500.0, end: 0.0).animate(
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    this.loadClassifyData();
+    _transAnimation = Tween(begin: -500.0 * ratio, end: 0.0).animate(
       CurvedAnimation(
         parent: controller,
         curve: Interval(0.0, 0.75, curve: Curves.easeInOutBack),
@@ -78,14 +80,13 @@ class _ClassifyItemState extends State<ClassifyItem>
     );
     super.didChangeDependencies();
 
-
     controller.forward();
   }
 
   void fallItem(int index) {
     for (int idx = 0; idx < index; idx++) {
-      items[idx].position =
-          Offset(items[idx].position.dx, items[idx].position.dy + 100);
+      items[idx].position = Offset(items[idx].position.dx * ratio,
+          items[idx].position.dy * ratio + 100 * ratio);
     }
   }
 
@@ -106,16 +107,16 @@ class _ClassifyItemState extends State<ClassifyItem>
     return Draggable(
       data: 0,
       child: Container(
-        height: item.height,
-        width: item.width,
+        height: item.height * ratio,
+        width: item.width * ratio,
         child: SvgPicture.file(
           File(assetFolder + item.image),
           fit: BoxFit.contain,
         ),
       ),
       feedback: Container(
-        height: item.height,
-        width: item.width,
+        height: item.height * ratio,
+        width: item.width * ratio,
         child: SvgPicture.file(
           File(assetFolder + item.image),
           fit: BoxFit.contain,
@@ -129,12 +130,12 @@ class _ClassifyItemState extends State<ClassifyItem>
       },
       onDragUpdate: (details) {
         Offset offset = details.globalPosition;
-        if (offset.dx <= 812 / 2 - 812 / 14 - 30) {
+        if (offset.dx <= screenWidth / 2 - screenWidth / 14 - 30 * ratio) {
           setState(() {
             isSelected[0] = true;
             isSelected[1] = false;
           });
-        } else if (offset.dx >= 812 / 2 + 812 / 14) {
+        } else if (offset.dx >= screenWidth / 2 + screenWidth / 14) {
           setState(() {
             isSelected[0] = false;
             isSelected[1] = true;
@@ -150,18 +151,22 @@ class _ClassifyItemState extends State<ClassifyItem>
       onDraggableCanceled: (velocity, offset) {
         Offset offsetSource;
         screenModel.endPosition = offset;
-        if (offset.dx <= 812 / 2 - 812 / 14 - 30 && item.groupId == 0) {
+        if (offset.dx <= screenWidth / 2 - screenWidth / 14 - 30 * ratio &&
+            item.groupId == 0) {
           screenModel.endPositionId = 0;
           screenModel.logDragEvent(true);
-          offsetSource = item.endPosition;
+          offsetSource = Offset(item.endPosition.dx,
+              item.endPosition.dy * screenHeight / 375 * 1.1);
           setState(() {
             item.status = 1;
             count++;
           });
-        } else if (offset.dx >= 812 / 2 + 812 / 14 && item.groupId == 1) {
+        } else if (offset.dx >= screenWidth / 2 + screenWidth / 14 &&
+            item.groupId == 1) {
           screenModel.endPositionId = 1;
           screenModel.logDragEvent(true);
-          offsetSource = item.endPosition;
+          offsetSource = Offset(
+              item.endPosition.dx, item.endPosition.dy * screenHeight / 375*1.03);
           setState(() {
             item.status = 1;
             count++;
@@ -171,7 +176,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           screenModel.logDragEvent(false);
           offsetSource = item.position;
         }
-        item.position = offset;
+        item.position = Offset(offset.dx / ratio, offset.dy);
         setState(() {});
         Timer(Duration(milliseconds: 50), () {
           if (item.status == 1) {
@@ -198,8 +203,8 @@ class _ClassifyItemState extends State<ClassifyItem>
     return CorrectAnimation(
         isCorrect: item.status == 1,
         child: Container(
-          height: item.height,
-          width: item.width,
+          height: item.height * ratio,
+          width: item.width * ratio,
           child: SvgPicture.file(
             File(assetFolder + item.image),
             fit: BoxFit.contain,
@@ -211,7 +216,7 @@ class _ClassifyItemState extends State<ClassifyItem>
     Offset position = item.position;
     return AnimatedPositioned(
         top: position.dy,
-        left: position.dx,
+        left: position.dx * ratio,
         curve: Curves.linear,
         duration: Duration(milliseconds: durationTime),
         child: item.status == 1
@@ -244,16 +249,16 @@ class _ClassifyItemState extends State<ClassifyItem>
       children: items.map((item) {
         return item.type == 0
             ? Positioned(
-                top: item.position.dy,
-                left: item.position.dx,
+                top: (screenHeight - item.height * ratio) / 2,
+                left: item.position.dx * ratio,
                 child: ScaleAnimation(
                   isScale: isSelected[item.groupId],
                   beginValue: 1.0,
                   endValue: 1.1,
                   onTab: () {},
                   child: Container(
-                    width: item.width,
-                    height: item.height,
+                    width: item.width * ratio,
+                    height: item.height * ratio,
                     child: Image.file(File(assetFolder + item.image),
                         fit: BoxFit.contain),
                   ),
@@ -263,22 +268,23 @@ class _ClassifyItemState extends State<ClassifyItem>
     );
   }
 
-  Widget displayNormalItem() {
-    return Stack(
-        children: items.map((item) {
-      return item.type == 2
-          ? Positioned(
-              top: item.position.dy,
-              left: item.position.dx,
-              child: Container(
-                width: item.width,
-                height: item.height,
-                child: Image.file(File(assetFolder + item.image),
-                    fit: BoxFit.contain),
-              ))
-          : Container();
-    }).toList());
-  }
+  // Widget displayNormalItem() {
+  //   return Stack(
+  //       children: items.map((item) {
+  //         print(item.height);
+  //     return item.type == 2
+  //         ? Positioned(
+  //             top: item.position.dy * ratio,
+  //             left: item.position.dx * ratio,
+  //             child: Container(
+  //               width: item.width * ratio,
+  //               height: item.height == 375 ? screenHeight : item.height * ratio,
+  //               child: Image.file(File(assetFolder + item.image),
+  //                   fit: BoxFit.contain),
+  //             ))
+  //         : Container();
+  //   }).toList());
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -289,7 +295,7 @@ class _ClassifyItemState extends State<ClassifyItem>
               child: Stack(
                 children: [
                   displayBackground(),
-                  displayNormalItem(),
+                  // displayNormalItem(),
                   displayTargetItem(),
                   displayDraggableItem(),
                   BasicItem(),

@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-
 class SquareParticle {
   Animatable tween;
   AnimationProgress progress;
 
-  SquareParticle(Duration time) {
+  SquareParticle(Duration time, double ratio) {
     final random = Random();
-    final x = (100 + 50) * random.nextDouble() * (random.nextBool() ? 1 : -1);
-    final y = (100 + 50) * random.nextDouble() * (random.nextBool() ? 1 : -1);
+    final x =
+        (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
+    final y =
+        (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
 
     tween = MultiTrackTween([
       Track("x").add(Duration(seconds: 1), Tween(begin: 0.0, end: x)),
@@ -32,10 +33,7 @@ class SquareParticle {
         child: Container(
           width: 70,
           height: 70,
-          decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
       ),
     );

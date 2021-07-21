@@ -54,11 +54,13 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         questionPositionTmp = itemData[index].position;
-        itemData[index].position = Offset(400, 500);
+        itemData[index].position =
+            Offset(screenWidth / 2, screenHeight + 125 * ratio);
         questionData = itemData[index];
       } else {
         answerPositionTmp.add(itemData[index].position);
-        itemData[index].position = Offset(400, 500);
+        itemData[index].position =
+            Offset(screenWidth / 2, screenHeight + 125 * ratio);
         answerData.add(itemData[index]);
         particles.add([]);
       }
@@ -79,17 +81,25 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     super.initState();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+  }
+
+  @override
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
     loadGameData();
-    Timer(Duration(milliseconds: 500), () {
+    print(questionPositionTmp);
+    Timer(Duration(milliseconds: (500*ratio).round()), () {
       questionData.position = questionPositionTmp;
       setState(() {});
     });
-    Timer(Duration(milliseconds: 5000), () {
-      questionData.position = Offset(questionPositionTmp.dx, -300.0);
+    Timer(Duration(milliseconds: (5000*ratio).round()), () {
+      questionData.position = Offset(questionPositionTmp.dx, -300.0*ratio);
       setState(() {});
     });
-    Timer(Duration(milliseconds: 5500), () {
-      Timer(Duration(milliseconds: 500), () {
+    Timer(Duration(milliseconds: (5500*ratio).round()), () {
+      Timer(Duration(milliseconds: (500*ratio).round()), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
         }
@@ -99,21 +109,14 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         isDisplayAnswer = true;
       });
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    screenWidth = screenModel.getScreenWidth();
-    screenHeight = screenModel.getScreenHeight();
-    ratio = screenModel.getRatio();
     super.didChangeDependencies();
   }
 
   Widget _square(int index) {
     ItemModel item = answerData[index];
     return Container(
-      height: item.height,
-      width: item.width,
+      height: item.height*ratio,
+      width: item.width*ratio,
       child: SvgPicture.file(
         File(assetFolder + item.image),
         fit: BoxFit.contain,
@@ -135,18 +138,18 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     }
     // });
     Iterable.generate(50)
-        .forEach((i) => particles[index].add(SquareParticle(time)));
+        .forEach((i) => particles[index].add(SquareParticle(time,ratio)));
   }
 
   Widget displayQuestion() {
     return AnimatedPositioned(
         duration: Duration(milliseconds: 1000),
-        top: questionData.position.dy,
-        left: questionData.position.dx,
+        top: questionData.position.dy * ratio,
+        left: questionData.position.dx * ratio,
         child: BubbleAnimation(
             child: Container(
-          height: questionData.height,
-          width: questionData.width,
+          height: questionData.height * ratio,
+          width: questionData.width * ratio,
           child: SvgPicture.file(
             File(assetFolder + questionData.image),
             fit: BoxFit.contain,
@@ -187,20 +190,20 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         ItemModel item = answerData[index];
         return item.type == 1 && item.groupId == questionData.groupId
             ? AnimatedPositioned(
-                left: item.position.dx,
-                top: item.position.dy,
+                left: item.position.dx * ratio,
+                top: item.position.dy * ratio,
                 duration: Duration(milliseconds: 1000),
                 child: BubbleAnimation(
                   child: _buildParticle(index),
                 ))
             : AnimatedPositioned(
-                left: item.position.dx,
-                top: item.position.dy,
+                left: item.position.dx * ratio,
+                top: item.position.dy * ratio,
                 duration: Duration(milliseconds: 1000),
                 child: BubbleAnimation(
                   child: Container(
-                    height: item.height,
-                    width: item.width,
+                    height: item.height * ratio,
+                    width: item.width * ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
@@ -213,18 +216,18 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
 
   Widget displayHotAirBalloon() {
     return Positioned(
-        top: 33,
-        left: 665,
+        top: 33 * ratio,
+        left: 665 * ratio,
         child: SlideAnimation(
-            beginValue: -900,
-            endValue: 250.0,
+            beginValue: -1 * screenWidth - 88 * ratio,
+            endValue: 250.0 * ratio,
             time: 40000,
             child: Opacity(
               opacity: 0.75,
               child: BubbleAnimation(
                 child: Container(
-                  height: 96,
-                  width: 71,
+                  height: 96 * ratio,
+                  width: 71 * ratio,
                   child: SvgPicture.asset(
                     'assets/images/game_memory_number_7/hot_air_balloon.svg',
                     fit: BoxFit.contain,
@@ -238,15 +241,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     return Stack(
       children: [
         Positioned(
-          top: 32,
-          left: 56,
+          top: 32 * ratio,
+          left: 56 * ratio,
           child: SlideAnimation(
-            beginValue: -200,
-            endValue: 850.0,
+            beginValue: -200 * ratio,
+            endValue: screenWidth + 38.0 * ratio,
             time: 45000,
             child: Container(
-              height: 108,
-              width: 190,
+              height: 108 * ratio,
+              width: 190 * ratio,
               child: Image.asset(
                 'assets/images/game_memory_number_7/cloud_1.png',
                 fit: BoxFit.contain,
@@ -255,15 +258,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           ),
         ),
         Positioned(
-            top: 146,
-            left: 667,
+            top: 146 * ratio,
+            left: 667 * ratio,
             child: SlideAnimation(
-              beginValue: 300.0,
-              endValue: -812.0,
+              beginValue: 300.0 * ratio,
+              endValue: -1 * screenWidth,
               time: 35000,
               child: Container(
-                height: 58,
-                width: 110,
+                height: 58 * ratio,
+                width: 110 * ratio,
                 child: Image.asset(
                   'assets/images/game_memory_number_7/cloud_2.png',
                   fit: BoxFit.contain,
@@ -271,15 +274,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
               ),
             )),
         Positioned(
-            top: 250,
-            left: 435,
+            top: 250*ratio,
+            left: 435*ratio,
             child: SlideAnimation(
-              beginValue: 450.0,
-              endValue: -812.0,
+              beginValue: screenWidth-362*ratio,
+              endValue: -1*screenWidth,
               time: 30000,
               child: Container(
-                height: 48,
-                width: 85,
+                height: 48*ratio,
+                width: 85*ratio,
                 child: Image.asset(
                   'assets/images/game_memory_number_7/cloud_3.png',
                   fit: BoxFit.contain,

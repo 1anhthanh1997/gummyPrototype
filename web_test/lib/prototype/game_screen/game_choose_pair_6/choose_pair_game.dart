@@ -87,8 +87,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         ItemModel item = itemData[index];
         return item.status == 0
             ? Positioned(
-                left: item.position.dx,
-                top: item.position.dy - item.height * 0.1,
+                left: item.position.dx*ratio,
+                top: item.position.dy*ratio - item.height * 0.1*ratio,
                 child: PairScaleAnimation(
                   itemId: item.id,
                   isScale: isScale[index] == 1,
@@ -161,8 +161,8 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                     // }
                   },
                   child: Container(
-                    height: item.height,
-                    width: item.width,
+                    height: item.height*ratio,
+                    width: item.width*ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
@@ -170,13 +170,13 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                   ),
                 ))
             : Positioned(
-                left: item.position.dx - item.width * 0.1,
-                top: item.position.dy - item.height * 0.2,
+                left: item.position.dx - item.width * 0.1*ratio,
+                top: item.position.dy - item.height * 0.2*ratio,
                 child: CorrectAnimation(
                   isCorrect: item.status == 1,
                   child: Container(
-                    height: item.height * 1.2,
-                    width: item.width * 1.2,
+                    height: item.height * 1.2*ratio,
+                    width: item.width * 1.2*ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
                       fit: BoxFit.contain,
