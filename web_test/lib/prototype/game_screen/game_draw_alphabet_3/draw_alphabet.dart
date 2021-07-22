@@ -13,6 +13,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/character_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/tutorial_widget.dart';
 
 class DrawAlphabet extends StatefulWidget {
   _DrawAlphabetState createState() => _DrawAlphabetState();
@@ -47,6 +48,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   double screenHeight;
   double screenWidth;
   double ratio;
+  Timer timer;
+  bool isDisplayTutorialWidget=false;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -79,6 +82,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadAlphabetData();
+    _initializeTimer();
     super.initState();
   }
 
@@ -90,6 +94,30 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     bonusHeight = (screenHeight - 284 * ratio) / 2 - 47 * ratio;
     editPath();
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    if(timer!=null){
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (!timer.isActive) {
+      return;
+    }
+    timer.cancel();
+    _initializeTimer();
   }
 
   Path scalePath(Path path) {
@@ -179,6 +207,27 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     }
   }
 
+  Widget displayTutorialWidget() {
+
+    Offset startPositionPoint = startPosition[currentIndex];
+    Offset endPositionPoint = endPosition[currentIndex];
+    int groupId;
+
+    return isDisplayTutorialWidget
+        ? TutorialWidget(
+            startPosition: startPositionPoint,
+            endPosition: endPositionPoint,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
+        : Container();
+  }
+
   Widget displayItem() {
     return Stack(
       children: [
@@ -189,7 +238,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             isScale: scaleNumber,
             curve: Curves.easeOutBack,
             child: displayAlphabet()),
-        BasicItem()
+        BasicItem(),
+        // displayTutorialWidget()
       ],
     );
   }
@@ -282,28 +332,32 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: alphabetData.length == 0
-            ? Container()
-            : Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: FileImage(File(screenModel.localPath +
-                            assetFolder +
-                            allGameData.gameData[stepIndex].background)),
-                        fit: BoxFit.fill)),
-                child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onPanStart: (details) {
-                      onPanStartAction(details.localPosition);
-                    },
-                    onPanUpdate: (details) {
-                      onPanUpdateAction(details.localPosition);
-                    },
-                    onPanEnd: (details) {
-                      onPanEndAction();
-                    },
-                    child: displayItem()),
-              ));
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+            body: alphabetData.length == 0
+                ? Container()
+                : Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: FileImage(File(screenModel.localPath +
+                                assetFolder +
+                                allGameData.gameData[stepIndex].background)),
+                            fit: BoxFit.fill)),
+                    child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onPanStart: (details) {
+                          onPanStartAction(details.localPosition);
+                        },
+                        onPanUpdate: (details) {
+                          onPanUpdateAction(details.localPosition);
+                        },
+                        onPanEnd: (details) {
+                          onPanEndAction();
+                        },
+                        child: displayItem()),
+                  )));
   }
 }

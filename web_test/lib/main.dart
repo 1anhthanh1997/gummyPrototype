@@ -18,10 +18,11 @@ void main() async{
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
-  ]);
+  ]).whenComplete(() => print('setLock'));
   await SystemChrome.setEnabledSystemUIOverlays([]);
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
+  print('runApp');
   runApp(MyApp());
 }
 

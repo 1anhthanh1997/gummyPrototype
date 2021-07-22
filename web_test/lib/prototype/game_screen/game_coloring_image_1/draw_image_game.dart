@@ -10,6 +10,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/tutorial_widget.dart';
 
 class DrawImageGame extends StatefulWidget {
   DrawImageGame({Key key}) : super(key: key);
@@ -50,6 +51,8 @@ class _DrawImageGameState extends State<DrawImageGame> {
   ParentGameModel currentGameData;
   List<int> id = [];
   int stepIndex;
+  bool isDisplayTutorialWidget = false;
+  Timer timer;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
@@ -66,7 +69,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
     for (int index = 0; index < imageData.length; index++) {
       if (imageData[index].type == 1) {
-        print(currentGameData.gameData[stepIndex].items[index].count);
         // print(imageData[index].count);
         setState(() {
           colorData.add(imageData[index]);
@@ -89,15 +91,18 @@ class _DrawImageGameState extends State<DrawImageGame> {
         });
       }
     }
+    setState(() {
+      currentColor = colorData[0].color;
+    });
   }
 
   @override
   void initState() {
-    print('InitState');
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadImageData();
+    _initializeTimer();
     super.initState();
   }
 
@@ -110,6 +115,33 @@ class _DrawImageGameState extends State<DrawImageGame> {
     countingColor();
     editPath();
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+   if(timer!=null){
+     timer.cancel();
+   }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (!timer.isActive) {
+      return;
+    }
+    setState(() {
+      isDisplayTutorialWidget=false;
+    });
+    timer.cancel();
+    _initializeTimer();
   }
 
   void countingColor() {
@@ -189,11 +221,11 @@ class _DrawImageGameState extends State<DrawImageGame> {
             'color': HexColor(color[index])
           });
         });
-        for (int index = 0; index < imageData.length; index++) {
-          if (imageData[index].type == 1) {
-            print(currentGameData.gameData[stepIndex].items[index].count);
-          }
-        }
+        // for (int index = 0; index < imageData.length; index++) {
+        //   if (imageData[index].type == 1) {
+        //     print(currentGameData.gameData[stepIndex].items[index].count);
+        //   }
+        // }
         if (countSum == 0) {
           Timer(Duration(milliseconds: 1000), () {
             callNextStep();
@@ -295,7 +327,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
                         child: SvgPicture.file(File(assetFolder + color.image),
                             fit: BoxFit.contain, color: HexColor(color.color))),
                     onDragStarted: () {
-                      print(color.position);
                       screenModel.startPositionId = color.id;
                       screenModel.startPosition = color.position;
                       setState(() {
@@ -388,10 +419,44 @@ class _DrawImageGameState extends State<DrawImageGame> {
                           alignment: Alignment.center,
                           child: Text(
                             color.count.toString(),
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15*ratio),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15 * ratio),
                           ))),
                 ));
     }).toList());
+  }
+
+  Widget displayTutorialWidget() {
+    int currentItemIndex = 0;
+    for (int idx = 0; idx < color.length; idx++) {
+      if (color[idx] == currentColor && status[idx] == 0) {
+        currentItemIndex = idx;
+        break;
+      }
+    }
+    // print('ItemIndex');
+    // print(imagePosition[currentItemIndex]);
+    Offset endPosition = Offset(
+        imagePosition[currentItemIndex].dx * ratio +
+            width[currentItemIndex] / 2 * ratio,
+        imagePosition[currentItemIndex].dy * ratio -
+            15 * ratio +
+            bonusHeight +
+            height[currentItemIndex] / 2 * ratio);
+    return isDisplayTutorialWidget
+        ? TutorialWidget(
+            startPosition: Offset(0, 0),
+            endPosition: endPosition,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
+        : Container();
   }
 
   List<Widget> displayScreen() {
@@ -402,17 +467,22 @@ class _DrawImageGameState extends State<DrawImageGame> {
     widgets.add(displayCounting());
     widgets.add(displayCountingNumber());
     widgets.add(BasicItem());
+    widgets.add(displayTutorialWidget());
     return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: imageData.length != 0
-            ? Container(
-                child: Stack(
-                children: displayScreen(),
-              ))
-            : Container());
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+            body: imageData.length != 0
+                ? Container(
+                    child: Stack(
+                    children: displayScreen(),
+                  ))
+                : Container()));
   }
 }

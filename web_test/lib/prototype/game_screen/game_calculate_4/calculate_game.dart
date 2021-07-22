@@ -13,6 +13,7 @@ import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/tutorial_widget.dart';
 
 class CalculateGame extends StatefulWidget {
   _CalculateGameState createState() => _CalculateGameState();
@@ -42,6 +43,8 @@ class _CalculateGameState extends State<CalculateGame> {
   int randomIndex = 0;
   final debug = true;
   int stepIndex;
+  Timer timer;
+  bool isDisplayTutorialWidget=false;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -77,6 +80,7 @@ class _CalculateGameState extends State<CalculateGame> {
     screenModel.setContext(context);
     genElement();
     getGameData();
+    _initializeTimer();
     super.initState();
   }
 
@@ -86,7 +90,34 @@ class _CalculateGameState extends State<CalculateGame> {
     screenHeight = screenModel.getScreenHeight();
     screenWidth = screenModel.getScreenWidth();
     ratio = screenModel.getRatio();
-    bonusHeight = (screenHeight*1.2 - 111 * ratio) / 2;
+    bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
+  }
+
+  @override
+  void dispose() {
+    if(timer!=null){
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (!timer.isActive) {
+      return;
+    }
+    timer.cancel();
+    setState(() {
+      isDisplayTutorialWidget=false;
+    });
+    _initializeTimer();
   }
 
   void genElement() {
@@ -201,15 +232,15 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: [
         Positioned(
-            top: (screenHeight*1.2 - 79 * ratio) / 2,
+            top: (screenHeight * 1.2 - 79 * ratio) / 2,
             left: 186 * ratio,
             child: displayNumber(firstElement, 58, 79)),
         Positioned(
-            top: (screenHeight*1.2 - 79 * ratio) / 2,
+            top: (screenHeight * 1.2 - 79 * ratio) / 2,
             left: 367 * ratio,
             child: displayNumber(secondElement, 58, 79)),
         Positioned(
-            top: (screenHeight*1.2 - 62 * ratio) / 2,
+            top: (screenHeight * 1.2 - 62 * ratio) / 2,
             left: 274 * ratio,
             child: Container(
               height: 62 * ratio,
@@ -220,7 +251,7 @@ class _CalculateGameState extends State<CalculateGame> {
               ),
             )),
         Positioned(
-            top: (screenHeight*1.2 - 39 * ratio) / 2,
+            top: (screenHeight * 1.2 - 39 * ratio) / 2,
             left: 456 * ratio,
             child: Container(
               height: 39 * ratio,
@@ -374,6 +405,44 @@ class _CalculateGameState extends State<CalculateGame> {
     }).toList());
   }
 
+  Widget displayTutorialWidget() {
+    Offset startPosition = Offset(0, 0);
+    Offset endPosition = Offset(0, 0);
+    int groupId;
+    for (int index = 0; index < sourceModel.length; index++) {
+      ItemModel item = sourceModel[index];
+      if (item.status == 0) {
+        startPosition = Offset(
+            item.position.dx * ratio + item.width / 2 * ratio,
+            item.position.dy * ratio + item.height / 2 * ratio );
+        groupId = item.groupId;
+        break;
+      }
+    }
+    for (int index = 0; index < targetModel.length; index++) {
+      ItemModel item = targetModel[index];
+      if (item.status == 0 && item.groupId == groupId) {
+        endPosition = Offset(item.position.dx * ratio + item.width / 2 * ratio,
+            bonusHeight+item.height/2 );
+        break;
+      }
+    }
+
+    return isDisplayTutorialWidget
+        ? TutorialWidget(
+      startPosition: startPosition,
+      endPosition: endPosition,
+      onCompleted: () {
+        Timer(Duration(milliseconds: 200), () {
+          setState(() {
+            isDisplayTutorialWidget = false;
+          });
+        });
+      },
+    )
+        : Container();
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayNormalItem());
@@ -381,20 +450,25 @@ class _CalculateGameState extends State<CalculateGame> {
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
     widgets.add(BasicItem());
+    widgets.add(displayTutorialWidget());
     return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
     print(targetModel[0].status);
-    return Scaffold(
-      body: itemData.length != 0
-          ? Container(
-              color: HexColor('#DE2463'),
-              child: Stack(
-                children: displayScreen(),
-              ))
-          : Container(),
-    );
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+          body: itemData.length != 0
+              ? Container(
+                  color: HexColor('#DE2463'),
+                  child: Stack(
+                    children: displayScreen(),
+                  ))
+              : Container(),
+        ));
   }
 }
