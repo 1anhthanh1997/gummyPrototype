@@ -86,7 +86,7 @@ class _CalculateGameState extends State<CalculateGame> {
     screenHeight = screenModel.getScreenHeight();
     screenWidth = screenModel.getScreenWidth();
     ratio = screenModel.getRatio();
-    bonusHeight = (screenHeight - 111 * ratio) / 2;
+    bonusHeight = (screenHeight*1.2 - 111 * ratio) / 2;
   }
 
   void genElement() {
@@ -201,15 +201,15 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: [
         Positioned(
-            top: (screenHeight - 79 * ratio) / 2,
+            top: (screenHeight*1.2 - 79 * ratio) / 2,
             left: 186 * ratio,
             child: displayNumber(firstElement, 58, 79)),
         Positioned(
-            top: (screenHeight - 79 * ratio) / 2,
+            top: (screenHeight*1.2 - 79 * ratio) / 2,
             left: 367 * ratio,
             child: displayNumber(secondElement, 58, 79)),
         Positioned(
-            top: (screenHeight - 62 * ratio) / 2,
+            top: (screenHeight*1.2 - 62 * ratio) / 2,
             left: 274 * ratio,
             child: Container(
               height: 62 * ratio,
@@ -220,7 +220,7 @@ class _CalculateGameState extends State<CalculateGame> {
               ),
             )),
         Positioned(
-            top: (screenHeight - 39 * ratio) / 2,
+            top: (screenHeight*1.2 - 39 * ratio) / 2,
             left: 456 * ratio,
             child: Container(
               height: 39 * ratio,
