@@ -97,9 +97,9 @@ class _GameDragTargetState extends State<GameDragTarget>
   }
 
   double getBiggerSpace(Offset offsetSource, Offset offset) {
-    double verticalSpace = offsetSource.dy * ratio - offset.dy > 0
-        ? offsetSource.dy * ratio - offset.dy
-        : offset.dy - offsetSource.dy * ratio;
+    double verticalSpace = offsetSource.dy * ratio + bonusHeight - offset.dy > 0
+        ? offsetSource.dy * ratio + bonusHeight - offset.dy
+        : offset.dy - offsetSource.dy * ratio - bonusHeight;
     double horizontalSpace = offsetSource.dx * ratio - offset.dx > 0
         ? offsetSource.dx * ratio - offset.dx
         : offset.dx - offsetSource.dx * ratio;
@@ -118,7 +118,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   void callOnDraggableCancelled(ItemModel item, Offset offset) {
     if (isWrongTarget) {
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx/ratio, (offset.dy-firstBonusHeight)/ratio);
+      item.position =
+          Offset(offset.dx / ratio, (offset.dy - firstBonusHeight) / ratio);
       setState(() {
         isHitFail = true;
       });
@@ -139,7 +140,8 @@ class _GameDragTargetState extends State<GameDragTarget>
       });
     } else {
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx/ratio, (offset.dy-firstBonusHeight)/ratio);
+      item.position =
+          Offset(offset.dx / ratio, (offset.dy - firstBonusHeight) / ratio);
       setState(() {});
       Timer(Duration(milliseconds: 50), () {
         double denta = getBiggerSpace(offsetSource, offset);
@@ -156,9 +158,10 @@ class _GameDragTargetState extends State<GameDragTarget>
   Widget displayDraggable() {
     return Stack(
       children: sourceModel.map((item) {
-        return Positioned(
+        return AnimatedPositioned(
             top: item.position.dy * ratio + firstBonusHeight,
             left: item.position.dx * ratio,
+            duration: Duration(milliseconds: item.duration),
             child: Draggable(
               data: item.groupId,
               child: item.status == 1
@@ -186,6 +189,12 @@ class _GameDragTargetState extends State<GameDragTarget>
                 ),
               ),
               childWhenDragging: Container(),
+              onDragStarted: () {
+                screenModel.startPositionId = item.id;
+                screenModel.startPosition = item.position;
+                item.duration = 0;
+              },
+              maxSimultaneousDrags: 1,
               onDraggableCanceled: (velocity, offset) {
                 callOnDraggableCancelled(item, offset);
               },
@@ -217,7 +226,8 @@ class _GameDragTargetState extends State<GameDragTarget>
                           height: 100 * ratio,
                           width: item.width * ratio,
                           child: Container(
-                            child: Image.file(File(assetFolder + sourceModel[index].image),
+                            child: Image.file(
+                                File(assetFolder + sourceModel[index].image),
                                 fit: BoxFit.contain),
                           )));
             },
