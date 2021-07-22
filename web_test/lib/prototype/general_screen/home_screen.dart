@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String assetsUrl;
   bool isComplete = false;
   int currentPlayGame;
+  int currentStep;
 
   @override
   void initState() {
@@ -85,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await screenModel.getTypeList().whenComplete(() {
       if(currentPlayGame>0){
         screenModel.currentGameId=currentPlayGame;
+        screenModel.currentStep=currentStep;
       }else{
         screenModel.getNextGameId();
       }
@@ -99,8 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
     int intValue = prefs.getInt('currentPlayGame') ?? -1;
+    int stepValue=prefs.getInt('currentStep')??0;
     setState(() {
       currentPlayGame = intValue;
+      currentStep=stepValue;
     });
   }
 

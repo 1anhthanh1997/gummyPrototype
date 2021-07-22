@@ -39,6 +39,7 @@ class _CustomSliderState extends State<CustomSlider> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
     prefs.setInt('currentPlayGame', screenModel.currentGameId);
+    prefs.setInt('currentStep', screenModel.currentStep);
   }
 
   @override
