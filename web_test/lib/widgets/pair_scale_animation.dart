@@ -66,6 +66,6 @@ class _PairScaleAnimationState extends State<PairScaleAnimation>
         onTap: (){
           widget.onTab();
         },
-        child: ScaleTransition(scale: _scaleAnimation, child: widget.child));
+        child: ScaleTransition(scale: _scaleAnimation, alignment:Alignment.bottomCenter,child: widget.child));
   }
 }
