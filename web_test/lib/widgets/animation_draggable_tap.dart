@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_test/provider/screen_model.dart';
 
 class AnimationDraggableTap extends StatefulWidget {
+  final BuildContext parentContext;
   final Widget child;
   final VoidCallback onTab;
   final bool isMultiTab;
@@ -21,7 +22,8 @@ class AnimationDraggableTap extends StatefulWidget {
       this.isMultiTab,
       this.size: 0.1,
       this.isPlay: false,
-      this.buttonId = 0})
+      this.buttonId = 0,
+      this.parentContext})
       : super();
 
   @override
@@ -39,7 +41,7 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
 
   @override
   void initState() {
-    screenModel = Provider.of<ScreenModel>(context, listen: false);
+    screenModel = Provider.of<ScreenModel>(widget.parentContext==null?context:widget.parentContext, listen: false);
     screenModel.setContext(context);
     super.initState();
     _animationController =
@@ -108,9 +110,8 @@ class _AnimationDraggableTaptate extends State<AnimationDraggableTap>
           });
           _animationController.reset();
           _animationController.forward();
-
         },
-        onTap: (){
+        onTap: () {
           if (widget.onTab != null) {
             widget.onTab();
           }

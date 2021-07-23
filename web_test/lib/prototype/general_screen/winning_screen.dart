@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_test/prototype/general_screen/balloon_screen/animated_balloon.dart';
+import 'package:web_test/prototype/general_screen/balloon_screen/main_balloon_screen.dart';
+import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/animation_draggable_tap.dart';
+import 'package:web_test/widgets/slide_animation.dart';
 
-showResultDialog(
-    BuildContext parentContext, int totalDrag, int totalItem) async {
+
+
+showResultDialog(BuildContext parentContext) async {
   await Future.delayed(Duration(seconds: 1));
   showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
@@ -13,33 +20,81 @@ showResultDialog(
       barrierLabel: '',
       context: parentContext,
       pageBuilder: (context, animation1, animation2) {});
-
 }
 
-
-class WinningScreen extends StatefulWidget{
+class WinningScreen extends StatefulWidget {
   final BuildContext parentContext;
-  
+
   WinningScreen(this.parentContext);
-  
-  _WinningScreenState createState()=> _WinningScreenState();
+
+  _WinningScreenState createState() => _WinningScreenState();
 }
 
-class _WinningScreenState extends State<WinningScreen>{
+class _WinningScreenState extends State<WinningScreen> {
+  ScreenModel screenModel;
+  double screenHeight;
+  double screenWidth;
+  double ratio;
 
-  List<Widget> displayScreen(){
+  @override
+  void initState() {
+    screenModel = Provider.of<ScreenModel>(widget.parentContext);
+    screenModel.setContext(widget.parentContext);
+    super.initState();
 
+
+  }
+
+  @override
+  void didChangeDependencies() {
+    screenHeight = screenModel.getScreenHeight();
+    screenWidth = screenModel.getScreenWidth();
+    ratio = screenModel.getRatio();
+    super.didChangeDependencies();
+  }
+
+  Widget displayNextButton() {
+    return Positioned(
+        top: screenHeight / 2 - 35*ratio,
+        left: screenWidth - 100*ratio,
+        child: AnimationDraggableTap(
+          parentContext: widget.parentContext,
+          onTab: (){
+
+          },
+          child: SlideAnimation(
+            beginValue: 0.0,
+            endValue: 15.0*ratio,
+            isReverse: true,
+            time: 800,
+            child: Container(
+              height: 70*ratio,
+              width: 70*ratio,
+              child: Image.asset(
+                'assets/images/common/next_game_button.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ));
+  }
+
+  List<Widget> displayScreen() {
+    List<Widget> widgets = [];
+    widgets.add(MainBalloonScreen());
+    widgets.add(displayNextButton());
+    return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
-        child:Stack(
-          children: displayScreen(),
-        )
-      ),
+          color: Colors.transparent,
+          child: Stack(
+            children: displayScreen(),
+          )),
     );
   }
-
 }

@@ -137,7 +137,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       });
     }
     // });
-    Iterable.generate(50)
+    Iterable.generate(25)
         .forEach((i) => particles[index].add(SquareParticle(time,ratio)));
   }
 

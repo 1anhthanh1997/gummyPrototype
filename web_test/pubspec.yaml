@@ -103,6 +103,7 @@ flutter:
     - assets/images/game_jigsaw_2/jigsaw_2/unicorn_jigsaw/
     - assets/images/game_jigsaw_2/jigsaw_2/park_jigsaw/
     - assets/images/home/
+    - assets/images/common/balloons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
+import 'package:web_test/prototype/general_screen/winning_screen.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'dart:async';
@@ -261,10 +262,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       fit: BoxFit.fill)),
               child: AnimationDraggableTap(
                 onTab: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainGameRoute()),
-                      ModalRoute.withName("/Home"));
+                  showResultDialog(context);
+                  // Navigator.pushAndRemoveUntil(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => MainGameRoute()),
+                  //     ModalRoute.withName("/Home"));
                 },
                 // child: Container(
                 //   height: 140,

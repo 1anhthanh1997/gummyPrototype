@@ -123,8 +123,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         return item.status == 0
             ? Positioned(
                 left: item.position.dx * ratio,
-                top: item.position.dy * ratio -
-                    item.height * 0.1 * ratio +
+                top: item.position.dy * ratio  +
                     (index % 2 == 0 ? firstBonusHeight : secondBonusHeight),
                 child: PairScaleAnimation(
                   itemId: item.id,
@@ -289,7 +288,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     List<Widget> widgets = [];
     widgets.add(displayContent());
     widgets.add(BasicItem());
-    widgets.add(displayTutorialWidget());
+    // widgets.add(displayTutorialWidget());
     return widgets;
   }
 

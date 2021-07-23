@@ -10,6 +10,7 @@ class SlideAnimation extends StatefulWidget {
   final double beginValue;
   final double endValue;
   final int time;
+  final bool isReverse;
 
   SlideAnimation(
       {this.child,
@@ -17,7 +18,8 @@ class SlideAnimation extends StatefulWidget {
       this.isPlayAnimation,
       this.beginValue = -5.0,
       this.endValue = 5.0,
-      this.time});
+      this.time,
+      this.isReverse=false});
 
   _SlideAnimationState createState() => _SlideAnimationState();
 }
@@ -35,7 +37,7 @@ class _SlideAnimationState extends State<SlideAnimation>
     int time = widget.time == null ? (rdm.nextInt(20) + 40) * 20 : widget.time;
     _animationController =
         AnimationController(duration: Duration(milliseconds: time), vsync: this)
-          ..repeat(reverse: false );
+          ..repeat(reverse: widget.isReverse, );
   }
 
   @override

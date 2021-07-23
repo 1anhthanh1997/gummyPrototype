@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/particle.dart';
 
 class AnimatedBalloon extends StatefulWidget {
   double height_screen;
@@ -52,15 +56,37 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
   double screenHeight;
   double ratio;
   Map<String, String> balloons = new Map();
+  List<String> balloonImage = [];
+  List<Color> balloonColor=[];
+  String chosenBalloonImage;
+  Color chosenColor;
 
   ScreenModel screenModel;
 
- Timer remindTimer;
+  Timer remindTimer;
   int tutorialCount = 0;
+  List<SquareParticle> particles = [];
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+    balloonImage.add('blue.png');
+    balloonImage.add('cyan.png');
+    balloonImage.add('green.png');
+    balloonImage.add('purple.png');
+    balloonImage.add('red.png');
+    balloonImage.add('yellow.png');
+    balloonColor.add(Colors.blue);
+    balloonColor.add(Colors.cyan);
+    balloonColor.add(Colors.green);
+    balloonColor.add(Colors.purple);
+    balloonColor.add(Colors.red);
+    balloonColor.add(Colors.yellow);
+    Random randomBalloon = Random();
+    int index=randomBalloon.nextInt(balloonImage.length);
+    chosenBalloonImage =
+        balloonImage[index];
+    chosenColor=balloonColor[index];
     super.initState();
     balloons['blue.svg'] = 'blue.gif';
     balloons['green.svg'] = 'green.gif';
@@ -81,8 +107,8 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
         endGame();
       }
     });
-    screenModel = Provider.of<ScreenModel>(context, listen: false);
-    screenModel.setContext(context);
+    // screenModel = Provider.of<ScreenModel>(context, listen: false);
+    // screenModel.setContext(context);
   }
 
   @override
@@ -98,12 +124,15 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     sizeScreen = MediaQuery.of(context).size;
     _balloonBottomLocation = sizeScreen.height - random;
     _balloonLeft = sizeScreen.width * new Random().nextDouble();
-    if (_balloonLeft < (_balloonWidth + 2 * amplitude)) {
-      _balloonLeft = (_balloonWidth + 2 * amplitude);
-    } else if (_balloonLeft >
-        (sizeScreen.width - _balloonWidth - 2 * amplitude)) {
-      _balloonLeft = (sizeScreen.width - _balloonWidth - 2 * amplitude);
+    if (_balloonLeft > sizeScreen.width - 71) {
+      _balloonLeft = sizeScreen.width - 71;
     }
+    // if (_balloonLeft < (_balloonWidth + 2 * amplitude)) {
+    //   _balloonLeft = (_balloonWidth + 2 * amplitude);
+    // } else if (_balloonLeft >
+    //     (sizeScreen.width - _balloonWidth - 2 * amplitude)) {
+    //   _balloonLeft = (sizeScreen.width - _balloonWidth - 2 * amplitude);
+    // }
 
     _animationFloatUp =
         Tween(begin: _balloonBottomLocation, end: -1 * _balloonHeight).animate(
@@ -143,8 +172,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     // //print('isDime $isDone');
     if (this.mounted) {
       _controller.reset();
-      setState(() {
-      });
+      setState(() {});
     }
     // _controller.reverse();
   }
@@ -161,11 +189,55 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     }
   }
 
+  void hitBalloon(Duration time) {
+    imageBalloonCurrent = balloons[imageBalloon];
+    isTap = true;
+    _controller.stop();
+    setState(() {});
+    // Timer(Duration(milliseconds: 80), () {
+    //   endGame();
+    // });
+    Iterable.generate(8)
+        .forEach((i) => particles.add(SquareParticle(time, 1)));
+  }
+
+  Widget _buildParticle() {
+    return Rendering(
+      // onTick: (time) => _manageParticleLife(time),
+      builder: (context, time) {
+        return Stack(
+          overflow: Overflow.visible,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  print('Hit');
+                  hitBalloon(time);
+                },
+                child: displayBubble()),
+            ...particles.map((it) => it.buildWidget(time, chosenColor))
+          ],
+        );
+      },
+    );
+  }
+
+  Widget displayBubble() {
+    return isTap?Container(): Container(
+      height: 150,
+      width: 71,
+      child: Image.asset(
+        'assets/images/common/balloons/${chosenBalloonImage}',
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    screenHeight=screenModel.getScreenHeight();
-    screenWidth=screenModel.getScreenWidth();
-    ratio = screenModel.getRatio();
+    // screenHeight=screenModel.getScreenHeight();
+    // screenWidth=screenModel.getScreenWidth();
+    // ratio = screenModel.getRatio();
+
     return AnimatedBuilder(
       animation: _animationFloatUp,
       builder: (context, child) {
@@ -174,46 +246,19 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
             ? (_balloonBottomLocation - _animationFloatUp.value)
             : 0;
         double top = _animationFloatUp.value > 0 ? _animationFloatUp.value : 0;
-        if (isTap && top > 40) {
-          top -= 40;
-        }
+        // if (isTap && top > 40) {
+        //   top -= 40;
+        // }
         return Container(
           child: isDone ? Container() : child,
           margin: EdgeInsets.only(
             top: top,
             bottom: bottom,
-            left: _balloonLeft + (isTap ? -40 : 5 * d),
+            left: _balloonLeft,
           ),
         );
       },
-      child: GestureDetector(
-        child: !isTap
-            ? SvgPicture.asset(
-                'assets/common/balloons/$imageBalloonCurrent',
-                height: _animationFloatUp.value > 0
-                    ? _balloonHeight * ratio
-                    : (_balloonHeight + _animationFloatUp.value) * ratio,
-                width: _balloonWidth * ratio,
-                // fit: _animationFloatUp.value > 0 ? BoxFit.contain : BoxFit.fitWidth,
-              )
-            : Image.asset(
-                'assets/common/balloons/$imageBalloonCurrent',
-                height: (_balloonHeight + 50) * ratio,
-                width: (_balloonWidth + 50) * ratio,
-                // fit: _animationFloatUp.value > 0 ? BoxFit.contain : BoxFit.fitWidth,
-              ),
-        onTap: () {
-          // //print("Broken");
-          // screenModel.playBubbleBurstMusic();
-          imageBalloonCurrent = balloons[imageBalloon];
-          isTap = true;
-          _controller.stop();
-          setState(() {});
-          Timer(Duration(milliseconds: 80), () {
-            endGame();
-          });
-        },
-      ),
+      child: _buildParticle(),
     );
   }
 
