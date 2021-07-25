@@ -10,12 +10,14 @@ import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/slide_animation.dart';
+import 'package:web_test/widgets/tutorial_widget.dart';
 
 class GameMemoryNumber extends StatefulWidget {
   _GameMemoryNumberState createState() => _GameMemoryNumberState();
@@ -41,6 +43,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   double screenWidth;
   double screenHeight;
   double ratio;
+  Timer timer;
+  bool isDisplayTutorialWidget = false;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -81,6 +85,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     super.initState();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    Timer(Duration(milliseconds: 4000),(){
+      _initializeTimer();
+    });
+
   }
 
   @override
@@ -90,16 +98,16 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     ratio = screenModel.getRatio();
     loadGameData();
     print(questionPositionTmp);
-    Timer(Duration(milliseconds: (500*ratio).round()), () {
+    Timer(Duration(milliseconds: (500 * ratio).round()), () {
       questionData.position = questionPositionTmp;
       setState(() {});
     });
-    Timer(Duration(milliseconds: (5000*ratio).round()), () {
-      questionData.position = Offset(questionPositionTmp.dx, -300.0*ratio);
+    Timer(Duration(milliseconds: (5000 * ratio).round()), () {
+      questionData.position = Offset(questionPositionTmp.dx, -300.0 * ratio);
       setState(() {});
     });
-    Timer(Duration(milliseconds: (5500*ratio).round()), () {
-      Timer(Duration(milliseconds: (500*ratio).round()), () {
+    Timer(Duration(milliseconds: (5500 * ratio).round()), () {
+      Timer(Duration(milliseconds: (500 * ratio).round()), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
         }
@@ -112,11 +120,38 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     super.didChangeDependencies();
   }
 
+  @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (!timer.isActive) {
+      return;
+    }
+    setState(() {
+      isDisplayTutorialWidget = false;
+    });
+    timer.cancel();
+    _initializeTimer();
+  }
+
   Widget _square(int index) {
     ItemModel item = answerData[index];
     return Container(
-      height: item.height*ratio,
-      width: item.width*ratio,
+      height: item.height * ratio,
+      width: item.width * ratio,
       child: SvgPicture.file(
         File(assetFolder + item.image),
         fit: BoxFit.contain,
@@ -134,11 +169,16 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     if (count == answerCount) {
       Timer(Duration(milliseconds: 2000), () {
         screenModel.nextStep();
+        if(screenModel.currentStep==0){
+          if(timer!=null){
+            timer.cancel();
+          }
+        }
       });
     }
     // });
     Iterable.generate(25)
-        .forEach((i) => particles[index].add(SquareParticle(time,ratio)));
+        .forEach((i) => particles[index].add(SquareParticle(time, ratio)));
   }
 
   Widget displayQuestion() {
@@ -274,15 +314,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
               ),
             )),
         Positioned(
-            top: 250*ratio,
-            left: 435*ratio,
+            top: 250 * ratio,
+            left: 435 * ratio,
             child: SlideAnimation(
-              beginValue: screenWidth-362*ratio,
-              endValue: -1*screenWidth,
+              beginValue: screenWidth - 362 * ratio,
+              endValue: -1 * screenWidth,
               time: 30000,
               child: Container(
-                height: 48*ratio,
-                width: 85*ratio,
+                height: 48 * ratio,
+                width: 85 * ratio,
                 child: Image.asset(
                   'assets/images/game_memory_number_7/cloud_3.png',
                   fit: BoxFit.contain,
@@ -291,6 +331,34 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             ))
       ],
     );
+  }
+
+  Widget displayTutorialWidget() {
+    Offset position = Offset(0, 0);
+    for (int idx = 0; idx < answerData.length; idx++) {
+      ItemModel item = answerData[idx];
+      if (item.groupId == questionData.groupId) {
+        position = Offset(item.position.dx * ratio + item.width / 2 * ratio,
+            item.position.dy * ratio + item.height / 4 * ratio);
+      }
+    }
+    return isDisplayTutorialWidget
+        ? Positioned(
+            top: position.dy,
+            left: position.dx,
+            child: TabTutorialWidget(
+              beginValue: 1.0,
+              endValue: 0.7,
+              time: 500,
+              onCompleted: () {
+                Timer(Duration(milliseconds: 400), () {
+                  setState(() {
+                    isDisplayTutorialWidget = false;
+                  });
+                });
+              },
+            ))
+        : Container();
   }
 
   List<Widget> displayScreen() {
@@ -302,27 +370,31 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     } else {
       widgets.add(displayQuestion());
     }
-
     widgets.add(BasicItem());
+    widgets.add(displayTutorialWidget());
 
     return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: itemData.length == 0
-            ? Container()
-            : Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: FileImage(File(assetFolder +
-                            allGameData
-                                .gameData[screenModel.currentStep].background)),
-                        fit: BoxFit.fill)),
-                child: Stack(
-                  children: displayScreen(),
-                ),
-              ));
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+            body: itemData.length == 0
+                ? Container()
+                : Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: FileImage(File(assetFolder +
+                                allGameData.gameData[screenModel.currentStep]
+                                    .background)),
+                            fit: BoxFit.fill)),
+                    child: Stack(
+                      children: displayScreen(),
+                    ),
+                  )));
   }
 }

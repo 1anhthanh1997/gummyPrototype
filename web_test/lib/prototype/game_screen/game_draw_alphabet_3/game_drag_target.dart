@@ -279,6 +279,9 @@ class _GameDragTargetState extends State<GameDragTarget>
               if (count == sourceModel.length) {
                 Timer(Duration(milliseconds: 1000), () {
                   screenModel.nextStep();
+                  if(timer!=null){
+                    timer.cancel();
+                  }
                 });
               }
             },

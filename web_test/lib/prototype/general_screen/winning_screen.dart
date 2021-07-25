@@ -60,7 +60,8 @@ class _WinningScreenState extends State<WinningScreen> {
         child: AnimationDraggableTap(
           parentContext: widget.parentContext,
           onTab: (){
-
+            screenModel.nextGame();
+            Navigator.pop(context);
           },
           child: SlideAnimation(
             beginValue: 0.0,

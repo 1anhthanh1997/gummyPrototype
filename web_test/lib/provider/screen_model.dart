@@ -10,6 +10,7 @@ import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/model/type_model.dart';
 import 'package:web_test/model/user_model.dart';
+import 'package:web_test/prototype/general_screen/winning_screen.dart';
 
 class ScreenModel extends ChangeNotifier {
   double screenWidth;
@@ -82,7 +83,9 @@ class ScreenModel extends ChangeNotifier {
       currentStep++;
     } else {
       print('nextGame');
-      nextGame();
+      currentStep=0;
+      showResultDialog(currentContext);
+      // nextGame();
     }
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();

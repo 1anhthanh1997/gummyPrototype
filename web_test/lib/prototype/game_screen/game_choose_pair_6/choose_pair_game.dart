@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
@@ -37,7 +38,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   double firstBonusHeight;
   double secondBonusHeight;
   Timer timer;
-  bool isDisplayTutorialWidget=false;
+  bool isDisplayTutorialWidget = false;
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -83,7 +84,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
 
   @override
   void dispose() {
-    if(timer!=null){
+    if (timer != null) {
       timer.cancel();
     }
     super.dispose();
@@ -103,7 +104,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     }
     timer.cancel();
     setState(() {
-      isDisplayTutorialWidget=false;
+      isDisplayTutorialWidget = false;
     });
     _initializeTimer();
   }
@@ -123,7 +124,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         return item.status == 0
             ? Positioned(
                 left: item.position.dx * ratio,
-                top: item.position.dy * ratio  +
+                top: item.position.dy * ratio +
                     (index % 2 == 0 ? firstBonusHeight : secondBonusHeight),
                 child: PairScaleAnimation(
                   itemId: item.id,
@@ -149,6 +150,11 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                             if (count == pairCount) {
                               Timer(Duration(milliseconds: 1500), () {
                                 screenModel.nextStep();
+                                if(screenModel.currentStep==0){
+                                  if (timer != null) {
+                                    timer.cancel();
+                                  }
+                                }
                               });
                             }
                           });
@@ -225,70 +231,58 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     );
   }
 
-  Widget displayNormalItem() {
-    return Stack(
-      children: itemData.map((item) {
-        return Positioned(
-            left: item.position.dx,
-            top: item.position.dy,
-            child: item.type == 2
-                ? Container(
-                    height: item.height,
-                    width: item.width,
-                    child: SvgPicture.file(
-                      File(assetFolder + item.image),
-                      fit: BoxFit.contain,
-                    ),
-                  )
-                : Container());
-      }).toList(),
-    );
-  }
-
   Widget displayTutorialWidget() {
-    // Offset startPosition = Offset(0, 0);
-    // Offset endPosition = Offset(0, 0);
-    // int groupId;
-    // for (int index = 0; index < sourceModel.length; index++) {
-    //   ItemModel item = sourceModel[index];
-    //   if (item.status == 0) {
-    //     startPosition = Offset(
-    //         item.position.dx * ratio + item.width / 2 * ratio,
-    //         item.position.dy * ratio + item.height / 2 * ratio + firstBonusHeight);
-    //     groupId = item.groupId;
-    //     break;
-    //   }
-    // }
-    // for (int index = 0; index < targetModel.length; index++) {
-    //   ItemModel item = targetModel[index];
-    //   if (item.status == 0 && item.groupId == groupId) {
-    //     endPosition = Offset(item.position.dx * ratio + item.width / 2 * ratio,
-    //         screenHeight * 3 / 4 );
-    //     break;
-    //   }
-    // }
-    // print(isDisplayTutorialWidget);
-    //
-    // return isDisplayTutorialWidget
-    //     ? TutorialWidget(
-    //   startPosition: startPosition,
-    //   endPosition: endPosition,
-    //   onCompleted: () {
-    //     Timer(Duration(milliseconds: 200), () {
-    //       setState(() {
-    //         isDisplayTutorialWidget = false;
-    //       });
-    //     });
-    //   },
-    // )
-    //     : Container();
+    Offset position = Offset(0, 0);
+    if (chosenIndex == -1) {
+      for (int idx = 0; idx < itemData.length; idx++) {
+        ItemModel item = itemData[idx];
+        if (item.status == 0) {
+          double dx = item.position.dx * ratio + item.width * ratio / 2;
+          double dy = item.position.dy * ratio +
+              (idx % 2 == 0 ? firstBonusHeight : secondBonusHeight) +
+              item.height * ratio / 2;
+          position = Offset(dx, dy);
+          break;
+        }
+      }
+    } else {
+      int currentGroupId = itemData[chosenIndex].groupId;
+      for (int idx = 0; idx < itemData.length; idx++) {
+        ItemModel item = itemData[idx];
+        if (item.groupId == currentGroupId && idx != chosenIndex) {
+          double dx = item.position.dx * ratio + item.width * ratio / 2;
+          double dy = item.position.dy * ratio +
+              (idx % 2 == 0 ? firstBonusHeight : secondBonusHeight) +
+              item.height * ratio / 2;
+          position = Offset(dx, dy);
+          break;
+        }
+      }
+    }
+    return isDisplayTutorialWidget
+        ? Positioned(
+            top: position.dy,
+            left: position.dx,
+            child: TabTutorialWidget(
+              beginValue: 1.0,
+              endValue: 0.7,
+              time: 500,
+              onCompleted: () {
+                Timer(Duration(milliseconds: 400), () {
+                  setState(() {
+                    isDisplayTutorialWidget = false;
+                  });
+                });
+              },
+            ))
+        : Container();
   }
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayContent());
     widgets.add(BasicItem());
-    // widgets.add(displayTutorialWidget());
+    widgets.add(displayTutorialWidget());
     return widgets;
   }
 
@@ -298,19 +292,19 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         onPointerDown: onPointerTap,
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
-        child:Scaffold(
-      body: itemData.length == 0
-          ? Container()
-          : Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: FileImage(File(assetFolder +
-                          allGameData.gameData[stepIndex].background)),
-                      fit: BoxFit.fill)),
-              child: Stack(
-                children: displayScreen(),
-              ),
-            ),
-    ));
+        child: Scaffold(
+          body: itemData.length == 0
+              ? Container()
+              : Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(File(assetFolder +
+                              allGameData.gameData[stepIndex].background)),
+                          fit: BoxFit.fill)),
+                  child: Stack(
+                    children: displayScreen(),
+                  ),
+                ),
+        ));
   }
 }

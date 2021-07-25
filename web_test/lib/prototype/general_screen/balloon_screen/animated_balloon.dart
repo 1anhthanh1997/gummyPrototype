@@ -37,7 +37,6 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController _controller;
   Animation<double> _animationFloatUp;
-  Animation<double> _animationGrowSize;
 
   double speed_balloon = 5;
   double _balloonHeight = 100;
@@ -57,7 +56,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
   double ratio;
   Map<String, String> balloons = new Map();
   List<String> balloonImage = [];
-  List<Color> balloonColor=[];
+  List<Color> balloonColor = [];
   String chosenBalloonImage;
   Color chosenColor;
 
@@ -83,10 +82,9 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     balloonColor.add(Colors.red);
     balloonColor.add(Colors.yellow);
     Random randomBalloon = Random();
-    int index=randomBalloon.nextInt(balloonImage.length);
-    chosenBalloonImage =
-        balloonImage[index];
-    chosenColor=balloonColor[index];
+    int index = randomBalloon.nextInt(balloonImage.length);
+    chosenBalloonImage = balloonImage[index];
+    chosenColor = balloonColor[index];
     super.initState();
     balloons['blue.svg'] = 'blue.gif';
     balloons['green.svg'] = 'green.gif';
@@ -127,27 +125,14 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     if (_balloonLeft > sizeScreen.width - 71) {
       _balloonLeft = sizeScreen.width - 71;
     }
-    // if (_balloonLeft < (_balloonWidth + 2 * amplitude)) {
-    //   _balloonLeft = (_balloonWidth + 2 * amplitude);
-    // } else if (_balloonLeft >
-    //     (sizeScreen.width - _balloonWidth - 2 * amplitude)) {
-    //   _balloonLeft = (sizeScreen.width - _balloonWidth - 2 * amplitude);
-    // }
 
-    _animationFloatUp =
-        Tween(begin: _balloonBottomLocation, end: -1 * _balloonHeight).animate(
+    _animationFloatUp = Tween(begin: sizeScreen.height, end: -200.0).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Interval(0.0, 1.0, curve: Curves.linear),
       ),
     );
 
-    _animationGrowSize = Tween(begin: 0.0, end: 100.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.0, 1.0, curve: Curves.linear),
-      ),
-    );
     if (_controller.isCompleted) {
       endGame();
     } else {
@@ -197,8 +182,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     // Timer(Duration(milliseconds: 80), () {
     //   endGame();
     // });
-    Iterable.generate(8)
-        .forEach((i) => particles.add(SquareParticle(time, 1)));
+    Iterable.generate(8).forEach((i) => particles.add(SquareParticle(time, 1)));
   }
 
   Widget _buildParticle() {
@@ -241,22 +225,13 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     return AnimatedBuilder(
       animation: _animationFloatUp,
       builder: (context, child) {
-        double d = cos(pi * (1.5 + _animationGrowSize.value / 16));
-        double bottom = _animationFloatUp.value < 0
-            ? (_balloonBottomLocation - _animationFloatUp.value)
-            : 0;
-        double top = _animationFloatUp.value > 0 ? _animationFloatUp.value : 0;
-        // if (isTap && top > 40) {
-        //   top -= 40;
-        // }
-        return Container(
-          child: isDone ? Container() : child,
-          margin: EdgeInsets.only(
-            top: top,
-            bottom: bottom,
-            left: _balloonLeft,
-          ),
-        );
+
+        return
+            Transform.translate(
+              offset: Offset(_balloonLeft,_animationFloatUp.value),
+              child: isDone ? Container() : child,
+            );
+
       },
       child: _buildParticle(),
     );

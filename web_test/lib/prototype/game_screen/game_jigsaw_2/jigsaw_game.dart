@@ -259,7 +259,14 @@ class _JigsawGameState extends State<JigsawGame> {
                   });
                   Timer(Duration(milliseconds: 2500), () async {
                     screenModel.nextStep();
-                    loadAlphabetData();
+                    print(screenModel.currentStep);
+                    if(screenModel.currentStep!=0){
+                      loadAlphabetData();
+                    }else{
+                      if(timer!=null){
+                        timer.cancel();
+                      }
+                    }
                     setState(() {});
                   });
                 } else {

@@ -182,9 +182,15 @@ class _DrawImageGameState extends State<DrawImageGame> {
   }
 
   void callNextStep() {
-    resetState();
     screenModel.nextStep();
-    loadImageData();
+    if(screenModel.currentStep!=0){
+      resetState();
+      loadImageData();
+    }else{
+      if(timer!=null){
+        timer.cancel();
+      }
+    }
     setState(() {});
   }
 

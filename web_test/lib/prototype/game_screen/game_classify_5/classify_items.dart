@@ -12,6 +12,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/tutorial_widget.dart';
 
 class ClassifyItem extends StatefulWidget {
   @override
@@ -38,6 +39,8 @@ class _ClassifyItemState extends State<ClassifyItem>
   double screenWidth;
   double screenHeight;
   double ratio;
+  Timer timer;
+  bool isDisplayTutorialWidget = false;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -63,6 +66,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         vsync: this, duration: Duration(milliseconds: 1500));
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    _initializeTimer();
     super.initState();
   }
 
@@ -81,6 +85,33 @@ class _ClassifyItemState extends State<ClassifyItem>
     super.didChangeDependencies();
 
     controller.forward();
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (!timer.isActive) {
+      return;
+    }
+    setState(() {
+      isDisplayTutorialWidget = false;
+    });
+    timer.cancel();
+    _initializeTimer();
   }
 
   void fallItem(int index) {
@@ -165,8 +196,8 @@ class _ClassifyItemState extends State<ClassifyItem>
             item.groupId == 1) {
           screenModel.endPositionId = 1;
           screenModel.logDragEvent(true);
-          offsetSource = Offset(
-              item.endPosition.dx, item.endPosition.dy * screenHeight / 375*1.03);
+          offsetSource = Offset(item.endPosition.dx,
+              item.endPosition.dy * screenHeight / 375 * 1.03);
           setState(() {
             item.status = 1;
             count++;
@@ -191,6 +222,11 @@ class _ClassifyItemState extends State<ClassifyItem>
           if (count == draggableCount) {
             Timer(Duration(milliseconds: 2000), () {
               screenModel.nextStep();
+              if (screenModel.currentStep == 0) {
+                if (timer != null) {
+                  timer.cancel();
+                }
+              }
             });
           }
           setState(() {});
@@ -286,22 +322,61 @@ class _ClassifyItemState extends State<ClassifyItem>
   //   }).toList());
   // }
 
+  Widget displayTutorialWidget() {
+    Offset startPosition = Offset(0, 0);
+    Offset endPosition = Offset(0, 0);
+    int groupId;
+    for (int index = 0; index < items.length; index++) {
+      ItemModel item = items[index];
+      if (item.status == 0) {
+        startPosition = Offset(
+            item.position.dx * ratio + item.width / 2 * ratio,
+            item.position.dy + item.height / 2 * ratio);
+        if (item.groupId == 0) {
+          endPosition = Offset(screenWidth / 4, screenHeight / 2);
+        } else {
+          endPosition = Offset(screenWidth * 3 / 4, screenHeight / 2);
+        }
+        break;
+      }
+    }
+
+    return isDisplayTutorialWidget
+        ? TutorialWidget(
+            startPosition: startPosition,
+            endPosition: endPosition,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
+        : Container();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: data == null
-          ? Container()
-          : Container(
-              child: Stack(
-                children: [
-                  displayBackground(),
-                  // displayNormalItem(),
-                  displayTargetItem(),
-                  displayDraggableItem(),
-                  BasicItem(),
-                ],
-              ),
-            ),
-    );
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+          body: data == null
+              ? Container()
+              : Container(
+                  child: Stack(
+                    children: [
+                      displayBackground(),
+                      // displayNormalItem(),
+                      displayTargetItem(),
+                      displayDraggableItem(),
+                      BasicItem(),
+                      displayTutorialWidget()
+                    ],
+                  ),
+                ),
+        ));
   }
 }
