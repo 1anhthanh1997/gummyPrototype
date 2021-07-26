@@ -6,8 +6,9 @@ class CorrectAnimation extends StatefulWidget {
   final Widget child;
   final VoidCallback onTab;
   final bool isCorrect;
+  final int delayTime;
 
-  CorrectAnimation({this.child, this.onTab, this.isCorrect});
+  CorrectAnimation({this.child, this.onTab, this.isCorrect,this.delayTime=100});
 
   _CorrectAnimationState createState() => _CorrectAnimationState();
 }
@@ -39,7 +40,7 @@ class _CorrectAnimationState extends State<CorrectAnimation>
   @override
   Widget build(BuildContext context) {
     if (widget.isCorrect) {
-      Timer(Duration(milliseconds: 1000),(){
+      Timer(Duration(milliseconds: widget.delayTime),(){
         _animationController.forward();
       });
     }

@@ -330,6 +330,11 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
                 Timer(Duration(milliseconds: 1500), () {
                   screenModel.nextStep();
+                  if(screenModel.currentStep==0){
+                    if(timer!=null){
+                      timer.cancel();
+                    }
+                  }
                 });
               },
             ));

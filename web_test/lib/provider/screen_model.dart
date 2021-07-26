@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -11,6 +12,8 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/model/type_model.dart';
 import 'package:web_test/model/user_model.dart';
 import 'package:web_test/prototype/general_screen/winning_screen.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:web_test/provider/music_controller.dart';
 
 class ScreenModel extends ChangeNotifier {
   double screenWidth;
@@ -23,12 +26,7 @@ class ScreenModel extends ChangeNotifier {
   int currentStep = 0;
   String localPath;
   User currentUser = User(
-      id: 1,
-      name: 'Thanh',
-      image: '',
-      correctTime: 0,
-      wrongTime: 0,
-      score: 8);
+      id: 1, name: 'Thanh', image: '', correctTime: 0, wrongTime: 0, score: 8);
   List<Type> typeList = [];
   final FirebaseAnalytics analytics = FirebaseAnalytics();
   final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -37,8 +35,18 @@ class ScreenModel extends ChangeNotifier {
   Offset startPosition;
   int endPositionId;
   Offset endPosition;
+  bool isFromShowResult=false;
+  MusicController musicController= MusicController();
 
-  bool checkIsAndroidPlatform(){
+  void playAudioBackground(String url) async {
+    musicController.playAudioBackground(url);
+  }
+
+  void stopBackgroundMusic() async {
+   musicController.stopBackgroundMusic();
+  }
+
+  bool checkIsAndroidPlatform() {
     return Platform.isAndroid;
   }
 
@@ -47,18 +55,12 @@ class ScreenModel extends ChangeNotifier {
   }
 
   double getScreenWidth() {
-    screenWidth = MediaQuery
-        .of(currentContext)
-        .size
-        .width;
+    screenWidth = MediaQuery.of(currentContext).size.width;
     return screenWidth;
   }
 
   double getScreenHeight() {
-    screenHeight = MediaQuery
-        .of(currentContext)
-        .size
-        .height;
+    screenHeight = MediaQuery.of(currentContext).size.height;
     return screenHeight;
   }
 
@@ -83,8 +85,7 @@ class ScreenModel extends ChangeNotifier {
       currentStep++;
     } else {
       print('nextGame');
-      currentStep=0;
-      showResultDialog(currentContext);
+      // showResultDialog(currentContext);
       // nextGame();
     }
     await Future.delayed(Duration(milliseconds: 300));
@@ -137,18 +138,17 @@ class ScreenModel extends ChangeNotifier {
     int randomType = randomWithPiority(typeList);
     print('Random type:');
     print(randomType);
-    List<int>gameIndex=[];
-    for(int idx =0;idx<gameData.length;idx++){
-      if(gameData[idx].gameType==randomType){
+    List<int> gameIndex = [];
+    for (int idx = 0; idx < gameData.length; idx++) {
+      if (gameData[idx].gameType == randomType) {
         gameIndex.add(idx);
       }
     }
     print(gameIndex);
-    Random random=Random();
-    int randomIdx=gameIndex [random.nextInt(gameIndex.length)];
+    Random random = Random();
+    int randomIdx = gameIndex[random.nextInt(gameIndex.length)];
     print(randomIdx);
-    currentGameId=randomIdx;
-
+    currentGameId = randomIdx;
   }
 
   void nextGame() async {
@@ -201,14 +201,16 @@ class ScreenModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void logDragEvent(bool isCorrect,) async {
+  void logDragEvent(
+    bool isCorrect,
+  ) async {
     String actionName;
     if (isCorrect) {
       actionName =
-      'drag_correct_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
+          'drag_correct_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
     } else {
       actionName =
-      'drag_incorrect_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
+          'drag_incorrect_item_${startPositionId}_step_${currentStep}_game_${currentGameId}';
     }
 
     await analytics.logEvent(name: actionName, parameters: {
@@ -216,9 +218,7 @@ class ScreenModel extends ChangeNotifier {
       'game_id': currentGameId,
       'step_id': currentStep,
       'action_type': 'Drag',
-      'time': DateTime
-          .now()
-          .millisecondsSinceEpoch,
+      'time': DateTime.now().millisecondsSinceEpoch,
       'start_position_id': startPositionId,
       'start_position_coordinate_dx': startPosition.dx,
       'start_position_coordinate_dy': startPosition.dy,
@@ -230,10 +230,12 @@ class ScreenModel extends ChangeNotifier {
     endPosition = null;
   }
 
-  void logTapEvent(int itemId,
-      Offset positionOffset,) {
+  void logTapEvent(
+    int itemId,
+    Offset positionOffset,
+  ) {
     String itemIdName =
-    itemId >= 0 ? itemId.toString() : 'minus_${(itemId * -1).toString()}';
+        itemId >= 0 ? itemId.toString() : 'minus_${(itemId * -1).toString()}';
     String actionName =
         'tap_item_${itemIdName}_step_${currentStep}_game_${currentGameId}';
     analytics.logEvent(name: actionName, parameters: {
@@ -241,25 +243,21 @@ class ScreenModel extends ChangeNotifier {
       'game_id': currentGameId,
       'step_id': currentStep,
       'action_type': 'Tap',
-      'time': DateTime
-          .now()
-          .millisecondsSinceEpoch,
+      'time': DateTime.now().millisecondsSinceEpoch,
       'item_id': itemId,
       'position_coordinate_dx': positionOffset.dx,
       'position_coordinate_dy': positionOffset.dy,
     });
   }
 
-  void logBasicEvent(String actionName, int gameId, int stepId,
-      String actionType) {
+  void logBasicEvent(
+      String actionName, int gameId, int stepId, String actionType) {
     analytics.logEvent(name: actionName, parameters: {
       'device_id': deviceId,
       'game_id': gameId,
       'step_id': stepId,
       'action_type': actionType,
-      'time': DateTime
-          .now()
-          .millisecondsSinceEpoch,
+      'time': DateTime.now().millisecondsSinceEpoch,
     });
   }
 
@@ -272,7 +270,7 @@ class ScreenModel extends ChangeNotifier {
     try {
       if (Platform.isAndroid) {
         AndroidDeviceInfo androidDeviceInfo =
-        await deviceInfoPlugin.androidInfo;
+            await deviceInfoPlugin.androidInfo;
         deviceId = androidDeviceInfo.id;
       } else if (Platform.isIOS) {
         IosDeviceInfo iosDeviceInfo = await deviceInfoPlugin.iosInfo;

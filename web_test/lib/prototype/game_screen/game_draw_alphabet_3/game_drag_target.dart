@@ -67,9 +67,9 @@ class _GameDragTargetState extends State<GameDragTarget>
       isCompleted.add(false);
     }
     imageData.map((item) {
-      print(item.type);
+      // print(item.type);
       if (item.type == 0) {
-        print(item.image);
+        // print(item.image);
         targetModel.add(item);
       } else if (item.type == 1) {
         sourceModel.add(item);
@@ -279,8 +279,10 @@ class _GameDragTargetState extends State<GameDragTarget>
               if (count == sourceModel.length) {
                 Timer(Duration(milliseconds: 1000), () {
                   screenModel.nextStep();
-                  if(timer!=null){
-                    timer.cancel();
+                  if(screenModel.currentStep==screenModel.currentGame.gameData.length-1){
+                    if(timer!=null){
+                      timer.cancel();
+                    }
                   }
                 });
               }
@@ -313,7 +315,7 @@ class _GameDragTargetState extends State<GameDragTarget>
         break;
       }
     }
-    print(isDisplayTutorialWidget);
+    // print(isDisplayTutorialWidget);
 
     return isDisplayTutorialWidget
         ? TutorialWidget(

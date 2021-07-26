@@ -60,6 +60,7 @@ dependencies:
   flutter_xlider: ^3.4.0
   firebase_core: ^0.4.0+9
   firebase_analytics: ^5.0.2
+  audioplayers: ^0.19.1
 
 dev_dependencies:
   flutter_test:
@@ -104,6 +105,8 @@ flutter:
     - assets/images/game_jigsaw_2/jigsaw_2/park_jigsaw/
     - assets/images/home/
     - assets/images/common/balloons/
+    - assets/images/game_memory_number_7/number/
+    - assets/music/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -22,3 +22,6 @@ const MIN_BASE_SCORE=8;
 
 const BASE_SERVER_URL='https://dev-dot-micro-enigma-235001.appspot.com';
 const TUTORIAL_IMAGE='assets/images/common/hand.svg';
+
+const BACKGROUND_GAME_MUSIC='music/background_game_music.mp3';
+const HOME_MUSIC='music/home_music.mp3';

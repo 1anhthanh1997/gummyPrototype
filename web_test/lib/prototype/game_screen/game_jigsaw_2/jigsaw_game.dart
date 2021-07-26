@@ -8,6 +8,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/tutorial_widget.dart';
 
 class JigsawGame extends StatefulWidget {
@@ -31,6 +32,8 @@ class _JigsawGameState extends State<JigsawGame> {
   double objectHeight;
   bool isDisplayTutorialWidget = false;
   Timer timer;
+  bool isComplete = false;
+  bool isScaleCompletedImage=false;
 
   void loadAlphabetData() {
     targetModel = [];
@@ -105,7 +108,7 @@ class _JigsawGameState extends State<JigsawGame> {
       return;
     }
     setState(() {
-      isDisplayTutorialWidget=false;
+      isDisplayTutorialWidget = false;
     });
     timer.cancel();
     _initializeTimer();
@@ -161,13 +164,20 @@ class _JigsawGameState extends State<JigsawGame> {
                 left: item.position.dx * ratio,
                 child: Opacity(
                     opacity: count == sourceModel.length ? 1.0 : 0.0,
-                    child: Container(
-                        height: item.height * ratio,
-                        width: item.width * ratio,
-                        child: Image.file(
-                          File(assetFolder + item.image),
-                          fit: BoxFit.contain,
-                        ))))
+                    child: ScaleAnimation(
+                      beginValue: 1.0,
+                      endValue: 1.15,
+                      isScale: isScaleCompletedImage,
+                      time: 200,
+                      curve: Curves.easeOutBack,
+                      child: Container(
+                          height: item.height * ratio,
+                          width: item.width * ratio,
+                          child: Image.file(
+                            File(assetFolder + item.image),
+                            fit: BoxFit.contain,
+                          )),
+                    )))
             : Container();
       }).toList(),
     );
@@ -228,19 +238,35 @@ class _JigsawGameState extends State<JigsawGame> {
             left: item.position.dx * ratio,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
-                return item.status == 0
-                    ? Container(
-                        height: item.height * ratio,
-                        width: item.width * ratio,
-                      )
-                    : AnimatedMatchedTarget(
+                return isComplete
+                    ? ScaleAnimation(
+                        delayTime: 150 * targetModel.indexOf(item),
                         child: Container(
                             height: item.height * ratio,
                             width: item.width * ratio,
                             child: Image.file(
                               File(assetFolder + item.image),
                               fit: BoxFit.contain,
-                            )));
+                            )),
+                        beginValue: 1.0,
+                        endValue: 1.2,
+                        isReverse: true,
+                        isScale: true,
+                        time: 200,
+                      )
+                    : item.status == 0
+                        ? Container(
+                            height: item.height * ratio,
+                            width: item.width * ratio,
+                          )
+                        : AnimatedMatchedTarget(
+                            child: Container(
+                                height: item.height * ratio,
+                                width: item.width * ratio,
+                                child: Image.file(
+                                  File(assetFolder + item.image),
+                                  fit: BoxFit.contain,
+                                )));
               },
               onWillAccept: (data) {
                 return data == item.groupId;
@@ -252,22 +278,37 @@ class _JigsawGameState extends State<JigsawGame> {
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
+                  Timer(Duration(milliseconds: 500), () {
+                    setState(() {
+                      isComplete = true;
+                    });
+                  });
                   Timer(Duration(milliseconds: 2000), () {
                     setState(() {
                       count++;
+                      isScaleCompletedImage=true;
                     });
                   });
-                  Timer(Duration(milliseconds: 2500), () async {
+                  Timer(Duration(milliseconds: 3000 + 200 * targetModel.length),
+                      () async {
+
+                    bool isLoadNextStep = false;
+                    if (screenModel.currentStep <
+                        screenModel.currentGame.gameData.length - 1) {
+                      isLoadNextStep = true;
+                    }
                     screenModel.nextStep();
                     print(screenModel.currentStep);
-                    if(screenModel.currentStep!=0){
-                      loadAlphabetData();
-                    }else{
-                      if(timer!=null){
+                    if (!isLoadNextStep) {
+                      if (timer != null) {
                         timer.cancel();
                       }
+                    } else {
+                      loadAlphabetData();
                     }
-                    setState(() {});
+                    setState(() {
+                      isComplete = false;
+                    });
                   });
                 } else {
                   setState(() {

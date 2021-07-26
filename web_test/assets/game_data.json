@@ -1700,7 +1700,6 @@
         }
       ]
     },
-
     {
       "id": 102,
       "levelScore": 16,
@@ -2381,6 +2380,86 @@
             },
             {
               "id": 3,
+              "image": "fourth_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 4,
+              "image": "fifth_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 5,
+              "image": "sixth_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 6,
+              "image": "seventh_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 7,
+              "image": "eighth_item.svg",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 3,
               "image": "left_target.png",
               "groupId": 0,
               "position": {
@@ -2467,18 +2546,6 @@
             },
             {
               "id": 1,
-              "image": "first_item.svg",
-              "type": 1,
-              "position": {
-                "dx": 298.0,
-                "dy": 201.0
-              },
-              "groupId": 0,
-              "width": 105.0,
-              "height": 90.0
-            },
-            {
-              "id": 2,
               "image": "second_item.svg",
               "type": 1,
               "position": {
@@ -2490,19 +2557,7 @@
               "height": 89.0
             },
             {
-              "id": 3,
-              "image": "second_item.svg",
-              "type": 1,
-              "position": {
-                "dx": 565.0,
-                "dy": 201.0
-              },
-              "groupId": 1,
-              "width": 90.0,
-              "height": 89.0
-            },
-            {
-              "id": 4,
+              "id": 2,
               "image": "third_item.svg",
               "type": 1,
               "position": {
@@ -2514,19 +2569,7 @@
               "height": 90.0
             },
             {
-              "id": 5,
-              "image": "third_item.svg",
-              "type": 1,
-              "position": {
-                "dx": 152.0,
-                "dy": 201.0
-              },
-              "groupId": 2,
-              "width": 91.0,
-              "height": 90.0
-            },
-            {
-              "id": 6,
+              "id": 3,
               "image": "fourth_item.svg",
               "type": 1,
               "position": {
@@ -2538,7 +2581,31 @@
               "height": 90.0
             },
             {
-              "id": 7,
+              "id": 4,
+              "image": "third_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 152.0,
+                "dy": 201.0
+              },
+              "groupId": 2,
+              "width": 91.0,
+              "height": 90.0
+            },
+            {
+              "id": 5,
+              "image": "first_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 298.0,
+                "dy": 201.0
+              },
+              "groupId": 0,
+              "width": 105.0,
+              "height": 90.0
+            },
+            {
+              "id": 6,
               "image": "fourth_item.svg",
               "type": 1,
               "position": {
@@ -2548,6 +2615,18 @@
               "groupId": 2,
               "width": 91.0,
               "height": 90.0
+            },
+            {
+              "id": 7,
+              "image": "second_item.svg",
+              "type": 1,
+              "position": {
+                "dx": 565.0,
+                "dy": 201.0
+              },
+              "groupId": 1,
+              "width": 90.0,
+              "height": 89.0
             }
           ],
           "width": 213.0,

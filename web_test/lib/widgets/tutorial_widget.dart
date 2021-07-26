@@ -54,7 +54,7 @@ class _TutorialWidgetState extends State<TutorialWidget> {
           widget.onCompleted();
         },
         child: Container(
-          height: 49 * widget.ratio,
+          height: 67 * widget.ratio,
           width: 52 * widget.ratio,
           child: SvgPicture.asset(TUTORIAL_IMAGE),
         ));

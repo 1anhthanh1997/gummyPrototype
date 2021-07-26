@@ -54,7 +54,7 @@ class _MainBalloonState extends State<MainBalloonScreen>
         // //print('height_screen $height_screen');
         items.add(new AnimatedBalloon(height_screen: height_screen));
       // }
-      Timer(Duration(milliseconds: 1500), () {
+      Timer(Duration(milliseconds: 1000), () {
         if (this.mounted) {
           genItems();
           setState(() {});

@@ -119,9 +119,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   @override
   void dispose() {
-   if(timer!=null){
-     timer.cancel();
-   }
+    if (timer != null) {
+      timer.cancel();
+    }
     super.dispose();
   }
 
@@ -138,7 +138,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
       return;
     }
     setState(() {
-      isDisplayTutorialWidget=false;
+      isDisplayTutorialWidget = false;
     });
     timer.cancel();
     _initializeTimer();
@@ -182,14 +182,20 @@ class _DrawImageGameState extends State<DrawImageGame> {
   }
 
   void callNextStep() {
+    bool isLoadNextStep=false;
+    if (screenModel.currentStep <
+        screenModel.currentGame.gameData.length - 1) {
+      isLoadNextStep=true;
+    }
     screenModel.nextStep();
-    if(screenModel.currentStep!=0){
-      resetState();
-      loadImageData();
-    }else{
-      if(timer!=null){
+    print(screenModel.currentStep);
+    if (!isLoadNextStep) {
+      if (timer != null) {
         timer.cancel();
       }
+    } else {
+      resetState();
+      loadImageData();
     }
     setState(() {});
   }
@@ -435,8 +441,23 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   Widget displayTutorialWidget() {
     int currentItemIndex = 0;
+    String chosenColor = '';
+    Offset startPosition;
+    for (int idx = 0; idx < colorData.length; idx++) {
+      ItemModel item = colorData[idx];
+      if (item.count > 0) {
+        chosenColor = item.color;
+        startPosition = Offset(
+            item.position.dx * ratio + item.width / 2 * ratio,
+            item.position.dy * ratio -
+                15 * ratio +
+                item.height / 2 * ratio +
+                bonusHeight);
+        break;
+      }
+    }
     for (int idx = 0; idx < color.length; idx++) {
-      if (color[idx] == currentColor && status[idx] == 0) {
+      if (color[idx] == chosenColor && status[idx] == 0) {
         currentItemIndex = idx;
         break;
       }
@@ -452,7 +473,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
             height[currentItemIndex] / 2 * ratio);
     return isDisplayTutorialWidget
         ? TutorialWidget(
-            startPosition: Offset(0, 0),
+            startPosition: startPosition,
             endPosition: endPosition,
             onCompleted: () {
               Timer(Duration(milliseconds: 200), () {

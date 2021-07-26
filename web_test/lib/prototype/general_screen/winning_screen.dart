@@ -6,14 +6,12 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/slide_animation.dart';
 
-
-
 showResultDialog(BuildContext parentContext) async {
-  await Future.delayed(Duration(seconds: 1));
+  // await Future.delayed(Duration(milliseconds: 500));
   showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
       transitionBuilder: (context, a1, a2, widget) {
-        return WinningScreen(parentContext);
+        return WinningScreen(context);
       },
       transitionDuration: Duration(milliseconds: 300),
       barrierDismissible: true,
@@ -38,11 +36,10 @@ class _WinningScreenState extends State<WinningScreen> {
 
   @override
   void initState() {
-    screenModel = Provider.of<ScreenModel>(widget.parentContext);
-    screenModel.setContext(widget.parentContext);
+    screenModel = Provider.of<ScreenModel>(context);
+    screenModel.setContext(context);
+    screenModel.isFromShowResult = true;
     super.initState();
-
-
   }
 
   @override
@@ -55,22 +52,22 @@ class _WinningScreenState extends State<WinningScreen> {
 
   Widget displayNextButton() {
     return Positioned(
-        top: screenHeight / 2 - 35*ratio,
-        left: screenWidth - 100*ratio,
+        top: screenHeight / 2 - 35 * ratio,
+        left: screenWidth - 100 * ratio,
         child: AnimationDraggableTap(
           parentContext: widget.parentContext,
-          onTab: (){
+          onTab: () {
             screenModel.nextGame();
             Navigator.pop(context);
           },
           child: SlideAnimation(
             beginValue: 0.0,
-            endValue: 15.0*ratio,
+            endValue: 15.0 * ratio,
             isReverse: true,
             time: 800,
             child: Container(
-              height: 70*ratio,
-              width: 70*ratio,
+              height: 70 * ratio,
+              width: 70 * ratio,
               child: Image.asset(
                 'assets/images/common/next_game_button.png',
                 fit: BoxFit.contain,

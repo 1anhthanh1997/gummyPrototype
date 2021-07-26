@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -12,16 +14,21 @@ class ScaleAnimation extends StatefulWidget {
   final bool isScale;
   final Curve curve;
   final int itemId;
+  final int delayTime;
+  final bool isReverse;
 
-  ScaleAnimation({this.child,
-    this.onTab,
-    this.isPlayAnimation,
-    this.time = 300,
-    this.beginValue = 1.0,
-    this.endValue = 1.2,
-    this.isScale = false,
-    this.curve = Curves.linear,
-    this.itemId = 0});
+  ScaleAnimation(
+      {this.child,
+      this.onTab,
+      this.isPlayAnimation,
+      this.time = 300,
+      this.beginValue = 1.0,
+      this.endValue = 1.2,
+      this.isScale = false,
+      this.curve = Curves.linear,
+      this.itemId = 0,
+      this.delayTime = 0,
+      this.isReverse = false});
 
   _ScaleAnimationState createState() => _ScaleAnimationState();
 }
@@ -46,19 +53,36 @@ class _ScaleAnimationState extends State<ScaleAnimation>
     super.didChangeDependencies();
     _scaleAnimation =
         Tween(begin: widget.beginValue, end: widget.endValue).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Interval(0.0, 0.75, curve: widget.curve),
-          ),
-        );
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Interval(0.0, 0.75, curve: widget.curve),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    if(_animationController!=null){
+      _animationController.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.isScale) {
-      _animationController.forward();
+      Timer(Duration(milliseconds: widget.delayTime), () {
+        _animationController.forward().whenComplete((){
+          if(widget.isReverse){
+            _animationController.reverse();
+          }
+        });
+
+      });
     } else {
-      _animationController.reverse();
+      Timer(Duration(milliseconds: widget.delayTime), () {
+        _animationController.reverse();
+      });
     }
 
     return GestureDetector(

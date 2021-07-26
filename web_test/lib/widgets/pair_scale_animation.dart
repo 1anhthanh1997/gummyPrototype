@@ -14,7 +14,7 @@ class PairScaleAnimation extends StatefulWidget {
 
   PairScaleAnimation({this.child,
     this.onTab,
-    this.time = 300,
+    this.time = 200,
     this.beginValue = 1.0,
     this.endValue = 1.2,
     this.isScale = false,

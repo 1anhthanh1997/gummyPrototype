@@ -33,7 +33,7 @@ class MainGameRoute extends StatefulWidget {
   _MainGameRouteState createState() => _MainGameRouteState();
 }
 
-class _MainGameRouteState extends State<MainGameRoute> {
+class _MainGameRouteState extends State<MainGameRoute> with WidgetsBindingObserver  {
   ScreenModel screenModel;
 
   @override
@@ -41,8 +41,59 @@ class _MainGameRouteState extends State<MainGameRoute> {
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    WidgetsBinding.instance.addObserver(this);
+    screenModel.playAudioBackground(BACKGROUND_GAME_MUSIC);
     super.initState();
   }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (this.mounted && !screenModel.isFromShowResult) {
+          playHandler();
+          print("app in resumed");
+        }
+        // }
+        break;
+      case AppLifecycleState.inactive:
+        if (this.mounted) {
+          // stopHandler();
+          print("app in inactive");
+        }
+        break;
+      case AppLifecycleState.paused:
+        {
+          if (this.mounted) {
+            print("app in paused");
+            stopHandler();
+            screenModel.isFromShowResult=false;
+          }
+
+          break;
+        }
+      case AppLifecycleState.detached:
+        print("app in detached");
+        break;
+    }
+  }
+
+  void playHandler() {
+    screenModel.playAudioBackground(BACKGROUND_GAME_MUSIC);
+  }
+
+  void stopHandler() {
+    if (mounted) {
+      screenModel.stopBackgroundMusic();
+    }
+  }
+
   Widget displayGame(int gameId) {
     switch (gameId) {
       case GAME_COLORING_ID:

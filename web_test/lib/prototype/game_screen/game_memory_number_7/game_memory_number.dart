@@ -12,6 +12,7 @@ import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
@@ -85,10 +86,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     super.initState();
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
-    Timer(Duration(milliseconds: 4000),(){
+    Timer(Duration(milliseconds: 4000), () {
       _initializeTimer();
     });
-
   }
 
   @override
@@ -98,15 +98,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     ratio = screenModel.getRatio();
     loadGameData();
     print(questionPositionTmp);
-    Timer(Duration(milliseconds: (500 * ratio).round()), () {
-      questionData.position = questionPositionTmp;
-      setState(() {});
-    });
-    Timer(Duration(milliseconds: (5000 * ratio).round()), () {
-      questionData.position = Offset(questionPositionTmp.dx, -300.0 * ratio);
-      setState(() {});
-    });
-    Timer(Duration(milliseconds: (5500 * ratio).round()), () {
+    // Timer(Duration(milliseconds: (500 * ratio).round()), () {
+    //   questionData.position = questionPositionTmp;
+    //   setState(() {});
+    // });
+    // Timer(Duration(milliseconds: (4000 * ratio).round()), () {
+    //   questionData.position = Offset(questionPositionTmp.dx, -300.0 * ratio);
+    //   setState(() {});
+    // });
+    Timer(Duration(milliseconds: (4500 * ratio).round()), () {
       Timer(Duration(milliseconds: (500 * ratio).round()), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
@@ -137,7 +137,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   void onPointerTap(PointerEvent details) {
-    if (!timer.isActive) {
+    if (timer == null) {
       return;
     }
     setState(() {
@@ -169,8 +169,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     if (count == answerCount) {
       Timer(Duration(milliseconds: 2000), () {
         screenModel.nextStep();
-        if(screenModel.currentStep==0){
-          if(timer!=null){
+        if (screenModel.currentStep ==
+            screenModel.currentGame.gameData.length - 1) {
+          if (timer != null) {
             timer.cancel();
           }
         }
@@ -182,19 +183,31 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   Widget displayQuestion() {
-    return AnimatedPositioned(
-        duration: Duration(milliseconds: 1000),
-        top: questionData.position.dy * ratio,
-        left: questionData.position.dx * ratio,
-        child: BubbleAnimation(
-            child: Container(
-          height: questionData.height * ratio,
-          width: questionData.width * ratio,
-          child: SvgPicture.file(
-            File(assetFolder + questionData.image),
-            fit: BoxFit.contain,
+    // return AnimatedPositioned(
+    //     duration: Duration(milliseconds: 1000),
+    //     top: questionData.position.dy * ratio,
+    //     left: questionData.position.dx * ratio,
+    //     child: BubbleAnimation(
+    //         child: Container(
+    //       height: questionData.height * ratio,
+    //       width: questionData.width * ratio,
+    //       child: SvgPicture.file(
+    //         File(assetFolder + questionData.image),
+    //         fit: BoxFit.contain,
+    //       ),
+    //     )));
+    return Positioned(
+        top: screenHeight / 2 - 197 / 2 * ratio,
+        left: screenWidth / 2 - 87 / 2 * ratio,
+        child: AppearAnimation(
+          reverseTime: 4000,
+          child: Container(
+            height: 197 * ratio,
+            width: 87 * ratio,
+            child: Image.asset(
+                'assets/images/game_memory_number_7/number/one.png'),
           ),
-        )));
+        ));
   }
 
   Widget _buildParticle(int index) {

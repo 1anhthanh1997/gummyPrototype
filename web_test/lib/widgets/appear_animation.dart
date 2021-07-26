@@ -9,6 +9,7 @@ class AppearAnimation extends StatefulWidget {
   final double size;
   final bool isPlay;
   final int delay;
+  final int reverseTime;
 
   // String state;
   AppearAnimation(
@@ -17,7 +18,8 @@ class AppearAnimation extends StatefulWidget {
       this.isMultiTab,
       this.size: 0.1,
       this.isPlay: false,
-      this.delay: 500})
+      this.delay: 500,
+      this.reverseTime})
       : super();
 
   @override
@@ -34,12 +36,13 @@ class _AppearAnimationState extends State<AppearAnimation>
   Timer secondTimer;
   double ratio = 1;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _animationController = AnimationController(
-        duration: Duration(milliseconds: 1500), vsync: this);
+        duration: Duration(milliseconds: 500), vsync: this);
 
     firstTimer = Timer(Duration(milliseconds: widget.delay), () {
       setState(() {
@@ -67,15 +70,20 @@ class _AppearAnimationState extends State<AppearAnimation>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _animationGrowSize = Tween(begin: -0.5, end: 0.5).animate(
+    _animationGrowSize = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: Interval(0.0, 0.75, curve: Curves.easeInOutQuart),
+        curve: Interval(0.0, 0.75, curve: Curves.easeInOut),
       ),
     );
     secondTimer = Timer(Duration(milliseconds: widget.delay), () {
       _animationController.forward();
     });
+    if(widget.reverseTime!=null){
+      Timer(Duration(milliseconds: widget.reverseTime),(){
+        _animationController.reverse();
+      });
+    }
   }
 
   @override
@@ -84,10 +92,7 @@ class _AppearAnimationState extends State<AppearAnimation>
       animation: _animationGrowSize,
       builder: (context, child) {
         return Transform.scale(
-            scale: _animationGrowSize.value < 0.1 &&
-                    _animationGrowSize.value > -0.1
-                ? 0.1 * 0.1 * 4
-                : _animationGrowSize.value * _animationGrowSize.value * 4,
+            scale: _animationGrowSize.value,
             child: isDisplayChild ? widget.child : Container());
       },
     );

@@ -11,6 +11,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
+import 'package:web_test/widgets/drop_down_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/tutorial_widget.dart';
 
@@ -41,6 +42,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   double ratio;
   Timer timer;
   bool isDisplayTutorialWidget = false;
+  Curve curve;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -52,10 +54,23 @@ class _ClassifyItemState extends State<ClassifyItem>
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {
         draggableCount++;
-        items[idx].position = Offset(items[idx].position.dx,
-            screenHeight / 6 * (2 * idx + 1) - items[idx].height / 2);
+        items[idx].position = Offset(items[idx].position.dx, -1*(screenHeight / 6 * (2 * (idx+1) + 1)));
+        durationTime = 500;
+        curve=Curves.easeOutBack;
+        print(idx);
+        print(items.length);
+        Timer(Duration(milliseconds: 500 * (idx+1)), () {
+          items[idx].position = Offset(items[idx].position.dx,
+              screenHeight-screenHeight / 6 * (2 * idx + 1) - items[idx].height / 2);
+          // curve=Curves.linear;
+          setState(() {});
+        });
       }
     }
+    Timer(Duration(milliseconds: 1000 * (items.length-3)), () {
+      curve=Curves.linear;
+      setState(() {});
+    });
     setState(() {});
   }
 
@@ -115,9 +130,9 @@ class _ClassifyItemState extends State<ClassifyItem>
   }
 
   void fallItem(int index) {
-    for (int idx = 0; idx < index; idx++) {
+    for (int idx = draggableCount-1; idx >index; idx--) {
       items[idx].position = Offset(items[idx].position.dx * ratio,
-          items[idx].position.dy * ratio + 100 * ratio);
+          items[idx].position.dy * ratio + screenHeight / 3 );
     }
   }
 
@@ -213,7 +228,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           if (item.status == 1) {
             fallItem(index);
           }
-          durationTime = 300;
+          durationTime = 500;
           item.position = offsetSource;
           Timer(Duration(milliseconds: 1700), () {
             isSelected[item.groupId] = false;
@@ -222,7 +237,8 @@ class _ClassifyItemState extends State<ClassifyItem>
           if (count == draggableCount) {
             Timer(Duration(milliseconds: 2000), () {
               screenModel.nextStep();
-              if (screenModel.currentStep == 0) {
+              if (screenModel.currentStep ==
+                  screenModel.currentGame.gameData.length - 1) {
                 if (timer != null) {
                   timer.cancel();
                 }
@@ -238,6 +254,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   Widget displayCompleteDraggable(ItemModel item, int index) {
     return CorrectAnimation(
         isCorrect: item.status == 1,
+        delayTime: 1000,
         child: Container(
           height: item.height * ratio,
           width: item.width * ratio,
@@ -253,7 +270,7 @@ class _ClassifyItemState extends State<ClassifyItem>
     return AnimatedPositioned(
         top: position.dy,
         left: position.dx * ratio,
-        curve: Curves.linear,
+        curve: curve,
         duration: Duration(milliseconds: durationTime),
         child: item.status == 1
             ? displayCompleteDraggable(item, index)
@@ -262,22 +279,14 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   Widget displayDraggableItem() {
     List<int> imageIndex = Iterable<int>.generate(items.length).toList();
-    return AnimatedBuilder(
-        animation: controller,
-        builder: (context, child) {
-          return Transform.translate(
-            offset: Offset(0, _transAnimation.value),
-            child: child,
-          );
-        },
-        child: Container(
-            child: Stack(
-                children: imageIndex.map((index) {
-          ItemModel item = items[index];
-          return item.type == 1
-              ? displayFirstDraggableItem(item, index)
-              : Container();
-        }).toList())));
+    return Container(
+        child: Stack(
+            children: imageIndex.map((index) {
+      ItemModel item = items[index];
+      return item.type == 1
+          ? displayFirstDraggableItem(item, index)
+          : Container();
+    }).toList()));
   }
 
   Widget displayTargetItem() {

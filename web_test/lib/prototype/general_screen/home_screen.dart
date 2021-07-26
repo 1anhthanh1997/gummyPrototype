@@ -41,7 +41,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   ScreenModel screenModel;
   List gameDataJson;
   var data;
@@ -60,12 +60,58 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
+    WidgetsBinding.instance.addObserver(this);
+    screenModel.playAudioBackground(HOME_MUSIC);
     screenModel.getDeviceId();
     getCurrentPlayGameSF();
-    loadGameData().whenComplete(()async{
+    loadGameData().whenComplete(() async {
       await downloadAssets();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (this.mounted) {
+          playHandler();
+          print("app in resumed");
+        }
+        break;
+      case AppLifecycleState.inactive:
+        stopHandler();
+        print("app in inactive");
+        break;
+      case AppLifecycleState.paused:
+        {
+          if (this.mounted) {
+            print("app in paused");
+            stopHandler();
+          }
+
+          break;
+        }
+      case AppLifecycleState.detached:
+        print("app in detached");
+        break;
+    }
+  }
+
+  void playHandler() {
+    screenModel.playAudioBackground(HOME_MUSIC);
+  }
+
+  void stopHandler() {
+    if (mounted) {
+      screenModel.stopBackgroundMusic();
+    }
   }
 
   Future<void> loadGameData() async {
@@ -85,10 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
     // Timer(Duration(milliseconds: 500), ()  {
     await Future.delayed(Duration(milliseconds: 500));
     await screenModel.getTypeList().whenComplete(() {
-      if(currentPlayGame>0){
-        screenModel.currentGameId=currentPlayGame;
-        screenModel.currentStep=currentStep;
-      }else{
+      if (currentPlayGame > 0) {
+        screenModel.currentGameId = currentPlayGame;
+        screenModel.currentStep = currentStep;
+      } else {
         screenModel.getNextGameId();
       }
       screenModel.getCurrentGame();
@@ -98,14 +144,14 @@ class _HomeScreenState extends State<HomeScreen> {
     // setState(() {});
   }
 
-  Future<void>getCurrentPlayGameSF() async {
+  Future<void> getCurrentPlayGameSF() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
     int intValue = prefs.getInt('currentPlayGame') ?? -1;
-    int stepValue=prefs.getInt('currentStep')??0;
+    int stepValue = prefs.getInt('currentStep') ?? 0;
     setState(() {
       currentPlayGame = intValue;
-      currentStep=stepValue;
+      currentStep = stepValue;
     });
   }
 
@@ -262,11 +308,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       fit: BoxFit.fill)),
               child: AnimationDraggableTap(
                 onTab: () {
-                  showResultDialog(context);
-                  // Navigator.pushAndRemoveUntil(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => MainGameRoute()),
-                  //     ModalRoute.withName("/Home"));
+                  // showResultDialog(context);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainGameRoute()),
+                      ModalRoute.withName("/Home"));
                 },
                 // child: Container(
                 //   height: 140,
