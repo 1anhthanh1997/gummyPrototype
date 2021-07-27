@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/general_screen/loading_screen.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/prototype/general_screen/winning_screen.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -62,11 +63,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     screenModel.setContext(context);
     WidgetsBinding.instance.addObserver(this);
     screenModel.playAudioBackground(HOME_MUSIC);
-    screenModel.getDeviceId();
-    getCurrentPlayGameSF();
-    loadGameData().whenComplete(() async {
-      await downloadAssets();
-    });
     super.initState();
   }
 

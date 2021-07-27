@@ -10,6 +10,7 @@ import 'package:web_test/prototype/game_screen/game_calculate_4/calculate_game.d
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/draw_alphabet.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/scratcher_game.dart';
 import 'package:web_test/prototype/general_screen/home_screen.dart';
+import 'package:web_test/prototype/general_screen/loading_screen.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/provider/screen_model.dart';
 
@@ -67,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
       child: MaterialApp(
-        home:HomeScreen(),
+        home:LoadingScreen(),
       )
     );
   }

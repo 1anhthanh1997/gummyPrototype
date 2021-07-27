@@ -97,9 +97,9 @@ class ScreenModel extends ChangeNotifier {
       // if(currentGameId==6){
       //   nextGame();
       // }else{
-        showResultDialog(currentContext);
+      //   showResultDialog(currentContext);
       // }
-      // nextGame();
+      nextGame();
     }
     await Future.delayed(Duration(milliseconds: 300));
     notifyListeners();

@@ -7,6 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/rotate_animation.dart';
+import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/tutorial_scale.dart';
 
 class TutorialAnimals extends StatefulWidget {
   final String tutorialImage;
@@ -27,6 +30,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
   double screenWidth;
   double screenHeight;
   double ratio;
+  bool isScale = false;
 
   @override
   void initState() {
@@ -98,20 +102,27 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     return Stack(
       children: [
         Positioned(
-            top: 11*ratio,
-            left: 11*ratio,
+            top: 11 * ratio,
+            left: 11 * ratio,
             child: Container(
               height: 77 * ratio,
               width: 77 * ratio,
               child: SvgPicture.asset('assets/images/common/orange_circle.svg'),
             )),
         Positioned(
-            top: 25*ratio,
-            left: 15*ratio,
-            child: Container(
-              height: 71 * ratio,
-              width: 68 * ratio,
-              child: Image.asset('assets/images/common/dog.png'),
+            top: 25 * ratio,
+            left: 15 * ratio,
+            child: RotateAnimation(
+              beginValue: 0,
+              endValue: pi/10,
+              time:400,
+              isScale: isScale,
+              curve: Curves.linear,
+              child: Container(
+                height: 71 * ratio,
+                width: 68 * ratio,
+                child: Image.asset('assets/images/common/dog.png'),
+              ),
             )),
         Positioned(
             top: 0,
@@ -212,37 +223,57 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               },
             )),
         AnimatedPositioned(
-          top: currentOffset.dy,
-          left: currentOffset.dx,
-          duration: Duration(milliseconds: duration),
-          curve: Curves.easeOutBack,
-          child: Draggable(
-            data: 0,
-            child: Container(
-                height: 98 * ratio, width: 98 * ratio, child: dogDraggable()),
-            feedback: Container(
-                height: 98 * ratio, width: 98 * ratio, child: dogDraggable()),
-            childWhenDragging: Container(),
-            onDragStarted: () {
-              duration = 0;
-              setState(() {
-                displaySkip =
-                    currentOffset.dx < screenWidth / 2 - 49 * ratio ? 1 : 2;
-              });
-            },
-            onDragUpdate: (details) {
-              setState(() {
-                currentDraggableOffset = Offset(
-                    details.globalPosition.dx + 49 * ratio,
-                    details.globalPosition.dy + 49 * ratio);
-              });
-            },
-            maxSimultaneousDrags: 1,
-            onDraggableCanceled: (velocity, offset) {
-              onDraggableCancelled(offset);
-            },
-          ),
-        )
+            top: currentOffset.dy,
+            left: currentOffset.dx,
+            duration: Duration(milliseconds: duration),
+            curve: Curves.easeOutBack,
+            child: TutorialScale(
+              onTab: () {
+                setState(() {
+                  isScale = true;
+                });
+                Timer(Duration(milliseconds: 1400), () {
+                  setState(() {
+                    isScale = false;
+                  });
+                });
+              },
+              delayTime: 1000,
+              time: 200,
+              beginValue: 1.0,
+              endValue: 1.2,
+              isScale: isScale,
+              child: Draggable(
+                data: 0,
+                child: Container(
+                    height: 98 * ratio,
+                    width: 98 * ratio,
+                    child: dogDraggable()),
+                feedback: Container(
+                    height: 98 * ratio,
+                    width: 98 * ratio,
+                    child: dogDraggable()),
+                childWhenDragging: Container(),
+                onDragStarted: () {
+                  duration = 0;
+                  setState(() {
+                    displaySkip =
+                        currentOffset.dx < screenWidth / 2 - 49 * ratio ? 1 : 2;
+                  });
+                },
+                onDragUpdate: (details) {
+                  setState(() {
+                    currentDraggableOffset = Offset(
+                        details.globalPosition.dx + 49 * ratio,
+                        details.globalPosition.dy + 49 * ratio);
+                  });
+                },
+                maxSimultaneousDrags: 1,
+                onDraggableCanceled: (velocity, offset) {
+                  onDraggableCancelled(offset);
+                },
+              ),
+            ))
       ],
     );
   }
