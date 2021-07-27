@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/provider/screen_model.dart';
 
 class ScaleAnimation extends StatefulWidget {
@@ -58,6 +59,7 @@ class _ScaleAnimationState extends State<ScaleAnimation>
         curve: Interval(0.0, 0.75, curve: widget.curve),
       ),
     );
+
   }
 
   @override
@@ -72,6 +74,10 @@ class _ScaleAnimationState extends State<ScaleAnimation>
   Widget build(BuildContext context) {
     if (widget.isScale) {
       Timer(Duration(milliseconds: widget.delayTime), () {
+        if(widget.isReverse){
+          print('PlayPick');
+          screenModel.playGameItemSound(PICK);
+        }
         _animationController.forward().whenComplete((){
           if(widget.isReverse){
             _animationController.reverse();

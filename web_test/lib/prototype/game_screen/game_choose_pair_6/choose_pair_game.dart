@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
+import 'package:web_test/prototype/general_screen/winning_screen.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
@@ -126,7 +128,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
             ? Positioned(
                 left: item.position.dx * ratio,
                 top: item.position.dy * ratio +
-                    (index % 2 == 0 ? firstBonusHeight : secondBonusHeight),
+                    (index<4 ? firstBonusHeight : secondBonusHeight),
                 child: AppearAnimation(
                   delay: index * 150,
                   child: PairScaleAnimation(
@@ -137,12 +139,14 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                         if (chosenIndex != -1) {
                           if (itemData[chosenIndex].groupId == item.groupId &&
                               index != chosenIndex) {
+                            screenModel.playGameItemSound(PICK_COLOR);
                             setState(() {
                               isScale[index] = 1;
                             });
                             Timer(Duration(milliseconds: 220), () {
-                              print(chosenIndex);
-                              print(index);
+                              screenModel.playGameItemSound(CORRECT_2);
+                              // print(chosenIndex);
+                              // print(index);
                               setState(() {
                                 count++;
                                 itemData[chosenIndex].status = 1;
@@ -164,6 +168,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                               }
                             });
                           } else {
+                            screenModel.playGameItemSound(WRONG_COLOR);
                             setState(() {
                               chosenIndex = -1;
                               firstItem = -1;
@@ -172,6 +177,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                             resetScaleArray();
                           }
                         } else {
+                          screenModel.playGameItemSound(PICK_COLOR);
                           setState(() {
                             chosenIndex = index;
                             firstItem = item.id;
@@ -221,7 +227,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                 left: item.position.dx * ratio - item.width * 0.1 * ratio,
                 top: item.position.dy * ratio -
                     item.height * 0.2 * ratio +
-                    (index <4 ? firstBonusHeight : secondBonusHeight),
+                    (index < 4 ? firstBonusHeight : secondBonusHeight),
                 child: CorrectAnimation(
                   isCorrect: item.status == 1,
                   child: Container(
@@ -245,7 +251,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         if (item.status == 0) {
           double dx = item.position.dx * ratio + item.width * ratio / 2;
           double dy = item.position.dy * ratio +
-              (idx <4 ? firstBonusHeight : secondBonusHeight) +
+              (idx < 4 ? firstBonusHeight : secondBonusHeight) +
               item.height * ratio / 2;
           position = Offset(dx, dy);
           break;
@@ -258,7 +264,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         if (item.groupId == currentGroupId && idx != chosenIndex) {
           double dx = item.position.dx * ratio + item.width * ratio / 2;
           double dy = item.position.dy * ratio +
-              (idx % 2 == 0 ? firstBonusHeight : secondBonusHeight) +
+              (idx<4 ? firstBonusHeight : secondBonusHeight) +
               item.height * ratio / 2;
           position = Offset(dx, dy);
           break;

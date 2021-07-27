@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -221,6 +222,7 @@ class _GameDragTargetState extends State<GameDragTarget>
               ),
               childWhenDragging: Container(),
               onDragStarted: () {
+                screenModel.playGameItemSound(PICK);
                 screenModel.startPositionId = item.id;
                 screenModel.startPosition = item.position;
                 item.duration = 0;
@@ -271,12 +273,14 @@ class _GameDragTargetState extends State<GameDragTarget>
               });
             },
             onAccept: (data) {
+              screenModel.playGameItemSound(JIGSAW_DROP);
               setState(() {
                 count++;
                 item.status = 1;
                 sourceModel[index].status = 1;
               });
               if (count == sourceModel.length) {
+                screenModel.playGameItemSound(CORRECT);
                 Timer(Duration(milliseconds: 1000), () {
                   screenModel.nextStep();
                   if(screenModel.currentStep==screenModel.currentGame.gameData.length-1){

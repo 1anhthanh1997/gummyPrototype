@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -160,6 +161,7 @@ class _CalculateGameState extends State<CalculateGame> {
 
   void onDraggableCancelled(ItemModel item, Offset offset) {
     if (isWrongTarget) {
+      screenModel.playGameItemSound(WRONG_COLOR);
       Offset offsetSource = item.position;
       item.position = Offset(offset.dx / ratio, offset.dy / ratio);
       setState(() {
@@ -322,6 +324,7 @@ class _CalculateGameState extends State<CalculateGame> {
                 });
               },
               onAccept: (data) {
+                screenModel.playGameItemSound(JIGSAW_DROP);
                 screenModel.endPositionId = item.id;
                 screenModel.endPosition = item.position;
                 setState(() {
@@ -376,6 +379,7 @@ class _CalculateGameState extends State<CalculateGame> {
                     item.height, item.width, fullInitUrl, number, false),
                 childWhenDragging: Container(),
                 onDragStarted: () {
+                  screenModel.playGameItemSound(PICK);
                   screenModel.startPositionId = item.id;
                   screenModel.startPosition = item.position;
                   item.duration = 0;

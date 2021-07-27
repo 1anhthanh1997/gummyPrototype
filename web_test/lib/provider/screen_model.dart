@@ -38,12 +38,20 @@ class ScreenModel extends ChangeNotifier {
   bool isFromShowResult=false;
   MusicController musicController= MusicController();
 
-  void playAudioBackground(String url) async {
+  void playAudioBackground(String url){
     musicController.playAudioBackground(url);
   }
 
-  void stopBackgroundMusic() async {
+  void stopBackgroundMusic(){
    musicController.stopBackgroundMusic();
+  }
+
+  void playGameItemSound(String url){
+    musicController.playItemSoundPlayer(url);
+  }
+
+  void stopGameItemSound(){
+    musicController.stopGameItemSound();
   }
 
   bool checkIsAndroidPlatform() {
@@ -85,7 +93,12 @@ class ScreenModel extends ChangeNotifier {
       currentStep++;
     } else {
       print('nextGame');
-      // showResultDialog(currentContext);
+      print(currentGameId);
+      // if(currentGameId==6){
+      //   nextGame();
+      // }else{
+        showResultDialog(currentContext);
+      // }
       // nextGame();
     }
     await Future.delayed(Duration(milliseconds: 300));

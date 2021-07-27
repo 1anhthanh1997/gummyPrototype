@@ -107,6 +107,7 @@ flutter:
     - assets/images/common/balloons/
     - assets/images/game_memory_number_7/number/
     - assets/music/
+    - assets/music/game_sound/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

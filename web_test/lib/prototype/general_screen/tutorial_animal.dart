@@ -57,7 +57,6 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     }
 
     currentOffset = offset;
-    print(offsetSource);
     setState(() {});
     Timer(Duration(milliseconds: 50), () {
       // double denta = screenModel.getBiggerSpace(
@@ -75,7 +74,6 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     double horizontalMinus = firstOffset.dx - secondOffset.dx - 41;
     double verticalMinus = firstOffset.dy - secondOffset.dy - 41;
     double distance = sqrt(pow(horizontalMinus, 2) + pow(verticalMinus, 2));
-    // print(distance / 406);
     if (distance / 406 < 0.3) distance = 0;
     return 1.0 - distance / 406.0 < 0 ? 0 : 1.0 - distance / 406.0;
   }
@@ -86,16 +84,45 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
 
   double countHorizontalDistance(Offset firstOffset, Offset secondOffset) {
     double horizontalMinus = firstOffset.dx - secondOffset.dx;
-    // print('dx');
-    // print(getBiggerValue(horizontalMinus));
+
     return horizontalMinus;
   }
 
   double countVerticalDistance(Offset firstOffset, Offset secondOffset) {
     double verticalMinus = firstOffset.dy - secondOffset.dy;
-    // print('dy');
-    // print(getBiggerValue(verticalMinus));
+
     return verticalMinus;
+  }
+
+  Widget dogDraggable() {
+    return Stack(
+      children: [
+        Positioned(
+            top: 11*ratio,
+            left: 11*ratio,
+            child: Container(
+              height: 77 * ratio,
+              width: 77 * ratio,
+              child: SvgPicture.asset('assets/images/common/orange_circle.svg'),
+            )),
+        Positioned(
+            top: 25*ratio,
+            left: 15*ratio,
+            child: Container(
+              height: 71 * ratio,
+              width: 68 * ratio,
+              child: Image.asset('assets/images/common/dog.png'),
+            )),
+        Positioned(
+            top: 0,
+            left: 0,
+            child: Container(
+              height: 98 * ratio,
+              width: 98 * ratio,
+              child: SvgPicture.asset('assets/images/common/white_circle.svg'),
+            )),
+      ],
+    );
   }
 
   @override
@@ -141,10 +168,10 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               onAccept: (data) {
                 setState(() {
                   displaySkip = 0;
-                  currentOffset = Offset(screenWidth - 89 * ratio, screenHeight - 85 * ratio);
+                  currentOffset = Offset(
+                      screenWidth - 89 * ratio, screenHeight - 85 * ratio);
                 });
                 screenModel.skipGame();
-                print('Accept');
               },
             )),
         Positioned(
@@ -182,7 +209,6 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
                 });
                 screenModel.skipGame();
-                print('Accept');
               },
             )),
         AnimatedPositioned(
@@ -193,21 +219,9 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
           child: Draggable(
             data: 0,
             child: Container(
-              height: 98 * ratio,
-              width: 98 * ratio,
-              child: SvgPicture.asset(
-                widget.tutorialImage,
-                fit: BoxFit.contain,
-              ),
-            ),
+                height: 98 * ratio, width: 98 * ratio, child: dogDraggable()),
             feedback: Container(
-              height: 98 * ratio,
-              width: 98 * ratio,
-              child: SvgPicture.asset(
-                widget.tutorialImage,
-                fit: BoxFit.contain,
-              ),
-            ),
+                height: 98 * ratio, width: 98 * ratio, child: dogDraggable()),
             childWhenDragging: Container(),
             onDragStarted: () {
               duration = 0;

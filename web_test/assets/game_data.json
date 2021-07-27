@@ -2381,15 +2381,15 @@
             {
               "id": 3,
               "image": "fourth_item.svg",
-              "groupId": 1,
+              "groupId": 0,
               "position": {
                 "dx": 353.0,
                 "dy": 252.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 543.0,
-                "dy": 121.0
+                "dx": 180.0,
+                "dy": 174.0
               },
               "width": 107.0,
               "height": 93.0
@@ -2397,15 +2397,15 @@
             {
               "id": 4,
               "image": "fifth_item.svg",
-              "groupId": 1,
+              "groupId": 0,
               "position": {
                 "dx": 353.0,
                 "dy": 252.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 543.0,
-                "dy": 121.0
+                "dx": 180.0,
+                "dy": 174.0
               },
               "width": 107.0,
               "height": 93.0
@@ -2445,15 +2445,15 @@
             {
               "id": 7,
               "image": "eighth_item.svg",
-              "groupId": 1,
+              "groupId": 0,
               "position": {
                 "dx": 353.0,
                 "dy": 252.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 543.0,
-                "dy": 121.0
+                "dx": 180.0,
+                "dy": 174.0
               },
               "width": 107.0,
               "height": 93.0

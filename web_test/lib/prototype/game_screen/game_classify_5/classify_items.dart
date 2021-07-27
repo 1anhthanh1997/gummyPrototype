@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -43,6 +44,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   Timer timer;
   bool isDisplayTutorialWidget = false;
   Curve curve;
+  int isPlayTargetSound=0;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -54,21 +56,29 @@ class _ClassifyItemState extends State<ClassifyItem>
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {
         draggableCount++;
-        items[idx].position = Offset(items[idx].position.dx, -1*(screenHeight / 6 * (2 * (idx+1) + 1)));
+        items[idx].position = Offset(items[idx].position.dx,
+            -1 * (screenHeight / 6 * (2 * (idx + 1) + 1)));
         durationTime = 500;
-        curve=Curves.easeOutBack;
+        curve = Curves.easeOutBack;
         print(idx);
         print(items.length);
-        Timer(Duration(milliseconds: 500 * (idx+1)), () {
-          items[idx].position = Offset(items[idx].position.dx,
-              screenHeight-screenHeight / 6 * (2 * idx + 1) - items[idx].height / 2);
+        Timer(Duration(milliseconds: 500 * (idx + 1)), () {
+          items[idx].position = Offset(
+              items[idx].position.dx,
+              screenHeight -
+                  screenHeight / 6 * (2 * idx + 1) -
+                  items[idx].height / 2);
           // curve=Curves.linear;
+
+          print(items[idx].position);
+
           setState(() {});
         });
       }
     }
-    Timer(Duration(milliseconds: 1000 * (items.length-3)), () {
-      curve=Curves.linear;
+    print('Break');
+    Timer(Duration(milliseconds: 1000 * (items.length - 3)), () {
+      curve = Curves.linear;
       setState(() {});
     });
     setState(() {});
@@ -130,10 +140,12 @@ class _ClassifyItemState extends State<ClassifyItem>
   }
 
   void fallItem(int index) {
-    for (int idx = draggableCount-1; idx >index; idx--) {
-      items[idx].position = Offset(items[idx].position.dx * ratio,
-          items[idx].position.dy * ratio + screenHeight / 3 );
+    for (int idx = draggableCount - 1; idx > index; idx--) {
+      items[idx].position = Offset(
+          items[idx].position.dx, items[idx].position.dy + screenHeight / 3);
+      print(items[idx].position);
     }
+    print('Break');
   }
 
   void callOnDraggableCancelled(ItemModel item, int index, Offset offset) {}
@@ -170,24 +182,39 @@ class _ClassifyItemState extends State<ClassifyItem>
       ),
       childWhenDragging: Container(),
       onDragStarted: () {
+        screenModel.playGameItemSound(PICK);
         screenModel.startPositionId = item.id;
         screenModel.startPosition = item.position;
         durationTime = 0;
       },
       onDragUpdate: (details) {
         Offset offset = details.globalPosition;
+
         if (offset.dx <= screenWidth / 2 - screenWidth / 14 - 30 * ratio) {
+          setState(() {
+            isPlayTargetSound++;
+          });
+          if(isPlayTargetSound==1){
+            screenModel.playGameItemSound(CHOOSE);
+          }
           setState(() {
             isSelected[0] = true;
             isSelected[1] = false;
           });
         } else if (offset.dx >= screenWidth / 2 + screenWidth / 14) {
           setState(() {
+            isPlayTargetSound++;
+          });
+          if(isPlayTargetSound==1){
+            screenModel.playGameItemSound(CHOOSE);
+          }
+          setState(() {
             isSelected[0] = false;
             isSelected[1] = true;
           });
         } else {
           setState(() {
+            isPlayTargetSound=0;
             isSelected[0] = false;
             isSelected[1] = false;
           });
@@ -218,6 +245,7 @@ class _ClassifyItemState extends State<ClassifyItem>
             count++;
           });
         } else {
+          screenModel.playGameItemSound(WRONG_COLOR);
           screenModel.endPositionId = -1;
           screenModel.logDragEvent(false);
           offsetSource = item.position;
@@ -252,6 +280,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   }
 
   Widget displayCompleteDraggable(ItemModel item, int index) {
+    // screenModel.playGameItemSound(SCALE_DOWN);
     return CorrectAnimation(
         isCorrect: item.status == 1,
         delayTime: 1000,

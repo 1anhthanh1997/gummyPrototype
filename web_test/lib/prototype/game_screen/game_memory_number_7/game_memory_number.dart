@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
@@ -106,8 +108,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     //   questionData.position = Offset(questionPositionTmp.dx, -300.0 * ratio);
     //   setState(() {});
     // });
-    Timer(Duration(milliseconds: (4500 * ratio).round()), () {
-      Timer(Duration(milliseconds: (500 * ratio).round()), () {
+    screenModel.playGameItemSound(COUNT_DOWN);
+    Timer(Duration(milliseconds: 2000 ), () {
+      Timer(Duration(milliseconds: 500), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
         }
@@ -167,6 +170,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       answerData[index].status = 1;
     });
     if (count == answerCount) {
+      screenModel.playGameItemSound(CORRECT);
       Timer(Duration(milliseconds: 2000), () {
         screenModel.nextStep();
         if (screenModel.currentStep ==
@@ -183,24 +187,12 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   Widget displayQuestion() {
-    // return AnimatedPositioned(
-    //     duration: Duration(milliseconds: 1000),
-    //     top: questionData.position.dy * ratio,
-    //     left: questionData.position.dx * ratio,
-    //     child: BubbleAnimation(
-    //         child: Container(
-    //       height: questionData.height * ratio,
-    //       width: questionData.width * ratio,
-    //       child: SvgPicture.file(
-    //         File(assetFolder + questionData.image),
-    //         fit: BoxFit.contain,
-    //       ),
-    //     )));
+    screenModel.playGameItemSound(START);
     return Positioned(
         top: screenHeight / 2 - 197 / 2 * ratio,
         left: screenWidth / 2 - 87 / 2 * ratio,
         child: AppearAnimation(
-          reverseTime: 4000,
+          reverseTime: 2000,
           child: Container(
             height: 197 * ratio,
             width: 87 * ratio,
@@ -221,6 +213,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             item.status == 0
                 ? GestureDetector(
                     onTapDown: (details) {
+                      List<String>bubbleSound=[BALLOON_POP_A,BALLOON_POP_B];
+                      Random random =Random();
+                      String chosenSound=bubbleSound[random.nextInt(bubbleSound.length)];
+                      screenModel.playGameItemSound(chosenSound);
                       screenModel.logTapEvent(item.id, details.globalPosition);
                     },
                     onTap: () {

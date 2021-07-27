@@ -309,6 +309,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               child: AnimationDraggableTap(
                 onTab: () {
                   // showResultDialog(context);
+                  screenModel.playGameItemSound(PLAY_BTN);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => MainGameRoute()),

@@ -7,6 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:web_test/config/id_config.dart';
+import 'package:web_test/provider/music_controller.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/particle.dart';
 
@@ -65,6 +67,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
   Timer remindTimer;
   int tutorialCount = 0;
   List<SquareParticle> particles = [];
+  MusicController musicController=MusicController();
 
   @override
   void initState() {
@@ -194,7 +197,10 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
           children: [
             GestureDetector(
                 onTap: () {
-                  print('Hit');
+                  List<String>bubbleSound=[BALLOON_POP_A,BALLOON_POP_B];
+                  Random random =Random();
+                  String chosenSound=bubbleSound[random.nextInt(bubbleSound.length)];
+                  musicController.playItemSoundPlayer(chosenSound);
                   hitBalloon(time);
                 },
                 child: displayBubble()),

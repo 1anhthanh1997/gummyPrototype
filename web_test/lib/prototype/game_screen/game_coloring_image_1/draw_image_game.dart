@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -217,6 +218,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           screenModel.endPositionId = id[index];
           screenModel.logDragEvent(true);
         }
+        screenModel.playGameItemSound(COLOR_DROP);
         setState(() {
           colorData[currentColorIndex].count--;
           countSum--;
@@ -244,7 +246,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           });
         }
         return;
-      } else {
+      } else {        
         if (type == 0) {
           screenModel.logTapEvent(-1, position);
         } else {
@@ -253,6 +255,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
         }
       }
     }
+    screenModel.playGameItemSound(WRONG_COLOR);
   }
 
   Widget displayImage() {
@@ -306,6 +309,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
               ? Container()
               : GestureDetector(
                   onTapDown: (details) {
+                    screenModel.playGameItemSound(PICK_COLOR);
                     screenModel.logTapEvent(color.id, details.globalPosition);
                     setState(() {
                       currentColor = color.color;
@@ -339,6 +343,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                         child: SvgPicture.file(File(assetFolder + color.image),
                             fit: BoxFit.contain, color: HexColor(color.color))),
                     onDragStarted: () {
+                      screenModel.playGameItemSound(PICK_COLOR);
                       screenModel.startPositionId = color.id;
                       screenModel.startPosition = color.position;
                       setState(() {

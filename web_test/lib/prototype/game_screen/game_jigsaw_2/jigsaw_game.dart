@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -156,6 +157,9 @@ class _JigsawGameState extends State<JigsawGame> {
   }
 
   Widget displayCompletedImage() {
+    if(isScaleCompletedImage){
+      screenModel.playGameItemSound(CORRECT);
+    }
     return Stack(
       children: imageData.map((item) {
         return item.type == 3
@@ -209,6 +213,7 @@ class _JigsawGameState extends State<JigsawGame> {
                 ),
               ),
               onDragStarted: () {
+                screenModel.playGameItemSound(PICK);
                 screenModel.startPositionId = item.id;
                 screenModel.startPosition = Offset(item.position.dx * ratio,
                     item.position.dy * ratio + bonusHeight);
@@ -272,6 +277,7 @@ class _JigsawGameState extends State<JigsawGame> {
                 return data == item.groupId;
               },
               onAccept: (data) {
+                screenModel.playGameItemSound(JIGSAW_DROP);
                 screenModel.endPositionId = item.id;
                 screenModel.endPosition =
                     Offset(item.position.dx * ratio, item.position.dy * ratio);
@@ -308,6 +314,7 @@ class _JigsawGameState extends State<JigsawGame> {
                     }
                     setState(() {
                       isComplete = false;
+                      isScaleCompletedImage=false;
                     });
                   });
                 } else {

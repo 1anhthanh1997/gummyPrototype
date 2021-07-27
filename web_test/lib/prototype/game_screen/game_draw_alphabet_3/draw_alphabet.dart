@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -311,10 +312,12 @@ class _DrawAlphabetState extends State<DrawAlphabet>
           isColoringFromStart = false;
         });
       } else {
+        screenModel.playGameItemSound(LINE_CORRECT);
         if (currentIndex == alphabetData.length - 1) {
           setState(() {
             scaleNumber = false;
           });
+          screenModel.playGameItemSound(CORRECT);
           Timer(Duration(milliseconds: 1500), () {
             screenModel.nextStep();
           });

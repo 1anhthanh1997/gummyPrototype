@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -111,13 +112,17 @@ class _ScratcherGameState extends State<ScratcherGame>
                 'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',
                 fit: BoxFit.fill,
               ),
-              onChange: (value) => print("Scratch progress: $value%"),
+              onChange: (value){
+                screenModel.playGameItemSound(SWEEPING_2);
+                print("Scratch progress: $value%");
+              },
               onThreshold: () {
                 setState(() {
                   isCompleted[index] = true;
                   count++;
                 });
                 if (count == isCompleted.length) {
+                  screenModel.playGameItemSound(CORRECT);
                   Timer(Duration(milliseconds: 1000), () {
                     screenModel.nextStep();
                   });
