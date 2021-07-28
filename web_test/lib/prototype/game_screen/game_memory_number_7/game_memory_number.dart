@@ -109,7 +109,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     //   setState(() {});
     // });
     screenModel.playGameItemSound(COUNT_DOWN);
-    Timer(Duration(milliseconds: 2000 ), () {
+    Timer(Duration(milliseconds: 2000), () {
       Timer(Duration(milliseconds: 500), () {
         for (int index = 0; index < answerPositionTmp.length; index++) {
           answerData[index].position = answerPositionTmp[index];
@@ -213,9 +213,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             item.status == 0
                 ? GestureDetector(
                     onTapDown: (details) {
-                      List<String>bubbleSound=[BALLOON_POP_A,BALLOON_POP_B];
-                      Random random =Random();
-                      String chosenSound=bubbleSound[random.nextInt(bubbleSound.length)];
+                      List<String> bubbleSound = [BALLOON_POP_A, BALLOON_POP_B];
+                      Random random = Random();
+                      String chosenSound =
+                          bubbleSound[random.nextInt(bubbleSound.length)];
                       screenModel.playGameItemSound(chosenSound);
                       screenModel.logTapEvent(item.id, details.globalPosition);
                     },

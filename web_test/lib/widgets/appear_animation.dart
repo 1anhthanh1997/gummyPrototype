@@ -34,6 +34,7 @@ class _AppearAnimationState extends State<AppearAnimation>
   bool isDisplayChild = false;
   Timer firstTimer;
   Timer secondTimer;
+  Timer thirdTimer;
   double ratio = 1;
 
 
@@ -62,6 +63,9 @@ class _AppearAnimationState extends State<AppearAnimation>
     if (secondTimer != null) {
       secondTimer.cancel();
     }
+    if (thirdTimer != null) {
+      thirdTimer.cancel();
+    }
     super.dispose();
     // print('dispose');
     // screenModel.stopBackgroundMusic();
@@ -80,7 +84,7 @@ class _AppearAnimationState extends State<AppearAnimation>
       _animationController.forward();
     });
     if(widget.reverseTime!=null){
-      Timer(Duration(milliseconds: widget.reverseTime),(){
+      thirdTimer=Timer(Duration(milliseconds: widget.reverseTime),(){
         _animationController.reverse();
       });
     }

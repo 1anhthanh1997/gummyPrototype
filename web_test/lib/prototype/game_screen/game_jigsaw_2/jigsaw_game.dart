@@ -34,7 +34,12 @@ class _JigsawGameState extends State<JigsawGame> {
   bool isDisplayTutorialWidget = false;
   Timer timer;
   bool isComplete = false;
-  bool isScaleCompletedImage=false;
+  bool isScaleCompletedImage = false;
+  bool isDisplayCompleteImage = false;
+  Timer firstTimer;
+  Timer secondTimer;
+  Timer thirdTimer;
+
 
   void loadAlphabetData() {
     targetModel = [];
@@ -92,6 +97,15 @@ class _JigsawGameState extends State<JigsawGame> {
   void dispose() {
     if (timer != null) {
       timer.cancel();
+    }
+    if (firstTimer != null) {
+      firstTimer.cancel();
+    }
+    if (secondTimer != null) {
+      secondTimer.cancel();
+    }
+    if (thirdTimer != null) {
+      thirdTimer.cancel();
     }
     super.dispose();
   }
@@ -157,7 +171,7 @@ class _JigsawGameState extends State<JigsawGame> {
   }
 
   Widget displayCompletedImage() {
-    if(isScaleCompletedImage){
+    if (isScaleCompletedImage) {
       screenModel.playGameItemSound(CORRECT);
     }
     return Stack(
@@ -167,7 +181,7 @@ class _JigsawGameState extends State<JigsawGame> {
                 top: item.position.dy * ratio + bonusHeight,
                 left: item.position.dx * ratio,
                 child: Opacity(
-                    opacity: count == sourceModel.length ? 1.0 : 0.0,
+                    opacity: isDisplayCompleteImage ? 1.0 : 0.0,
                     child: ScaleAnimation(
                       beginValue: 1.0,
                       endValue: 1.15,
@@ -284,38 +298,40 @@ class _JigsawGameState extends State<JigsawGame> {
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
-                  Timer(Duration(milliseconds: 500), () {
+                  firstTimer=Timer(Duration(milliseconds: 500), () {
                     setState(() {
                       isComplete = true;
                     });
                   });
-                  Timer(Duration(milliseconds: 2000), () {
+                  secondTimer=Timer(Duration(milliseconds: 2000), () {
                     setState(() {
-                      count++;
-                      isScaleCompletedImage=true;
+                      isDisplayCompleteImage = true;
+                      isScaleCompletedImage = true;
                     });
                   });
-                  Timer(Duration(milliseconds: 3000 + 200 * targetModel.length),
-                      () async {
 
+                  thirdTimer=Timer(Duration(milliseconds: 3000 + 200 * targetModel.length),
+                      () {
                     bool isLoadNextStep = false;
                     if (screenModel.currentStep <
                         screenModel.currentGame.gameData.length - 1) {
                       isLoadNextStep = true;
                     }
-                    screenModel.nextStep();
+
                     print(screenModel.currentStep);
                     if (!isLoadNextStep) {
                       if (timer != null) {
                         timer.cancel();
                       }
+                      screenModel.nextStep();
                     } else {
+                      screenModel.nextStep();
                       loadAlphabetData();
+                      setState(() {
+                        isComplete = false;
+                        isScaleCompletedImage = false;
+                      });
                     }
-                    setState(() {
-                      isComplete = false;
-                      isScaleCompletedImage=false;
-                    });
                   });
                 } else {
                   setState(() {
@@ -368,12 +384,12 @@ class _JigsawGameState extends State<JigsawGame> {
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
-    widgets.add(displayCompletedImage());
-    if (count == sourceModel.length) {
-    } else {
+    if (!isDisplayCompleteImage) {
       widgets.add(displayShadow());
       widgets.add(displayTarget());
       widgets.add(displayDraggable());
+    }else{
+      widgets.add(displayCompletedImage());
     }
     widgets.add(BasicItem());
     widgets.add(displayTutorialWidget());

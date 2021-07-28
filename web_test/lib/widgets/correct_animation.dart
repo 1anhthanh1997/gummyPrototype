@@ -48,7 +48,6 @@ class _CorrectAnimationState extends State<CorrectAnimation>
   Widget build(BuildContext context) {
     if (widget.isCorrect) {
       Timer(Duration(milliseconds: widget.delayTime),(){
-        print('Play sound');
         if(isFirstTime){
           screenModel.playGameItemSound(SCALE_DOWN);
           setState(() {

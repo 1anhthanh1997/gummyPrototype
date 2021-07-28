@@ -62,7 +62,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         curve = Curves.easeOutBack;
         print(idx);
         print(items.length);
-        Timer(Duration(milliseconds: 500 * (idx + 1)), () {
+        Timer(Duration(milliseconds: 500 ), () {
           items[idx].position = Offset(
               items[idx].position.dx,
               screenHeight -
@@ -71,10 +71,10 @@ class _ClassifyItemState extends State<ClassifyItem>
           // curve=Curves.linear;
 
           print(items[idx].position);
-
           setState(() {});
         });
       }
+      print('Break');
     }
     print('Break');
     Timer(Duration(milliseconds: 1000 * (items.length - 3)), () {
@@ -140,12 +140,19 @@ class _ClassifyItemState extends State<ClassifyItem>
   }
 
   void fallItem(int index) {
+    setState(() {
+      curve=Curves.easeOutBack;
+    });
     for (int idx = draggableCount - 1; idx > index; idx--) {
-      items[idx].position = Offset(
-          items[idx].position.dx, items[idx].position.dy + screenHeight / 3);
-      print(items[idx].position);
+      if(items[idx].status==0){
+        items[idx].position = Offset(
+            items[idx].position.dx, items[idx].position.dy + screenHeight / 3);
+        print(items[idx].position);
+      }
     }
     print('Break');
+    // Timer(Duration(milliseconds: ))
+    // print('Break');
   }
 
   void callOnDraggableCancelled(ItemModel item, int index, Offset offset) {}
@@ -260,7 +267,8 @@ class _ClassifyItemState extends State<ClassifyItem>
           item.position = offsetSource;
           Timer(Duration(milliseconds: 1700), () {
             isSelected[item.groupId] = false;
-            setState(() {});
+            setState(() {curve=Curves.easeOut;});
+
           });
           if (count == draggableCount) {
             Timer(Duration(milliseconds: 2000), () {
@@ -283,7 +291,7 @@ class _ClassifyItemState extends State<ClassifyItem>
     // screenModel.playGameItemSound(SCALE_DOWN);
     return CorrectAnimation(
         isCorrect: item.status == 1,
-        delayTime: 1000,
+        delayTime: 500,
         child: Container(
           height: item.height * ratio,
           width: item.width * ratio,
@@ -329,6 +337,8 @@ class _ClassifyItemState extends State<ClassifyItem>
                   isScale: isSelected[item.groupId],
                   beginValue: 1.0,
                   endValue: 1.1,
+                  time: 50,
+                  curve: Curves.easeIn,
                   onTab: () {},
                   child: Container(
                     width: item.width * ratio,

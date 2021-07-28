@@ -39,6 +39,8 @@ class _LoadingTranslateState extends State<LoadingTranslate>
   AnimationController _animationController;
   Animation<double> _translateAnimation;
   ScreenModel screenModel;
+  Timer firstTimer;
+  Timer secondTimer;
 
   @override
   void initState() {
@@ -66,20 +68,25 @@ class _LoadingTranslateState extends State<LoadingTranslate>
     if (_animationController != null) {
       _animationController.dispose();
     }
+    if(firstTimer!=null){
+      firstTimer.cancel();
+    }
+    if(secondTimer!=null){
+      secondTimer.cancel();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.isScale) {
-      Timer(Duration(milliseconds: 200),(){
+      firstTimer = Timer(Duration(milliseconds: 200), () {
         _animationController.forward().whenComplete(() {
-          Timer(Duration(milliseconds: widget.delayTime), () {
+          secondTimer = Timer(Duration(milliseconds: widget.delayTime), () {
             _animationController.reverse();
           });
         });
       });
-
     }
 
     return AnimatedBuilder(

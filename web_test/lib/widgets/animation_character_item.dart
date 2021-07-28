@@ -42,6 +42,14 @@ class _AnimationCharacterItemState extends State<AnimationCharacterItem>
   }
 
   @override
+  void dispose() {
+    if(_animationController!=null){
+      _animationController.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scaleAnimation = Tween(

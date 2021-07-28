@@ -60,7 +60,7 @@ dependencies:
   flutter_xlider: ^3.4.0
   firebase_core: ^0.4.0+9
   firebase_analytics: ^5.0.2
-  audioplayers: ^0.19.1
+  audioplayers: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -109,6 +109,7 @@ flutter:
     - assets/music/
     - assets/music/game_sound/
     - assets/images/common/loading/
+    - assets/music/tutorial/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

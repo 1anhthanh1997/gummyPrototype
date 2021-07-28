@@ -6,6 +6,7 @@ class MusicController{
   AudioPlayer backgroundMusicPlayer;
   AudioPlayer gameItemSoundPlayer;
   AudioPlayer winSoundPlayer;
+  AudioPlayer tutorialPlayer;
 
   void playAudioBackground(String url) async {
     if (backgroundMusicPlayer != null) {
@@ -25,14 +26,13 @@ class MusicController{
       if(winSoundPlayer!=null){
         stopWinSound();
       }
-      winSoundPlayer=await audioCache.play(url);
+      winSoundPlayer=await audioCache.play(url,mode: PlayerMode.LOW_LATENCY);
     }else{
       if(gameItemSoundPlayer!=null){
         stopGameItemSound();
       }
       gameItemSoundPlayer=await audioCache.play(url);
     }
-
   }
 
   void stopGameItemSound()async{
@@ -43,6 +43,18 @@ class MusicController{
   void stopWinSound()async{
     if(winSoundPlayer==null)return;
     await winSoundPlayer.release();
+  }
+
+  void playTutorialPlayer(String url)async{
+    if(tutorialPlayer!=null){
+      stopTutorial();
+    }
+    tutorialPlayer=await audioCache.play(url);
+  }
+
+  void stopTutorial()async{
+    if(gameItemSoundPlayer==null)return;
+    await gameItemSoundPlayer.release();
   }
 
 }

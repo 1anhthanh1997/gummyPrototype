@@ -47,3 +47,13 @@ const WIN_STINGER = 'music/game_sound/win_stinger.wav';
 const WIN_STINGER_2 = 'music/game_sound/win_stinger_2.wav';
 const WIN_STINGER_3 = 'music/game_sound/win_stinger_3.wav';
 const WRONG_COLOR = 'music/game_sound/wrong_color.wav';
+
+const GAME_COLORING_TUTORIAL_MUSIC = 'music/tutorial/game_coloring_image_tutorial.mp3';
+const GAME_JIGSAW_TUTORIAL_MUSIC = 'music/tutorial/game_jigsaw_tutorial.mp3';
+const GAME_CALCULATE_TUTORIAL_MUSIC = 'music/tutorial/game_calculate_tutorial.mp3';
+const GAME_CLASSIFY_MODEL_TUTORIAL_MUSIC = 'music/tutorial/game_classify_tutorial.mp3';
+const GAME_CHOOSE_PAIR_TUTORIAL_MUSIC = 'music/tutorial/game_choose_pair_tutorial.mp3';
+const GAME_MEMORY_NUMBER_TUTORIAL_MUSIC = 'music/tutorial/game_jigsaw_tutorial.mp3';
+const GAME_DRAW_ALPHABET_TUTORIAL_MUSIC = 'music/tutorial/game_draw_alphabet_tutorial.mp3';
+const GAME_SCRATCHER_TUTORIAL_MUSIC = 'music/tutorial/game_scratcher_tutorial.mp3';
+const GAME_DRAG_TARGET_TUTORIAL_MUSIC = 'music/tutorial/game_drag_target_tutorial.mp3';

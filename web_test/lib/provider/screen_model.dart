@@ -5,7 +5,9 @@ import 'dart:math';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:web_test/config/id_config.dart';
 import 'package:web_test/db/games_database.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
@@ -35,23 +37,57 @@ class ScreenModel extends ChangeNotifier {
   Offset startPosition;
   int endPositionId;
   Offset endPosition;
-  bool isFromShowResult=false;
-  MusicController musicController= MusicController();
+  bool isFromShowResult = false;
+  MusicController musicController = MusicController();
 
-  void playAudioBackground(String url){
+  void playAudioBackground(String url) {
     musicController.playAudioBackground(url);
   }
 
-  void stopBackgroundMusic(){
-   musicController.stopBackgroundMusic();
+  void stopBackgroundMusic() {
+    musicController.stopBackgroundMusic();
   }
 
-  void playGameItemSound(String url){
+  void playGameItemSound(String url) {
     musicController.playItemSoundPlayer(url);
   }
 
-  void stopGameItemSound(){
+  void stopGameItemSound() {
     musicController.stopGameItemSound();
+  }
+
+  void playTutorial() {
+    musicController.playTutorialPlayer(getTutorialUrl());
+  }
+
+  void stopTutorial() {
+    musicController.stopTutorial();
+  }
+
+  String getTutorialUrl() {
+    switch (currentGameId) {
+      case GAME_COLORING_ID:
+      case GAME_COLORING_2_ID:
+        return GAME_COLORING_TUTORIAL_MUSIC;
+      case GAME_JIGSAW_ID:
+        return GAME_JIGSAW_TUTORIAL_MUSIC;
+      case GAME_CALCULATE_ID:
+        return GAME_CALCULATE_TUTORIAL_MUSIC;
+      case GAME_CLASSIFY_MODEL:
+        return GAME_CLASSIFY_MODEL_TUTORIAL_MUSIC;
+      case GAME_CHOOSE_PAIR_ID:
+        return GAME_CHOOSE_PAIR_TUTORIAL_MUSIC;
+      case GAME_MEMORY_NUMBER:
+        return GAME_MEMORY_NUMBER_TUTORIAL_MUSIC;
+      case GAME_DRAW_ALPHABET_ID:
+        return GAME_DRAG_TARGET_TUTORIAL_MUSIC;
+      case GAME_SCRATCHER_ID:
+        return GAME_SCRATCHER_TUTORIAL_MUSIC;
+      case GAME_DRAG_TARGET_ID:
+        return GAME_DRAG_TARGET_TUTORIAL_MUSIC;
+      default:
+        return GAME_DRAG_TARGET_TUTORIAL_MUSIC;
+    }
   }
 
   bool checkIsAndroidPlatform() {
@@ -91,18 +127,21 @@ class ScreenModel extends ChangeNotifier {
     print('nextStep');
     if (currentStep < currentGame.gameData.length - 1) {
       currentStep++;
+      await Future.delayed(Duration(milliseconds: 300));
+      notifyListeners();
     } else {
       print('nextGame');
       print(currentGameId);
       // if(currentGameId==6){
       //   nextGame();
       // }else{
-      //   showResultDialog(currentContext);
+      // SchedulerBinding.instance.addPostFrameCallback((_) {
+        showResultDialog(currentContext);
+      // });
+
       // }
-      nextGame();
+      // nextGame();
     }
-    await Future.delayed(Duration(milliseconds: 300));
-    notifyListeners();
   }
 
   void addUserScore() async {

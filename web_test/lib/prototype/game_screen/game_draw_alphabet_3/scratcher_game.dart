@@ -106,7 +106,7 @@ class _ScratcherGameState extends State<ScratcherGame>
             duration: Duration(milliseconds: 500),
             child: Scratcher(
               brushSize: 30*ratio,
-              threshold: 70,
+              threshold: 60,
               color: HexColor('#00FFFFFF'),
               image: Image.asset(
                 'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',

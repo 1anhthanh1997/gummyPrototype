@@ -39,6 +39,7 @@ class _TutorialScaleState extends State<TutorialScale>
   AnimationController _animationController;
   Animation<double> _scaleAnimation;
   ScreenModel screenModel;
+  Timer timer;
 
   @override
   void initState() {
@@ -66,6 +67,9 @@ class _TutorialScaleState extends State<TutorialScale>
     if (_animationController != null) {
       _animationController.dispose();
     }
+    if(timer!=null){
+      timer.cancel();
+    }
     super.dispose();
   }
 
@@ -73,7 +77,7 @@ class _TutorialScaleState extends State<TutorialScale>
   Widget build(BuildContext context) {
     if (widget.isScale) {
       _animationController.forward().whenComplete(() {
-        Timer(Duration(milliseconds: widget.delayTime), () {
+        timer=Timer(Duration(milliseconds: widget.delayTime), () {
           _animationController.reverse();
         });
       });

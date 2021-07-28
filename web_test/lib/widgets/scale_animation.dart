@@ -39,6 +39,7 @@ class _ScaleAnimationState extends State<ScaleAnimation>
   AnimationController _animationController;
   Animation<double> _scaleAnimation;
   ScreenModel screenModel;
+  Timer timer;
 
   @override
   void initState() {
@@ -67,13 +68,16 @@ class _ScaleAnimationState extends State<ScaleAnimation>
     if(_animationController!=null){
       _animationController.dispose();
     }
+    if(timer!=null){
+      timer.cancel();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.isScale) {
-      Timer(Duration(milliseconds: widget.delayTime), () {
+      timer=Timer(Duration(milliseconds: widget.delayTime), () {
         if(widget.isReverse){
           print('PlayPick');
           screenModel.playGameItemSound(PICK);
