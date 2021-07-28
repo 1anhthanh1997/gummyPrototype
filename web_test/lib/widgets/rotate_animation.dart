@@ -72,12 +72,9 @@ class _RotateAnimationState extends State<RotateAnimation>
 
   @override
   Widget build(BuildContext context) {
-
-    if (widget.isScale) {
-      _animationController.forward().whenComplete(() {
-        _animationController.reverse();
-      });
-    }
+    // if (widget.isScale) {
+    //
+    // }
 
     return AnimatedBuilder(
         animation: _rotateAnimation,
@@ -91,8 +88,13 @@ class _RotateAnimationState extends State<RotateAnimation>
         },
         child: GestureDetector(
             onTapDown: (details) {
-              _animationController.forward();
               screenModel.logTapEvent(widget.itemId, details.globalPosition);
+            },
+            onTap: () {
+              print('Hello');
+              _animationController.forward().whenComplete(() {
+                _animationController.reverse();
+              });
               if (widget.onTab != null) {
                 widget.onTab();
               }

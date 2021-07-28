@@ -117,6 +117,9 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               endValue: pi/10,
               time:400,
               isScale: isScale,
+              onTab: (){
+                print('Hello');
+              },
               curve: Curves.linear,
               child: Container(
                 height: 71 * ratio,
