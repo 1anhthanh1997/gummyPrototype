@@ -52,8 +52,8 @@ class ScreenModel extends ChangeNotifier {
     musicController.playItemSoundPlayer(url);
   }
 
-  void stopGameItemSound() {
-    musicController.stopGameItemSound();
+  void stopGameItemSound(AudioPlayer audioPlayer) {
+    musicController.stopGameItemSound(audioPlayer);
   }
 
   void playTutorial() {
@@ -65,7 +65,7 @@ class ScreenModel extends ChangeNotifier {
   }
 
   String getTutorialUrl() {
-    switch (currentGameId) {
+    switch (currentGame.gameData[currentStep].gameType) {
       case GAME_COLORING_ID:
       case GAME_COLORING_2_ID:
         return GAME_COLORING_TUTORIAL_MUSIC;
@@ -80,7 +80,7 @@ class ScreenModel extends ChangeNotifier {
       case GAME_MEMORY_NUMBER:
         return GAME_MEMORY_NUMBER_TUTORIAL_MUSIC;
       case GAME_DRAW_ALPHABET_ID:
-        return GAME_DRAG_TARGET_TUTORIAL_MUSIC;
+        return GAME_DRAW_ALPHABET_TUTORIAL_MUSIC;
       case GAME_SCRATCHER_ID:
         return GAME_SCRATCHER_TUTORIAL_MUSIC;
       case GAME_DRAG_TARGET_ID:

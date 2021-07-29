@@ -4,7 +4,6 @@ import 'package:web_test/config/id_config.dart';
 class MusicController{
   AudioCache audioCache = new AudioCache();
   AudioPlayer backgroundMusicPlayer;
-  AudioPlayer gameItemSoundPlayer;
   AudioPlayer winSoundPlayer;
   AudioPlayer tutorialPlayer;
 
@@ -28,14 +27,17 @@ class MusicController{
       }
       winSoundPlayer=await audioCache.play(url,mode: PlayerMode.LOW_LATENCY);
     }else{
+      AudioPlayer gameItemSoundPlayer;
       if(gameItemSoundPlayer!=null){
-        stopGameItemSound();
+        stopGameItemSound(gameItemSoundPlayer);
       }
-      gameItemSoundPlayer=await audioCache.play(url);
+      gameItemSoundPlayer=await audioCache.play(url,mode: PlayerMode.LOW_LATENCY,).whenComplete(() {
+        stopGameItemSound(gameItemSoundPlayer);
+      });
     }
   }
 
-  void stopGameItemSound()async{
+  void stopGameItemSound(AudioPlayer gameItemSoundPlayer)async{
     if(gameItemSoundPlayer==null)return;
     await gameItemSoundPlayer.release();
   }
@@ -53,8 +55,8 @@ class MusicController{
   }
 
   void stopTutorial()async{
-    if(gameItemSoundPlayer==null)return;
-    await gameItemSoundPlayer.release();
+    if(tutorialPlayer==null)return;
+    await tutorialPlayer.release();
   }
 
 }

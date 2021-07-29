@@ -50,7 +50,8 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   double screenWidth;
   double ratio;
   Timer timer;
-  bool isDisplayTutorialWidget=false;
+  bool isDisplayTutorialWidget = false;
+  List<ItemModel> drawTutorial = [];
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -64,16 +65,21 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     assetFolder = allGameData.gameAssets;
 
     for (int index = 0; index < alphabetData.length; index++) {
-      setState(() {
-        _alphabetPoint.add([]);
-        alphabetPath.add(parseSvgPath(alphabetData[index].path));
-        imageLink.add(screenModel.localPath +
-            allGameData.gameAssets +
-            alphabetData[index].image);
-        imagePosition.add(alphabetData[index].position);
-        startPosition.add(alphabetData[index].startPosition);
-        endPosition.add(alphabetData[index].endPosition);
-      });
+      print(alphabetData[index].type);
+      if (alphabetData[index].type == 1) {
+        setState(() {
+          _alphabetPoint.add([]);
+          alphabetPath.add(parseSvgPath(alphabetData[index].path));
+          imageLink.add(screenModel.localPath +
+              allGameData.gameAssets +
+              alphabetData[index].image);
+          imagePosition.add(alphabetData[index].position);
+          startPosition.add(alphabetData[index].startPosition);
+          endPosition.add(alphabetData[index].endPosition);
+        });
+      } else if (alphabetData[index].type == 0) {
+        drawTutorial.add(alphabetData[index]);
+      }
     }
   }
 
@@ -99,7 +105,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   @override
   void dispose() {
-    if(timer!=null){
+    if (timer != null) {
       timer.cancel();
     }
     super.dispose();
@@ -209,7 +215,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   Widget displayTutorialWidget() {
-
     Offset startPositionPoint = startPosition[currentIndex];
     Offset endPositionPoint = endPosition[currentIndex];
     int groupId;
@@ -229,6 +234,24 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         : Container();
   }
 
+  Widget displayDrawTutorial() {
+    if(currentIndex<drawTutorial.length){
+      ItemModel item = drawTutorial[currentIndex];
+      print(item.image);
+      return Positioned(
+          top: item.position.dy * ratio,
+          left: item.position.dx * ratio,
+          child: Container(
+            height: item.height * ratio,
+            width: item.width * ratio,
+            child: Image.asset(item.image),
+          ));
+    }else{
+      return Container();
+    }
+
+  }
+
   Widget displayItem() {
     return Stack(
       children: [
@@ -238,7 +261,9 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             time: 1500,
             isScale: scaleNumber,
             curve: Curves.easeOutBack,
-            child: displayAlphabet()),
+            child: Stack(
+              children: [displayAlphabet(), displayDrawTutorial()],
+            )),
         BasicItem(),
         // displayTutorialWidget()
       ],
@@ -247,7 +272,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
 
   Widget displayAlphabet() {
     List<int> indexGenerate =
-        Iterable<int>.generate(alphabetData.length).toList();
+        Iterable<int>.generate(alphabetPath.length).toList();
     indexGenerate.sort((a, b) => b.compareTo(a));
     return Stack(
       children: indexGenerate.map((index) {
@@ -313,7 +338,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         });
       } else {
         screenModel.playGameItemSound(LINE_CORRECT);
-        if (currentIndex == alphabetData.length - 1) {
+        if (currentIndex == alphabetPath.length - 1) {
           setState(() {
             scaleNumber = false;
           });

@@ -328,6 +328,7 @@ class _JigsawGameState extends State<JigsawGame> {
                       screenModel.nextStep();
                       loadAlphabetData();
                       setState(() {
+                        isDisplayCompleteImage = false;
                         isComplete = false;
                         isScaleCompletedImage = false;
                       });

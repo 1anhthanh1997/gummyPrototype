@@ -44,7 +44,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   Timer timer;
   bool isDisplayTutorialWidget = false;
   Curve curve;
-  int isPlayTargetSound=0;
+  int isPlayTargetSound = 0;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -62,7 +62,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         curve = Curves.easeOutBack;
         print(idx);
         print(items.length);
-        Timer(Duration(milliseconds: 500 ), () {
+        Timer(Duration(milliseconds: 500), () {
           items[idx].position = Offset(
               items[idx].position.dx,
               screenHeight -
@@ -141,10 +141,10 @@ class _ClassifyItemState extends State<ClassifyItem>
 
   void fallItem(int index) {
     setState(() {
-      curve=Curves.easeOutBack;
+      curve = Curves.easeOutBack;
     });
     for (int idx = draggableCount - 1; idx > index; idx--) {
-      if(items[idx].status==0){
+      if (items[idx].status == 0) {
         items[idx].position = Offset(
             items[idx].position.dx, items[idx].position.dy + screenHeight / 3);
         print(items[idx].position);
@@ -154,8 +154,6 @@ class _ClassifyItemState extends State<ClassifyItem>
     // Timer(Duration(milliseconds: ))
     // print('Break');
   }
-
-  void callOnDraggableCancelled(ItemModel item, int index, Offset offset) {}
 
   Widget displayBackground() {
     return Container(
@@ -201,7 +199,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           setState(() {
             isPlayTargetSound++;
           });
-          if(isPlayTargetSound==1){
+          if (isPlayTargetSound == 1) {
             screenModel.playGameItemSound(CHOOSE);
           }
           setState(() {
@@ -212,7 +210,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           setState(() {
             isPlayTargetSound++;
           });
-          if(isPlayTargetSound==1){
+          if (isPlayTargetSound == 1) {
             screenModel.playGameItemSound(CHOOSE);
           }
           setState(() {
@@ -221,7 +219,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           });
         } else {
           setState(() {
-            isPlayTargetSound=0;
+            isPlayTargetSound = 0;
             isSelected[0] = false;
             isSelected[1] = false;
           });
@@ -267,8 +265,9 @@ class _ClassifyItemState extends State<ClassifyItem>
           item.position = offsetSource;
           Timer(Duration(milliseconds: 1700), () {
             isSelected[item.groupId] = false;
-            setState(() {curve=Curves.easeOut;});
-
+            setState(() {
+              curve = Curves.easeOut;
+            });
           });
           if (count == draggableCount) {
             Timer(Duration(milliseconds: 2000), () {

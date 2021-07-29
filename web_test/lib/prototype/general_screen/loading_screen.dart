@@ -146,7 +146,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }
     _requestDownload();
     // print(_localPath);
-    Timer(Duration(milliseconds: 3000), () {
+    Timer(Duration(milliseconds: 4000), () {
       extractFile();
     });
   }

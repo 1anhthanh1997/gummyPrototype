@@ -9,6 +9,8 @@ import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/scratcher_appear.dart';
 
 class ScratcherGame extends StatefulWidget {
   _ScratcherGameState createState() => _ScratcherGameState();
@@ -43,26 +45,20 @@ class _ScratcherGameState extends State<ScratcherGame>
   double screenWidth;
   double screenHeight;
   double ratio;
+  bool isAppear = true;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
     allGameData = screenModel.currentGame;
     for (int idx = 0;
-    idx < allGameData.gameData[stepIndex].items.length;
-    idx++) {
+        idx < allGameData.gameData[stepIndex].items.length;
+        idx++) {
       imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
     }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
 
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
-      positionListTmp.add(imageData[idx].position);
-      imageData[idx].position = Offset(812 / 2 - 72, 375 / 2 - 72);
-      Timer(Duration(milliseconds: (idx + 1) * 500), () {
-        setState(() {
-          imageData[idx].position = positionListTmp[idx];
-        });
-      });
     }
     setState(() {});
   }
@@ -76,43 +72,48 @@ class _ScratcherGameState extends State<ScratcherGame>
   }
 
   @override
-  void didChangeDependencies(){
-    screenWidth=screenModel.getScreenWidth();
-    screenHeight=screenModel.getScreenHeight();
-    ratio=screenModel.getRatio();
-    bonusHeight=(screenHeight-319*ratio)/2-28*ratio;
+  void didChangeDependencies() {
+    screenWidth = screenModel.getScreenWidth();
+    screenHeight = screenModel.getScreenHeight();
+    ratio = screenModel.getRatio();
+    bonusHeight = (screenHeight - 319 * ratio) / 2 - 28 * ratio;
+    Timer(Duration(milliseconds: 500), () {
+      setState(() {
+        isAppear = false;
+      });
+    });
     super.didChangeDependencies();
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {
     return isCompleted[index]
         ? Positioned(
-            top: item.position.dy*ratio+bonusHeight,
-            left: item.position.dx*ratio,
+            top: item.position.dy * ratio + bonusHeight,
+            left: item.position.dx * ratio,
             child: Container(
-              height: 144*ratio,
-              width: 144*ratio,
+              height: 138 * ratio,
+              width: 138 * ratio,
               alignment: Alignment.center,
               child: Container(
-                height: item.height*ratio,
-                width: item.width*ratio,
+                height: item.height * ratio,
+                width: item.width * ratio,
                 child: Image.file(File(assetFolder + item.image)),
               ),
             ),
           )
         : AnimatedPositioned(
-            top: item.position.dy*ratio+bonusHeight,
-            left: item.position.dx*ratio,
+            top: item.position.dy * ratio + bonusHeight,
+            left: item.position.dx * ratio,
             duration: Duration(milliseconds: 500),
             child: Scratcher(
-              brushSize: 30*ratio,
+              brushSize: 30 * ratio,
               threshold: 60,
               color: HexColor('#00FFFFFF'),
               image: Image.asset(
                 'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',
                 fit: BoxFit.fill,
               ),
-              onChange: (value){
+              onChange: (value) {
                 screenModel.playGameItemSound(SWEEPING_2);
                 print("Scratch progress: $value%");
               },
@@ -129,12 +130,12 @@ class _ScratcherGameState extends State<ScratcherGame>
                 }
               },
               child: Container(
-                height: 144*ratio,
-                width: 144*ratio,
+                height: 138 * ratio,
+                width: 138 * ratio,
                 alignment: Alignment.center,
                 child: Container(
-                  height: item.height*ratio,
-                  width: item.width*ratio,
+                  height: item.height * ratio,
+                  width: item.width * ratio,
                   child: Image.file(File(assetFolder + item.image)),
                 ),
               ),
@@ -143,16 +144,45 @@ class _ScratcherGameState extends State<ScratcherGame>
 
   Widget scratcher() {
     List<int> imageIndex = Iterable<int>.generate(imageData.length).toList();
-    return Stack(
-      children: imageIndex.map((index) {
-        return displayScratcherItem(imageData[index], index);
-      }).toList(),
+    return ScratcherAppear(
+      beginValue: 0.0,
+      endValue: 1.0,
+      time: 500,
+      delayTime: 600,
+      curve: Curves.easeOutBack,
+      isScale: isAppear,
+      isReverse: false,
+      child: Stack(
+        children: imageIndex.map((index) {
+          return displayScratcherItem(imageData[index], index);
+        }).toList(),
+      ),
     );
+  }
+
+  Widget scratcherBackground() {
+    return Positioned(
+        top: screenHeight / 2 - 338 / 2 * ratio,
+        left: screenWidth / 2 - 597 / 2 * ratio,
+        child: ScratcherAppear(
+            beginValue: 0.0,
+            endValue: 1.0,
+            time: 500,
+            delayTime: 600,
+            curve: Curves.easeOutBack,
+            isScale: isAppear,
+            isReverse: false,
+            child: Container(
+              height: 338 * ratio,
+              width: 597 * ratio,
+              child: Image.asset(
+                  'assets/images/game_draw_alphabet_3/draw_A/scatcher_image.png'),
+            )));
   }
 
   Widget displayScreen() {
     return Stack(
-      children: [scratcher(), BasicItem()],
+      children: [scratcherBackground(), scratcher(), BasicItem()],
     );
   }
 

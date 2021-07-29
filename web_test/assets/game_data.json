@@ -2804,6 +2804,7 @@
                 "dx": 253.0,
                 "dy": 47.0
               },
+              "type": 1,
               "status": 0,
               "width": 151.0,
               "height": 282.0
@@ -2823,6 +2824,7 @@
                 "dx": 371.0,
                 "dy": 270.0
               },
+              "type": 1,
               "status": 0,
               "width": 134.0,
               "height": 280.0
@@ -2843,6 +2845,7 @@
                 "dy": 204.0
               },
               "status": 0,
+              "type": 1,
               "width": 141.0,
               "height": 42.0
             },
@@ -2861,6 +2864,7 @@
                 "dx": 593.0,
                 "dy": 268.0
               },
+              "type": 1,
               "status": 0,
               "width": 168.0,
               "height": 212.0
@@ -2880,9 +2884,65 @@
                 "dx": 524.0,
                 "dy": 264.0
               },
+              "type": 1,
               "status": 0,
               "width": 145.0,
               "height": 130.0
+            },
+            {
+              "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_1.png",
+              "position": {
+                "dx": 181.0,
+                "dy": 63.0
+              },
+              "type": 0,
+              "status": 0,
+              "width": 119.0,
+              "height": 255.0
+            },
+            {
+              "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_2.png",
+              "position": {
+                "dx": 300.0,
+                "dy": 58.0
+              },
+              "type": 0,
+              "status": 0,
+              "width": 121.0,
+              "height": 260.0
+            },
+            {
+              "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_3.png",
+              "position": {
+                "dx": 241.0,
+                "dy": 213.0
+              },
+              "type": 0,
+              "status": 0,
+              "width": 130.0,
+              "height": 31.0
+            },
+            {
+              "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_4.png",
+              "position": {
+                "dx": 479.0,
+                "dy": 134.0
+              },
+              "type": 0,
+              "status": 0,
+              "width": 150.0,
+              "height": 184.0
+            },
+            {
+              "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_5.png",
+              "position": {
+                "dx": 475.0,
+                "dy": 208.0
+              },
+              "type": 0,
+              "status": 0,
+              "width": 122.0,
+              "height": 110.0
             }
           ],
           "width": 213.0,
@@ -2897,8 +2957,8 @@
             {
               "image": "ant.png",
               "position": {
-                "dx": 231.0,
-                "dy": 34.0
+                "dx": 249.0,
+                "dy": 37.0
               },
               "status": 0,
               "width": 124.0,
@@ -2907,8 +2967,8 @@
             {
               "image": "ambulance.png",
               "position": {
-                "dx": 411.0,
-                "dy": 209.0
+                "dx": 422.0,
+                "dy": 37.0
               },
               "status": 0,
               "width": 120.0,
@@ -2917,8 +2977,8 @@
             {
               "image": "airplane.png",
               "position": {
-                "dx": 231.0,
-                "dy": 209.0
+                "dx": 249.0,
+                "dy": 201.0
               },
               "status": 0,
               "width": 125.0,
@@ -2927,8 +2987,8 @@
             {
               "image": "arrow.png",
               "position": {
-                "dx": 411.0,
-                "dy": 34.0
+                "dx": 422.0,
+                "dy": 201.0
               },
               "status": 0,
               "width": 117.0,

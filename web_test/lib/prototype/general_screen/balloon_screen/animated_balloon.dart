@@ -213,8 +213,8 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
 
   Widget displayBubble() {
     return isTap?Container(): Container(
-      height: 150,
-      width: 71,
+      height: 277,
+      width: 130,
       child: Image.asset(
         'assets/images/common/balloons/${chosenBalloonImage}',
         fit: BoxFit.contain,

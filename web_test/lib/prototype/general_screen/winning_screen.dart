@@ -10,7 +10,7 @@ import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/slide_animation.dart';
 
 showResultDialog(BuildContext parentContext) async {
-  await Future.delayed(Duration(milliseconds: 500));
+  // await Future.delayed(Duration(milliseconds: 500));
   showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
       transitionBuilder: (context, a1, a2, widget) {
