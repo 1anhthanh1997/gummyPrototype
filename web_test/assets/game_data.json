@@ -2987,48 +2987,70 @@
           "background": "background_image.png",
           "items": [
             {
+              "id": 0,
+              "groupId": 0,
+              "type": 1,
               "image": "ant.png",
-              "position": {
-                "dx": 249.0,
-                "dy": 37.0
-              },
-              "status": 0,
               "width": 124.0,
               "height": 81.0
             },
             {
-              "image": "ambulance.png",
-              "position": {
-                "dx": 422.0,
-                "dy": 37.0
-              },
-              "status": 0,
-              "width": 120.0,
-              "height": 82.0
+              "id": 1,
+              "groupId": 1,
+              "type": 1,
+              "image": "apple.png",
+              "width": 69.0,
+              "height": 81.0
             },
             {
+              "id": 2,
+              "groupId": 2,
+              "type": 1,
               "image": "airplane.png",
-              "position": {
-                "dx": 249.0,
-                "dy": 201.0
-              },
-              "status": 0,
               "width": 125.0,
               "height": 44.0
             },
             {
+              "id": 3,
+              "groupId": 3,
+              "type": 1,
               "image": "arrow.png",
-              "position": {
-                "dx": 422.0,
-                "dy": 201.0
-              },
-              "status": 0,
               "width": 117.0,
               "height": 13.0
+            },
+            {
+              "id": 4,
+              "groupId": 4,
+              "type": 1,
+              "image": "ambulance.png",
+              "width": 120.0,
+              "height": 83.0
+            },
+            {
+              "id": 5,
+              "groupId": 5,
+              "type": 1,
+              "image": "avocado.png",
+              "width": 60.0,
+              "height": 77.0
+            },
+            {
+              "id": 6,
+              "groupId": 6,
+              "type": 1,
+              "image": "axe.png",
+              "width": 71.0,
+              "height": 78.0
+            },
+            {
+              "id": 7,
+              "groupId": 7,
+              "type": 1,
+              "image": "alligator.png",
+              "width": 140.0,
+              "height": 63.0
             }
-          ],
-          "width": 213.0,
-          "height": 284.0
+          ]
         },
         {
           "id": 2,
@@ -3037,104 +3059,134 @@
           "background": "background_image_3.png",
           "items": [
             {
+              "id": 0,
+              "groupId": 0,
+              "type": 1,
               "image": "ant.png",
-              "position": {
-                "dx": 435.0,
-                "dy": 69.0
-              },
-              "groupId": 0,
-              "status": 0,
-              "type": 1,
               "width": 124.0,
               "height": 81.0
             },
             {
+              "id": 1,
+              "groupId": 1,
+              "type": 1,
               "image": "apple.png",
-              "position": {
-                "dx": 277.0,
-                "dy": 69.0
-              },
-              "status": 0,
-              "groupId": 1,
-              "type": 1,
               "width": 69.0,
               "height": 81.0
             },
             {
-              "image": "airplane.png",
-              "position": {
-                "dx": 78.0,
-                "dy": 94.0
-              },
-              "status": 0,
+              "id": 2,
               "groupId": 2,
               "type": 1,
+              "image": "airplane.png",
               "width": 125.0,
               "height": 44.0
             },
             {
-              "image": "arrow.png",
-              "position": {
-                "dx": 616.0,
-                "dy": 102.0
-              },
-              "status": 0,
+              "id": 3,
               "groupId": 3,
               "type": 1,
+              "image": "arrow.png",
               "width": 117.0,
               "height": 13.0
             },
             {
-              "image": "ant_shadow.png",
-              "position": {
-                "dx": 430.0,
-                "dy": 250.0
-              },
-              "status": 0,
+              "id": 4,
+              "groupId": 4,
+              "type": 1,
+              "image": "ambulance.png",
+              "width": 120.0,
+              "height": 83.0
+            },
+            {
+              "id": 5,
+              "groupId": 5,
+              "type": 1,
+              "image": "avocado.png",
+              "width": 60.0,
+              "height": 77.0
+            },
+            {
+              "id": 6,
+              "groupId": 6,
+              "type": 1,
+              "image": "axe.png",
+              "width": 71.0,
+              "height": 78.0
+            },
+            {
+              "id": 7,
+              "groupId": 7,
+              "type": 1,
+              "image": "alligator.png",
+              "width": 140.0,
+              "height": 63.0
+            },
+            {
+              "id": 8,
               "groupId": 0,
               "type": 0,
+              "image": "ant_shadow.png",
               "width": 124.0,
               "height": 81.0
             },
             {
-              "image": "apple_shadow.png",
-              "position": {
-                "dx": 276.0,
-                "dy": 247.0
-              },
-              "status": 0,
+              "id": 9,
               "groupId": 1,
               "type": 0,
+              "image": "apple_shadow.png",
               "width": 69.0,
-              "height": 82.0
+              "height": 81.0
             },
             {
-              "image": "airplane_shadow.png",
-              "position": {
-                "dx": 66.0,
-                "dy": 275.0
-              },
-              "status": 0,
+              "id": 10,
               "groupId": 2,
               "type": 0,
+              "image": "airplane_shadow.png",
               "width": 125.0,
               "height": 44.0
             },
             {
-              "image": "arrow_shadow.png",
-              "position": {
-                "dx": 637.0,
-                "dy": 289.0
-              },
-              "status": 0,
+              "id": 11,
               "groupId": 3,
               "type": 0,
+              "image": "arrow_shadow.png",
               "width": 117.0,
               "height": 13.0
+            },
+            {
+              "id": 12,
+              "groupId": 4,
+              "type": 0,
+              "image": "ambulance_shadow.png",
+              "width": 120.0,
+              "height": 83.0
+            },
+            {
+              "id": 13,
+              "groupId": 5,
+              "type": 0,
+              "image": "avocado_shadow.png",
+              "width": 60.0,
+              "height": 77.0
+            },
+            {
+              "id": 14,
+              "groupId": 6,
+              "type": 0,
+              "image": "axe_shadow.png",
+              "width": 71.0,
+              "height": 78.0
+            },
+            {
+              "id": 15,
+              "groupId": 7,
+              "type": 0,
+              "image": "alligator_shadow.png",
+              "width": 140.0,
+              "height": 63.0
             }
-          ],
-          "width": 213.0,
-          "height": 284.0
+          ]
         }
       ]
     }

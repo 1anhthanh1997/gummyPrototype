@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
@@ -42,6 +43,8 @@ class _GameDragTargetState extends State<GameDragTarget>
   List<bool> isCompleted = [];
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
+  List<ItemModel> sourceImage = [];
+  List<ItemModel> targetImage = [];
   bool isWrongTarget = false;
   bool isHitFail = false;
   int count = 0;
@@ -53,7 +56,7 @@ class _GameDragTargetState extends State<GameDragTarget>
   double firstBonusHeight;
   double secondBonusHeight;
   Timer timer;
-  bool isDisplayTutorialWidget=false;
+  bool isDisplayTutorialWidget = false;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -63,21 +66,37 @@ class _GameDragTargetState extends State<GameDragTarget>
         idx++) {
       imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
     }
+
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int idx = 0; idx < imageData.length; idx++) {
       isCompleted.add(false);
     }
+    // print(randomImages.length);
     imageData.map((item) {
       // print(item.type);
       if (item.type == 0) {
         // print(item.image);
-        targetModel.add(item);
+        targetImage.add(item);
       } else if (item.type == 1) {
-        sourceModel.add(item);
+        sourceImage.add(item);
       }
-      setState(() {});
     }).toList();
-
+    for(int idx=0;idx<4;idx++){
+      Random random =Random();
+      int sourceIndex=random.nextInt(sourceImage.length);
+      sourceModel.add(sourceImage[sourceIndex]);
+      for(int index=0;index<targetImage.length;index++){
+        if(targetImage[index].groupId==sourceImage[sourceIndex].groupId){
+          targetModel.add(targetImage[index]);
+          break;
+        }
+      }
+      sourceImage.removeAt(sourceIndex);
+    }
+    print(sourceModel[0].image);
+    print(targetModel.length);
+    sourceModel.shuffle();
+    targetModel.shuffle();
     setState(() {});
   }
 
@@ -98,12 +117,28 @@ class _GameDragTargetState extends State<GameDragTarget>
     firstBonusHeight = (screenHeight / 2 - 73 * ratio) / 2 - 69 * ratio;
     secondBonusHeight =
         (screenHeight * 3 / 2 - 73 * ratio) / 2 - 250 * ratio - 50 * ratio;
+    // List<double>horizontalOffset = [];
+    // for(int idx=0;idx<4;idx++){
+    //   horizontalOffset.add();
+    // }
+    for (int index = 0; index < sourceModel.length; index++) {
+      print(index);
+      sourceModel[index].position = Offset(
+          screenWidth / 25 + screenWidth * 6 / 25 * index,
+          screenHeight / 4 - 50 * ratio);
+    }
+    for (int index = 0; index < targetModel.length; index++) {
+      print(index);
+      targetModel[index].position = Offset(
+          screenWidth / 25 + screenWidth * 6 / 25 * index,
+          screenHeight * 3 / 4 - 50 * ratio);
+    }
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    if(timer!=null){
+    if (timer != null) {
       timer.cancel();
     }
     super.dispose();
@@ -123,7 +158,7 @@ class _GameDragTargetState extends State<GameDragTarget>
     }
     timer.cancel();
     setState(() {
-      isDisplayTutorialWidget=false;
+      isDisplayTutorialWidget = false;
     });
     _initializeTimer();
   }
@@ -150,8 +185,7 @@ class _GameDragTargetState extends State<GameDragTarget>
   void callOnDraggableCancelled(ItemModel item, Offset offset) {
     if (isWrongTarget) {
       Offset offsetSource = item.position;
-      item.position =
-          Offset(offset.dx / ratio, (offset.dy - firstBonusHeight) / ratio);
+      item.position = Offset(offset.dx, offset.dy);
       setState(() {
         isHitFail = true;
       });
@@ -172,8 +206,7 @@ class _GameDragTargetState extends State<GameDragTarget>
       });
     } else {
       Offset offsetSource = item.position;
-      item.position =
-          Offset(offset.dx / ratio, (offset.dy - firstBonusHeight) / ratio);
+      item.position = Offset(offset.dx, offset.dy);
       setState(() {});
       Timer(Duration(milliseconds: 50), () {
         double denta = getBiggerSpace(offsetSource, offset);
@@ -187,12 +220,20 @@ class _GameDragTargetState extends State<GameDragTarget>
     }
   }
 
+  int findSourceModelIndex(int groupId) {
+    for (int idx = 0; idx < sourceModel.length; idx++) {
+      if (sourceModel[idx].groupId == groupId) {
+        return idx;
+      }
+    }
+  }
+
   Widget displayDraggable() {
     return Stack(
       children: sourceModel.map((item) {
         return AnimatedPositioned(
-            top: item.position.dy * ratio + firstBonusHeight,
-            left: item.position.dx * ratio,
+            top: item.position.dy,
+            left: item.position.dx,
             duration: Duration(milliseconds: item.duration),
             child: Draggable(
               data: item.groupId,
@@ -201,23 +242,34 @@ class _GameDragTargetState extends State<GameDragTarget>
                   : AnimationDraggableTap(
                       buttonId: item.id,
                       child: AnimationHitFail(
-                        isDisplayAnimation: isHitFail,
-                        child: Container(
-                          height: item.height * 0.9 * ratio,
-                          width: item.width * 0.9 * ratio,
-                          child: Image.file(
-                            File(assetFolder + item.image),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
+                          isDisplayAnimation: isHitFail,
+                          child: Container(
+                            // color: Colors.red,
+                            height: 100 * ratio,
+                            width: screenWidth / 5,
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: item.height * 0.9 * ratio,
+                              width: item.width * 0.9 * ratio,
+                              child: Image.file(
+                                File(assetFolder + item.image),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          )),
                     ),
               feedback: Container(
-                height: item.height * ratio,
-                width: item.width * ratio,
-                child: Image.file(
-                  File(assetFolder + item.image),
-                  fit: BoxFit.contain,
+                // color: Colors.red,
+                height: 100 * ratio,
+                width: screenWidth / 5,
+                alignment: Alignment.center,
+                child: Container(
+                  height: item.height * ratio,
+                  width: item.width * ratio,
+                  child: Image.file(
+                    File(assetFolder + item.image),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               childWhenDragging: Container(),
@@ -239,28 +291,37 @@ class _GameDragTargetState extends State<GameDragTarget>
   Widget displayTarget() {
     return Stack(
       children: targetModel.map((item) {
-        // print(item);
         int index = targetModel.indexOf(item);
+        int sourceIndex = findSourceModelIndex(item.groupId);
         return Positioned(
-          top: screenHeight * 3 / 4 - 50 * ratio,
-          left: item.position.dx * ratio,
+          top: item.position.dy,
+          left: item.position.dx,
           child: DragTarget<int>(
             builder: (context, candidateData, rejectedData) {
               return item.status == 0
                   ? Container(
                       height: 100 * ratio,
-                      width: item.width * ratio,
+                      width: screenWidth / 5,
+                      // color: Colors.red,
+                      alignment: Alignment.center,
                       child: Container(
+                        height: item.height * ratio,
+                        width: item.width * ratio,
                         child: Image.file(File(assetFolder + item.image),
                             fit: BoxFit.contain),
                       ))
                   : AnimatedMatchedTarget(
                       child: Container(
                           height: 100 * ratio,
-                          width: item.width * ratio,
+                          width: screenWidth / 5,
+                          // color: Colors.red,
+                          alignment: Alignment.center,
                           child: Container(
+                            height: item.height * ratio,
+                            width: item.width * ratio,
                             child: Image.file(
-                                File(assetFolder + sourceModel[index].image),
+                                File(assetFolder +
+                                    sourceModel[sourceIndex].image),
                                 fit: BoxFit.contain),
                           )));
             },
@@ -277,14 +338,15 @@ class _GameDragTargetState extends State<GameDragTarget>
               setState(() {
                 count++;
                 item.status = 1;
-                sourceModel[index].status = 1;
+                sourceModel[sourceIndex].status = 1;
               });
               if (count == sourceModel.length) {
                 screenModel.playGameItemSound(CORRECT);
                 Timer(Duration(milliseconds: 1000), () {
                   screenModel.nextStep();
-                  if(screenModel.currentStep==screenModel.currentGame.gameData.length-1){
-                    if(timer!=null){
+                  if (screenModel.currentStep ==
+                      screenModel.currentGame.gameData.length - 1) {
+                    if (timer != null) {
                       timer.cancel();
                     }
                   }
@@ -305,8 +367,8 @@ class _GameDragTargetState extends State<GameDragTarget>
       ItemModel item = sourceModel[index];
       if (item.status == 0) {
         startPosition = Offset(
-            item.position.dx * ratio + item.width / 2 * ratio,
-            item.position.dy * ratio + item.height / 2 * ratio + firstBonusHeight);
+            screenWidth / 25 + screenWidth * 6 / 25 * index + screenWidth / 10,
+            screenHeight / 4);
         groupId = item.groupId;
         break;
       }
@@ -314,8 +376,9 @@ class _GameDragTargetState extends State<GameDragTarget>
     for (int index = 0; index < targetModel.length; index++) {
       ItemModel item = targetModel[index];
       if (item.status == 0 && item.groupId == groupId) {
-        endPosition = Offset(item.position.dx * ratio + item.width / 2 * ratio,
-            screenHeight * 3 / 4 );
+        endPosition = Offset(
+            screenWidth / 25 + screenWidth * 6 / 25 * index + screenWidth / 10,
+            screenHeight * 3 / 4);
         break;
       }
     }
@@ -323,16 +386,16 @@ class _GameDragTargetState extends State<GameDragTarget>
 
     return isDisplayTutorialWidget
         ? TutorialWidget(
-      startPosition: startPosition,
-      endPosition: endPosition,
-      onCompleted: () {
-        Timer(Duration(milliseconds: 200), () {
-          setState(() {
-            isDisplayTutorialWidget = false;
-          });
-        });
-      },
-    )
+            startPosition: startPosition,
+            endPosition: endPosition,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
         : Container();
   }
 
@@ -352,7 +415,7 @@ class _GameDragTargetState extends State<GameDragTarget>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body: imageData.length == 0
+            body: sourceModel.length == 0
                 ? Container()
                 : Container(
                     decoration: BoxDecoration(

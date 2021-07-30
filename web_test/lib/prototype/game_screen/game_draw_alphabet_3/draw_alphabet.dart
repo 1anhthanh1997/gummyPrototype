@@ -239,7 +239,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       ItemModel item = drawTutorial[currentIndex];
       print(item.image);
       return Positioned(
-          top: item.position.dy * ratio,
+          top: item.position.dy * ratio+bonusHeight,
           left: item.position.dx * ratio,
           child: Container(
             height: item.height * ratio,

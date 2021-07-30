@@ -52,6 +52,7 @@ class MusicController{
       stopTutorial();
     }
     tutorialPlayer=await audioCache.play(url);
+    tutorialPlayer.setPlaybackRate(playbackRate: 0.8);
   }
 
   void stopTutorial()async{

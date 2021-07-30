@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,8 @@ class _ScratcherGameState extends State<ScratcherGame>
   int currentIndex = 0;
   double bonusHeight = 0;
   List<ItemModel> imageData = [];
+  List<ItemModel> sourceImage = [];
+  List<ItemModel> sourceModel = [];
   ParentGameModel allGameData;
   String assetFolder;
   List<bool> isCompleted = [];
@@ -56,8 +59,22 @@ class _ScratcherGameState extends State<ScratcherGame>
       imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
     }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
-
-    for (int idx = 0; idx < imageData.length; idx++) {
+    imageData.map((item) {
+      // print(item.type);
+      if (item.type == 1) {
+        sourceImage.add(item);
+      }
+    }).toList();
+    List<Offset> position=[Offset(249,37),Offset(422,37),Offset(249,201),Offset(422,201)];
+    for (int idx = 0; idx < 4; idx++) {
+      Random random = Random();
+      int sourceIndex = random.nextInt(sourceImage.length);
+      ItemModel item=sourceImage[sourceIndex];
+      item.position=position[idx];
+      sourceModel.add(item);
+      sourceImage.removeAt(sourceIndex);
+    }
+    for (int idx = 0; idx < sourceModel.length; idx++) {
       isCompleted.add(false);
     }
     setState(() {});
@@ -143,7 +160,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   }
 
   Widget scratcher() {
-    List<int> imageIndex = Iterable<int>.generate(imageData.length).toList();
+    List<int> imageIndex = Iterable<int>.generate(sourceModel.length).toList();
     return ScratcherAppear(
       beginValue: 0.0,
       endValue: 1.0,
@@ -154,7 +171,7 @@ class _ScratcherGameState extends State<ScratcherGame>
       isReverse: false,
       child: Stack(
         children: imageIndex.map((index) {
-          return displayScratcherItem(imageData[index], index);
+          return displayScratcherItem(sourceModel[index], index);
         }).toList(),
       ),
     );
