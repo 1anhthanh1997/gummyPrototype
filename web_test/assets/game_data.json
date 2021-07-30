@@ -2332,7 +2332,7 @@
           "items": [
             {
               "id": 0,
-              "image": "first_item.svg",
+              "image": "item_1.png",
               "groupId": 0,
               "position": {
                 "dx": 359.0,
@@ -2343,44 +2343,44 @@
                 "dx": 180.0,
                 "dy": 174.0
               },
-              "width": 95.0,
-              "height": 82.0
+              "width": 107.0,
+              "height": 93.0
             },
             {
               "id": 1,
-              "image": "second_item.svg",
-              "groupId": 1,
+              "image": "item_2.png",
+              "groupId": 0,
               "position": {
                 "dx": 353.0,
                 "dy": 131.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 543.0,
-                "dy": 121.0
+                "dx": 180.0,
+                "dy": 174.0
               },
               "width": 107.0,
               "height": 93.0
             },
             {
               "id": 2,
-              "image": "third_item.svg",
-              "groupId": 1,
+              "image": "item_3.png",
+              "groupId": 0,
               "position": {
                 "dx": 353.0,
                 "dy": 252.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 543.0,
-                "dy": 121.0
+                "dx": 180.0,
+                "dy": 174.0
               },
               "width": 107.0,
               "height": 93.0
             },
             {
               "id": 3,
-              "image": "fourth_item.svg",
+              "image": "item_4.png",
               "groupId": 0,
               "position": {
                 "dx": 353.0,
@@ -2396,11 +2396,11 @@
             },
             {
               "id": 4,
-              "image": "fifth_item.svg",
+              "image": "item_5.png",
               "groupId": 0,
               "position": {
                 "dx": 353.0,
-                "dy": 252.0
+                "dy": 174.0
               },
               "type": 1,
               "endPosition": {
@@ -2412,7 +2412,7 @@
             },
             {
               "id": 5,
-              "image": "sixth_item.svg",
+              "image": "item_6.png",
               "groupId": 1,
               "position": {
                 "dx": 353.0,
@@ -2428,7 +2428,7 @@
             },
             {
               "id": 6,
-              "image": "seventh_item.svg",
+              "image": "item_7.png",
               "groupId": 1,
               "position": {
                 "dx": 353.0,
@@ -2444,16 +2444,48 @@
             },
             {
               "id": 7,
-              "image": "eighth_item.svg",
-              "groupId": 0,
+              "image": "item_8.png",
+              "groupId": 1,
               "position": {
                 "dx": 353.0,
                 "dy": 252.0
               },
               "type": 1,
               "endPosition": {
-                "dx": 180.0,
-                "dy": 174.0
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 8,
+              "image": "item_9.png",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
+              },
+              "width": 107.0,
+              "height": 93.0
+            },
+            {
+              "id": 9,
+              "image": "item_10.png",
+              "groupId": 1,
+              "position": {
+                "dx": 353.0,
+                "dy": 252.0
+              },
+              "type": 1,
+              "endPosition": {
+                "dx": 543.0,
+                "dy": 121.0
               },
               "width": 107.0,
               "height": 93.0

@@ -7,6 +7,7 @@ import 'package:web_test/prototype/general_screen/balloon_screen/animated_balloo
 import 'package:web_test/provider/screen_model.dart';
 
 class MainBalloonScreen extends StatefulWidget {
+
   @override
   _MainBalloonState createState() => _MainBalloonState();
 }

@@ -38,13 +38,10 @@ class _TutorialScaleState extends State<TutorialScale>
     with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _scaleAnimation;
-  ScreenModel screenModel;
   Timer timer;
 
   @override
   void initState() {
-    screenModel = Provider.of<ScreenModel>(context, listen: false);
-    screenModel.setContext(context);
     super.initState();
     _animationController = AnimationController(
         duration: Duration(milliseconds: widget.time), vsync: this);
@@ -85,7 +82,7 @@ class _TutorialScaleState extends State<TutorialScale>
 
     return GestureDetector(
         onTapDown: (details) {
-          screenModel.logTapEvent(widget.itemId, details.globalPosition);
+          // screenModel.logTapEvent(widget.itemId, details.globalPosition);
           if (widget.onTab != null) {
             widget.onTab();
           }

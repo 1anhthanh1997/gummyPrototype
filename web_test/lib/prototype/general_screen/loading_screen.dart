@@ -146,28 +146,35 @@ class _LoadingScreenState extends State<LoadingScreen> {
     }
     _requestDownload();
     // print(_localPath);
-    Timer(Duration(milliseconds: 4000), () {
+    Timer(Duration(milliseconds: 10000), () {
       extractFile();
     });
   }
 
   void extractFile() async {
     final zipFile = File('${_localPath}/assets.zip');
-    final destinationDir = Directory(_localPath);
-    try {
-      ZipFile.extractToDirectory(
-          zipFile: zipFile, destinationDir: destinationDir)
-          .whenComplete(() {
-        setState(() {
-          isComplete = true;
+    bool fileExist = await zipFile.exists();
+    if (fileExist) {
+      final destinationDir = Directory(_localPath);
+      try {
+        ZipFile.extractToDirectory(
+                zipFile: zipFile, destinationDir: destinationDir)
+            .whenComplete(() {
+          setState(() {
+            isComplete = true;
+          });
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+              ModalRoute.withName("/Home"));
         });
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            ModalRoute.withName("/Home"));
+      } catch (e) {
+        print(e);
+      }
+    }else{
+      Timer(Duration(milliseconds: 2000),(){
+        extractFile();
       });
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -177,7 +184,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
 
     final SendPort send =
-    IsolateNameServer.lookupPortByName('downloader_send_port');
+        IsolateNameServer.lookupPortByName('downloader_send_port');
     send.send([id, status, progress]);
   }
 
@@ -244,7 +251,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     });
     screenModel.getDeviceId();
     getCurrentPlayGameSF();
-    timer=Timer.periodic(Duration(milliseconds: 1000), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
       setState(() {
         currentLoadingIndex = (currentLoadingIndex + 1) % 3;
       });
@@ -255,7 +262,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   void dispose() {
-    if(timer!=null){
+    if (timer != null) {
       timer.cancel();
     }
     super.dispose();

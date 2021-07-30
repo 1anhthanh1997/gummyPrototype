@@ -10,7 +10,9 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/provider/music_controller.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/bubble_scale.dart';
 import 'package:web_test/widgets/particle.dart';
+import 'package:web_test/widgets/tutorial_scale.dart';
 
 class AnimatedBalloon extends StatefulWidget {
   double height_screen;
@@ -61,13 +63,12 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
   List<Color> balloonColor = [];
   String chosenBalloonImage;
   Color chosenColor;
-
   ScreenModel screenModel;
-
   Timer remindTimer;
   int tutorialCount = 0;
+  bool isScale = false;
   List<SquareParticle> particles = [];
-  MusicController musicController=MusicController();
+  MusicController musicController = MusicController();
 
   @override
   void initState() {
@@ -197,11 +198,17 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
           children: [
             GestureDetector(
                 onTap: () {
-                  List<String>bubbleSound=[BALLOON_POP_A,BALLOON_POP_B];
-                  Random random =Random();
-                  String chosenSound=bubbleSound[random.nextInt(bubbleSound.length)];
+                  List<String> bubbleSound = [BALLOON_POP_A, BALLOON_POP_B];
+                  Random random = Random();
+                  String chosenSound =
+                      bubbleSound[random.nextInt(bubbleSound.length)];
                   musicController.playItemSoundPlayer(chosenSound);
-                  hitBalloon(time);
+                  setState(() {
+                    isScale = true;
+                  });
+                  Timer(Duration(milliseconds: 100), () {
+                    hitBalloon(time);
+                  });
                 },
                 child: displayBubble()),
             ...particles.map((it) => it.buildWidget(time, chosenColor))
@@ -212,14 +219,22 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
   }
 
   Widget displayBubble() {
-    return isTap?Container(): Container(
-      height: 277,
-      width: 130,
-      child: Image.asset(
-        'assets/images/common/balloons/${chosenBalloonImage}',
-        fit: BoxFit.contain,
-      ),
-    );
+    return isTap
+        ? Container()
+        : BubbleScale(
+            isScale: isScale,
+            beginValue: 1.0,
+            endValue: 1.1,
+            time: 100,
+            child: Container(
+              height: 277,
+              width: 130,
+              child: Image.asset(
+                'assets/images/common/balloons/${chosenBalloonImage}',
+                fit: BoxFit.contain,
+              ),
+            ),
+          );
   }
 
   @override
@@ -231,13 +246,10 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     return AnimatedBuilder(
       animation: _animationFloatUp,
       builder: (context, child) {
-
-        return
-            Transform.translate(
-              offset: Offset(_balloonLeft,_animationFloatUp.value),
-              child: isDone ? Container() : child,
-            );
-
+        return Transform.translate(
+          offset: Offset(_balloonLeft, _animationFloatUp.value),
+          child: isDone ? Container() : child,
+        );
       },
       child: _buildParticle(),
     );

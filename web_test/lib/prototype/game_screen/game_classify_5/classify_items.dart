@@ -45,6 +45,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   bool isDisplayTutorialWidget = false;
   Curve curve;
   int isPlayTargetSound = 0;
+  List<ItemModel> sourceModel = [];
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -55,26 +56,28 @@ class _ClassifyItemState extends State<ClassifyItem>
     assetFolder = screenModel.localPath + data.gameAssets;
     for (int idx = 0; idx < items.length; idx++) {
       if (items[idx].type == 1) {
+        sourceModel.add(items[idx]);
         draggableCount++;
-        items[idx].position = Offset(items[idx].position.dx,
-            -1 * (screenHeight / 6 * (2 * (idx + 1) + 1)));
         durationTime = 500;
         curve = Curves.easeOutBack;
-        print(idx);
-        print(items.length);
-        Timer(Duration(milliseconds: 500), () {
-          items[idx].position = Offset(
-              items[idx].position.dx,
-              screenHeight -
-                  screenHeight / 6 * (2 * idx + 1) -
-                  items[idx].height / 2);
-          // curve=Curves.linear;
-
-          print(items[idx].position);
-          setState(() {});
-        });
       }
-      print('Break');
+    }
+    sourceModel.shuffle();
+    for (int idx = 0; idx < sourceModel.length; idx++) {
+      sourceModel[idx].position = Offset(sourceModel[idx].position.dx,
+          -1 * (screenHeight / 6 * (2 * (idx + 1) + 1)));
+      durationTime = 500;
+      Timer(Duration(milliseconds: 500), () {
+        sourceModel[idx].position = Offset(
+            sourceModel[idx].position.dx,
+            screenHeight -
+                screenHeight / 6 * (2 * idx + 1) -
+                sourceModel[idx].height / 2);
+        // curve=Curves.linear;
+
+        print(sourceModel[idx].position);
+        setState(() {});
+      });
     }
     print('Break');
     Timer(Duration(milliseconds: 1000 * (items.length - 3)), () {
@@ -143,11 +146,13 @@ class _ClassifyItemState extends State<ClassifyItem>
     setState(() {
       curve = Curves.easeOutBack;
     });
+    print(draggableCount);
+    print(index);
     for (int idx = draggableCount - 1; idx > index; idx--) {
-      if (items[idx].status == 0) {
-        items[idx].position = Offset(
-            items[idx].position.dx, items[idx].position.dy + screenHeight / 3);
-        print(items[idx].position);
+      if (sourceModel[idx].status == 0) {
+        sourceModel[idx].position = Offset(
+            sourceModel[idx].position.dx, sourceModel[idx].position.dy + screenHeight / 3);
+        print(sourceModel[idx].position);
       }
     }
     print('Break');
@@ -172,7 +177,7 @@ class _ClassifyItemState extends State<ClassifyItem>
       child: Container(
         height: item.height * ratio,
         width: item.width * ratio,
-        child: SvgPicture.file(
+        child: Image.file(
           File(assetFolder + item.image),
           fit: BoxFit.contain,
         ),
@@ -180,7 +185,7 @@ class _ClassifyItemState extends State<ClassifyItem>
       feedback: Container(
         height: item.height * ratio,
         width: item.width * ratio,
-        child: SvgPicture.file(
+        child: Image.file(
           File(assetFolder + item.image),
           fit: BoxFit.contain,
         ),
@@ -294,7 +299,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         child: Container(
           height: item.height * ratio,
           width: item.width * ratio,
-          child: SvgPicture.file(
+          child: Image.file(
             File(assetFolder + item.image),
             fit: BoxFit.contain,
           ),
@@ -314,14 +319,12 @@ class _ClassifyItemState extends State<ClassifyItem>
   }
 
   Widget displayDraggableItem() {
-    List<int> imageIndex = Iterable<int>.generate(items.length).toList();
+    List<int> imageIndex = Iterable<int>.generate(sourceModel.length).toList();
     return Container(
         child: Stack(
             children: imageIndex.map((index) {
-      ItemModel item = items[index];
-      return item.type == 1
-          ? displayFirstDraggableItem(item, index)
-          : Container();
+      ItemModel item = sourceModel[index];
+      return displayFirstDraggableItem(item, index);
     }).toList()));
   }
 
