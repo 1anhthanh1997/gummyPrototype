@@ -36,6 +36,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   Offset questionPositionTmp = Offset(0, 0);
   List<Offset> answerPositionTmp = [];
   List<ItemModel> answerData = [];
+
   final List<List<SquareParticle>> particles = [];
   bool isDisplayAnswer = false;
   ParentGameModel allGameData;
@@ -64,6 +65,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         itemData[index].position =
             Offset(screenWidth / 2, screenHeight + 125 * ratio);
         questionData = itemData[index];
+        Random random = Random();
+        questionData.groupId = random.nextInt(3);
       } else {
         answerPositionTmp.add(itemData[index].position);
         itemData[index].position =
@@ -80,6 +83,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         });
       }
     }
+    print('Answer Count');
     print(answerCount);
   }
 
@@ -150,6 +154,23 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     _initializeTimer();
   }
 
+  String getAssetLink() {
+    switch (questionData.groupId) {
+      case 0:
+        {
+          return 'assets/images/game_memory_number_7/number/one.png';
+        }
+      case 1:
+        {
+          return 'assets/images/game_memory_number_7/number/two.png';
+        }
+      case 2:
+        {
+          return 'assets/images/game_memory_number_7/number/three.png';
+        }
+    }
+  }
+
   Widget _square(int index) {
     ItemModel item = answerData[index];
     return Container(
@@ -196,8 +217,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           child: Container(
             height: 197 * ratio,
             width: 87 * ratio,
-            child: Image.asset(
-                'assets/images/game_memory_number_7/number/one.png'),
+            child: Image.asset(getAssetLink()),
           ),
         ));
   }
@@ -347,7 +367,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     Offset position = Offset(0, 0);
     for (int idx = 0; idx < answerData.length; idx++) {
       ItemModel item = answerData[idx];
-      if (item.groupId == questionData.groupId) {
+      if (item.groupId == questionData.groupId && item.status == 0) {
         position = Offset(item.position.dx * ratio + item.width / 2 * ratio,
             item.position.dy * ratio + item.height / 4 * ratio);
       }

@@ -376,8 +376,8 @@ class _ClassifyItemState extends State<ClassifyItem>
     Offset startPosition = Offset(0, 0);
     Offset endPosition = Offset(0, 0);
     int groupId;
-    for (int index = 0; index < items.length; index++) {
-      ItemModel item = items[index];
+    for (int index = 0; index < sourceModel.length; index++) {
+      ItemModel item = sourceModel[index];
       if (item.status == 0) {
         startPosition = Offset(
             item.position.dx * ratio + item.width / 2 * ratio,

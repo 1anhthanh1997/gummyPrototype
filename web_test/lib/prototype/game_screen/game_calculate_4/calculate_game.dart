@@ -26,6 +26,8 @@ class _CalculateGameState extends State<CalculateGame> {
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
   List<ItemModel> normalItemModel = [];
+  List<ItemModel> sourceImage = [];
+  List<ItemModel> targetImage = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
   String assetFolder = '';
@@ -45,7 +47,7 @@ class _CalculateGameState extends State<CalculateGame> {
   final debug = true;
   int stepIndex;
   Timer timer;
-  bool isDisplayTutorialWidget=false;
+  bool isDisplayTutorialWidget = false;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -60,16 +62,32 @@ class _CalculateGameState extends State<CalculateGame> {
       if (itemData[index].type == 0) {
         // print(itemData[index].status);
         setState(() {
-          targetModel.add(itemData[index]);
+          targetImage.add(itemData[index]);
           targetKey.add(itemData[index].id);
         });
       }
       if (itemData[index].type == 1) {
-        sourceModel.add(itemData[index]);
+        sourceImage.add(itemData[index]);
         draggableKey.add(itemData[index].id);
       }
       if (itemData[index].type == 2) {
         normalItemModel.add(itemData[index]);
+      }
+    }
+    Random random = Random();
+    int chosenIndex = random.nextInt(3);
+
+    for (int index = 0; index < 3; index++) {
+      Random secondRandom = Random();
+      ItemModel item = sourceImage[secondRandom.nextInt(sourceImage.length)];
+      sourceModel.add(item);
+      sourceImage.remove(item);
+    }
+
+    for (int index = 0; index < targetImage.length; index++) {
+      if (targetImage[index].groupId == sourceModel[chosenIndex].groupId) {
+        targetModel.add(targetImage[index]);
+        break;
       }
     }
   }
@@ -91,12 +109,17 @@ class _CalculateGameState extends State<CalculateGame> {
     screenHeight = screenModel.getScreenHeight();
     screenWidth = screenModel.getScreenWidth();
     ratio = screenModel.getRatio();
+    for (int index = 0; index < sourceModel.length; index++) {
+      ItemModel item = sourceModel[index];
+      sourceModel[index].position =
+          Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
+    }
     bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
   }
 
   @override
   void dispose() {
-    if(timer!=null){
+    if (timer != null) {
       timer.cancel();
     }
     super.dispose();
@@ -116,7 +139,7 @@ class _CalculateGameState extends State<CalculateGame> {
     }
     timer.cancel();
     setState(() {
-      isDisplayTutorialWidget=false;
+      isDisplayTutorialWidget = false;
     });
     _initializeTimer();
   }
@@ -163,7 +186,7 @@ class _CalculateGameState extends State<CalculateGame> {
     if (isWrongTarget) {
       screenModel.playGameItemSound(WRONG_COLOR);
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx / ratio, offset.dy / ratio);
+      item.position = Offset(offset.dx, offset.dy);
       setState(() {
         isHitFail = true;
       });
@@ -184,7 +207,7 @@ class _CalculateGameState extends State<CalculateGame> {
       });
     } else {
       Offset offsetSource = item.position;
-      item.position = Offset(offset.dx / ratio, offset.dy / ratio);
+      item.position = Offset(offset.dx, offset.dy);
       setState(() {});
       Timer(Duration(milliseconds: 50), () {
         double denta = getBiggerSpace(offsetSource, offset);
@@ -195,6 +218,14 @@ class _CalculateGameState extends State<CalculateGame> {
         item.position = offsetSource;
         setState(() {});
       });
+    }
+  }
+
+  int getSourceIndex(int groupId) {
+    for (int index = 0; index < sourceModel.length; index++) {
+      if (sourceModel[index].groupId == groupId) {
+        return index;
+      }
     }
   }
 
@@ -271,25 +302,35 @@ class _CalculateGameState extends State<CalculateGame> {
       double height, double width, String image, int value, bool isScale) {
     if (value == 0) {
       return Container(
-        height: height * ratio,
-        width: width * ratio,
-        child: SvgPicture.file(
-          File(image),
-          fit: BoxFit.contain,
+        height: 111 * ratio,
+        width: 130 * ratio,
+        alignment: Alignment.center,
+        child: Container(
+          height: height * ratio,
+          width: width * ratio,
+          child: Image.file(
+            File(image),
+            fit: BoxFit.contain,
+          ),
         ),
       );
     } else {
       return Container(
-        height: height * ratio,
-        width: width * ratio,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: FileImage(File(image)), fit: BoxFit.contain)),
+        height: 100 * ratio,
+        width: 419 / 3 * ratio,
         alignment: Alignment.center,
-        padding: EdgeInsets.only(top: 20 * ratio),
-        child: isScale
-            ? displayNumber(value, 29 * 1.3, 36 * 1.3)
-            : displayNumber(value, 29, 36),
+        child: Container(
+          height: height * ratio,
+          width: width * ratio,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: FileImage(File(image)), fit: BoxFit.contain)),
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(top: 20 * ratio),
+          child: isScale
+              ? displayNumber(value, 29 * 1.3, 36 * 1.3)
+              : displayNumber(value, 29, 36),
+        ),
       );
     }
   }
@@ -300,13 +341,15 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: targetIndex.map((index) {
         ItemModel item = targetModel[index];
+        int sourceIndex = getSourceIndex(item.groupId);
         return Positioned(
             top: bonusHeight,
             left: item.position.dx * ratio,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 String fullInitUrl = assetFolder + item.image;
-                String fullCompleteUrl = assetFolder + sourceModel[index].image;
+                String fullCompleteUrl =
+                    assetFolder + sourceModel[sourceIndex].image;
                 return item.status == 0
                     ? displayItemImage(
                         item.height, item.width, fullInitUrl, 0, false)
@@ -328,13 +371,13 @@ class _CalculateGameState extends State<CalculateGame> {
                 screenModel.endPositionId = item.id;
                 screenModel.endPosition = item.position;
                 setState(() {
-                  sourceModel[index].status = 1;
+                  sourceModel[sourceIndex].status = 1;
                   targetModel[index].status = 1;
                 });
                 Timer(Duration(milliseconds: 1500), () {
                   screenModel.nextStep();
-                  if(screenModel.currentStep==0){
-                    if(timer!=null){
+                  if (screenModel.currentStep == 0) {
+                    if (timer != null) {
                       timer.cancel();
                     }
                   }
@@ -353,7 +396,7 @@ class _CalculateGameState extends State<CalculateGame> {
         int number;
         ItemModel item = sourceModel[index];
         String fullInitUrl = assetFolder + item.image;
-        if (item.groupId == 0) {
+        if (item.groupId == targetModel[0].groupId) {
           number = result;
         } else if (randomIndex % 2 == 0) {
           number = firstRandomValue;
@@ -363,8 +406,8 @@ class _CalculateGameState extends State<CalculateGame> {
         randomIndex++;
         return AnimatedPositioned(
             duration: Duration(milliseconds: item.duration),
-            top: item.position.dy * ratio,
-            left: item.position.dx * ratio,
+            top: item.position.dy,
+            left: item.position.dx,
             child: AnimationDraggableTap(
               child: Draggable(
                 data: item.groupId,
@@ -417,38 +460,33 @@ class _CalculateGameState extends State<CalculateGame> {
   Widget displayTutorialWidget() {
     Offset startPosition = Offset(0, 0);
     Offset endPosition = Offset(0, 0);
-    int groupId;
     for (int index = 0; index < sourceModel.length; index++) {
       ItemModel item = sourceModel[index];
-      if (item.status == 0) {
-        startPosition = Offset(
-            item.position.dx * ratio + item.width / 2 * ratio,
-            item.position.dy * ratio + item.height / 2 * ratio );
-        groupId = item.groupId;
-        break;
-      }
-    }
-    for (int index = 0; index < targetModel.length; index++) {
-      ItemModel item = targetModel[index];
-      if (item.status == 0 && item.groupId == groupId) {
-        endPosition = Offset(item.position.dx * ratio + item.width / 2 * ratio,
-            bonusHeight+item.height/2 );
+      if ( item.groupId == targetModel[0].groupId) {
+        print('Tutorial');
+        print(index);
+        startPosition = Offset(item.position.dx + item.width / 2 * ratio,
+            item.position.dy + item.height / 2 * ratio);
         break;
       }
     }
 
+    ItemModel item = targetModel[0];
+    endPosition = Offset(item.position.dx * ratio + 110 / 2 * ratio,
+        bonusHeight + 110 / 2*ratio);
+
     return isDisplayTutorialWidget
         ? TutorialWidget(
-      startPosition: startPosition,
-      endPosition: endPosition,
-      onCompleted: () {
-        Timer(Duration(milliseconds: 200), () {
-          setState(() {
-            isDisplayTutorialWidget = false;
-          });
-        });
-      },
-    )
+            startPosition: startPosition,
+            endPosition: endPosition,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
         : Container();
   }
 

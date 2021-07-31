@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +31,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   int chosenIndex = -1;
   ParentGameModel allGameData;
   List<int> isScale = [];
+  List<ItemModel> sourceModel = [];
   ScreenModel screenModel;
   int count = 0;
   int pairCount = 0;
@@ -42,6 +44,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   double secondBonusHeight;
   Timer timer;
   bool isDisplayTutorialWidget = false;
+  List<int>delayIndex=[];
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -56,13 +59,47 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     for (int idx = 0; idx < itemData.length; idx++) {
       isScale.add(0);
       if (itemData[idx].type == 1) {
+        sourceModel.add(itemData[idx]);
         pairCount++;
       }
     }
+    List<double> horizontalPosition = [160, 320, 457, 594];
+
+    for (int index = 0; index < 4; index++) {
+      Random random=Random();
+      double randomValue=horizontalPosition[random.nextInt(horizontalPosition.length)];
+      ItemModel item = sourceModel[index];
+      sourceModel[index].position =
+          Offset(randomValue, item.position.dy);
+      horizontalPosition.remove(randomValue);
+    }
+
+    horizontalPosition = [160, 320, 457, 594];
+    for (int index = 4; index < 8; index++) {
+      Random random=Random();
+      double randomValue=horizontalPosition[random.nextInt(horizontalPosition.length)];
+      ItemModel item = sourceModel[index];
+      sourceModel[index].position =
+          Offset(randomValue, item.position.dy);
+      horizontalPosition.remove(randomValue);
+    }
+
+    horizontalPosition = [160, 320, 457, 594];
+    for(int index=0;index<sourceModel.length;index++){
+      for(int idx=0;idx<horizontalPosition.length;idx++){
+        if(sourceModel[index].position.dx==horizontalPosition[idx]){
+          delayIndex.add((index~/4)*4+idx);
+          break;
+        }
+      }
+    }
+
+    // for (int index = 0; index < 8; index++) {
+    //  print(sourceModel[index].position);
+    // }
     setState(() {
       pairCount = pairCount ~/ 2;
     });
-    print(pairCount);
   }
 
   @override
@@ -119,18 +156,17 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   }
 
   Widget displayContent() {
-    List<int> targetIndex = Iterable<int>.generate(itemData.length).toList();
+    List<int> targetIndex = Iterable<int>.generate(sourceModel.length).toList();
     return Stack(
       children: targetIndex.map((index) {
-        print(index);
-        ItemModel item = itemData[index];
+        ItemModel item = sourceModel[index];
         return item.status == 0
             ? Positioned(
                 left: item.position.dx * ratio,
                 top: item.position.dy * ratio +
-                    (index<4 ? firstBonusHeight : secondBonusHeight),
+                    (index < 4 ? firstBonusHeight : secondBonusHeight),
                 child: AppearAnimation(
-                  delay: index * 150,
+                  delay: delayIndex[index] * 150,
                   child: PairScaleAnimation(
                     itemId: item.id,
                     isScale: isScale[index] == 1,
@@ -192,28 +228,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                           isScale[index] = 0;
                         });
                       }
-                      // {
-                      //   if (itemData[chosenIndex].groupId == item.groupId &&
-                      //       index != chosenIndex) {
-                      //     Timer(Duration(milliseconds: 330), () {
-                      //       setState(() {
-                      //         count++;
-                      //         itemData[chosenIndex].status = 1;
-                      //         itemData[index].status = 1;
-                      //         chosenIndex = -1;
-                      //       });
-                      //       if(count==pairCount){
-                      //         Timer(Duration(milliseconds: 1500),(){
-                      //           screenModel.nextStep();
-                      //         });
-                      //       }
-                      //     });
-                      //   } else {
-                      //     resetScaleArray();
-                      //   }
-                      // }
                     },
                     child: Container(
+                      // color: Colors.red,
                       height: item.height * ratio,
                       width: item.width * ratio,
                       child: SvgPicture.file(
@@ -264,7 +281,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         if (item.groupId == currentGroupId && idx != chosenIndex) {
           double dx = item.position.dx * ratio + item.width * ratio / 2;
           double dy = item.position.dy * ratio +
-              (idx<4 ? firstBonusHeight : secondBonusHeight) +
+              (idx < 4 ? firstBonusHeight : secondBonusHeight) +
               item.height * ratio / 2;
           position = Offset(dx, dy);
           break;
@@ -305,18 +322,16 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body: itemData.length == 0
-              ? Container()
-              : Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: FileImage(File(assetFolder +
-                              allGameData.gameData[stepIndex].background)),
-                          fit: BoxFit.fill)),
-                  child: Stack(
-                    children: displayScreen(),
-                  ),
-                ),
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: FileImage(File(assetFolder +
+                        allGameData.gameData[stepIndex].background)),
+                    fit: BoxFit.fill)),
+            child: Stack(
+              children: displayScreen(),
+            ),
+          ),
         ));
   }
 }
