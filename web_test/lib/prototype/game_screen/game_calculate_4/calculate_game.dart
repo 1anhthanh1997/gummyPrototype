@@ -14,6 +14,7 @@ import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class CalculateGame extends StatefulWidget {
@@ -48,6 +49,7 @@ class _CalculateGameState extends State<CalculateGame> {
   int stepIndex;
   Timer timer;
   bool isDisplayTutorialWidget = false;
+  bool isDisplaySkipScreen=true;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -115,6 +117,11 @@ class _CalculateGameState extends State<CalculateGame> {
           Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
     }
     bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
+      });
+    });
   }
 
   @override
@@ -497,6 +504,9 @@ class _CalculateGameState extends State<CalculateGame> {
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
     widgets.add(BasicItem());
+    if(isDisplaySkipScreen){
+      widgets.add(SkipScreen());
+    }
     widgets.add(displayTutorialWidget());
     return widgets;
   }

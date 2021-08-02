@@ -19,6 +19,7 @@ import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
 import 'package:web_test/widgets/particle.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/slide_animation.dart';
 
 class GameMemoryNumber extends StatefulWidget {
@@ -48,6 +49,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   double ratio;
   Timer timer;
   bool isDisplayTutorialWidget = false;
+  bool isDisplaySkipScreen=true;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -121,6 +123,11 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       });
       setState(() {
         isDisplayAnswer = true;
+      });
+    });
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
       });
     });
     super.didChangeDependencies();
@@ -400,6 +407,9 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       widgets.add(displayQuestion());
     }
     widgets.add(BasicItem());
+    if(isDisplaySkipScreen){
+      widgets.add(SkipScreen());
+    }
     widgets.add(displayTutorialWidget());
 
     return widgets;

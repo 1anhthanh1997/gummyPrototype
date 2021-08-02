@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,9 +9,13 @@ import 'package:svg_path_parser/svg_path_parser.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/general_screen/tutorial_animal.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/rotate_animation.dart';
+import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class DrawImageGame extends StatefulWidget {
@@ -54,6 +59,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   int stepIndex;
   bool isDisplayTutorialWidget = false;
   Timer timer;
+  bool isDisplaySkipScreen=true;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
@@ -115,6 +121,11 @@ class _DrawImageGameState extends State<DrawImageGame> {
     bonusHeight = (screenHeight - 348 * ratio) / 2;
     countingColor();
     editPath();
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
+      });
+    });
     super.didChangeDependencies();
   }
 
@@ -498,6 +509,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
     widgets.add(displayCounting());
     widgets.add(displayCountingNumber());
     widgets.add(BasicItem());
+    if(isDisplaySkipScreen){
+      widgets.add(SkipScreen());
+    }
     widgets.add(displayTutorialWidget());
     return widgets;
   }

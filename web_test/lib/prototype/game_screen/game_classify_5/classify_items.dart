@@ -14,6 +14,7 @@ import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/drop_down_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class ClassifyItem extends StatefulWidget {
@@ -46,6 +47,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   Curve curve;
   int isPlayTargetSound = 0;
   List<ItemModel> sourceModel = [];
+  bool isDisplaySkipScreen = true;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -110,6 +112,11 @@ class _ClassifyItemState extends State<ClassifyItem>
         curve: Interval(0.0, 0.75, curve: Curves.easeInOutBack),
       ),
     );
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
+      });
+    });
     super.didChangeDependencies();
 
     controller.forward();
@@ -150,8 +157,8 @@ class _ClassifyItemState extends State<ClassifyItem>
     print(index);
     for (int idx = draggableCount - 1; idx > index; idx--) {
       if (sourceModel[idx].status == 0) {
-        sourceModel[idx].position = Offset(
-            sourceModel[idx].position.dx, sourceModel[idx].position.dy + screenHeight / 3);
+        sourceModel[idx].position = Offset(sourceModel[idx].position.dx,
+            sourceModel[idx].position.dy + screenHeight / 3);
         print(sourceModel[idx].position);
       }
     }
@@ -413,18 +420,19 @@ class _ClassifyItemState extends State<ClassifyItem>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body:  Container(
-                  child: Stack(
-                    children: [
-                      displayBackground(),
-                      // displayNormalItem(),
-                      displayTargetItem(),
-                      displayDraggableItem(),
-                      BasicItem(),
-                      displayTutorialWidget()
-                    ],
-                  ),
-                ),
+          body: Container(
+            child: Stack(
+              children: [
+                displayBackground(),
+                // displayNormalItem(),
+                displayTargetItem(),
+                displayDraggableItem(),
+                BasicItem(),
+                displayTutorialWidget(),
+                isDisplaySkipScreen ? SkipScreen() : Container()
+              ],
+            ),
+          ),
         ));
   }
 }

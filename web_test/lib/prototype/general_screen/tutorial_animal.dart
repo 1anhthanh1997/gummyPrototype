@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
+import 'package:web_test/widgets/dog_scale.dart';
 import 'package:web_test/widgets/rotate_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/tutorial/tutorial_scale.dart';
@@ -31,6 +32,10 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
   double screenHeight;
   double ratio;
   bool isScale = false;
+  bool isDisplaySkipScreen = false;
+  double dogVerticalPosition = 100;
+  int durationTime = 400;
+  Curve curve = Curves.easeInBack;
 
   @override
   void initState() {
@@ -45,6 +50,12 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     screenHeight = screenModel.getScreenHeight();
     ratio = screenModel.getRatio();
     currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
+    Timer(Duration(milliseconds: 1200), () {
+      setState(() {
+        dogVerticalPosition = 25;
+        curve = Curves.easeOutBack;
+      });
+    });
     super.didChangeDependencies();
   }
 
@@ -109,15 +120,17 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               width: 77 * ratio,
               child: SvgPicture.asset('assets/images/common/orange_circle.svg'),
             )),
-        Positioned(
-            top: 25 * ratio,
+        AnimatedPositioned(
+            top: dogVerticalPosition * ratio,
             left: 15 * ratio,
+            duration: Duration(milliseconds: durationTime),
+            curve: curve,
             child: RotateAnimation(
               beginValue: 0,
-              endValue: pi/10,
-              time:400,
+              endValue: pi / 10,
+              time: 400,
               isScale: isScale,
-              onTab: (){
+              onTab: () {
                 print('Hello');
               },
               curve: Curves.linear,
@@ -184,8 +197,18 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   displaySkip = 0;
                   currentOffset = Offset(
                       screenWidth - 89 * ratio, screenHeight - 85 * ratio);
+                  isDisplaySkipScreen = true;
                 });
-                screenModel.skipGame();
+                Timer(Duration(milliseconds: 200), () {
+                  setState(() {
+                    dogVerticalPosition = 100;
+                    curve = Curves.easeInBack;
+                  });
+                });
+
+                Timer(Duration(milliseconds: 1700), () {
+                  screenModel.skipGame();
+                });
               },
             )),
         Positioned(
@@ -221,8 +244,18 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                 setState(() {
                   displaySkip = 0;
                   currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
+                  isDisplaySkipScreen = true;
                 });
-                screenModel.skipGame();
+                Timer(Duration(milliseconds: 200), () {
+                  setState(() {
+                    dogVerticalPosition = 100;
+                    curve = Curves.easeInBack;
+                  });
+                });
+
+                Timer(Duration(milliseconds: 1700), () {
+                  screenModel.skipGame();
+                });
               },
             )),
         AnimatedPositioned(
@@ -248,10 +281,18 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
               isScale: isScale,
               child: Draggable(
                 data: 0,
-                child: Container(
-                    height: 98 * ratio,
-                    width: 98 * ratio,
-                    child: dogDraggable()),
+                child: DogScale(
+                  beginValue: 1.0,
+                  endValue: 26.0,
+                  isScale: isDisplaySkipScreen,
+                  time: 1000,
+                  delayTime: 700,
+                  curve: Curves.easeOut,
+                  child: Container(
+                      height: 98 * ratio,
+                      width: 98 * ratio,
+                      child: dogDraggable()),
+                ),
                 feedback: Container(
                     height: 98 * ratio,
                     width: 98 * ratio,

@@ -18,6 +18,7 @@ import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/pair_scale_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 
 class ChoosePairGame extends StatefulWidget {
   _ChoosePairGameState createState() => _ChoosePairGameState();
@@ -45,6 +46,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   Timer timer;
   bool isDisplayTutorialWidget = false;
   List<int>delayIndex=[];
+  bool isDisplaySkipScreen=true;
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -119,6 +121,11 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     ratio = screenModel.getRatio();
     firstBonusHeight = screenHeight * 0.41 - 90 * ratio - 62 * ratio;
     secondBonusHeight = screenHeight * 0.77 - 90 * ratio - 198 * ratio;
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
+      });
+    });
     super.didChangeDependencies();
   }
 
@@ -311,6 +318,9 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     List<Widget> widgets = [];
     widgets.add(displayContent());
     widgets.add(BasicItem());
+    if(isDisplaySkipScreen){
+      widgets.add(SkipScreen());
+    }
     widgets.add(displayTutorialWidget());
     return widgets;
   }

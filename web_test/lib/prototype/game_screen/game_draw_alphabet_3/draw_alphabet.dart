@@ -14,6 +14,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/character_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class DrawAlphabet extends StatefulWidget {
@@ -52,6 +53,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   Timer timer;
   bool isDisplayTutorialWidget = false;
   List<ItemModel> drawTutorial = [];
+  bool isDisplaySkipScreen = true;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -100,6 +102,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 284 * ratio) / 2 - 47 * ratio;
     editPath();
+    Timer(Duration(milliseconds: 1100),(){
+      setState(() {
+        isDisplaySkipScreen=false;
+      });
+    });
     super.didChangeDependencies();
   }
 
@@ -235,21 +242,20 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   Widget displayDrawTutorial() {
-    if(currentIndex<drawTutorial.length){
+    if (currentIndex < drawTutorial.length) {
       ItemModel item = drawTutorial[currentIndex];
       print(item.image);
       return Positioned(
-          top: item.position.dy * ratio+bonusHeight,
+          top: item.position.dy * ratio + bonusHeight,
           left: item.position.dx * ratio,
           child: Container(
             height: item.height * ratio,
             width: item.width * ratio,
             child: Image.asset(item.image),
           ));
-    }else{
+    } else {
       return Container();
     }
-
   }
 
   Widget displayItem() {
@@ -265,6 +271,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
               children: [displayAlphabet(), displayDrawTutorial()],
             )),
         BasicItem(),
+        isDisplaySkipScreen ? SkipScreen() : Container()
         // displayTutorialWidget()
       ],
     );
@@ -365,25 +372,25 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body:  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: FileImage(File(screenModel.localPath +
-                                assetFolder +
-                                allGameData.gameData[stepIndex].background)),
-                            fit: BoxFit.fill)),
-                    child: GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onPanStart: (details) {
-                          onPanStartAction(details.localPosition);
-                        },
-                        onPanUpdate: (details) {
-                          onPanUpdateAction(details.localPosition);
-                        },
-                        onPanEnd: (details) {
-                          onPanEndAction();
-                        },
-                        child: displayItem()),
-                  )));
+            body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: FileImage(File(screenModel.localPath +
+                      assetFolder +
+                      allGameData.gameData[stepIndex].background)),
+                  fit: BoxFit.fill)),
+          child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onPanStart: (details) {
+                onPanStartAction(details.localPosition);
+              },
+              onPanUpdate: (details) {
+                onPanUpdateAction(details.localPosition);
+              },
+              onPanEnd: (details) {
+                onPanEndAction();
+              },
+              child: displayItem()),
+        )));
   }
 }
