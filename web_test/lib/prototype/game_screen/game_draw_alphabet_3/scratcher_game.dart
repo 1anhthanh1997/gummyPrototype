@@ -8,10 +8,12 @@ import 'package:scratcher/scratcher.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/scratcher_appear.dart';
+import 'package:web_test/widgets/tutorial/scratcher_tutorial.dart';
 
 class ScratcherGame extends StatefulWidget {
   _ScratcherGameState createState() => _ScratcherGameState();
@@ -49,6 +51,8 @@ class _ScratcherGameState extends State<ScratcherGame>
   double screenHeight;
   double ratio;
   bool isAppear = true;
+  Timer timer;
+  bool isDisplayTutorialWidget = false;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -65,12 +69,17 @@ class _ScratcherGameState extends State<ScratcherGame>
         sourceImage.add(item);
       }
     }).toList();
-    List<Offset> position=[Offset(249,37),Offset(422,37),Offset(249,201),Offset(422,201)];
+    List<Offset> position = [
+      Offset(249, 37),
+      Offset(422, 37),
+      Offset(249, 201),
+      Offset(422, 201)
+    ];
     for (int idx = 0; idx < 4; idx++) {
       Random random = Random();
       int sourceIndex = random.nextInt(sourceImage.length);
-      ItemModel item=sourceImage[sourceIndex];
-      item.position=position[idx];
+      ItemModel item = sourceImage[sourceIndex];
+      item.position = position[idx];
       sourceModel.add(item);
       sourceImage.removeAt(sourceIndex);
     }
@@ -86,6 +95,7 @@ class _ScratcherGameState extends State<ScratcherGame>
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadAlphabetData();
+    _initializeTimer();
   }
 
   @override
@@ -100,6 +110,33 @@ class _ScratcherGameState extends State<ScratcherGame>
       });
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) {
+      timer.cancel();
+    }
+    super.dispose();
+  }
+
+  void _initializeTimer() {
+    timer = Timer.periodic(new Duration(seconds: 7), (timer) {
+      setState(() {
+        isDisplayTutorialWidget = true;
+      });
+    });
+  }
+
+  void onPointerTap(PointerEvent details) {
+    if (timer == null) {
+      return;
+    }
+    setState(() {
+      isDisplayTutorialWidget = false;
+    });
+    timer.cancel();
+    _initializeTimer();
   }
 
   Widget displayScratcherItem(ItemModel item, int index) {
@@ -197,23 +234,51 @@ class _ScratcherGameState extends State<ScratcherGame>
             )));
   }
 
+  Widget displayTutorialWidget() {
+    Offset startPosition = Offset(0, 0);
+    Offset endPosition = Offset(0, 0);
+    for (int idx = 0; idx < sourceModel.length; idx++) {
+      ItemModel item = sourceModel[idx];
+      startPosition = Offset(item.position.dx * ratio + 49 * ratio,
+          item.position.dy * ratio + 49 * ratio + bonusHeight);
+      endPosition = Offset(item.position.dx * ratio + 89 * ratio,
+          item.position.dy * ratio + 89 * ratio + bonusHeight);
+    }
+
+    return isDisplayTutorialWidget
+        ? ScratcherTutorial(
+            startPosition: startPosition,
+            endPosition: endPosition,
+            onCompleted: () {
+              Timer(Duration(milliseconds: 200), () {
+                setState(() {
+                  isDisplayTutorialWidget = false;
+                });
+              });
+            },
+          )
+        : Container();
+  }
+
   Widget displayScreen() {
     return Stack(
-      children: [scratcherBackground(), scratcher(), BasicItem()],
+      children: [scratcherBackground(), scratcher(), BasicItem(),displayTutorialWidget()],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: imageData.length == 0
-            ? Container()
-            : Container(
+    return Listener(
+        onPointerDown: onPointerTap,
+        onPointerMove: onPointerTap,
+        onPointerUp: onPointerTap,
+        child: Scaffold(
+            body: Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: FileImage(File(assetFolder +
                             allGameData.gameData[stepIndex].background)),
                         fit: BoxFit.fill)),
-                child: displayScreen()));
+                child: displayScreen())));
   }
 }

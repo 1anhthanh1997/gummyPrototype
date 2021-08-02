@@ -12,7 +12,7 @@ import 'package:web_test/provider/music_controller.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/bubble_scale.dart';
 import 'package:web_test/widgets/particle.dart';
-import 'package:web_test/widgets/tutorial_scale.dart';
+import 'package:web_test/widgets/tutorial/tutorial_scale.dart';
 
 class AnimatedBalloon extends StatefulWidget {
   double height_screen;

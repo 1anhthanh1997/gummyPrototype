@@ -10,7 +10,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class JigsawGame extends StatefulWidget {
   _JigsawGameState createState() => _JigsawGameState();
@@ -39,7 +39,6 @@ class _JigsawGameState extends State<JigsawGame> {
   Timer firstTimer;
   Timer secondTimer;
   Timer thirdTimer;
-
 
   void loadAlphabetData() {
     targetModel = [];
@@ -298,19 +297,20 @@ class _JigsawGameState extends State<JigsawGame> {
                 screenModel.logDragEvent(true);
                 setCompletedStatus(item);
                 if (count == sourceModel.length - 1) {
-                  firstTimer=Timer(Duration(milliseconds: 500), () {
+                  firstTimer = Timer(Duration(milliseconds: 500), () {
                     setState(() {
                       isComplete = true;
                     });
                   });
-                  secondTimer=Timer(Duration(milliseconds: 2000), () {
+                  secondTimer = Timer(Duration(milliseconds: 2000), () {
                     setState(() {
                       isDisplayCompleteImage = true;
                       isScaleCompletedImage = true;
                     });
                   });
 
-                  thirdTimer=Timer(Duration(milliseconds: 3000 + 200 * targetModel.length),
+                  thirdTimer = Timer(
+                      Duration(milliseconds: 3000 + 200 * targetModel.length),
                       () {
                     bool isLoadNextStep = false;
                     if (screenModel.currentStep <
@@ -389,7 +389,7 @@ class _JigsawGameState extends State<JigsawGame> {
       widgets.add(displayShadow());
       widgets.add(displayTarget());
       widgets.add(displayDraggable());
-    }else{
+    } else {
       widgets.add(displayCompletedImage());
     }
     widgets.add(BasicItem());
@@ -404,17 +404,15 @@ class _JigsawGameState extends State<JigsawGame> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body: imageData.length == 0
-              ? Container()
-              : Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(assetFolder +
-                              allGameData.gameData[stepIndex].background),
-                          fit: BoxFit.fill)),
-                  child: Stack(
-                    children: displayScreen(),
-                  )),
+          body: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(assetFolder +
+                          allGameData.gameData[stepIndex].background),
+                      fit: BoxFit.fill)),
+              child: Stack(
+                children: displayScreen(),
+              )),
         ));
   }
 }

@@ -11,7 +11,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
 import 'package:web_test/widgets/basic_item.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class DrawImageGame extends StatefulWidget {
   DrawImageGame({Key key}) : super(key: key);
@@ -183,10 +183,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
   }
 
   void callNextStep() {
-    bool isLoadNextStep=false;
-    if (screenModel.currentStep <
-        screenModel.currentGame.gameData.length - 1) {
-      isLoadNextStep=true;
+    bool isLoadNextStep = false;
+    if (screenModel.currentStep < screenModel.currentGame.gameData.length - 1) {
+      isLoadNextStep = true;
     }
     screenModel.nextStep();
     print(screenModel.currentStep);
@@ -246,7 +245,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           });
         }
         return;
-      } else {        
+      } else {
         if (type == 0) {
           screenModel.logTapEvent(-1, position);
         } else {
@@ -510,11 +509,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body: imageData.length != 0
-                ? Container(
-                    child: Stack(
-                    children: displayScreen(),
-                  ))
-                : Container()));
+            body: Container(
+                child: Stack(
+          children: displayScreen(),
+        ))));
   }
 }

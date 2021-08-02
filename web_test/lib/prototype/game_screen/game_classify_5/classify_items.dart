@@ -14,7 +14,7 @@ import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/correct_animation.dart';
 import 'package:web_test/widgets/drop_down_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class ClassifyItem extends StatefulWidget {
   @override
@@ -413,9 +413,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body: data == null
-              ? Container()
-              : Container(
+          body:  Container(
                   child: Stack(
                     children: [
                       displayBackground(),

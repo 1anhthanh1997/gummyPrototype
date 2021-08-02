@@ -14,7 +14,7 @@ import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
 import 'package:web_test/widgets/basic_item.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class CalculateGame extends StatefulWidget {
   _CalculateGameState createState() => _CalculateGameState();
@@ -509,13 +509,12 @@ class _CalculateGameState extends State<CalculateGame> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body: itemData.length != 0
-              ? Container(
+          body:  Container(
                   color: HexColor('#DE2463'),
                   child: Stack(
                     children: displayScreen(),
                   ))
-              : Container(),
+              ,
         ));
   }
 }

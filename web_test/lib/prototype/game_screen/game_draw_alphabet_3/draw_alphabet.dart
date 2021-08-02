@@ -14,7 +14,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/character_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class DrawAlphabet extends StatefulWidget {
   _DrawAlphabetState createState() => _DrawAlphabetState();
@@ -365,9 +365,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body: alphabetData.length == 0
-                ? Container()
-                : Container(
+            body:  Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: FileImage(File(screenModel.localPath +

@@ -20,7 +20,6 @@ import 'package:web_test/widgets/bubble_animation.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/slide_animation.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
 
 class GameMemoryNumber extends StatefulWidget {
   _GameMemoryNumberState createState() => _GameMemoryNumberState();
@@ -413,9 +412,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body: itemData.length == 0
-                ? Container()
-                : Container(
+            body:  Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: FileImage(File(assetFolder +

@@ -9,7 +9,7 @@ import 'package:web_test/model/item_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/rotate_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
-import 'package:web_test/widgets/tutorial_scale.dart';
+import 'package:web_test/widgets/tutorial/tutorial_scale.dart';
 
 class TutorialAnimals extends StatefulWidget {
   final String tutorialImage;

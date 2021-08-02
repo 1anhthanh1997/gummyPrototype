@@ -11,7 +11,7 @@ import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
 import 'package:web_test/widgets/basic_item.dart';
-import 'package:web_test/widgets/tutorial_widget.dart';
+import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
 class GameDragTarget extends StatefulWidget {
   _GameDragTargetState createState() => _GameDragTargetState();
@@ -415,9 +415,7 @@ class _GameDragTargetState extends State<GameDragTarget>
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body: sourceModel.length == 0
-                ? Container()
-                : Container(
+            body:  Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: FileImage(File(assetFolder +
