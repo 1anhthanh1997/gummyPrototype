@@ -1714,11 +1714,563 @@
       "gameName": "Game ghép hình",
       "createDate": 0,
       "lastUpdate": 0,
-      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_2/",
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
       "gameData": [
         {
           "id": 0,
           "parentId": 102,
+          "gameType": 1,
+          "stepAssets": "halloween_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "halloween_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 639.0,
+                "dy": 195.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 1,
+              "image": "halloween_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 70.0,
+                "dy": 53.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 2,
+              "image": "halloween_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 62.0,
+                "dy": 213.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 3,
+              "image": "halloween_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 601.0,
+                "dy": 19.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 0,
+              "image": "halloween_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "id": 1,
+              "image": "halloween_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 2,
+              "image": "halloween_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 188.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 3,
+              "image": "halloween_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 406.0,
+                "dy": 148.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 298.0
+        },
+        {
+          "id": 1,
+          "parentId": 102,
+          "gameType": 1,
+          "stepAssets": "santa_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "santa_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 67.0,
+                "dy": 29.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 1,
+              "image": "santa_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 55.0,
+                "dy": 210.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 2,
+              "image": "santa_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 589.0,
+                "dy": 29.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 3,
+              "image": "santa_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 625.0,
+                "dy": 178.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 0,
+              "image": "santa_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "id": 1,
+              "image": "santa_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 2,
+              "image": "santa_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 188.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 3,
+              "image": "santa_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 405.0,
+                "dy": 148.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 286.0
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "levelScore": 16,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 1,
+      "age": 3,
+      "level": 1,
+      "orderIndex": 0,
+      "gameName": "Game ghép hình",
+      "createDate": 0,
+      "lastUpdate": 0,
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
+      "gameData": [
+        {
+          "id": 1,
+          "parentId": 103,
+          "gameType": 1,
+          "stepAssets": "ocean_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "ocean_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 630.0,
+                "dy": 30.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 1,
+              "image": "ocean_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 37.0,
+                "dy": 214.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 2,
+              "image": "ocean_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 594.0,
+                "dy": 214.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 3,
+              "image": "ocean_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 91.0,
+                "dy": 18.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 0,
+              "image": "ocean_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 366.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 1,
+              "image": "ocean_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "id": 2,
+              "image": "ocean_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 188.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 3,
+              "image": "ocean_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 405.0,
+                "dy": 148.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 286.0
+        },
+        {
+          "id": 1,
+          "parentId": 103,
+          "gameType": 1,
+          "stepAssets": "toys_jigsaw/",
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "toys_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 82.0,
+                "dy": 194.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 1,
+              "image": "toys_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 575.0,
+                "dy": 208.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 2,
+              "image": "toys_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 65.0,
+                "dy": 36.0
+              },
+              "type": 1,
+              "width": 165.0,
+              "height": 129.0
+            },
+            {
+              "id": 3,
+              "image": "toys_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 635.0,
+                "dy": 18.0
+              },
+              "type": 1,
+              "width": 129.0,
+              "height": 165.0
+            },
+            {
+              "id": 0,
+              "image": "toys_jigsaw_1.png",
+              "groupId": 0,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "id": 1,
+              "image": "toys_jigsaw_2.png",
+              "groupId": 1,
+              "position": {
+                "dx": 366.0,
+                "dy": 45.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 2,
+              "image": "toys_jigsaw_3.png",
+              "groupId": 2,
+              "position": {
+                "dx": 263.0,
+                "dy": 188.0
+              },
+              "type": 0,
+              "width": 183.0,
+              "height": 143.0
+            },
+            {
+              "id": 3,
+              "image": "toys_jigsaw_4.png",
+              "groupId": 3,
+              "position": {
+                "dx": 405.0,
+                "dy": 148.0
+              },
+              "type": 0,
+              "width": 143.0,
+              "height": 183.0
+            },
+            {
+              "image": "shadow_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 44.0
+              },
+              "type": 2,
+              "width": 286.0,
+              "height": 286.0
+            },
+            {
+              "image": "completed_image.png",
+              "groupId": 3,
+              "position": {
+                "dx": 263.0,
+                "dy": 45.0
+              },
+              "type": 3,
+              "width": 286.0,
+              "height": 286.0
+            }
+          ],
+          "width": 213.0,
+          "height": 286.0
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "levelScore": 16,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 1,
+      "age": 3,
+      "level": 1,
+      "orderIndex": 0,
+      "gameName": "Game ghép hình",
+      "createDate": 0,
+      "lastUpdate": 0,
+      "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_2/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 104,
           "gameType": 1,
           "stepAssets": "unicorn_jigsaw/",
           "background": "background_image.png",
@@ -1967,7 +2519,7 @@
         },
         {
           "id": 1,
-          "parentId": 1,
+          "parentId": 104,
           "gameType": 1,
           "stepAssets": "park_jigsaw/",
           "background": "background_image.png",

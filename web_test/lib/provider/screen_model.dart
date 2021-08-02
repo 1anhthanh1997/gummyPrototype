@@ -39,6 +39,7 @@ class ScreenModel extends ChangeNotifier {
   Offset endPosition;
   bool isFromShowResult = false;
   MusicController musicController = MusicController();
+  bool isDisplaySkipScreen=false;
 
   void playAudioBackground(String url) {
     musicController.playAudioBackground(url);
@@ -244,6 +245,7 @@ class ScreenModel extends ChangeNotifier {
     logBasicEvent('skip_game_${currentGameId}_from_step_${currentStep}',
         currentGameId, currentStep, 'skip_game');
     // randomWithPiority(typeList);
+    isDisplaySkipScreen=true;
     changeTypeScore();
     getNextGameId();
     minusUserScore();

@@ -59,7 +59,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   int stepIndex;
   bool isDisplayTutorialWidget = false;
   Timer timer;
-  bool isDisplaySkipScreen=true;
+  bool isDisplaySkipScreen=false;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
@@ -121,6 +121,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     bonusHeight = (screenHeight - 348 * ratio) / 2;
     countingColor();
     editPath();
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;

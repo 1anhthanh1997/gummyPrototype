@@ -49,7 +49,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   double ratio;
   Timer timer;
   bool isDisplayTutorialWidget = false;
-  bool isDisplaySkipScreen=true;
+  bool isDisplaySkipScreen=false;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -125,6 +125,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         isDisplayAnswer = true;
       });
     });
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;

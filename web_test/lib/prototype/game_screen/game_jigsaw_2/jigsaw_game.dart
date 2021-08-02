@@ -40,8 +40,7 @@ class _JigsawGameState extends State<JigsawGame> {
   Timer firstTimer;
   Timer secondTimer;
   Timer thirdTimer;
-  bool isDisplaySkipScreen=true;
-
+  bool isDisplaySkipScreen;
 
   void loadAlphabetData() {
     targetModel = [];
@@ -92,9 +91,10 @@ class _JigsawGameState extends State<JigsawGame> {
     screenHeight = screenModel.getScreenHeight();
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - objectHeight * ratio) / 2 - 44 * ratio;
-    Timer(Duration(milliseconds: 1100),(){
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 1100), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
     });
     super.didChangeDependencies();
@@ -401,7 +401,7 @@ class _JigsawGameState extends State<JigsawGame> {
       widgets.add(displayCompletedImage());
     }
     widgets.add(BasicItem());
-    if(isDisplaySkipScreen){
+    if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());
     }
     widgets.add(displayTutorialWidget());

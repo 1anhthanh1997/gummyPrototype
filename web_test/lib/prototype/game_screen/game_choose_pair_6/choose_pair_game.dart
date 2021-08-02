@@ -46,7 +46,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
   Timer timer;
   bool isDisplayTutorialWidget = false;
   List<int>delayIndex=[];
-  bool isDisplaySkipScreen=true;
+  bool isDisplaySkipScreen=false;
 
   void loadGameData() {
     stepIndex = screenModel.currentStep;
@@ -121,6 +121,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
     ratio = screenModel.getRatio();
     firstBonusHeight = screenHeight * 0.41 - 90 * ratio - 62 * ratio;
     secondBonusHeight = screenHeight * 0.77 - 90 * ratio - 198 * ratio;
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;

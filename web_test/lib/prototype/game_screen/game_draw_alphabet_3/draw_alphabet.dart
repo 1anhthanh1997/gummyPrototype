@@ -53,7 +53,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   Timer timer;
   bool isDisplayTutorialWidget = false;
   List<ItemModel> drawTutorial = [];
-  bool isDisplaySkipScreen = true;
+  bool isDisplaySkipScreen = false;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -102,6 +102,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 284 * ratio) / 2 - 47 * ratio;
     editPath();
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;

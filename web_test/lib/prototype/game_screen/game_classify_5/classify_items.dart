@@ -47,7 +47,7 @@ class _ClassifyItemState extends State<ClassifyItem>
   Curve curve;
   int isPlayTargetSound = 0;
   List<ItemModel> sourceModel = [];
-  bool isDisplaySkipScreen = true;
+  bool isDisplaySkipScreen = false;
 
   void loadClassifyData() {
     stepIndex = screenModel.currentStep;
@@ -112,6 +112,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         curve: Interval(0.0, 0.75, curve: Curves.easeInOutBack),
       ),
     );
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;

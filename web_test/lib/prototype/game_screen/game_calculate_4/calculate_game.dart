@@ -49,7 +49,7 @@ class _CalculateGameState extends State<CalculateGame> {
   int stepIndex;
   Timer timer;
   bool isDisplayTutorialWidget = false;
-  bool isDisplaySkipScreen=true;
+  bool isDisplaySkipScreen=false;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -117,6 +117,7 @@ class _CalculateGameState extends State<CalculateGame> {
           Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
     }
     bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
+    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100),(){
       setState(() {
         isDisplaySkipScreen=false;
