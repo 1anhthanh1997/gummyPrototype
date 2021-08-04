@@ -61,7 +61,7 @@ class _SkipScreenState extends State<SkipScreen> {
             beginValue: 25.0,
             endValue: 1.0,
             isScale: true,
-            time: 1000,
+            time: 700,
             curve: Curves.easeOut,
             child: Container(
               height: 98 * ratio,

@@ -125,7 +125,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     super.didChangeDependencies();
     sizeScreen = MediaQuery.of(context).size;
     _balloonBottomLocation = sizeScreen.height - random;
-    _balloonLeft = sizeScreen.width * new Random().nextDouble();
+    _balloonLeft = (sizeScreen.width-230) * new Random().nextDouble();
     if (_balloonLeft > sizeScreen.width - 71) {
       _balloonLeft = sizeScreen.width - 71;
     }
@@ -186,7 +186,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
     // Timer(Duration(milliseconds: 80), () {
     //   endGame();
     // });
-    Iterable.generate(8).forEach((i) => particles.add(SquareParticle(time, 1)));
+    Iterable.generate(8).forEach((i) => particles.add(SquareParticle(time, 1,277,130)));
   }
 
   Widget _buildParticle() {

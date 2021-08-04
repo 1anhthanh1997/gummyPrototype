@@ -91,7 +91,7 @@ class _JigsawGameState extends State<JigsawGame> {
     screenHeight = screenModel.getScreenHeight();
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - objectHeight * ratio) / 2 - 44 * ratio;
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
     Timer(Duration(milliseconds: 1100), () {
       setState(() {
         isDisplaySkipScreen = false;
@@ -418,8 +418,8 @@ class _JigsawGameState extends State<JigsawGame> {
           body: Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(assetFolder +
-                          allGameData.gameData[stepIndex].background),
+                      image: FileImage(File(assetFolder +
+                          allGameData.gameData[stepIndex].background)),
                       fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),

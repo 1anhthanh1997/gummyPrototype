@@ -49,7 +49,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   double ratio;
   Timer timer;
   bool isDisplayTutorialWidget = false;
-  bool isDisplaySkipScreen=false;
+  bool isDisplaySkipScreen = false;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -125,10 +125,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         isDisplayAnswer = true;
       });
     });
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100),(){
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 1100), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
     });
     super.didChangeDependencies();
@@ -210,8 +210,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       });
     }
     // });
-    Iterable.generate(25)
-        .forEach((i) => particles[index].add(SquareParticle(time, ratio)));
+    Iterable.generate(8).forEach(
+        (i) => particles[index].add(SquareParticle(time, ratio, 197, 87)));
   }
 
   Widget displayQuestion() {
@@ -408,7 +408,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       widgets.add(displayQuestion());
     }
     widgets.add(BasicItem());
-    if(isDisplaySkipScreen){
+    if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());
     }
     widgets.add(displayTutorialWidget());
@@ -423,16 +423,16 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-            body:  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: FileImage(File(assetFolder +
-                                allGameData.gameData[screenModel.currentStep]
-                                    .background)),
-                            fit: BoxFit.fill)),
-                    child: Stack(
-                      children: displayScreen(),
-                    ),
-                  )));
+            body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: FileImage(File(assetFolder +
+                      allGameData
+                          .gameData[screenModel.currentStep].background)),
+                  fit: BoxFit.fill)),
+          child: Stack(
+            children: displayScreen(),
+          ),
+        )));
   }
 }

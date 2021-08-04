@@ -246,7 +246,7 @@ packages:
       name: graphs
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.0"
+    version: "2.0.0"
   hexcolor:
     dependency: "direct main"
     description:
@@ -449,7 +449,7 @@ packages:
       name: rive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.8"
+    version: "0.7.26"
   sa_stateless_animation:
     dependency: "direct main"
     description:

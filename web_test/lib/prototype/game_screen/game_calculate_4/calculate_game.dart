@@ -22,15 +22,12 @@ class CalculateGame extends StatefulWidget {
 }
 
 class _CalculateGameState extends State<CalculateGame> {
-  List data;
   List<ItemModel> itemData = [];
   List<ItemModel> sourceModel = [];
   List<ItemModel> targetModel = [];
   List<ItemModel> normalItemModel = [];
   List<ItemModel> sourceImage = [];
   List<ItemModel> targetImage = [];
-  List<int> draggableKey = [];
-  List<int> targetKey = [];
   String assetFolder = '';
   bool isHitFail = false;
   bool isWrongTarget = false;
@@ -49,7 +46,7 @@ class _CalculateGameState extends State<CalculateGame> {
   int stepIndex;
   Timer timer;
   bool isDisplayTutorialWidget = false;
-  bool isDisplaySkipScreen=false;
+  bool isDisplaySkipScreen = false;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -65,12 +62,10 @@ class _CalculateGameState extends State<CalculateGame> {
         // print(itemData[index].status);
         setState(() {
           targetImage.add(itemData[index]);
-          targetKey.add(itemData[index].id);
         });
       }
       if (itemData[index].type == 1) {
         sourceImage.add(itemData[index]);
-        draggableKey.add(itemData[index].id);
       }
       if (itemData[index].type == 2) {
         normalItemModel.add(itemData[index]);
@@ -92,6 +87,16 @@ class _CalculateGameState extends State<CalculateGame> {
         break;
       }
     }
+  }
+
+  void resetState() {
+    itemData = [];
+    sourceModel = [];
+    targetModel = [];
+    normalItemModel = [];
+    sourceImage = [];
+    targetImage = [];
+    genElement();
   }
 
   @override
@@ -117,10 +122,10 @@ class _CalculateGameState extends State<CalculateGame> {
           Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
     }
     bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100),(){
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 800), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
     });
   }
@@ -164,6 +169,8 @@ class _CalculateGameState extends State<CalculateGame> {
       firstRandomValue = random.nextInt(8) + 1;
       secondRandomValue = random.nextInt(8) + 1;
     }
+    print('First: ${firstRandomValue}');
+    print('Second: ${secondRandomValue}');
     setState(() {
       firstElement = firstItem;
       secondElement = secondItem;
@@ -360,9 +367,9 @@ class _CalculateGameState extends State<CalculateGame> {
                     assetFolder + sourceModel[sourceIndex].image;
                 return item.status == 0
                     ? displayItemImage(
-                        item.height, item.width, fullInitUrl, 0, false)
+                        item.height*1.4, item.width*1.4, fullInitUrl, 0, false)
                     : AnimatedMatchedTarget(
-                        child: displayItemImage(item.height, item.width,
+                        child: displayItemImage(item.height*1.4, item.width*1.4,
                             fullCompleteUrl, result, true),
                       );
               },
@@ -383,10 +390,25 @@ class _CalculateGameState extends State<CalculateGame> {
                   targetModel[index].status = 1;
                 });
                 Timer(Duration(milliseconds: 1500), () {
-                  screenModel.nextStep();
-                  if (screenModel.currentStep == 0) {
+                  if (screenModel.currentStep <
+                      screenModel.currentGame.gameData.length - 1) {
+                    screenModel.nextStep();
                     if (timer != null) {
                       timer.cancel();
+                    }
+                    resetState();
+                    getGameData();
+                    for (int index = 0; index < sourceModel.length; index++) {
+                      ItemModel item = sourceModel[index];
+                      sourceModel[index].position =
+                          Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
+                    }
+                  } else {
+                    screenModel.nextStep();
+                    if (screenModel.currentStep == 0) {
+                      if (timer != null) {
+                        timer.cancel();
+                      }
                     }
                   }
                 });
@@ -408,10 +430,12 @@ class _CalculateGameState extends State<CalculateGame> {
           number = result;
         } else if (randomIndex % 2 == 0) {
           number = firstRandomValue;
+          randomIndex++;
         } else {
           number = secondRandomValue;
+          randomIndex++;
         }
-        randomIndex++;
+
         return AnimatedPositioned(
             duration: Duration(milliseconds: item.duration),
             top: item.position.dy,
@@ -470,7 +494,7 @@ class _CalculateGameState extends State<CalculateGame> {
     Offset endPosition = Offset(0, 0);
     for (int index = 0; index < sourceModel.length; index++) {
       ItemModel item = sourceModel[index];
-      if ( item.groupId == targetModel[0].groupId) {
+      if (item.groupId == targetModel[0].groupId) {
         print('Tutorial');
         print(index);
         startPosition = Offset(item.position.dx + item.width / 2 * ratio,
@@ -481,7 +505,7 @@ class _CalculateGameState extends State<CalculateGame> {
 
     ItemModel item = targetModel[0];
     endPosition = Offset(item.position.dx * ratio + 110 / 2 * ratio,
-        bonusHeight + 110 / 2*ratio);
+        bonusHeight + 110 / 2 * ratio);
 
     return isDisplayTutorialWidget
         ? TutorialWidget(
@@ -505,7 +529,7 @@ class _CalculateGameState extends State<CalculateGame> {
     widgets.add(displayTarget());
     widgets.add(displayDraggable());
     widgets.add(BasicItem());
-    if(isDisplaySkipScreen){
+    if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());
     }
     widgets.add(displayTutorialWidget());
@@ -520,12 +544,11 @@ class _CalculateGameState extends State<CalculateGame> {
         onPointerMove: onPointerTap,
         onPointerUp: onPointerTap,
         child: Scaffold(
-          body:  Container(
-                  color: HexColor('#DE2463'),
-                  child: Stack(
-                    children: displayScreen(),
-                  ))
-              ,
+          body: Container(
+              color: HexColor('#DE2463'),
+              child: Stack(
+                children: displayScreen(),
+              )),
         ));
   }
 }

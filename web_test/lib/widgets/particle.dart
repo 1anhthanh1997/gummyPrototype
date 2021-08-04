@@ -7,8 +7,10 @@ class SquareParticle {
   Animatable tween;
   AnimationProgress progress;
   double size;
+  double bubbleHeight;
+  double bubbleWidth;
 
-  SquareParticle(Duration time, double ratio) {
+  SquareParticle(Duration time, double ratio, double height, double width) {
     final random = Random();
     final x =
         (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
@@ -29,13 +31,15 @@ class SquareParticle {
     Random random2 = Random();
     List<double> sizeArr = [10.0, 15.0, 20.0, 27.0, 35.0];
     size = sizeArr[random2.nextInt(sizeArr.length)];
+    bubbleHeight=height;
+    bubbleWidth=width;
   }
 
   buildWidget(Duration time, Color color) {
     final animation = tween.transform(progress.progress(time));
     return Positioned(
-      left: animation["x"] + 130 / 2,
-      top: animation["y"] + 277 / 2,
+      left: animation["x"] +  bubbleWidth/ 2,
+      top: animation["y"] + bubbleHeight / 3,
       child: Opacity(
         opacity: animation["opacity"],
         child: Container(

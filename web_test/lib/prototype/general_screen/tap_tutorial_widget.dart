@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -70,7 +71,7 @@ class _TabTutorialWidgetState extends State<TabTutorialWidget>
 
   @override
   void dispose() {
-    if(_animationController!=null){
+    if (_animationController != null) {
       _animationController.dispose();
     }
     super.dispose();
@@ -78,15 +79,10 @@ class _TabTutorialWidgetState extends State<TabTutorialWidget>
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Container(
-          height: 52 * ratio,
-          width: 49 * ratio,
-          child: SvgPicture.asset(
-            TUTORIAL_IMAGE,
-            fit: BoxFit.contain,
-          )),
-    );
+    return Container(
+        height: 52 * ratio,
+        width: 49 * ratio,
+        child: RiveAnimation.asset(
+            'assets/rives/tutorial_rives/tutorial_hand.riv'));
   }
 }

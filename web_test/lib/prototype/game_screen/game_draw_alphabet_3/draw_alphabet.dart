@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
@@ -13,6 +14,7 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/character_item.dart';
+import 'package:web_test/widgets/character_item_paint.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
@@ -102,10 +104,10 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     ratio = screenModel.getRatio();
     bonusHeight = (screenHeight - 284 * ratio) / 2 - 47 * ratio;
     editPath();
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100),(){
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 800), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
     });
     super.didChangeDependencies();
@@ -269,7 +271,11 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             isScale: scaleNumber,
             curve: Curves.easeOutBack,
             child: Stack(
-              children: [displayAlphabet(), displayDrawTutorial()],
+              children: [
+                displayAlphabet(),
+                displayDrawTutorial(),
+                displayPainter()
+              ],
             )),
         BasicItem(),
         isDisplaySkipScreen ? SkipScreen() : Container()
@@ -285,18 +291,45 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     return Stack(
       children: indexGenerate.map((index) {
         return Positioned(
-          left: imagePosition[index].dx * ratio,
-          top: imagePosition[index].dy * ratio + bonusHeight,
-          child: CharacterItem(
-              imageLink[index],
-              alphabetData[index].width * ratio,
-              alphabetData[index].height * ratio,
-              Colors.red,
-              alphabetPath[index],
-              _alphabetPoint[index],
-              alphabetData[index].status == 1,
-              ratio),
-        );
+            left: imagePosition[index].dx * ratio,
+            top: imagePosition[index].dy * ratio + bonusHeight,
+            child: Stack(
+              children: [
+                alphabetData[index].status == 1
+                    ? SvgPicture.file(File(imageLink[index]),
+                        height: alphabetData[index].height * ratio,
+                        width: alphabetData[index].width * ratio,
+                        color: Colors.red,
+                        allowDrawingOutsideViewBox: true)
+                    : SvgPicture.file(File(imageLink[index]),
+                        height: alphabetData[index].height * ratio,
+                        width: alphabetData[index].width * ratio,
+                        allowDrawingOutsideViewBox: true),
+              ],
+            ));
+      }).toList(),
+    );
+  }
+
+  Widget displayPainter() {
+    List<int> indexGenerate =
+        Iterable<int>.generate(alphabetPath.length).toList();
+    indexGenerate.sort((a, b) => b.compareTo(a));
+    return Stack(
+      children: indexGenerate.map((index) {
+        return Positioned(
+            left: imagePosition[index].dx * ratio,
+            top: imagePosition[index].dy * ratio + bonusHeight,
+            child: Stack(
+              children: [
+                CustomPaint(
+                  size: Size(alphabetData[index].width * ratio,
+                      alphabetData[index].height * ratio),
+                  foregroundPainter: CharacterItemPaint(
+                      _alphabetPoint[index], alphabetPath[index], ratio),
+                )
+              ],
+            ));
       }).toList(),
     );
   }

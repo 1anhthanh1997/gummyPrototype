@@ -46,6 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   int currentPlayGame;
   int currentStep;
   Timer timer;
+  int periodicTime = 200;
 
   Future<void> loadGameData() async {
     // final response = await http.get(Uri.parse(
@@ -135,9 +136,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     FlutterDownloader.registerCallback(downloadCallback);
     await _prepare();
     if (hasExisted) {
-      setState(() {
-        isComplete = true;
-      });
+      // setState(() {
+      //   isComplete = true;
+      // });
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -145,8 +146,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       return;
     }
     _requestDownload();
-    // print(_localPath);
-    Timer(Duration(milliseconds: 10000), () {
+    Timer(Duration(milliseconds: 12000), () {
       extractFile();
     });
   }
@@ -154,6 +154,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void extractFile() async {
     final zipFile = File('${_localPath}/assets.zip');
     bool fileExist = await zipFile.exists();
+    // print(fileExist);
     if (fileExist) {
       final destinationDir = Directory(_localPath);
       try {
@@ -171,8 +172,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       } catch (e) {
         print(e);
       }
-    }else{
-      Timer(Duration(milliseconds: 2000),(){
+    } else {
+      Timer(Duration(milliseconds: 2000), () {
         extractFile();
       });
     }
@@ -242,6 +243,30 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return directory?.path;
   }
 
+  void addAnimation() {
+    timer = Timer.periodic(Duration(milliseconds: periodicTime), (timer) async {
+      if (currentLoadingIndex == 2) {
+        Timer(Duration(milliseconds: 1000), () {
+          setState(() {
+            currentLoadingIndex = 0;
+          });
+          addAnimation();
+        });
+        if (timer != null) {
+          timer.cancel();
+        }
+        print('Delay');
+      } else {
+        print('normal');
+        setState(() {
+          currentLoadingIndex = (currentLoadingIndex + 1) % 3;
+        });
+      }
+
+      print(currentLoadingIndex);
+    });
+  }
+
   @override
   void initState() {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
@@ -251,11 +276,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     });
     screenModel.getDeviceId();
     getCurrentPlayGameSF();
-    timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
-      setState(() {
-        currentLoadingIndex = (currentLoadingIndex + 1) % 3;
-      });
-    });
+    addAnimation();
 
     super.initState();
   }
@@ -285,16 +306,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
           children: [
             Positioned(
               top: screenHeight / 2 - 49 * ratio,
-              left: 252 * ratio,
+              left: 270 * ratio,
               child: LoadingTranslate(
                   isScale: currentLoadingIndex == 0,
-                  beginValue: 0,
-                  endValue: -50 * ratio,
-                  curve: Curves.linear,
-                  time: 500,
+                  beginValue: 12.5,
+                  endValue: -12.5 * ratio,
+                  curve: Curves.easeOutBack,
+                  time: 250,
                   child: Container(
-                    height: 98 * ratio,
-                    width: 98 * ratio,
+                    height: 72 * ratio,
+                    width: 72 * ratio,
                     child: Image.asset(
                         'assets/images/common/loading/bear_loading.png'),
                   )),
@@ -304,29 +325,29 @@ class _LoadingScreenState extends State<LoadingScreen> {
               left: 360 * ratio,
               child: LoadingTranslate(
                   isScale: currentLoadingIndex == 1,
-                  beginValue: 0,
-                  endValue: -50 * ratio,
-                  curve: Curves.linear,
-                  time: 500,
+                  beginValue: 12.5,
+                  endValue: -12.5 * ratio,
+                  curve: Curves.easeOutBack,
+                  time: 250,
                   child: Container(
-                    height: 98 * ratio,
-                    width: 98 * ratio,
+                    height: 72 * ratio,
+                    width: 72 * ratio,
                     child: Image.asset(
                         'assets/images/common/loading/dog_loading.png'),
                   )),
             ),
             Positioned(
               top: screenHeight / 2 - 49 * ratio,
-              left: 468 * ratio,
+              left: 450 * ratio,
               child: LoadingTranslate(
                   isScale: currentLoadingIndex == 2,
-                  beginValue: 0,
-                  endValue: -50 * ratio,
-                  curve: Curves.linear,
-                  time: 500,
+                  beginValue: 12.5,
+                  endValue: -12.5 * ratio,
+                  curve: Curves.easeOutBack,
+                  time: 250,
                   child: Container(
-                    height: 98 * ratio,
-                    width: 98 * ratio,
+                    height: 72 * ratio,
+                    width: 72 * ratio,
                     child: Image.asset(
                         'assets/images/common/loading/bird_loading.png'),
                   )),

@@ -113,7 +113,7 @@ class _ClassifyItemState extends State<ClassifyItem>
       ),
     );
     isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100),(){
+   Timer(Duration(milliseconds: 800),(){
       setState(() {
         isDisplaySkipScreen=false;
       });

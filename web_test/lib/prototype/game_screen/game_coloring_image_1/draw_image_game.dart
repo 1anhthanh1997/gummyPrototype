@@ -122,7 +122,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     countingColor();
     editPath();
     isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100),(){
+   Timer(Duration(milliseconds: 800),(){
       setState(() {
         isDisplaySkipScreen=false;
       });

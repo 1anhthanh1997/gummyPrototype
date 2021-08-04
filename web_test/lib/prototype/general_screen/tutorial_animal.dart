@@ -34,7 +34,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
   bool isScale = false;
   bool isDisplaySkipScreen = false;
   double dogVerticalPosition = 100;
-  int durationTime = 400;
+  int durationTime = 200;
   Curve curve = Curves.easeInBack;
 
   @override
@@ -50,7 +50,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
     screenHeight = screenModel.getScreenHeight();
     ratio = screenModel.getRatio();
     currentOffset = Offset(-9 * ratio, screenHeight - 85 * ratio);
-    Timer(Duration(milliseconds: 1200), () {
+    Timer(Duration(milliseconds: 1000), () {
       setState(() {
         dogVerticalPosition = 25;
         curve = Curves.easeOutBack;
@@ -206,7 +206,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   });
                 });
 
-                Timer(Duration(milliseconds: 1700), () {
+                Timer(Duration(milliseconds: 1200), () {
                   screenModel.skipGame();
                 });
               },
@@ -253,7 +253,7 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                   });
                 });
 
-                Timer(Duration(milliseconds: 1700), () {
+                Timer(Duration(milliseconds: 1200), () {
                   screenModel.skipGame();
                 });
               },
