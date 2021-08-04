@@ -27,7 +27,6 @@ class GameMemoryNumber extends StatefulWidget {
 }
 
 class _GameMemoryNumberState extends State<GameMemoryNumber> {
-  List data;
   List<ItemModel> itemData = [];
   List<int> draggableKey = [];
   List<int> targetKey = [];
@@ -37,7 +36,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   List<Offset> answerPositionTmp = [];
   List<ItemModel> answerData = [];
 
-  final List<List<SquareParticle>> particles = [];
+  List<List<SquareParticle>> particles = [];
   bool isDisplayAnswer = false;
   ParentGameModel allGameData;
   ScreenModel screenModel;
@@ -50,6 +49,28 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   Timer timer;
   bool isDisplayTutorialWidget = false;
   bool isDisplaySkipScreen = false;
+  List<String> colors = [
+    '#00C55A',
+    '#0094BF',
+    '#F47B2A',
+    '#FF400C',
+    '#ECA919',
+    '#C148EC',
+    '#F42AA3',
+    '#605DF2',
+    '#DD6349'
+  ];
+  List<Offset> offsets = [
+    Offset(86, 68),
+    Offset(148, 179),
+    Offset(206, 56),
+    Offset(262, 177),
+    Offset(362, 66),
+    Offset(435, 159),
+    Offset(512, 72),
+    Offset(586, 157),
+    Offset(664, 66)
+  ];
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -69,11 +90,27 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         Random random = Random();
         questionData.groupId = random.nextInt(3);
       } else {
-        answerPositionTmp.add(itemData[index].position);
+        Random random = Random();
+        String chosenColor = colors[random.nextInt(colors.length)];
+        Random positionRandom = Random();
+        Offset chosenPosition = offsets[positionRandom.nextInt(offsets.length)];
+        if(itemData[index].groupId!=questionData.groupId){
+          int chosenGroupId=questionData.groupId;
+          while(chosenGroupId==questionData.groupId){
+            Random idRandom=Random();
+            chosenGroupId=idRandom.nextInt(9);
+          }
+          itemData[index].groupId=chosenGroupId;
+          itemData[index].image=genImageLink(chosenGroupId);
+        }
+
+        answerPositionTmp.add(chosenPosition);
         itemData[index].position =
             Offset(screenWidth / 2, screenHeight + 125 * ratio);
+        itemData[index].color = chosenColor;
         answerData.add(itemData[index]);
         particles.add([]);
+        offsets.remove(chosenPosition);
       }
     }
     for (int index = 0; index < itemData.length; index++) {
@@ -86,6 +123,74 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     }
     print('Answer Count');
     print(answerCount);
+  }
+
+  String genImageLink(int groupId){
+    switch (groupId){
+      case 0: return 'one.svg';
+      case 1: return 'two.svg';
+      case 2: return 'three.svg';
+      case 3: return 'four.svg';
+      case 4: return 'five.svg';
+      case 5: return 'six.svg';
+      case 6: return 'seven.svg';
+      case 7: return 'eight.svg';
+      case 8: return 'nine.svg';
+      default: return 'one.svg';
+    }
+  }
+
+  void resetState() {
+    itemData = [];
+    questionPositionTmp = Offset(0, 0);
+    answerPositionTmp = [];
+    answerData = [];
+    particles = [];
+    isDisplayAnswer = false;
+    count = 0;
+    answerCount = 0;
+    isDisplayTutorialWidget = false;
+    isDisplaySkipScreen = false;
+    colors = [
+      '#00C55A',
+      '#0094BF',
+      '#F47B2A',
+      '#FF400C',
+      '#ECA919',
+      '#C148EC',
+      '#F42AA3',
+      '#605DF2',
+      '#DD6349'
+    ];
+    offsets = [
+      Offset(86, 68),
+      Offset(148, 179),
+      Offset(206, 56),
+      Offset(262, 177),
+      Offset(362, 66),
+      Offset(435, 159),
+      Offset(512, 72),
+      Offset(586, 157),
+      Offset(664, 66)
+    ];
+    screenModel.playGameItemSound(COUNT_DOWN);
+    Timer(Duration(milliseconds: 2000), () {
+      Timer(Duration(milliseconds: 500), () {
+        for (int index = 0; index < answerPositionTmp.length; index++) {
+          answerData[index].position = answerPositionTmp[index];
+        }
+        setState(() {});
+      });
+      setState(() {
+        isDisplayAnswer = true;
+      });
+    });
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 1100), () {
+      setState(() {
+        isDisplaySkipScreen = false;
+      });
+    });
   }
 
   @override
@@ -105,14 +210,6 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     ratio = screenModel.getRatio();
     loadGameData();
     print(questionPositionTmp);
-    // Timer(Duration(milliseconds: (500 * ratio).round()), () {
-    //   questionData.position = questionPositionTmp;
-    //   setState(() {});
-    // });
-    // Timer(Duration(milliseconds: (4000 * ratio).round()), () {
-    //   questionData.position = Offset(questionPositionTmp.dx, -300.0 * ratio);
-    //   setState(() {});
-    // });
     screenModel.playGameItemSound(COUNT_DOWN);
     Timer(Duration(milliseconds: 2000), () {
       Timer(Duration(milliseconds: 500), () {
@@ -185,6 +282,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       width: item.width * ratio,
       child: SvgPicture.file(
         File(assetFolder + item.image),
+        color: HexColor(item.color),
         fit: BoxFit.contain,
       ),
     );
@@ -197,21 +295,44 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       count++;
       answerData[index].status = 1;
     });
+    print(answerCount);
+    print(count);
     if (count == answerCount) {
       screenModel.playGameItemSound(CORRECT);
       Timer(Duration(milliseconds: 2000), () {
-        screenModel.nextStep();
+
         if (screenModel.currentStep ==
             screenModel.currentGame.gameData.length - 1) {
           if (timer != null) {
             timer.cancel();
           }
+          screenModel.nextStep();
+        } else {
+          screenModel.nextStep();
+          resetState();
+          loadGameData();
         }
       });
     }
     // });
-    Iterable.generate(8).forEach(
-        (i) => particles[index].add(SquareParticle(time, ratio, 197, 87)));
+
+    Iterable.generate(8).forEach((i) {
+      List<String> balloonShardList = [
+        BALLOON_SHARD_1,
+        BALLOON_SHARD_2,
+        BALLOON_SHARD_3,
+        BALLOON_SHARD_4,
+        BALLOON_SHARD_5,
+        BALLOON_SHARD_6,
+        BALLOON_SHARD_7,
+        BALLOON_SHARD_8,
+      ];
+      Random random = Random();
+      String balloonShardUrl =
+          balloonShardList[random.nextInt(balloonShardList.length)];
+      particles[index]
+          .add(SquareParticle(time, ratio, 197, 87, balloonShardUrl));
+    });
   }
 
   Widget displayQuestion() {
@@ -265,6 +386,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     return Stack(
       children: answerIndex.map((index) {
         ItemModel item = answerData[index];
+        print(item.color);
         return item.type == 1 && item.groupId == questionData.groupId
             ? AnimatedPositioned(
                 left: item.position.dx * ratio,
@@ -279,10 +401,11 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 duration: Duration(milliseconds: 1000),
                 child: BubbleAnimation(
                   child: Container(
-                    height: item.height * ratio,
-                    width: item.width * ratio,
+                    height: 194 * ratio,
+                    width: 60 * ratio,
                     child: SvgPicture.file(
                       File(assetFolder + item.image),
+                      color: HexColor(item.color),
                       fit: BoxFit.contain,
                     ),
                   ),

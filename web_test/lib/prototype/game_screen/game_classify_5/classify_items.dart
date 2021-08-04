@@ -213,7 +213,7 @@ class _ClassifyItemState extends State<ClassifyItem>
             isPlayTargetSound++;
           });
           if (isPlayTargetSound == 1) {
-            screenModel.playGameItemSound(CHOOSE);
+            // screenModel.playGameItemSound(CHOOSE);
           }
           setState(() {
             isSelected[0] = true;
@@ -224,7 +224,7 @@ class _ClassifyItemState extends State<ClassifyItem>
             isPlayTargetSound++;
           });
           if (isPlayTargetSound == 1) {
-            screenModel.playGameItemSound(CHOOSE);
+            // screenModel.playGameItemSound(CHOOSE);
           }
           setState(() {
             isSelected[0] = false;

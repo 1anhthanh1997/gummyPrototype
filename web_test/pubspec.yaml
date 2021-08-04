@@ -111,6 +111,7 @@ flutter:
     - assets/images/common/loading/
     - assets/music/tutorial/
     - assets/rives/tutorial_rives/
+    - assets/images/common/balloon_shards/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

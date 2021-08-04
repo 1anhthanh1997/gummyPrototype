@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:web_test/config/id_config.dart';
 
 class SquareParticle {
   Animatable tween;
@@ -9,8 +11,9 @@ class SquareParticle {
   double size;
   double bubbleHeight;
   double bubbleWidth;
+  String balloonShardUrl;
 
-  SquareParticle(Duration time, double ratio, double height, double width) {
+  SquareParticle(Duration time, double ratio, double height, double width, String urlImage) {
     final random = Random();
     final x =
         (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
@@ -33,9 +36,11 @@ class SquareParticle {
     size = sizeArr[random2.nextInt(sizeArr.length)];
     bubbleHeight=height;
     bubbleWidth=width;
+    balloonShardUrl=urlImage;
   }
 
   buildWidget(Duration time, Color color) {
+
     final animation = tween.transform(progress.progress(time));
     return Positioned(
       left: animation["x"] +  bubbleWidth/ 2,
@@ -45,7 +50,8 @@ class SquareParticle {
         child: Container(
           width: size,
           height: size,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: SvgPicture.asset(balloonShardUrl,
+          color: color,),
         ),
       ),
     );

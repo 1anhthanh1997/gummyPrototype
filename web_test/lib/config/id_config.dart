@@ -23,6 +23,17 @@ const MIN_BASE_SCORE = 8;
 const BASE_SERVER_URL = 'https://dev-dot-micro-enigma-235001.appspot.com';
 const TUTORIAL_IMAGE = 'assets/images/common/hand.svg';
 
+const BALLOON_SHARD_1='assets/images/common/balloon_shards/balloon_shard_1.svg';
+const BALLOON_SHARD_2='assets/images/common/balloon_shards/balloon_shard_2.svg';
+const BALLOON_SHARD_3='assets/images/common/balloon_shards/balloon_shard_3.svg';
+const BALLOON_SHARD_4='assets/images/common/balloon_shards/balloon_shard_4.svg';
+const BALLOON_SHARD_5='assets/images/common/balloon_shards/balloon_shard_5.svg';
+const BALLOON_SHARD_6='assets/images/common/balloon_shards/balloon_shard_6.svg';
+const BALLOON_SHARD_7='assets/images/common/balloon_shards/balloon_shard_7.svg';
+const BALLOON_SHARD_8='assets/images/common/balloon_shards/balloon_shard_8.svg';
+
+
+
 const BACKGROUND_GAME_MUSIC = 'music/background_game_music.mp3';
 const HOME_MUSIC = 'music/home_music.mp3';
 const BALLOON_POP_A = 'music/game_sound/balloon_pop_a.wav';

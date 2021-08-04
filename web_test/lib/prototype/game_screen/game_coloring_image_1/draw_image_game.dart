@@ -52,14 +52,14 @@ class _DrawImageGameState extends State<DrawImageGame> {
   int countSum = 0;
   double centerHeight = 0;
   bool isDragging = false;
-  int currentColorIndex;
+  int currentColorIndex = 0;
   List<int> status = [];
   ParentGameModel currentGameData;
   List<int> id = [];
   int stepIndex;
   bool isDisplayTutorialWidget = false;
   Timer timer;
-  bool isDisplaySkipScreen=false;
+  bool isDisplaySkipScreen = false;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
@@ -121,10 +121,10 @@ class _DrawImageGameState extends State<DrawImageGame> {
     bonusHeight = (screenHeight - 348 * ratio) / 2;
     countingColor();
     editPath();
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-   Timer(Duration(milliseconds: 800),(){
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 800), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
     });
     super.didChangeDependencies();
@@ -502,15 +502,64 @@ class _DrawImageGameState extends State<DrawImageGame> {
         : Container();
   }
 
+  Widget displayFormBackground() {
+    return Positioned(
+        left: 30 * ratio,
+        top: 66 * ratio + bonusHeight,
+        child: Container(
+          height: 248 * ratio,
+          width: 218 * ratio,
+          child: Image.asset(
+              'assets/images/game_coloring_image_1/form_background.png'),
+        ));
+  }
+
+  Widget displayChosenColor() {
+    return Positioned(
+        left: 226 * ratio,
+        top: 18 * ratio + bonusHeight,
+        child: Container(
+            height: 30 * ratio,
+            width: 47 * ratio,
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 2,
+                    child: Container(
+                      height: 30 * ratio,
+                      width: 30 * ratio,
+                      child: Image.asset(
+                        'assets/images/game_coloring_image_1/chosen_color.png',
+                        color: HexColor(currentColor),
+                      ),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        colorData[currentColorIndex] == null
+                            ? '0'
+                            : colorData[currentColorIndex].count.toString(),
+                        style: TextStyle(fontSize: 17 * ratio),
+                      ),
+                    ))
+              ],
+            )));
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayBackgroundImage());
+    widgets.add(displayFormBackground());
+    widgets.add(displayChosenColor());
     widgets.add(displayImage());
+    widgets.add(displayChosenColor());
     widgets.add(displayColor());
     widgets.add(displayCounting());
     widgets.add(displayCountingNumber());
     widgets.add(BasicItem());
-    if(isDisplaySkipScreen){
+    if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());
     }
     widgets.add(displayTutorialWidget());

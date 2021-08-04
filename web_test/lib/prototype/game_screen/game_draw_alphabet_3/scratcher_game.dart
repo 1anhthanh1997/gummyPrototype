@@ -230,7 +230,7 @@ class _ScratcherGameState extends State<ScratcherGame>
               height: 338 * ratio,
               width: 597 * ratio,
               child: Image.asset(
-                  'assets/images/game_draw_alphabet_3/draw_A/scatcher_image.png'),
+                  'assets/images/game_draw_alphabet_3/draw_A/scratcher_image.png'),
             )));
   }
 
