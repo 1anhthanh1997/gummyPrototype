@@ -29,6 +29,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Our app needs to use your contacts because it use a just_audio library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

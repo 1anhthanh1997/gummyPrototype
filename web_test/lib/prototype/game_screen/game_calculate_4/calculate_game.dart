@@ -127,6 +127,8 @@ class _CalculateGameState extends State<CalculateGame> {
       setState(() {
         isDisplaySkipScreen = false;
       });
+      screenModel.isDisplaySkipScreen=false;
+
     });
   }
 
@@ -366,11 +368,11 @@ class _CalculateGameState extends State<CalculateGame> {
                 String fullCompleteUrl =
                     assetFolder + sourceModel[sourceIndex].image;
                 return item.status == 0
-                    ? displayItemImage(
-                        item.height*1.4, item.width*1.4, fullInitUrl, 0, false)
+                    ? displayItemImage(item.height * 1.4, item.width * 1.4,
+                        fullInitUrl, 0, false)
                     : AnimatedMatchedTarget(
-                        child: displayItemImage(item.height*1.4, item.width*1.4,
-                            fullCompleteUrl, result, true),
+                        child: displayItemImage(item.height * 1.4,
+                            item.width * 1.4, fullCompleteUrl, result, true),
                       );
               },
               onWillAccept: (data) {
@@ -400,16 +402,15 @@ class _CalculateGameState extends State<CalculateGame> {
                     getGameData();
                     for (int index = 0; index < sourceModel.length; index++) {
                       ItemModel item = sourceModel[index];
-                      sourceModel[index].position =
-                          Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
+                      sourceModel[index].position = Offset(
+                          197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
                     }
                   } else {
-                    screenModel.nextStep();
-                    if (screenModel.currentStep == 0) {
-                      if (timer != null) {
-                        timer.cancel();
-                      }
+                    if (timer != null) {
+                      timer.cancel();
                     }
+                    screenModel.setContext(context);
+                    screenModel.nextStep();
                   }
                 });
               },

@@ -126,6 +126,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
       setState(() {
         isDisplaySkipScreen=false;
       });
+      screenModel.isDisplaySkipScreen=false;
     });
     super.didChangeDependencies();
   }

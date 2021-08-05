@@ -185,12 +185,6 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         isDisplayAnswer = true;
       });
     });
-    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
-    Timer(Duration(milliseconds: 1100), () {
-      setState(() {
-        isDisplaySkipScreen = false;
-      });
-    });
   }
 
   @override
@@ -227,6 +221,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       setState(() {
         isDisplaySkipScreen = false;
       });
+      screenModel.isDisplaySkipScreen=false;
     });
     super.didChangeDependencies();
   }
@@ -306,6 +301,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           if (timer != null) {
             timer.cancel();
           }
+          screenModel.setContext(context);
           screenModel.nextStep();
         } else {
           screenModel.nextStep();

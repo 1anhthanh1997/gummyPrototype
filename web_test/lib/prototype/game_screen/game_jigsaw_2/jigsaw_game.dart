@@ -96,6 +96,7 @@ class _JigsawGameState extends State<JigsawGame> {
       setState(() {
         isDisplaySkipScreen = false;
       });
+      screenModel.isDisplaySkipScreen=false;
     });
     super.didChangeDependencies();
   }
@@ -363,7 +364,9 @@ class _JigsawGameState extends State<JigsawGame> {
         startPosition = Offset(
             item.position.dx * ratio + item.width / 2 * ratio,
             item.position.dy * ratio + item.height / 2 * ratio + bonusHeight);
-        groupId = item.groupId;
+        setState(() {
+          isDisplaySkipScreen = false;
+        });        groupId = item.groupId;
         break;
       }
     }

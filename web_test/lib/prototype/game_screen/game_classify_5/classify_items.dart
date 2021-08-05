@@ -117,7 +117,8 @@ class _ClassifyItemState extends State<ClassifyItem>
       setState(() {
         isDisplaySkipScreen=false;
       });
-    });
+      screenModel.isDisplaySkipScreen=false;
+   });
     super.didChangeDependencies();
 
     controller.forward();

@@ -53,6 +53,8 @@ class _ScratcherGameState extends State<ScratcherGame>
   bool isAppear = true;
   Timer timer;
   bool isDisplayTutorialWidget = false;
+  List<bool>isEnable=[true,true,true,true];
+  bool isPlayScratcherSound=true;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -144,7 +146,13 @@ class _ScratcherGameState extends State<ScratcherGame>
         ? Positioned(
             top: item.position.dy * ratio + bonusHeight,
             left: item.position.dx * ratio,
-            child: Container(
+            child: ScaleAnimation(
+              isScale:isCompleted[index],
+              beginValue: 1.0,
+              endValue: 0.8,
+              curve: Curves.easeInBack,
+              time: 500,
+              child:Container(
               height: 138 * ratio,
               width: 138 * ratio,
               alignment: Alignment.center,
@@ -154,12 +162,13 @@ class _ScratcherGameState extends State<ScratcherGame>
                 child: Image.file(File(assetFolder + item.image)),
               ),
             ),
-          )
+          ))
         : AnimatedPositioned(
             top: item.position.dy * ratio + bonusHeight,
             left: item.position.dx * ratio,
             duration: Duration(milliseconds: 500),
             child: Scratcher(
+              enabled: isEnable[index],
               brushSize: 30 * ratio,
               threshold: 60,
               color: HexColor('#00FFFFFF'),
@@ -168,10 +177,34 @@ class _ScratcherGameState extends State<ScratcherGame>
                 fit: BoxFit.fill,
               ),
               onChange: (value) {
-                screenModel.playGameItemSound(SWEEPING_2);
+                if(isPlayScratcherSound){
+                  screenModel.playGameItemSound(SWEEPING_2);
+                  setState(() {
+                    isPlayScratcherSound=false;
+                  });
+                  Timer(Duration(milliseconds: 200),(){
+                    setState(() {
+                      isPlayScratcherSound=true;
+                    });
+                  });
+                }
+
                 print("Scratch progress: $value%");
               },
               onThreshold: () {
+                item.status=1;
+                for(int index=0;index<isEnable.length;index++){
+                  setState(() {
+                    isEnable[index]=false;
+                  });
+                }
+                Timer(Duration(milliseconds: 1500),(){
+                  for(int index=0;index<isEnable.length;index++){
+                    setState(() {
+                      isEnable[index]=true;
+                    });
+                  }
+                });
                 setState(() {
                   isCompleted[index] = true;
                   count++;
@@ -239,10 +272,13 @@ class _ScratcherGameState extends State<ScratcherGame>
     Offset endPosition = Offset(0, 0);
     for (int idx = 0; idx < sourceModel.length; idx++) {
       ItemModel item = sourceModel[idx];
-      startPosition = Offset(item.position.dx * ratio + 49 * ratio,
-          item.position.dy * ratio + 49 * ratio + bonusHeight);
-      endPosition = Offset(item.position.dx * ratio + 89 * ratio,
-          item.position.dy * ratio + 89 * ratio + bonusHeight);
+      if(item.status==0){
+        startPosition = Offset(item.position.dx * ratio + 49 * ratio,
+            item.position.dy * ratio + 49 * ratio + bonusHeight);
+        endPosition = Offset(item.position.dx * ratio + 89 * ratio,
+            item.position.dy * ratio + 89 * ratio + bonusHeight);
+        break;
+      }
     }
 
     return isDisplayTutorialWidget

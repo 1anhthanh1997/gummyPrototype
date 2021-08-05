@@ -109,6 +109,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       setState(() {
         isDisplaySkipScreen = false;
       });
+      screenModel.isDisplaySkipScreen=false;
     });
     super.didChangeDependencies();
   }

@@ -126,6 +126,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
       setState(() {
         isDisplaySkipScreen = false;
       });
+      screenModel.isDisplaySkipScreen=false;
     });
     super.didChangeDependencies();
   }
