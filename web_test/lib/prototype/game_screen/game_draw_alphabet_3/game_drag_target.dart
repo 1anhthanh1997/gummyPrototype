@@ -244,7 +244,7 @@ class _GameDragTargetState extends State<GameDragTarget>
                       child: AnimationHitFail(
                           isDisplayAnimation: isHitFail,
                           child: Container(
-                            // color: Colors.red,
+                            color: Colors.transparent,
                             height: 100 * ratio,
                             width: screenWidth / 5,
                             alignment: Alignment.center,
@@ -343,6 +343,7 @@ class _GameDragTargetState extends State<GameDragTarget>
               if (count == sourceModel.length) {
                 screenModel.playGameItemSound(CORRECT);
                 Timer(Duration(milliseconds: 1000), () {
+                  screenModel.setContext(context);
                   screenModel.nextStep();
                   if (screenModel.currentStep ==
                       screenModel.currentGame.gameData.length - 1) {

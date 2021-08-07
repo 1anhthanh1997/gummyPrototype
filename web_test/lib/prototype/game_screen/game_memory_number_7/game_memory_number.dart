@@ -71,13 +71,14 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     Offset(586, 157),
     Offset(664, 66)
   ];
+  int answerDuration=1000;
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
     int stepIndex = screenModel.currentStep;
     for (int idx = 0;
-        idx < allGameData.gameData[stepIndex].items.length;
-        idx++) {
+    idx < allGameData.gameData[stepIndex].items.length;
+    idx++) {
       itemData.add(allGameData.gameData[stepIndex].items[idx].copy());
     }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
@@ -294,7 +295,10 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     print(count);
     if (count == answerCount) {
       screenModel.playGameItemSound(CORRECT);
-      Timer(Duration(milliseconds: 2000), () {
+      for(int index=0;index<answerData.length;index++){
+        answerData[index].position=Offset(answerData[index].position.dx,-300*ratio);
+      }
+      Timer(Duration(milliseconds: 1000), () {
 
         if (screenModel.currentStep ==
             screenModel.currentGame.gameData.length - 1) {
@@ -325,7 +329,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       ];
       Random random = Random();
       String balloonShardUrl =
-          balloonShardList[random.nextInt(balloonShardList.length)];
+      balloonShardList[random.nextInt(balloonShardList.length)];
       particles[index]
           .add(SquareParticle(time, ratio, 197, 87, balloonShardUrl));
     });
@@ -356,18 +360,18 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
           children: [
             item.status == 0
                 ? GestureDetector(
-                    onTapDown: (details) {
-                      List<String> bubbleSound = [BALLOON_POP_A, BALLOON_POP_B];
-                      Random random = Random();
-                      String chosenSound =
-                          bubbleSound[random.nextInt(bubbleSound.length)];
-                      screenModel.playGameItemSound(chosenSound);
-                      screenModel.logTapEvent(item.id, details.globalPosition);
-                    },
-                    onTap: () {
-                      _hitSquare(time, index);
-                    },
-                    child: _square(index))
+                onTapDown: (details) {
+                  List<String> bubbleSound = [BALLOON_POP_A, BALLOON_POP_B];
+                  Random random = Random();
+                  String chosenSound =
+                  bubbleSound[random.nextInt(bubbleSound.length)];
+                  screenModel.playGameItemSound(chosenSound);
+                  screenModel.logTapEvent(item.id, details.globalPosition);
+                },
+                onTap: () {
+                  _hitSquare(time, index);
+                },
+                child: _square(index))
                 : Container(),
             ...particles[index]
                 .map((it) => it.buildWidget(time, HexColor(item.color)))
@@ -385,27 +389,47 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         print(item.color);
         return item.type == 1 && item.groupId == questionData.groupId
             ? AnimatedPositioned(
-                left: item.position.dx * ratio,
-                top: item.position.dy * ratio,
-                duration: Duration(milliseconds: 1000),
-                child: BubbleAnimation(
-                  child: _buildParticle(index),
-                ))
+            left: item.position.dx * ratio,
+            top: item.position.dy * ratio,
+            duration: Duration(milliseconds: answerDuration),
+            curve: Curves.easeInOutBack,
+            child: BubbleAnimation(
+              child: _buildParticle(index),
+            ))
             : AnimatedPositioned(
-                left: item.position.dx * ratio,
-                top: item.position.dy * ratio,
-                duration: Duration(milliseconds: 1000),
-                child: BubbleAnimation(
-                  child: Container(
-                    height: 194 * ratio,
-                    width: 60 * ratio,
-                    child: SvgPicture.file(
-                      File(assetFolder + item.image),
-                      color: HexColor(item.color),
-                      fit: BoxFit.contain,
-                    ),
+            left: item.position.dx * ratio,
+            top: item.position.dy * ratio,
+            duration: Duration(milliseconds: answerDuration),
+            curve: Curves.easeInOutBack,
+            child: GestureDetector(
+              onTap:(){
+                setState(() {
+                  answerData[index].position=Offset(item.position.dx,item.position.dy+20*ratio);
+                  answerDuration=150;
+                });
+                Timer(Duration(milliseconds: 150),(){
+                  setState(() {
+                    answerData[index].position=Offset(item.position.dx,item.position.dy-20*ratio);
+                  });
+                });
+                Timer(Duration(milliseconds: 300),(){
+                  setState(() {
+                    answerDuration=1000;
+                  });
+                });
+              },
+              child: BubbleAnimation(
+                child: Container(
+                  height: 194 * ratio,
+                  width: 60 * ratio,
+                  child: SvgPicture.file(
+                    File(assetFolder + item.image),
+                    color: HexColor(item.color),
+                    fit: BoxFit.contain,
                   ),
-                ));
+                ),
+              ),
+            ));
       }).toList(),
     );
   }
@@ -500,20 +524,20 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     }
     return isDisplayTutorialWidget
         ? Positioned(
-            top: position.dy,
-            left: position.dx,
-            child: TabTutorialWidget(
-              beginValue: 1.0,
-              endValue: 0.7,
-              time: 500,
-              onCompleted: () {
-                Timer(Duration(milliseconds: 400), () {
-                  setState(() {
-                    isDisplayTutorialWidget = false;
-                  });
-                });
-              },
-            ))
+        top: position.dy,
+        left: position.dx,
+        child: TabTutorialWidget(
+          beginValue: 1.0,
+          endValue: 0.7,
+          time: 500,
+          onCompleted: () {
+            Timer(Duration(milliseconds: 400), () {
+              setState(() {
+                isDisplayTutorialWidget = false;
+              });
+            });
+          },
+        ))
         : Container();
   }
 
@@ -543,15 +567,15 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         onPointerUp: onPointerTap,
         child: Scaffold(
             body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: FileImage(File(assetFolder +
-                      allGameData
-                          .gameData[screenModel.currentStep].background)),
-                  fit: BoxFit.fill)),
-          child: Stack(
-            children: displayScreen(),
-          ),
-        )));
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: FileImage(File(assetFolder +
+                          allGameData
+                              .gameData[screenModel.currentStep].background)),
+                      fit: BoxFit.fill)),
+              child: Stack(
+                children: displayScreen(),
+              ),
+            )));
   }
 }

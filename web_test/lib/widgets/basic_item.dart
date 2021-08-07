@@ -45,7 +45,7 @@ class _BasicItemState extends State<BasicItem> {
       children: imageIndex.map((index) {
         return Positioned(
             top: 9 * ratio,
-            left: screenWidth - 33 * ratio - 18.0 * ratio * index,
+            left: screenWidth - 33 * ratio - 18.0 * ratio * (screenModel.currentGame.gameData.length-1-index),
             child: index == screenModel.currentStep
                 ? Container(
                     height: 18 * ratio,

@@ -8,6 +8,7 @@ import 'package:scratcher/scratcher.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/animation/scratcher_scale.dart';
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
@@ -53,8 +54,11 @@ class _ScratcherGameState extends State<ScratcherGame>
   bool isAppear = true;
   Timer timer;
   bool isDisplayTutorialWidget = false;
-  List<bool>isEnable=[true,true,true,true];
-  bool isPlayScratcherSound=true;
+  List<bool> isEnable = [true, true, true, true];
+  bool isPlayScratcherSound = true;
+  Timer firstTimer;
+  Timer secondTimer;
+  Timer thirdTimer;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -119,6 +123,15 @@ class _ScratcherGameState extends State<ScratcherGame>
     if (timer != null) {
       timer.cancel();
     }
+    if(firstTimer!=null){
+      firstTimer.cancel();
+    }
+    if(secondTimer!=null){
+      secondTimer.cancel();
+    }
+    if(thirdTimer!=null){
+      thirdTimer.cancel();
+    }
     super.dispose();
   }
 
@@ -146,23 +159,24 @@ class _ScratcherGameState extends State<ScratcherGame>
         ? Positioned(
             top: item.position.dy * ratio + bonusHeight,
             left: item.position.dx * ratio,
-            child: ScaleAnimation(
-              isScale:isCompleted[index],
-              beginValue: 1.0,
-              endValue: 0.8,
-              curve: Curves.easeInBack,
+            child: ScratcherScale(
+              isScale: isCompleted[index],
+              beginValue: 0.8,
+              endValue: 1.0,
+              curve: Curves.easeIn,
               time: 500,
-              child:Container(
-              height: 138 * ratio,
-              width: 138 * ratio,
-              alignment: Alignment.center,
+              isReverse: true,
               child: Container(
-                height: item.height * ratio,
-                width: item.width * ratio,
-                child: Image.file(File(assetFolder + item.image)),
+                height: 138 * ratio,
+                width: 138 * ratio,
+                alignment: Alignment.center,
+                child: Container(
+                  height: item.height * ratio,
+                  width: item.width * ratio,
+                  child: Image.file(File(assetFolder + item.image)),
+                ),
               ),
-            ),
-          ))
+            ))
         : AnimatedPositioned(
             top: item.position.dy * ratio + bonusHeight,
             left: item.position.dx * ratio,
@@ -177,14 +191,14 @@ class _ScratcherGameState extends State<ScratcherGame>
                 fit: BoxFit.fill,
               ),
               onChange: (value) {
-                if(isPlayScratcherSound){
+                if (isPlayScratcherSound) {
                   screenModel.playGameItemSound(SWEEPING_2);
                   setState(() {
-                    isPlayScratcherSound=false;
+                    isPlayScratcherSound = false;
                   });
-                  Timer(Duration(milliseconds: 200),(){
+                  firstTimer=Timer(Duration(milliseconds: 200), () {
                     setState(() {
-                      isPlayScratcherSound=true;
+                      isPlayScratcherSound = true;
                     });
                   });
                 }
@@ -192,16 +206,16 @@ class _ScratcherGameState extends State<ScratcherGame>
                 print("Scratch progress: $value%");
               },
               onThreshold: () {
-                item.status=1;
-                for(int index=0;index<isEnable.length;index++){
+                item.status = 1;
+                for (int index = 0; index < isEnable.length; index++) {
                   setState(() {
-                    isEnable[index]=false;
+                    isEnable[index] = false;
                   });
                 }
-                Timer(Duration(milliseconds: 1500),(){
-                  for(int index=0;index<isEnable.length;index++){
+                secondTimer=Timer(Duration(milliseconds: 1500), () {
+                  for (int index = 0; index < isEnable.length; index++) {
                     setState(() {
-                      isEnable[index]=true;
+                      isEnable[index] = true;
                     });
                   }
                 });
@@ -211,7 +225,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                 });
                 if (count == isCompleted.length) {
                   screenModel.playGameItemSound(CORRECT);
-                  Timer(Duration(milliseconds: 1000), () {
+                  thirdTimer=Timer(Duration(milliseconds: 2000), () {
                     screenModel.nextStep();
                   });
                 }
@@ -221,8 +235,8 @@ class _ScratcherGameState extends State<ScratcherGame>
                 width: 138 * ratio,
                 alignment: Alignment.center,
                 child: Container(
-                  height: item.height * ratio,
-                  width: item.width * ratio,
+                  height: item.height * ratio*0.9,
+                  width: item.width * ratio*0.9,
                   child: Image.file(File(assetFolder + item.image)),
                 ),
               ),
@@ -272,7 +286,7 @@ class _ScratcherGameState extends State<ScratcherGame>
     Offset endPosition = Offset(0, 0);
     for (int idx = 0; idx < sourceModel.length; idx++) {
       ItemModel item = sourceModel[idx];
-      if(item.status==0){
+      if (item.status == 0) {
         startPosition = Offset(item.position.dx * ratio + 49 * ratio,
             item.position.dy * ratio + 49 * ratio + bonusHeight);
         endPosition = Offset(item.position.dx * ratio + 89 * ratio,
@@ -298,7 +312,12 @@ class _ScratcherGameState extends State<ScratcherGame>
 
   Widget displayScreen() {
     return Stack(
-      children: [scratcherBackground(), scratcher(), BasicItem(),displayTutorialWidget()],
+      children: [
+        scratcherBackground(),
+        scratcher(),
+        BasicItem(),
+        displayTutorialWidget()
+      ],
     );
   }
 

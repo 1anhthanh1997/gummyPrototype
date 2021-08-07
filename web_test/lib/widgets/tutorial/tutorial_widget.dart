@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rive/rive.dart';
 import 'package:web_test/config/id_config.dart';
 
 class TutorialWidget extends StatefulWidget {
@@ -23,13 +24,15 @@ class TutorialWidget extends StatefulWidget {
 class _TutorialWidgetState extends State<TutorialWidget> {
   Offset position;
   Timer timer;
+  bool isDisplayImage = false;
 
   @override
   void initState() {
     position = widget.startPosition;
-    timer = Timer(Duration(milliseconds: 500), () {
+    timer = Timer(Duration(milliseconds: 800), () {
       setState(() {
         position = widget.endPosition;
+        isDisplayImage = true;
       });
     });
 
@@ -56,7 +59,10 @@ class _TutorialWidgetState extends State<TutorialWidget> {
         child: Container(
           height: 67 * widget.ratio,
           width: 52 * widget.ratio,
-          child: SvgPicture.asset(TUTORIAL_IMAGE),
+          child: isDisplayImage
+              ? SvgPicture.asset(TUTORIAL_IMAGE)
+              : RiveAnimation.asset(
+                  'assets/rives/tutorial_rives/tutorial_hand.riv'),
         ));
   }
 }

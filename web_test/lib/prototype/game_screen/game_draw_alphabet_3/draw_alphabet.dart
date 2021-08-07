@@ -56,6 +56,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   bool isDisplayTutorialWidget = false;
   List<ItemModel> drawTutorial = [];
   bool isDisplaySkipScreen = false;
+  bool isAddPoint = true;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -109,7 +110,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       setState(() {
         isDisplaySkipScreen = false;
       });
-      screenModel.isDisplaySkipScreen=false;
+      screenModel.isDisplaySkipScreen = false;
     });
     super.didChangeDependencies();
   }
@@ -252,11 +253,13 @@ class _DrawAlphabetState extends State<DrawAlphabet>
       return Positioned(
           top: item.position.dy * ratio + bonusHeight,
           left: item.position.dx * ratio,
-          child: Container(
-            height: item.height * ratio,
-            width: item.width * ratio,
-            child: Image.asset(item.image),
-          ));
+          child: alphabetData[currentIndex].status == 1
+              ? Container()
+              : Container(
+                  height: item.height * ratio,
+                  width: item.width * ratio,
+                  child: Image.asset(item.image),
+                ));
     } else {
       return Container();
     }
@@ -323,12 +326,14 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             top: imagePosition[index].dy * ratio + bonusHeight,
             child: Stack(
               children: [
-                CustomPaint(
-                  size: Size(alphabetData[index].width * ratio,
-                      alphabetData[index].height * ratio),
-                  foregroundPainter: CharacterItemPaint(
-                      _alphabetPoint[index], alphabetPath[index], ratio),
-                )
+                alphabetData[index].status == 1
+                    ? Container()
+                    : CustomPaint(
+                        size: Size(alphabetData[index].width * ratio,
+                            alphabetData[index].height * ratio),
+                        foregroundPainter: CharacterItemPaint(
+                            _alphabetPoint[index], alphabetPath[index], ratio),
+                      )
               ],
             ));
       }).toList(),
@@ -420,7 +425,17 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                 onPanStartAction(details.localPosition);
               },
               onPanUpdate: (details) {
-                onPanUpdateAction(details.localPosition);
+                if (isAddPoint) {
+                  onPanUpdateAction(details.localPosition);
+                  setState(() {
+                    isAddPoint = false;
+                  });
+                  Timer(Duration(milliseconds: 25), () {
+                    setState(() {
+                      isAddPoint = true;
+                    });
+                  });
+                }
               },
               onPanEnd: (details) {
                 onPanEndAction();

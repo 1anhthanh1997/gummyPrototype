@@ -311,7 +311,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   isScale: currentLoadingIndex == 0,
                   beginValue: 12.5,
                   endValue: -12.5 * ratio,
-                  curve: Curves.easeOutBack,
+                  curve: Curves.easeOutQuad,
                   time: 250,
                   child: Container(
                     height: 72 * ratio,
@@ -327,7 +327,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   isScale: currentLoadingIndex == 1,
                   beginValue: 12.5,
                   endValue: -12.5 * ratio,
-                  curve: Curves.easeOutBack,
+                  curve: Curves.easeOutQuad,
                   time: 250,
                   child: Container(
                     height: 72 * ratio,
@@ -343,7 +343,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   isScale: currentLoadingIndex == 2,
                   beginValue: 12.5,
                   endValue: -12.5 * ratio,
-                  curve: Curves.easeOutBack,
+                  curve: Curves.easeOutQuad,
                   time: 250,
                   child: Container(
                     height: 72 * ratio,

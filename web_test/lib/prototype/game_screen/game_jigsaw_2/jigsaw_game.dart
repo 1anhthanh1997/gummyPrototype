@@ -96,7 +96,7 @@ class _JigsawGameState extends State<JigsawGame> {
       setState(() {
         isDisplaySkipScreen = false;
       });
-      screenModel.isDisplaySkipScreen=false;
+      screenModel.isDisplaySkipScreen = false;
     });
     super.didChangeDependencies();
   }
@@ -332,6 +332,7 @@ class _JigsawGameState extends State<JigsawGame> {
                       if (timer != null) {
                         timer.cancel();
                       }
+                      screenModel.setContext(context);
                       screenModel.nextStep();
                     } else {
                       screenModel.nextStep();
@@ -366,7 +367,8 @@ class _JigsawGameState extends State<JigsawGame> {
             item.position.dy * ratio + item.height / 2 * ratio + bonusHeight);
         setState(() {
           isDisplaySkipScreen = false;
-        });        groupId = item.groupId;
+        });
+        groupId = item.groupId;
         break;
       }
     }
@@ -396,13 +398,13 @@ class _JigsawGameState extends State<JigsawGame> {
 
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
+    widgets.add(displayCompletedImage());
     if (!isDisplayCompleteImage) {
       widgets.add(displayShadow());
       widgets.add(displayTarget());
       widgets.add(displayDraggable());
-    } else {
-      widgets.add(displayCompletedImage());
     }
+
     widgets.add(BasicItem());
     if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());

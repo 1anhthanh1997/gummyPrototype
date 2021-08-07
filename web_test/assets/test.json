@@ -1,516 +1,249 @@
 {
-  "id": 102,
-  "levelScore": 16,
-  "tags": [
-    1,
-    2
-  ],
+  "id": 1,
+  "parentId": 106,
   "gameType": 1,
-  "age": 3,
-  "level": 1,
-  "orderIndex": 0,
-  "gameName": "Game ghép hình",
-  "createDate": 0,
-  "lastUpdate": 0,
-  "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_2/",
-  "gameData": [
+  "stepAssets": "toys_jigsaw/",
+  "background": "background_image.png",
+  "items": [
     {
       "id": 0,
-      "parentId": 102,
-      "gameType": 1,
-      "stepAssets": "unicorn_jigsaw/",
-      "background": "background_image.png",
-      "items": [
-        {
-          "id": 0,
-          "image": "unicorn_jigsaw_1.png",
-          "groupId": 0,
-          "position": {
-            "dx": 55.0,
-            "dy": 37.0
-          },
-          "type": 1,
-          "width": 86.0,
-          "height": 111.0
-        },
-        {
-          "id": 1,
-          "image": "unicorn_jigsaw_2.png",
-          "groupId": 1,
-          "position": {
-            "dx": 118.0,
-            "dy": 244.0
-          },
-          "type": 1,
-          "width": 135.0,
-          "height": 86.0
-        },
-        {
-          "id": 2,
-          "image": "unicorn_jigsaw_3.png",
-          "groupId": 2,
-          "position": {
-            "dx": 23.0,
-            "dy": 175.0
-          },
-          "type": 1,
-          "width": 86.0,
-          "height": 111.0
-        },
-        {
-          "id": 3,
-          "image": "unicorn_jigsaw_4.png",
-          "groupId": 3,
-          "position": {
-            "dx": 684.0,
-            "dy": 258.0
-          },
-          "type": 1,
-          "width": 111.0,
-          "height": 86.0
-        },
-        {
-          "id": 4,
-          "image": "unicorn_jigsaw_5.png",
-          "groupId": 4,
-          "position": {
-            "dx": 569.0,
-            "dy": 195.0
-          },
-          "type": 1,
-          "width": 86.0,
-          "height": 135.0
-        },
-        {
-          "id": 5,
-          "image": "unicorn_jigsaw_6.png",
-          "groupId": 5,
-          "position": {
-            "dx": 559.0,
-            "dy": 69.0
-          },
-          "type": 1,
-          "width": 111.0,
-          "height": 86.0
-        },
-        {
-          "id": 6,
-          "image": "unicorn_jigsaw_7.png",
-          "groupId": 6,
-          "position": {
-            "dx": 684.0,
-            "dy": 22.0
-          },
-          "type": 1,
-          "width": 86.0,
-          "height": 111.0
-        },
-        {
-          "id": 7,
-          "image": "unicorn_jigsaw_8.png",
-          "groupId": 7,
-          "position": {
-            "dx": 655.0,
-            "dy": 155.0
-          },
-          "type": 1,
-          "width": 135.0,
-          "height": 86.0
-        },
-        {
-          "id": 8,
-          "image": "unicorn_jigsaw_9.png",
-          "groupId": 8,
-          "position": {
-            "dx": 156.0,
-            "dy": 77.0
-          },
-          "type": 1,
-          "width": 86.0,
-          "height": 111.0
-        },
-        {
-          "id": 0,
-          "image": "unicorn_jigsaw_1.png",
-          "groupId": 0,
-          "position": {
-            "dx": 264.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 1,
-          "image": "unicorn_jigsaw_2.png",
-          "groupId": 1,
-          "position": {
-            "dx": 332.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 2,
-          "image": "unicorn_jigsaw_3.png",
-          "groupId": 2,
-          "position": {
-            "dx": 454.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 3,
-          "image": "unicorn_jigsaw_4.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 139.0
-          },
-          "type": 0,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 4,
-          "image": "unicorn_jigsaw_5.png",
-          "groupId": 4,
-          "position": {
-            "dx": 358.0,
-            "dy": 112.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 150.0
-        },
-        {
-          "id": 5,
-          "image": "unicorn_jigsaw_6.png",
-          "groupId": 5,
-          "position": {
-            "dx": 427.0,
-            "dy": 139.0
-          },
-          "type": 0,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 6,
-          "image": "unicorn_jigsaw_7.png",
-          "groupId": 6,
-          "position": {
-            "dx": 263.0,
-            "dy": 208.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 7,
-          "image": "unicorn_jigsaw_8.png",
-          "groupId": 7,
-          "position": {
-            "dx": 331.0,
-            "dy": 235.0
-          },
-          "type": 0,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 8,
-          "image": "unicorn_jigsaw_9.png",
-          "groupId": 8,
-          "position": {
-            "dx": 454.0,
-            "dy": 208.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "image": "shadow_image.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 44.0
-          },
-          "type": 2,
-          "width": 286.0,
-          "height": 286.0
-        },
-        {
-          "image": "completed_image.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 44.0
-          },
-          "type": 3,
-          "width": 286.0,
-          "height": 286.0
-        }
-      ],
-      "width": 213.0,
-      "height": 298.0
+      "image": "toys_jigsaw_1.png",
+      "groupId": 0,
+      "position": {
+        "dx": 577.0,
+        "dy": 15.0
+      },
+      "type": 1,
+      "width": 96.0,
+      "height": 123.0
     },
     {
       "id": 1,
-      "parentId": 1,
-      "gameType": 1,
-      "stepAssets": "park_jigsaw/",
-      "background": "background_image.png",
-      "items": [
-        {
-          "id": 0,
-          "image": "park_1.png",
-          "groupId": 0,
-          "position": {
-            "dx": 577.0,
-            "dy": 15.0
-          },
-          "type": 1,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 1,
-          "image": "park_2.png",
-          "groupId": 1,
-          "position": {
-            "dx": 17.0,
-            "dy": 26.0
-          },
-          "type": 1,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 2,
-          "image": "park_3.png",
-          "groupId": 2,
-          "position": {
-            "dx": 165.0,
-            "dy": 105.0
-          },
-          "type": 1,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 3,
-          "image": "park_4.png",
-          "groupId": 3,
-          "position": {
-            "dx": 29.0,
-            "dy": 147.0
-          },
-          "type": 1,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 4,
-          "image": "park_5.png",
-          "groupId": 4,
-          "position": {
-            "dx": 577.0,
-            "dy": 148.0
-          },
-          "type": 1,
-          "width": 96.0,
-          "height": 150.0
-        },
-        {
-          "id": 5,
-          "image": "park_6.png",
-          "groupId": 5,
-          "position": {
-            "dx": 676.0,
-            "dy": 53.0
-          },
-          "type": 1,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 6,
-          "image": "park_7.png",
-          "groupId": 6,
-          "position": {
-            "dx": 690.0,
-            "dy": 147.0
-          },
-          "type": 1,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 7,
-          "image": "park_8.png",
-          "groupId": 7,
-          "position": {
-            "dx": 641.0,
-            "dy": 269.0
-          },
-          "type": 1,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 8,
-          "image": "park_9.png",
-          "groupId": 8,
-          "position": {
-            "dx": 139.0,
-            "dy": 227.0
-          },
-          "type": 1,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 0,
-          "image": "park_1.png",
-          "groupId": 0,
-          "position": {
-            "dx": 263.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 1,
-          "image": "park_2.png",
-          "groupId": 1,
-          "position": {
-            "dx": 332.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 2,
-          "image": "park_3.png",
-          "groupId": 2,
-          "position": {
-            "dx": 454.0,
-            "dy": 44.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 3,
-          "image": "park_4.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 140.0
-          },
-          "type": 0,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 4,
-          "image": "park_5.png",
-          "groupId": 4,
-          "position": {
-            "dx": 359.0,
-            "dy": 113.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 150.0
-        },
-        {
-          "id": 5,
-          "image": "park_6.png",
-          "groupId": 5,
-          "position": {
-            "dx": 427.0,
-            "dy": 140.0
-          },
-          "type": 0,
-          "width": 123.0,
-          "height": 96.0
-        },
-        {
-          "id": 6,
-          "image": "park_7.png",
-          "groupId": 6,
-          "position": {
-            "dx": 263.0,
-            "dy": 208.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "id": 7,
-          "image": "park_8.png",
-          "groupId": 7,
-          "position": {
-            "dx": 332.0,
-            "dy": 235.0
-          },
-          "type": 0,
-          "width": 150.0,
-          "height": 96.0
-        },
-        {
-          "id": 8,
-          "image": "park_9.png",
-          "groupId": 8,
-          "position": {
-            "dx": 454.0,
-            "dy": 208.0
-          },
-          "type": 0,
-          "width": 96.0,
-          "height": 123.0
-        },
-        {
-          "image": "shadow_image.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 44.0
-          },
-          "type": 2,
-          "width": 286.0,
-          "height": 286.0
-        },
-        {
-          "image": "completed_image.png",
-          "groupId": 3,
-          "position": {
-            "dx": 263.0,
-            "dy": 44.0
-          },
-          "type": 3,
-          "width": 286.0,
-          "height": 286.0
-        }
-      ],
-      "width": 213.0,
+      "image": "toys_jigsaw_2.png",
+      "groupId": 1,
+      "position": {
+        "dx": 17.0,
+        "dy": 26.0
+      },
+      "type": 1,
+      "width": 150.0,
+      "height": 96.0
+    },
+    {
+      "id": 2,
+      "image": "toys_jigsaw_3.png",
+      "groupId": 2,
+      "position": {
+        "dx": 165.0,
+        "dy": 105.0
+      },
+      "type": 1,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 3,
+      "image": "toys_jigsaw_4.png",
+      "groupId": 3,
+      "position": {
+        "dx": 29.0,
+        "dy": 147.0
+      },
+      "type": 1,
+      "width": 123.0,
+      "height": 96.0
+    },
+    {
+      "id": 4,
+      "image": "toys_jigsaw_5.png",
+      "groupId": 4,
+      "position": {
+        "dx": 577.0,
+        "dy": 148.0
+      },
+      "type": 1,
+      "width": 96.0,
+      "height": 150.0
+    },
+    {
+      "id": 5,
+      "image": "toys_jigsaw_6.png",
+      "groupId": 5,
+      "position": {
+        "dx": 676.0,
+        "dy": 53.0
+      },
+      "type": 1,
+      "width": 123.0,
+      "height": 96.0
+    },
+    {
+      "id": 6,
+      "image": "toys_jigsaw_7.png",
+      "groupId": 6,
+      "position": {
+        "dx": 690.0,
+        "dy": 147.0
+      },
+      "type": 1,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 7,
+      "image": "toys_jigsaw_8.png",
+      "groupId": 7,
+      "position": {
+        "dx": 641.0,
+        "dy": 269.0
+      },
+      "type": 1,
+      "width": 150.0,
+      "height": 96.0
+    },
+    {
+      "id": 8,
+      "image": "toys_jigsaw_9.png",
+      "groupId": 8,
+      "position": {
+        "dx": 139.0,
+        "dy": 227.0
+      },
+      "type": 1,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 0,
+      "image": "toys_jigsaw_1.png",
+      "groupId": 0,
+      "position": {
+        "dx": 263.0,
+        "dy": 44.0
+      },
+      "type": 0,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 1,
+      "image": "toys_jigsaw_2.png",
+      "groupId": 1,
+      "position": {
+        "dx": 332.0,
+        "dy": 44.0
+      },
+      "type": 0,
+      "width": 150.0,
+      "height": 96.0
+    },
+    {
+      "id": 2,
+      "image": "toys_jigsaw_3.png",
+      "groupId": 2,
+      "position": {
+        "dx": 454.0,
+        "dy": 44.0
+      },
+      "type": 0,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 3,
+      "image": "toys_jigsaw_4.png",
+      "groupId": 3,
+      "position": {
+        "dx": 263.0,
+        "dy": 140.0
+      },
+      "type": 0,
+      "width": 123.0,
+      "height": 96.0
+    },
+    {
+      "id": 4,
+      "image": "toys_jigsaw_5.png",
+      "groupId": 4,
+      "position": {
+        "dx": 359.0,
+        "dy": 113.0
+      },
+      "type": 0,
+      "width": 96.0,
+      "height": 150.0
+    },
+    {
+      "id": 5,
+      "image": "toys_jigsaw_6.png",
+      "groupId": 5,
+      "position": {
+        "dx": 427.0,
+        "dy": 140.0
+      },
+      "type": 0,
+      "width": 123.0,
+      "height": 96.0
+    },
+    {
+      "id": 6,
+      "image": "toys_jigsaw_7.png",
+      "groupId": 6,
+      "position": {
+        "dx": 263.0,
+        "dy": 208.0
+      },
+      "type": 0,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "id": 7,
+      "image": "toys_jigsaw_8.png",
+      "groupId": 7,
+      "position": {
+        "dx": 332.0,
+        "dy": 235.0
+      },
+      "type": 0,
+      "width": 150.0,
+      "height": 96.0
+    },
+    {
+      "id": 8,
+      "image": "toys_jigsaw_9.png",
+      "groupId": 8,
+      "position": {
+        "dx": 454.0,
+        "dy": 208.0
+      },
+      "type": 0,
+      "width": 96.0,
+      "height": 123.0
+    },
+    {
+      "image": "shadow_image.png",
+      "groupId": 3,
+      "position": {
+        "dx": 263.0,
+        "dy": 44.0
+      },
+      "type": 2,
+      "width": 286.0,
+      "height": 286.0
+    },
+    {
+      "image": "completed_image.png",
+      "groupId": 3,
+      "position": {
+        "dx": 263.0,
+        "dy": 44.0
+      },
+      "type": 3,
+      "width": 286.0,
       "height": 286.0
     }
-  ]
+  ],
+  "width": 213.0,
+  "height": 286.0
 }
