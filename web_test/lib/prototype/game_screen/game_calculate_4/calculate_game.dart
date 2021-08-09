@@ -13,6 +13,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
+import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/skip_screen.dart';
@@ -48,7 +49,7 @@ class _CalculateGameState extends State<CalculateGame> {
   Timer timer;
   bool isDisplayTutorialWidget = false;
   bool isDisplaySkipScreen = false;
-  bool isScale=true;
+  bool isScale = true;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -99,13 +100,13 @@ class _CalculateGameState extends State<CalculateGame> {
     sourceImage = [];
     targetImage = [];
     setState(() {
-      isScale=false;
+      isScale = false;
     });
-    Timer(Duration(milliseconds: 500),(){
-      isScale=true;
+    Timer(Duration(milliseconds: 500), () {
+      isScale = true;
     });
     setState(() {
-      isScale=true;
+      isScale = true;
     });
     genElement();
   }
@@ -138,8 +139,7 @@ class _CalculateGameState extends State<CalculateGame> {
       setState(() {
         isDisplaySkipScreen = false;
       });
-      screenModel.isDisplaySkipScreen=false;
-
+      screenModel.isDisplaySkipScreen = false;
     });
   }
 
@@ -455,20 +455,16 @@ class _CalculateGameState extends State<CalculateGame> {
             child: AnimationDraggableTap(
               child: Draggable(
                 data: item.groupId,
-                child: ScaleAnimation(
-                  isScale: isScale,
-                  beginValue: 0,
-                  endValue: 1.0,
-                  curve: Curves.easeOutBack,
-                  time: 1000,
-                  delayTime: 500*(index+1),
-                  child: AnimationHitFail(
-                    isDisplayAnimation: isHitFail,
-                    child: item.status == 0
-                        ? displayItemImage(
-                        item.height, item.width, fullInitUrl, number, false)
-                        : Container(),
-                  ),
+                // child: AppearAnimation(
+                //   curve: Curves.easeOutBack,
+                //   delay: 500*(index+1),
+                child: AnimationHitFail(
+                  isDisplayAnimation: isHitFail,
+                  child: item.status == 0
+                      ? displayItemImage(
+                          item.height, item.width, fullInitUrl, number, false)
+                      : Container(),
+                  // ),
                 ),
                 feedback: displayItemImage(
                     item.height, item.width, fullInitUrl, number, false),
