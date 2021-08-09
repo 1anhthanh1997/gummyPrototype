@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:scratcher/scratcher.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
@@ -12,6 +13,7 @@ import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/animation/sc
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/scale_animation.dart';
 import 'package:web_test/widgets/scratcher_appear.dart';
 import 'package:web_test/widgets/tutorial/scratcher_tutorial.dart';
@@ -59,6 +61,9 @@ class _ScratcherGameState extends State<ScratcherGame>
   Timer firstTimer;
   Timer secondTimer;
   Timer thirdTimer;
+  Offset particlesPosition = Offset(0, 0);
+  List<SquareParticle> particles = [];
+  Duration particlesTime;
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -123,13 +128,13 @@ class _ScratcherGameState extends State<ScratcherGame>
     if (timer != null) {
       timer.cancel();
     }
-    if(firstTimer!=null){
+    if (firstTimer != null) {
       firstTimer.cancel();
     }
-    if(secondTimer!=null){
+    if (secondTimer != null) {
       secondTimer.cancel();
     }
-    if(thirdTimer!=null){
+    if (thirdTimer != null) {
       thirdTimer.cancel();
     }
     super.dispose();
@@ -193,10 +198,18 @@ class _ScratcherGameState extends State<ScratcherGame>
               onChange: (value) {
                 if (isPlayScratcherSound) {
                   screenModel.playGameItemSound(SWEEPING_2);
+                  particles=[];
+                  Iterable.generate(4).forEach((i) {
+                    particles
+                        .add(SquareParticle(particlesTime, ratio, 197, 87, ''));
+                  });
                   setState(() {
                     isPlayScratcherSound = false;
+                    particlesPosition = Offset(
+                        item.position.dx * ratio + 69 * ratio,
+                        item.position.dy * ratio + bonusHeight + 69 * ratio);
                   });
-                  firstTimer=Timer(Duration(milliseconds: 200), () {
+                  firstTimer = Timer(Duration(milliseconds: 300), () {
                     setState(() {
                       isPlayScratcherSound = true;
                     });
@@ -212,7 +225,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                     isEnable[index] = false;
                   });
                 }
-                secondTimer=Timer(Duration(milliseconds: 1500), () {
+                secondTimer = Timer(Duration(milliseconds: 1500), () {
                   for (int index = 0; index < isEnable.length; index++) {
                     setState(() {
                       isEnable[index] = true;
@@ -225,7 +238,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                 });
                 if (count == isCompleted.length) {
                   screenModel.playGameItemSound(CORRECT);
-                  thirdTimer=Timer(Duration(milliseconds: 2000), () {
+                  thirdTimer = Timer(Duration(milliseconds: 2000), () {
                     screenModel.nextStep();
                   });
                 }
@@ -235,8 +248,8 @@ class _ScratcherGameState extends State<ScratcherGame>
                 width: 138 * ratio,
                 alignment: Alignment.center,
                 child: Container(
-                  height: item.height * ratio*0.9,
-                  width: item.width * ratio*0.9,
+                  height: item.height * ratio * 0.9,
+                  width: item.width * ratio * 0.9,
                   child: Image.file(File(assetFolder + item.image)),
                 ),
               ),
@@ -281,6 +294,36 @@ class _ScratcherGameState extends State<ScratcherGame>
             )));
   }
 
+  Widget _buildParticle() {
+    return Rendering(
+      // onTick: (time) => _manageParticleLife(time),
+      builder: (context, time) {
+        particlesTime = time;
+        return Stack(
+          overflow: Overflow.visible,
+          children: [
+            ...particles
+                .map((it) => it.buildWidget(time, Colors.grey,true))
+          ],
+        );
+      },
+    );
+  }
+
+  Widget displayParticles() {
+    return Positioned(
+        top: particlesPosition.dy * ratio -
+            15 * ratio +
+            bonusHeight -
+            197 / 2 * ratio,
+        left: particlesPosition.dx * ratio - 87 / 2 * ratio,
+        child: Container(
+          height: 197 * ratio,
+          width: 87 * ratio,
+          child: _buildParticle(),
+        ));
+  }
+
   Widget displayTutorialWidget() {
     Offset startPosition = Offset(0, 0);
     Offset endPosition = Offset(0, 0);
@@ -316,6 +359,7 @@ class _ScratcherGameState extends State<ScratcherGame>
         scratcherBackground(),
         scratcher(),
         BasicItem(),
+        // displayParticles(),
         displayTutorialWidget()
       ],
     );

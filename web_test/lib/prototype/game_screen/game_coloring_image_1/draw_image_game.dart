@@ -13,7 +13,9 @@ import 'package:web_test/model/parent_game_model.dart';
 import 'package:web_test/prototype/general_screen/tutorial_animal.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animation_character_item.dart';
+import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
+import 'package:web_test/widgets/fade_animation.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/rotate_animation.dart';
 import 'package:web_test/widgets/scale_animation.dart';
@@ -37,7 +39,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   List<ItemModel> data = [];
   List secondData = [];
   List<ItemModel> colorData = [];
-  String currentColor = '';
+  String currentColor = '#FFFFFF';
   double bonusHeight;
   List<bool> isCompleted = [];
   List<double> height = [];
@@ -65,6 +67,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
   bool isScaleChosenColor = false;
   List<SquareParticle> particles = [];
   Offset particlePosition = Offset(0, 0);
+  double colorTablePosition = 0;
+  bool isPassStep = false;
+  Duration particlesTime;
 
   void loadImageData() {
     currentGameData = screenModel.currentGame;
@@ -127,6 +132,17 @@ class _DrawImageGameState extends State<DrawImageGame> {
     countingColor();
     editPath();
     isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    if (screenModel.currentStep == 0) {
+      colorTablePosition = 1000 * ratio;
+      Timer(Duration(milliseconds: 800), () {
+        setState(() {
+          colorTablePosition = 625 * ratio;
+        });
+      });
+    } else {
+      colorTablePosition = 625 * ratio;
+    }
+
     Timer(Duration(milliseconds: 800), () {
       setState(() {
         isDisplaySkipScreen = false;
@@ -190,7 +206,6 @@ class _DrawImageGameState extends State<DrawImageGame> {
       data = [];
       secondData = [];
       colorData = [];
-      currentColor = '';
       isCompleted = [];
       height = [];
       width = [];
@@ -205,15 +220,17 @@ class _DrawImageGameState extends State<DrawImageGame> {
     if (screenModel.currentStep < screenModel.currentGame.gameData.length - 1) {
       isLoadNextStep = true;
     }
-    screenModel.nextStep();
+
     print(screenModel.currentStep);
     if (!isLoadNextStep) {
       if (timer != null) {
         timer.cancel();
       }
+      screenModel.setContext(context);
+      screenModel.nextStep();
     } else {
-      resetState();
-      loadImageData();
+      screenModel.setContext(context);
+      screenModel.nextStep();
     }
     setState(() {});
   }
@@ -258,6 +275,9 @@ class _DrawImageGameState extends State<DrawImageGame> {
         //   }
         // }
         if (countSum == 0) {
+          setState(() {
+            isPassStep = true;
+          });
           Timer(Duration(milliseconds: 1000), () {
             callNextStep();
           });
@@ -272,37 +292,29 @@ class _DrawImageGameState extends State<DrawImageGame> {
         }
       }
     }
+    particles = [];
     Iterable.generate(8).forEach((i) {
-      List<String> balloonShardList = [
-        BALLOON_SHARD_1,
-        BALLOON_SHARD_2,
-        BALLOON_SHARD_3,
-        BALLOON_SHARD_4,
-        BALLOON_SHARD_5,
-        BALLOON_SHARD_6,
-        BALLOON_SHARD_7,
-        BALLOON_SHARD_8,
-      ];
-      Random random = Random();
-      String balloonShardUrl =
-          balloonShardList[random.nextInt(balloonShardList.length)];
-      particles = [];
-      particles.add(SquareParticle(
-          Duration(milliseconds: 500), ratio, 197, 87, balloonShardUrl));
+
+      particles
+          .add(SquareParticle(particlesTime, ratio, 197, 87, ''));
     });
     screenModel.playGameItemSound(WRONG_COLOR);
-    setState(() {});
+    setState(() {
+      particlePosition = position;
+    });
   }
 
   Widget _buildParticle() {
+    print(particles);
     return Rendering(
       // onTick: (time) => _manageParticleLife(time),
       builder: (context, time) {
+        particlesTime = time;
         return Stack(
           overflow: Overflow.visible,
           children: [
             ...particles
-                .map((it) => it.buildWidget(time, HexColor(currentColor)))
+                .map((it) => it.buildWidget(time, HexColor(currentColor),true))
           ],
         );
       },
@@ -311,11 +323,44 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   Widget displayParticles() {
     return Positioned(
-        top: particlePosition.dy * ratio,
-        left: particlePosition.dx * ratio,
+        top: particlePosition.dy * ratio -
+            15 * ratio +
+            bonusHeight -
+            197 / 2 * ratio,
+        left: particlePosition.dx * ratio - 87 / 2 * ratio,
         child: Container(
+          height: 197 * ratio,
+          width: 87 * ratio,
           child: _buildParticle(),
         ));
+  }
+
+  Widget displayNormalImage(int index) {
+    return type[index] == 3
+        ? Positioned(
+            top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
+            left: imagePosition[index].dx * ratio,
+            child: AppearAnimation(
+              isPlay: true,
+              delay: 3000,
+              child: Container(
+                  height: height[index] * ratio,
+                  width: width[index] * ratio,
+                  child: SvgPicture.file(File(imageLink[index]))),
+            ),
+          )
+        : Positioned(
+            top: imagePosition[index].dy * ratio - 15 * ratio + bonusHeight,
+            left: imagePosition[index].dx * ratio,
+            child: FadeAnimation(
+              isFade: true,
+              delayTime: 2500,
+              child: Container(
+                  height: height[index] * ratio,
+                  width: width[index] * ratio,
+                  child: SvgPicture.file(File(imageLink[index]))),
+            ),
+          );
   }
 
   Widget displayImage() {
@@ -334,25 +379,19 @@ class _DrawImageGameState extends State<DrawImageGame> {
                         15 * ratio +
                         bonusHeight,
                     left: imagePosition[index].dx * ratio,
-                    child: AnimationCharacterItem(
-                        imageLink[index],
-                        width[index] * ratio,
-                        height[index] * ratio,
-                        HexColor(color[index]),
-                        _imagePath[index],
-                        imagePoint[index],
-                        isPlayAnimation[index]),
+                    child: FadeAnimation(
+                        isFade: true,
+                        delayTime: 2500,
+                        child: AnimationCharacterItem(
+                            imageLink[index],
+                            width[index] * ratio,
+                            height[index] * ratio,
+                            HexColor(color[index]),
+                            _imagePath[index],
+                            imagePoint[index],
+                            isPlayAnimation[index])),
                   )
-                : Positioned(
-                    top: imagePosition[index].dy * ratio -
-                        15 * ratio +
-                        bonusHeight,
-                    left: imagePosition[index].dx * ratio,
-                    child: Container(
-                        height: height[index] * ratio,
-                        width: width[index] * ratio,
-                        child: SvgPicture.file(File(imageLink[index]))),
-                  );
+                : displayNormalImage(index);
           }).toList(),
         ));
   }
@@ -367,77 +406,80 @@ class _DrawImageGameState extends State<DrawImageGame> {
           left: color.position.dx * ratio,
           child: color.count == 0
               ? Container()
-              : ScaleAnimation(
-                  isScale:
-                      isScaleChosenColor && currentColorIndex == colorIndex,
-                  beginValue: 1.0,
-                  endValue: 1.2,
-                  time: 100,
-                  isReverse: true,
-                  child: GestureDetector(
-                      onTapDown: (details) {
-                        screenModel.playGameItemSound(PICK_COLOR);
-                        screenModel.logTapEvent(
-                            color.id, details.globalPosition);
-                      },
-                      onTap: () {
-                        setState(() {
-                          currentColor = color.color;
-                          currentColorIndex = colorIndex;
-                          isScaleChosenColor = true;
-                        });
-                        Timer(Duration(milliseconds: 200), () {
-                          setState(() {
-                            isScaleChosenColor = false;
-                          });
-                        });
-                      },
-                      child: Draggable(
-                        child: Container(
-                            height: color.height * ratio,
-                            width: color.width * ratio,
-                            child: SvgPicture.file(
-                              File(assetFolder + color.image),
-                              fit: BoxFit.contain,
-                              color: HexColor(color.color),
-                            )),
-                        feedback: Container(
-                            height: color.height * ratio,
-                            width: color.width * ratio,
-                            alignment: Alignment.center,
-                            child: Container(
-                              height: 50 * ratio,
-                              width: 50 * ratio,
-                              // alignment: Alignment,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: HexColor(color.color)),
-                            )),
-                        childWhenDragging: Container(
-                            height: color.height * ratio,
-                            width: color.width * ratio,
-                            child: SvgPicture.file(
-                                File(assetFolder + color.image),
-                                fit: BoxFit.contain,
-                                color: HexColor(color.color))),
-                        onDragStarted: () {
+              : AppearAnimation(
+                  delay: colorIndex * 100 + 1300,
+                  child: ScaleAnimation(
+                    isScale:
+                        isScaleChosenColor && currentColorIndex == colorIndex,
+                    beginValue: 1.0,
+                    endValue: 1.2,
+                    time: 100,
+                    isReverse: true,
+                    child: GestureDetector(
+                        onTapDown: (details) {
                           screenModel.playGameItemSound(PICK_COLOR);
-                          screenModel.startPositionId = color.id;
-                          screenModel.startPosition = color.position;
+                          screenModel.logTapEvent(
+                              color.id, details.globalPosition);
+                        },
+                        onTap: () {
                           setState(() {
                             currentColor = color.color;
                             currentColorIndex = colorIndex;
-                            isDragging = true;
+                            isScaleChosenColor = true;
+                          });
+                          Timer(Duration(milliseconds: 200), () {
+                            setState(() {
+                              isScaleChosenColor = false;
+                            });
                           });
                         },
-                        onDraggableCanceled: (velocity, offset) {
-                          screenModel.endPosition = offset;
-                          onChooseColoringImage(
-                              Offset(offset.dx + color.width / 2 * ratio,
-                                  offset.dy + color.height / 2 * ratio),
-                              1);
-                        },
-                      )),
+                        child: Draggable(
+                          child: Container(
+                              height: color.height * ratio,
+                              width: color.width * ratio,
+                              child: SvgPicture.file(
+                                File(assetFolder + color.image),
+                                fit: BoxFit.contain,
+                                color: HexColor(color.color),
+                              )),
+                          feedback: Container(
+                              height: color.height * ratio,
+                              width: color.width * ratio,
+                              alignment: Alignment.center,
+                              child: Container(
+                                height: 50 * ratio,
+                                width: 50 * ratio,
+                                // alignment: Alignment,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: HexColor(color.color)),
+                              )),
+                          childWhenDragging: Container(
+                              height: color.height * ratio,
+                              width: color.width * ratio,
+                              child: SvgPicture.file(
+                                  File(assetFolder + color.image),
+                                  fit: BoxFit.contain,
+                                  color: HexColor(color.color))),
+                          onDragStarted: () {
+                            screenModel.playGameItemSound(PICK_COLOR);
+                            screenModel.startPositionId = color.id;
+                            screenModel.startPosition = color.position;
+                            setState(() {
+                              currentColor = color.color;
+                              currentColorIndex = colorIndex;
+                              isDragging = true;
+                            });
+                          },
+                          onDraggableCanceled: (velocity, offset) {
+                            screenModel.endPosition = offset;
+                            onChooseColoringImage(
+                                Offset(offset.dx + color.width / 2 * ratio,
+                                    offset.dy + color.height / 2 * ratio),
+                                1);
+                          },
+                        )),
+                  ),
                 ));
     }).toList());
   }
@@ -463,27 +505,29 @@ class _DrawImageGameState extends State<DrawImageGame> {
           left: color.position.dx * ratio,
           child: color.count == 0
               ? Container()
-              : GestureDetector(
-                  onTapDown: (details) {
-                    screenModel.logTapEvent(color.id, details.globalPosition);
-                    setState(() {
-                      currentColor = color.color;
-                      currentColorIndex = colorIndex;
-                    });
-                  },
-                  child: Container(
-                      height: color.height * ratio,
-                      width: color.width * ratio,
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        height: 22 * ratio,
-                        width: 24 * ratio,
-                        child: SvgPicture.asset(
-                          'assets/images/game_coloring_image_1/counting.svg',
-                          fit: BoxFit.contain,
-                        ),
-                      )),
-                ));
+              : AppearAnimation(
+                  delay: colorIndex * 100 + 1300,
+                  child: GestureDetector(
+                    onTapDown: (details) {
+                      screenModel.logTapEvent(color.id, details.globalPosition);
+                      setState(() {
+                        currentColor = color.color;
+                        currentColorIndex = colorIndex;
+                      });
+                    },
+                    child: Container(
+                        height: color.height * ratio,
+                        width: color.width * ratio,
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          height: 22 * ratio,
+                          width: 24 * ratio,
+                          child: SvgPicture.asset(
+                            'assets/images/game_coloring_image_1/counting.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        )),
+                  )));
     }).toList());
   }
 
@@ -497,29 +541,31 @@ class _DrawImageGameState extends State<DrawImageGame> {
           left: color.position.dx * ratio,
           child: color.count == 0
               ? Container()
-              : GestureDetector(
-                  onTapDown: (details) {
-                    screenModel.logTapEvent(color.id, details.globalPosition);
-                    setState(() {
-                      currentColor = color.color;
-                      currentColorIndex = colorIndex;
-                    });
-                  },
-                  child: Container(
-                      height: color.height * ratio,
-                      width: color.width * ratio,
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                          height: 22 * ratio,
-                          width: 24 * ratio,
-                          alignment: Alignment.center,
-                          child: Text(
-                            color.count.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15 * ratio),
-                          ))),
-                ));
+              : AppearAnimation(
+                  delay: colorIndex * 100 + 1300,
+                  child: GestureDetector(
+                    onTapDown: (details) {
+                      screenModel.logTapEvent(color.id, details.globalPosition);
+                      setState(() {
+                        currentColor = color.color;
+                        currentColorIndex = colorIndex;
+                      });
+                    },
+                    child: Container(
+                        height: color.height * ratio,
+                        width: color.width * ratio,
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                            height: 22 * ratio,
+                            width: 24 * ratio,
+                            alignment: Alignment.center,
+                            child: Text(
+                              color.count.toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15 * ratio),
+                            ))),
+                  )));
     }).toList());
   }
 
@@ -623,17 +669,44 @@ class _DrawImageGameState extends State<DrawImageGame> {
         ));
   }
 
+  Widget displayColorTable() {
+    return AnimatedPositioned(
+        top: 53 * ratio - 15 * ratio + bonusHeight,
+        left: colorTablePosition * ratio,
+        child: Container(
+          height: 280 * ratio,
+          width: 345 * ratio,
+          child: SvgPicture.asset(
+              'assets/images/game_coloring_image_1/coloring_parrot/color_table.svg'),
+        ),
+        duration: Duration(milliseconds: 500));
+  }
+
+  Widget displayDrawPaper() {
+    return Positioned(
+        top: bonusHeight,
+        left: 219 * ratio,
+        child: Container(
+          height: 348 * ratio,
+          width: 374 * ratio,
+          child: SvgPicture.asset(
+              'assets/images/game_coloring_image_1/coloring_parrot/draw_paper.svg'),
+        ));
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
     widgets.add(displayBackgroundImage());
     widgets.add(displayFormBackground());
+    widgets.add(displayColorTable());
+    widgets.add(displayDrawPaper());
     widgets.add(displayChosenColor());
     widgets.add(displayImage());
     widgets.add(displayChosenColor());
     widgets.add(displayColor());
     widgets.add(displayCounting());
     widgets.add(displayCountingNumber());
-    // widgets.add(displayParticles());
+    widgets.add(displayParticles());
     widgets.add(BasicItem());
     if (isDisplaySkipScreen) {
       widgets.add(SkipScreen());

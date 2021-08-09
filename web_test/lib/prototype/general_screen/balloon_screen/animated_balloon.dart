@@ -217,7 +217,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
                   });
                 },
                 child: displayBubble()),
-            ...particles.map((it) => it.buildWidget(time, chosenColor))
+            ...particles.map((it) => it.buildWidget(time, chosenColor,false))
           ],
         );
       },

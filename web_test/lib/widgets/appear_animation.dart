@@ -10,6 +10,7 @@ class AppearAnimation extends StatefulWidget {
   final bool isPlay;
   final int delay;
   final int reverseTime;
+  final Curve curve;
 
   // String state;
   AppearAnimation(
@@ -19,7 +20,8 @@ class AppearAnimation extends StatefulWidget {
       this.size: 0.1,
       this.isPlay: false,
       this.delay: 500,
-      this.reverseTime})
+      this.reverseTime,
+      this.curve})
       : super();
 
   @override

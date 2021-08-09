@@ -12,8 +12,10 @@ class SquareParticle {
   double bubbleHeight;
   double bubbleWidth;
   String balloonShardUrl;
+  double baseRatio;
 
-  SquareParticle(Duration time, double ratio, double height, double width, String urlImage) {
+  SquareParticle(Duration time, double ratio, double height, double width,
+      String urlImage) {
     final random = Random();
     final x =
         (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
@@ -34,25 +36,33 @@ class SquareParticle {
     Random random2 = Random();
     List<double> sizeArr = [10.0, 15.0, 20.0, 27.0, 35.0];
     size = sizeArr[random2.nextInt(sizeArr.length)];
-    bubbleHeight=height;
-    bubbleWidth=width;
-    balloonShardUrl=urlImage;
+    bubbleHeight = height;
+    bubbleWidth = width;
+    balloonShardUrl = urlImage;
+    baseRatio = ratio;
   }
 
-  buildWidget(Duration time, Color color) {
-
+  buildWidget(Duration time, Color color, bool isBasic) {
     final animation = tween.transform(progress.progress(time));
     return Positioned(
-      left: animation["x"] +  bubbleWidth/ 2,
+      left: animation["x"] + bubbleWidth / 2,
       top: animation["y"] + bubbleHeight / 3,
       child: Opacity(
         opacity: animation["opacity"],
-        child: Container(
-          width: size,
-          height: size,
-          child: SvgPicture.asset(balloonShardUrl,
-          color: color,),
-        ),
+        child: isBasic
+            ? Container(
+                width: size * baseRatio,
+                height: size * baseRatio,
+                decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+              )
+            : Container(
+                width: size * baseRatio,
+                height: size * baseRatio,
+                child: SvgPicture.asset(
+                  balloonShardUrl,
+                  color: color,
+                ),
+              ),
       ),
     );
   }

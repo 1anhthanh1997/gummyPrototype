@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class FadeAnimation extends StatefulWidget {
@@ -9,6 +11,7 @@ class FadeAnimation extends StatefulWidget {
   final double endValue;
   final bool isFade;
   final Curve curve;
+  final int delayTime;
 
   FadeAnimation(
       {this.child,
@@ -18,7 +21,8 @@ class FadeAnimation extends StatefulWidget {
       this.beginValue = 0.0,
       this.endValue = 1.0,
       this.isFade = false,
-      this.curve = Curves.linear});
+      this.curve = Curves.linear,
+      this.delayTime = 0});
 
   _FadeAnimationState createState() => _FadeAnimationState();
 }
@@ -51,7 +55,9 @@ class _FadeAnimationState extends State<FadeAnimation>
   @override
   Widget build(BuildContext context) {
     if (widget.isFade) {
-      _animationController.forward();
+      Timer(Duration(milliseconds: widget.delayTime), () {
+        _animationController.forward();
+      });
     } else {
       _animationController.reverse();
     }
