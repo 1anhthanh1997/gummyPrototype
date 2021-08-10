@@ -197,7 +197,7 @@ class _ScratcherGameState extends State<ScratcherGame>
               ),
               onChange: (value) {
                 if (isPlayScratcherSound) {
-                  screenModel.playGameItemSound(SWEEPING_2);
+                 // screenModel.playGameItemSound(SWEEPING_2);
                   particles=[];
                   Iterable.generate(4).forEach((i) {
                     particles
@@ -239,6 +239,7 @@ class _ScratcherGameState extends State<ScratcherGame>
                 if (count == isCompleted.length) {
                   screenModel.playGameItemSound(CORRECT);
                   thirdTimer = Timer(Duration(milliseconds: 2000), () {
+                    screenModel.setContext(context);
                     screenModel.nextStep();
                   });
                 }

@@ -293,37 +293,34 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screenModel.currentGameId == -1
-          ? Container()
-          : Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image:
-                          AssetImage('assets/images/home/home_background.png'),
-                      fit: BoxFit.fill)),
-              child: AnimationDraggableTap(
-                onTab: () {
-                  // showResultDialog(context);
-                  screenModel.playGameItemSound(PLAY_BTN);
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainGameRoute()),
-                      ModalRoute.withName("/Home"));
-                },
-                // child: Container(
-                //   height: 140,
-                //   width: 140,
-                //   child: Image.asset('assets/images/home/play_button.png',
-                //       fit: BoxFit.contain),
-                // ),
-                child: Container(
-                  height: 140,
-                  width: 140,
-                  child: Image.asset('assets/images/home/play_button.png',
-                      fit: BoxFit.contain),
-                ),
-              )),
+      body: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/home/home_background.png'),
+                  fit: BoxFit.fill)),
+          child: AnimationDraggableTap(
+            onTab: () {
+              // showResultDialog(context);
+              screenModel.playGameItemSound(PLAY_BTN);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainGameRoute()),
+                  ModalRoute.withName("/Home"));
+            },
+            // child: Container(
+            //   height: 140,
+            //   width: 140,
+            //   child: Image.asset('assets/images/home/play_button.png',
+            //       fit: BoxFit.contain),
+            // ),
+            child: Container(
+              height: 140,
+              width: 140,
+              child: Image.asset('assets/images/home/play_button.png',
+                  fit: BoxFit.contain),
+            ),
+          )),
     );
   }
 }

@@ -294,9 +294,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     }
     particles = [];
     Iterable.generate(8).forEach((i) {
-
-      particles
-          .add(SquareParticle(particlesTime, ratio, 197, 87, ''));
+      particles.add(SquareParticle(particlesTime, ratio, 50, 50, ''));
     });
     screenModel.playGameItemSound(WRONG_COLOR);
     setState(() {
@@ -314,7 +312,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           overflow: Overflow.visible,
           children: [
             ...particles
-                .map((it) => it.buildWidget(time, HexColor(currentColor),true))
+                .map((it) => it.buildWidget(time, HexColor(currentColor), true))
           ],
         );
       },
@@ -323,14 +321,12 @@ class _DrawImageGameState extends State<DrawImageGame> {
 
   Widget displayParticles() {
     return Positioned(
-        top: particlePosition.dy * ratio -
-            15 * ratio +
-            bonusHeight -
-            197 / 2 * ratio,
-        left: particlePosition.dx * ratio - 87 / 2 * ratio,
+        top: particlePosition.dy - 50 / 2 * ratio,
+        left: particlePosition.dx - 50 / 2 * ratio,
         child: Container(
-          height: 197 * ratio,
-          width: 87 * ratio,
+          height: 50 * ratio,
+          width: 50 * ratio,
+          // color: Colors.red,
           child: _buildParticle(),
         ));
   }
@@ -672,7 +668,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
   Widget displayColorTable() {
     return AnimatedPositioned(
         top: 53 * ratio - 15 * ratio + bonusHeight,
-        left: colorTablePosition * ratio,
+        left: colorTablePosition,
         child: Container(
           height: 280 * ratio,
           width: 345 * ratio,

@@ -201,6 +201,7 @@ class _ChoosePairGameState extends State<ChoosePairGame> {
                               });
                               if (count == pairCount) {
                                 Timer(Duration(milliseconds: 1500), () {
+                                  screenModel.setContext(context);
                                   screenModel.nextStep();
                                   if (screenModel.currentStep ==
                                       screenModel.currentGame.gameData.length -

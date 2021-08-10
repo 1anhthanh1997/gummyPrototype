@@ -9,13 +9,14 @@ import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/game_screen/game_calculate_4/draggable_scale.dart';
+import 'package:web_test/prototype/game_screen/game_calculate_4/translate_calculation.dart';
 import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/animated_matched_target.dart';
 import 'package:web_test/widgets/animation_draggable_tap.dart';
 import 'package:web_test/widgets/animation_hit_fail.dart';
-import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
-import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/fade_animation.dart';
 import 'package:web_test/widgets/skip_screen.dart';
 import 'package:web_test/widgets/tutorial/tutorial_widget.dart';
 
@@ -50,6 +51,8 @@ class _CalculateGameState extends State<CalculateGame> {
   bool isDisplayTutorialWidget = false;
   bool isDisplaySkipScreen = false;
   bool isScale = true;
+  bool isFinishStep = false;
+  int translateTime = 500;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
@@ -62,7 +65,6 @@ class _CalculateGameState extends State<CalculateGame> {
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
-        // print(itemData[index].status);
         setState(() {
           targetImage.add(itemData[index]);
         });
@@ -104,16 +106,20 @@ class _CalculateGameState extends State<CalculateGame> {
     });
     Timer(Duration(milliseconds: 500), () {
       isScale = true;
+      setState(() {
+        isFinishStep = false;
+        translateTime = 0;
+      });
     });
     setState(() {
       isScale = true;
     });
     genElement();
+    _initializeTimer();
   }
 
   @override
   void initState() {
-    print('InitState');
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     genElement();
@@ -182,8 +188,6 @@ class _CalculateGameState extends State<CalculateGame> {
       firstRandomValue = random.nextInt(8) + 1;
       secondRandomValue = random.nextInt(8) + 1;
     }
-    print('First: ${firstRandomValue}');
-    print('Second: ${secondRandomValue}');
     setState(() {
       firstElement = firstItem;
       secondElement = secondItem;
@@ -292,36 +296,98 @@ class _CalculateGameState extends State<CalculateGame> {
   Widget displayCalculation() {
     return Stack(
       children: [
-        Positioned(
+        AnimatedPositioned(
             top: (screenHeight * 1.2 - 79 * ratio) / 2,
             left: 186 * ratio,
-            child: displayNumber(firstElement, 58, 79)),
-        Positioned(
+            duration: Duration(milliseconds: translateTime),
+            child: FadeAnimation(
+                delayTime: 0,
+                beginValue: 0.0,
+                endValue: 1.0,
+                isFade: !isFinishStep,
+                time: 500,
+                // child: TranslateCalculation(
+                //     isScale: !isFinishStep,
+                //     beginValue: 12.5,
+                //     endValue: -12.5 * ratio,
+                //     curve: Curves.easeOutQuad,
+                //     time: 250,
+                //     delayTime: 0,
+                child: displayNumber(firstElement, 58, 79))),
+        // ),
+        AnimatedPositioned(
+            duration: Duration(milliseconds: translateTime),
             top: (screenHeight * 1.2 - 79 * ratio) / 2,
             left: 367 * ratio,
-            child: displayNumber(secondElement, 58, 79)),
-        Positioned(
+            child: FadeAnimation(
+                delayTime: 400,
+                beginValue: 0.0,
+                endValue: 1.0,
+                isFade: !isFinishStep,
+                time: 500,
+                // child: TranslateCalculation(
+                //     isScale: !isFinishStep,
+                //     beginValue: 12.5,
+                //     endValue: -12.5 * ratio,
+                //     curve: Curves.easeOutQuad,
+                //     time: 250,
+                //     delayTime: 400,
+                child: displayNumber(secondElement, 58, 79))
+            // )
+            ),
+        AnimatedPositioned(
+            duration: Duration(milliseconds: translateTime),
             top: (screenHeight * 1.2 - 62 * ratio) / 2,
             left: 274 * ratio,
-            child: Container(
-              height: 62 * ratio,
-              width: 62 * ratio,
-              child: SvgPicture.asset(
-                "assets/images/common/plus.svg",
-                fit: BoxFit.contain,
-              ),
-            )),
-        Positioned(
+            child: FadeAnimation(
+                delayTime: 200,
+                beginValue: 0.0,
+                endValue: 1.0,
+                isFade: !isFinishStep,
+                time: 500,
+            // child: TranslateCalculation(
+            //     isScale: !isFinishStep,
+            //     beginValue: 12.5,
+            //     endValue: -12.5 * ratio,
+            //     curve: Curves.easeOutQuad,
+            //     time: 250,
+            //     delayTime: 200,
+                child: Container(
+                  height: 62 * ratio,
+                  width: 62 * ratio,
+                  child: SvgPicture.asset(
+                    "assets/images/common/plus.svg",
+                    fit: BoxFit.contain,
+                  ),
+                ))
+            // )
+            ),
+        AnimatedPositioned(
+            duration: Duration(milliseconds: translateTime),
             top: (screenHeight * 1.2 - 39 * ratio) / 2,
             left: 456 * ratio,
-            child: Container(
-              height: 39 * ratio,
-              width: 62 * ratio,
-              child: SvgPicture.asset(
-                "assets/images/common/equal.svg",
-                fit: BoxFit.contain,
-              ),
-            ))
+            child: FadeAnimation(
+                delayTime: 600,
+                beginValue: 0.0,
+                endValue: 1.0,
+                isFade: !isFinishStep,
+                time: 500,
+                // child: TranslateCalculation(
+                //     isScale: !isFinishStep,
+                //     beginValue: 12.5,
+                //     endValue: -12.5 * ratio,
+                //     curve: Curves.easeOutQuad,
+                //     time: 250,
+                //     delayTime: 600,
+                child: Container(
+                  height: 39 * ratio,
+                  width: 62 * ratio,
+                  child: SvgPicture.asset(
+                    "assets/images/common/equal.svg",
+                    fit: BoxFit.contain,
+                  ),
+                )))
+        // )
       ],
     );
   }
@@ -365,7 +431,6 @@ class _CalculateGameState extends State<CalculateGame> {
 
   Widget displayTarget() {
     List<int> targetIndex = Iterable<int>.generate(targetModel.length).toList();
-    print(targetIndex.length);
     return Stack(
       children: targetIndex.map((index) {
         ItemModel item = targetModel[index];
@@ -379,12 +444,33 @@ class _CalculateGameState extends State<CalculateGame> {
                 String fullCompleteUrl =
                     assetFolder + sourceModel[sourceIndex].image;
                 return item.status == 0
-                    ? displayItemImage(item.height * 1.4, item.width * 1.4,
-                        fullInitUrl, 0, false)
+                    ? FadeAnimation(
+                        delayTime: 1000,
+                        beginValue: 0.0,
+                        endValue: 1.0,
+                        isFade: !isFinishStep,
+                        time: 500,
+                        // child: TranslateCalculation(
+                        //   isScale: true,
+                        //   beginValue: 12.5,
+                        //   endValue: -12.5 * ratio,
+                        //   curve: Curves.easeOutQuad,
+                        //   time: 250,
+                        //   delayTime: 1000,
+                          child: displayItemImage(item.height * 1.4,
+                              item.width * 1.4, fullInitUrl, 0, false),
+                        )
+                // )
                     : AnimatedMatchedTarget(
+                        child: FadeAnimation(
+                        delayTime: 1000,
+                        beginValue: 1.0,
+                        endValue: 0.0,
+                        isFade: isFinishStep,
+                        time: 500,
                         child: displayItemImage(item.height * 1.4,
                             item.width * 1.4, fullCompleteUrl, result, true),
-                      );
+                      ));
               },
               onWillAccept: (data) {
                 return data == item.groupId;
@@ -401,8 +487,15 @@ class _CalculateGameState extends State<CalculateGame> {
                 setState(() {
                   sourceModel[sourceIndex].status = 1;
                   targetModel[index].status = 1;
+                  isScale = false;
                 });
-                Timer(Duration(milliseconds: 1500), () {
+                if (screenModel.currentStep <
+                    screenModel.currentGame.gameData.length - 1) {
+                  setState(() {
+                    isFinishStep = true;
+                  });
+                }
+                Timer(Duration(milliseconds: 2000), () {
                   if (screenModel.currentStep <
                       screenModel.currentGame.gameData.length - 1) {
                     screenModel.nextStep();
@@ -453,11 +546,14 @@ class _CalculateGameState extends State<CalculateGame> {
             top: item.position.dy,
             left: item.position.dx,
             child: AnimationDraggableTap(
+                child: DraggableScale(
+              isScale: !isFinishStep ? true : isScale,
+              beginValue: 0.0,
+              endValue: 1.0,
+              curve: Curves.easeOutBack,
+              delayTime: 500 * (index + 1),
               child: Draggable(
                 data: item.groupId,
-                // child: AppearAnimation(
-                //   curve: Curves.easeOutBack,
-                //   delay: 500*(index+1),
                 child: AnimationHitFail(
                   isDisplayAnimation: isHitFail,
                   child: item.status == 0
@@ -483,7 +579,7 @@ class _CalculateGameState extends State<CalculateGame> {
                   onDraggableCancelled(item, offset);
                 },
               ),
-            ));
+            )));
       }).toList(),
     );
   }
@@ -511,9 +607,10 @@ class _CalculateGameState extends State<CalculateGame> {
     for (int index = 0; index < sourceModel.length; index++) {
       ItemModel item = sourceModel[index];
       if (item.groupId == targetModel[0].groupId) {
-        print('Tutorial');
         print(index);
-        startPosition = Offset(item.position.dx + item.width / 2 * ratio,
+        print(197 * ratio + 419 / 3 * index * ratio + 419 / 6 * ratio);
+        print(item.position.dx);
+        startPosition = Offset(item.position.dx + 419 / 6 * ratio,
             item.position.dy + item.height / 2 * ratio);
         break;
       }
@@ -554,7 +651,6 @@ class _CalculateGameState extends State<CalculateGame> {
 
   @override
   Widget build(BuildContext context) {
-    print(targetModel[0].status);
     return Listener(
         onPointerDown: onPointerTap,
         onPointerMove: onPointerTap,

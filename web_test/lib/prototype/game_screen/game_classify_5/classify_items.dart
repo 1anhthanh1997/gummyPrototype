@@ -285,6 +285,7 @@ class _ClassifyItemState extends State<ClassifyItem>
           });
           if (count == draggableCount) {
             Timer(Duration(milliseconds: 2000), () {
+              screenModel.setContext(context);
               screenModel.nextStep();
               if (screenModel.currentStep ==
                   screenModel.currentGame.gameData.length - 1) {

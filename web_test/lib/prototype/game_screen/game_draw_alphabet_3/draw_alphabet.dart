@@ -391,6 +391,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
           });
           screenModel.playGameItemSound(CORRECT);
           Timer(Duration(milliseconds: 1500), () {
+            screenModel.setContext(context);
             screenModel.nextStep();
           });
         }

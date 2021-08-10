@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/provider/screen_model.dart';
 
-class LoadingTranslate extends StatefulWidget {
+class TranslateCalculation extends StatefulWidget {
   final Widget child;
   final VoidCallback onTab;
   final int isPlayAnimation;
@@ -18,23 +18,23 @@ class LoadingTranslate extends StatefulWidget {
   final int delayTime;
   final bool isReverse;
 
-  LoadingTranslate(
+  TranslateCalculation(
       {this.child,
-      this.onTab,
-      this.isPlayAnimation,
-      this.time = 300,
-      this.beginValue = 1.0,
-      this.endValue = 1.2,
-      this.isScale = false,
-      this.curve = Curves.linear,
-      this.itemId = 0,
-      this.delayTime = 0,
-      this.isReverse = false});
+        this.onTab,
+        this.isPlayAnimation,
+        this.time = 300,
+        this.beginValue = 1.0,
+        this.endValue = 1.2,
+        this.isScale = false,
+        this.curve = Curves.linear,
+        this.itemId = 0,
+        this.delayTime = 0,
+        this.isReverse = false});
 
-  _LoadingTranslateState createState() => _LoadingTranslateState();
+  _TranslateCalculationState createState() => _TranslateCalculationState();
 }
 
-class _LoadingTranslateState extends State<LoadingTranslate>
+class _TranslateCalculationState extends State<TranslateCalculation>
     with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _translateAnimation;
@@ -54,14 +54,34 @@ class _LoadingTranslateState extends State<LoadingTranslate>
 
   @override
   void didChangeDependencies() {
+    if (widget.isScale) {
+      firstTimer = Timer(Duration(milliseconds: 200), () {
+        if (isPlay) {
+          secondTimer = Timer(Duration(milliseconds: widget.delayTime), () {
+          _animationController.forward().whenComplete(() {
+              _animationController.reverse().whenComplete(() {
+                setState(() {
+                  isPlay = false;
+                });
+                Timer(Duration(milliseconds: 1500), () {
+                  setState(() {
+                    isPlay = true;
+                  });
+                });
+              });
+            });
+          });
+        }
+      });
+    }
     super.didChangeDependencies();
     _translateAnimation =
         Tween(begin: widget.beginValue, end: widget.endValue).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0.0, 0.75, curve: widget.curve),
-      ),
-    );
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(0.0, 0.75, curve: widget.curve),
+          ),
+        );
   }
 
   @override
@@ -80,26 +100,7 @@ class _LoadingTranslateState extends State<LoadingTranslate>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isScale) {
-      firstTimer = Timer(Duration(milliseconds: 200), () {
-        if (isPlay) {
-          _animationController.forward().whenComplete(() {
-            secondTimer = Timer(Duration(milliseconds: widget.delayTime), () {
-              _animationController.reverse().whenComplete(() {
-                setState(() {
-                  isPlay = false;
-                });
-                Timer(Duration(milliseconds: 1500), () {
-                  setState(() {
-                    isPlay = true;
-                  });
-                });
-              });
-            });
-          });
-        }
-      });
-    }
+
 
     return AnimatedBuilder(
         animation: _animationController,

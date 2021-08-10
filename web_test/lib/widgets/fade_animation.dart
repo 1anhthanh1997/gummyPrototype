@@ -59,7 +59,10 @@ class _FadeAnimationState extends State<FadeAnimation>
         _animationController.forward();
       });
     } else {
-      _animationController.reverse();
+      Timer(Duration(milliseconds: widget.delayTime), () {
+        _animationController.reverse();
+      });
+
     }
 
     return FadeTransition(opacity: _fadeAnimation, child: widget.child);
