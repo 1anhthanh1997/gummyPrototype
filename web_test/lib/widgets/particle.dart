@@ -14,27 +14,39 @@ class SquareParticle {
   String balloonShardUrl;
   double baseRatio;
 
-  SquareParticle(Duration time, double ratio, double height, double width,
-      String urlImage) {
+  SquareParticle(
+      Duration time,
+      double ratio,
+      double height,
+      double width,
+      String urlImage,
+      List<double> randomSize,
+      int duration,
+      double maxX,
+      double maxY) {
     final random = Random();
     final x =
-        (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
+        (maxX) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
     final y =
-        (100 + 50) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
+        (maxY) * ratio * random.nextDouble() * (random.nextBool() ? 1 : -1);
+    print(duration);
 
     tween = MultiTrackTween([
-      Track("x").add(Duration(milliseconds: 400), Tween(begin: 0.0, end: x),
+      Track("x").add(
+          Duration(milliseconds: duration), Tween(begin: 0.0, end: x),
           curve: Curves.easeOut),
-      Track("y").add(Duration(milliseconds: 400), Tween(begin: 0.0, end: y),
+      Track("y").add(
+          Duration(milliseconds: duration), Tween(begin: 0.0, end: y),
           curve: Curves.easeOut),
       Track("opacity").add(
-          Duration(milliseconds: 400), Tween(begin: 1.0, end: 0.0),
+          Duration(milliseconds: duration), Tween(begin: 1.0, end: 0.0),
           curve: Curves.easeIn)
     ]);
     progress = AnimationProgress(
-        startTime: time, duration: Duration(milliseconds: 900));
+        startTime: time, duration: Duration(milliseconds: duration+500));
     Random random2 = Random();
-    List<double> sizeArr = [10.0, 15.0, 20.0, 27.0, 35.0];
+    List<double> sizeArr =
+        randomSize.length == 0 ? [10.0, 15.0, 20.0, 27.0, 35.0] : randomSize;
     size = sizeArr[random2.nextInt(sizeArr.length)];
     bubbleHeight = height;
     bubbleWidth = width;

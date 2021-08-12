@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:scratcher/scratcher.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
@@ -15,6 +14,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/scale_animation.dart';
+import 'package:web_test/widgets/scratcher/scratcher.dart';
 import 'package:web_test/widgets/scratcher_appear.dart';
 import 'package:web_test/widgets/tutorial/scratcher_tutorial.dart';
 
@@ -195,19 +195,31 @@ class _ScratcherGameState extends State<ScratcherGame>
                 'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',
                 fit: BoxFit.fill,
               ),
-              onChange: (value) {
-                if (isPlayScratcherSound) {
-                 // screenModel.playGameItemSound(SWEEPING_2);
-                  particles=[];
-                  Iterable.generate(4).forEach((i) {
-                    particles
-                        .add(SquareParticle(particlesTime, ratio, 197, 87, ''));
+              onChange: (value, offset) {
+                List<double> randomSize = [
+                  5.0 * 0.75,
+                  7.5 * 0.75,
+                  10.0 * 0.75,
+                  13.5 * 0.75,
+                  17.5 * 0.75
+                ];
+                if (offset != null) {
+                  Iterable.generate(1).forEach((i) {
+                    particles.add(SquareParticle(particlesTime, ratio, 0, 0,
+                        '', randomSize, 1, 50, 50));
                   });
+                  print(offset);
+                  setState(() {
+                    particlesPosition =
+                        Offset(offset.dx, offset.dy );
+                  });
+                }
+
+                if (isPlayScratcherSound) {
+                  // screenModel.playGameItemSound(SWEEPING_2);
+                  //  particles=[];
                   setState(() {
                     isPlayScratcherSound = false;
-                    particlesPosition = Offset(
-                        item.position.dx * ratio + 69 * ratio,
-                        item.position.dy * ratio + bonusHeight + 69 * ratio);
                   });
                   firstTimer = Timer(Duration(milliseconds: 300), () {
                     setState(() {
@@ -303,8 +315,7 @@ class _ScratcherGameState extends State<ScratcherGame>
         return Stack(
           overflow: Overflow.visible,
           children: [
-            ...particles
-                .map((it) => it.buildWidget(time, Colors.grey,true))
+            ...particles.map((it) => it.buildWidget(time, Colors.grey, true))
           ],
         );
       },
@@ -313,11 +324,8 @@ class _ScratcherGameState extends State<ScratcherGame>
 
   Widget displayParticles() {
     return Positioned(
-        top: particlesPosition.dy * ratio -
-            15 * ratio +
-            bonusHeight -
-            197 / 2 * ratio,
-        left: particlesPosition.dx * ratio - 87 / 2 * ratio,
+        top: particlesPosition.dy,
+        left: particlesPosition.dx,
         child: Container(
           height: 197 * ratio,
           width: 87 * ratio,
@@ -360,7 +368,7 @@ class _ScratcherGameState extends State<ScratcherGame>
         scratcherBackground(),
         scratcher(),
         BasicItem(),
-        // displayParticles(),
+        displayParticles(),
         displayTutorialWidget()
       ],
     );

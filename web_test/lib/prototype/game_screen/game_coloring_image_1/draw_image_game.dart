@@ -134,7 +134,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
     isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
     if (screenModel.currentStep == 0) {
       colorTablePosition = 1000 * ratio;
-      Timer(Duration(milliseconds: 800), () {
+      Timer(Duration(milliseconds: 1000), () {
         setState(() {
           colorTablePosition = 625 * ratio;
         });
@@ -293,8 +293,10 @@ class _DrawImageGameState extends State<DrawImageGame> {
       }
     }
     particles = [];
-    Iterable.generate(8).forEach((i) {
-      particles.add(SquareParticle(particlesTime, ratio, 50, 50, ''));
+    List<double> randomSize = [5.0, 7.5, 10.0, 13.5, 17.5];
+    Iterable.generate(5).forEach((i) {
+      particles.add(SquareParticle(
+          particlesTime, ratio, 50, 50, '', randomSize, 400, 100, 100));
     });
     screenModel.playGameItemSound(WRONG_COLOR);
     setState(() {
@@ -338,7 +340,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
             left: imagePosition[index].dx * ratio,
             child: AppearAnimation(
               isPlay: true,
-              delay: 3000,
+              delay: 500,
               child: Container(
                   height: height[index] * ratio,
                   width: width[index] * ratio,
@@ -350,7 +352,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
             left: imagePosition[index].dx * ratio,
             child: FadeAnimation(
               isFade: true,
-              delayTime: 2500,
+              delayTime: 500,
               child: Container(
                   height: height[index] * ratio,
                   width: width[index] * ratio,
@@ -377,7 +379,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
                     left: imagePosition[index].dx * ratio,
                     child: FadeAnimation(
                         isFade: true,
-                        delayTime: 2500,
+                        delayTime: 500,
                         child: AnimationCharacterItem(
                             imageLink[index],
                             width[index] * ratio,
@@ -403,7 +405,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           child: color.count == 0
               ? Container()
               : AppearAnimation(
-                  delay: colorIndex * 100 + 1300,
+                  delay: colorIndex * 100 + 1500,
                   child: ScaleAnimation(
                     isScale:
                         isScaleChosenColor && currentColorIndex == colorIndex,
@@ -502,7 +504,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           child: color.count == 0
               ? Container()
               : AppearAnimation(
-                  delay: colorIndex * 100 + 1300,
+                  delay: colorIndex * 100 + 1500,
                   child: GestureDetector(
                     onTapDown: (details) {
                       screenModel.logTapEvent(color.id, details.globalPosition);
@@ -538,7 +540,7 @@ class _DrawImageGameState extends State<DrawImageGame> {
           child: color.count == 0
               ? Container()
               : AppearAnimation(
-                  delay: colorIndex * 100 + 1300,
+                  delay: colorIndex * 100 + 1500,
                   child: GestureDetector(
                     onTapDown: (details) {
                       screenModel.logTapEvent(color.id, details.globalPosition);

@@ -191,7 +191,7 @@ class _AnimatedBalloonState extends State<AnimatedBalloon>
       List<String> balloonShardList=[BALLOON_SHARD_1,BALLOON_SHARD_2,BALLOON_SHARD_3,BALLOON_SHARD_4,BALLOON_SHARD_5,BALLOON_SHARD_6,BALLOON_SHARD_7,BALLOON_SHARD_8,];
       Random random =Random();
       String balloonShardUrl=balloonShardList[random.nextInt(balloonShardList.length)];
-      particles.add(SquareParticle(time, 1,277,130,balloonShardUrl));
+      particles.add(SquareParticle(time, 1,277,130,balloonShardUrl,[],400,150,150));
     });
   }
 

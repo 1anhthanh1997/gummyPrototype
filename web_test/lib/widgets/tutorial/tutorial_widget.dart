@@ -57,8 +57,8 @@ class _TutorialWidgetState extends State<TutorialWidget> {
           widget.onCompleted();
         },
         child: Container(
-          height: 67 * widget.ratio,
-          width: 52 * widget.ratio,
+          height: isDisplayImage ? 67 * widget.ratio : 67 * widget.ratio * 1.2,
+          width: isDisplayImage ? 52 * widget.ratio : 52 * widget.ratio * 1.2,
           child: isDisplayImage
               ? SvgPicture.asset(TUTORIAL_IMAGE)
               : RiveAnimation.asset(

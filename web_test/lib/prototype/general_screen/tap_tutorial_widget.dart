@@ -80,8 +80,8 @@ class _TabTutorialWidgetState extends State<TabTutorialWidget>
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 67 * ratio,
-        width: 52 * ratio,
+        height: 67 * ratio*1.1,
+        width: 52 * ratio*1.1,
         child: RiveAnimation.asset(
             'assets/rives/tutorial_rives/tutorial_hand.riv'));
   }

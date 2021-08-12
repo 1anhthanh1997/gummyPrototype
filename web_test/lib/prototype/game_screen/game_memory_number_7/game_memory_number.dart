@@ -17,6 +17,7 @@ import 'package:web_test/provider/screen_model.dart';
 import 'package:web_test/widgets/appear_animation.dart';
 import 'package:web_test/widgets/basic_item.dart';
 import 'package:web_test/widgets/bubble_animation.dart';
+import 'package:web_test/widgets/bubble_scale.dart';
 import 'package:web_test/widgets/opacity_animation.dart';
 import 'package:web_test/widgets/particle.dart';
 import 'package:web_test/widgets/skip_screen.dart';
@@ -72,6 +73,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
     Offset(664, 66)
   ];
   int answerDuration = 1000;
+  List<bool> isScale = [];
 
   void loadGameData() {
     allGameData = screenModel.currentGame;
@@ -110,6 +112,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             Offset(screenWidth / 2, screenHeight + 125 * ratio);
         itemData[index].color = chosenColor;
         answerData.add(itemData[index]);
+        isScale.add(false);
         particles.add([]);
         offsets.remove(chosenPosition);
       }
@@ -152,6 +155,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   void resetState() {
+    isScale=[];
     itemData = [];
     questionPositionTmp = Offset(0, 0);
     answerPositionTmp = [];
@@ -346,7 +350,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       String balloonShardUrl =
           balloonShardList[random.nextInt(balloonShardList.length)];
       particles[index]
-          .add(SquareParticle(time, ratio, 197, 87, balloonShardUrl));
+          .add(SquareParticle(time, ratio, 197, 87, balloonShardUrl,[],400,150,150));
     });
   }
 
@@ -384,7 +388,12 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                       screenModel.logTapEvent(item.id, details.globalPosition);
                     },
                     onTap: () {
-                      _hitSquare(time, index);
+                      setState(() {
+                        isScale[index] = true;
+                      });
+                      Timer(Duration(milliseconds: 100), () {
+                        _hitSquare(time, index);
+                      });
                     },
                     child: _square(index))
                 : Container(),
@@ -407,26 +416,32 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 left: item.position.dx * ratio,
                 top: item.position.dy * ratio,
                 duration: Duration(milliseconds: answerDuration),
-                curve: Curves.easeInOutBack,
+                curve: Curves.fastOutSlowIn,
                 child: BubbleAnimation(
-                  child: _buildParticle(index),
+                  child:BubbleScale(
+                    isScale: isScale[index],
+                    beginValue: 1.0,
+                    endValue: 1.1,
+                    time: 100,
+                    child:_buildParticle(index),
+                  )
                 ))
             : AnimatedPositioned(
                 left: item.position.dx * ratio,
                 top: item.position.dy * ratio,
                 duration: Duration(milliseconds: answerDuration),
-                curve: Curves.easeInOutBack,
+                curve: Curves.fastOutSlowIn,
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
                       answerData[index].position = Offset(
-                          item.position.dx, item.position.dy + 20 * ratio);
+                          item.position.dx, item.position.dy + 10 * ratio);
                       answerDuration = 150;
                     });
                     Timer(Duration(milliseconds: 150), () {
                       setState(() {
                         answerData[index].position = Offset(
-                            item.position.dx, item.position.dy - 20 * ratio);
+                            item.position.dx, item.position.dy - 10 * ratio);
                       });
                     });
                     Timer(Duration(milliseconds: 300), () {

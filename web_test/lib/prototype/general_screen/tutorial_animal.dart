@@ -158,14 +158,14 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
       children: [
         Positioned(
             top: screenHeight -
-                79 * ratio -
+                105 * ratio -
                 countVerticalDistance(
                         currentDraggableOffset,
                         Offset(screenWidth - 52 * ratio,
                             screenHeight - 45 * ratio)) *
                     0.1,
             left: screenWidth -
-                86 * ratio -
+                112 * ratio -
                 countHorizontalDistance(
                         currentDraggableOffset,
                         Offset(screenWidth - 52 * ratio,
@@ -181,12 +181,17 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                               screenHeight - 45 * ratio))
                       : 0.0,
                   child: Container(
-                      height: 68 * ratio,
-                      width: 68 * ratio,
-                      child: SvgPicture.asset(
-                        'assets/images/common/skip_target.svg',
-                        fit: BoxFit.contain,
-                      )),
+                    height: 120 * ratio,
+                    width: 120 * ratio,
+                    alignment: Alignment.center,
+                    child: Container(
+                        height: 68 * ratio,
+                        width: 68 * ratio,
+                        child: SvgPicture.asset(
+                          'assets/images/common/skip_target.svg',
+                          fit: BoxFit.contain,
+                        )),
+                  ),
                 );
               },
               onWillAccept: (data) {
@@ -213,11 +218,11 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
             )),
         Positioned(
             top: screenHeight -
-                79 * ratio -
+                105 * ratio -
                 countVerticalDistance(currentDraggableOffset,
                         Offset(60 * ratio, screenHeight - 45 * ratio)) *
                     0.1,
-            left: 26 * ratio -
+            left: 0 * ratio -
                 countHorizontalDistance(currentDraggableOffset,
                         Offset(60 * ratio, screenHeight - 45 * ratio)) *
                     0.1,
@@ -229,13 +234,17 @@ class _TutorialAnimalsState extends State<TutorialAnimals> {
                             Offset(60 * ratio, screenHeight - 45 * ratio))
                         : 0.0,
                     child: Container(
-                      height: 68 * ratio,
-                      width: 68 * ratio,
-                      child: SvgPicture.asset(
-                        'assets/images/common/skip_target.svg',
-                        fit: BoxFit.contain,
-                      ),
-                    ));
+                        height: 120 * ratio,
+                        width: 120 * ratio,
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: 68 * ratio,
+                          width: 68 * ratio,
+                          child: SvgPicture.asset(
+                            'assets/images/common/skip_target.svg',
+                            fit: BoxFit.contain,
+                          ),
+                        )));
               },
               onWillAccept: (data) {
                 return data == 0 && displaySkip == 2;
