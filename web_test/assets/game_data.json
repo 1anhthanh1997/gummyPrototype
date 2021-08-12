@@ -178,7 +178,7 @@
               "height": 59.0
             },
             {
-              "id": 12,
+              "id": 11,
               "image": "parrot_model.svg",
               "position": {
                 "dx": 38.0,
@@ -190,7 +190,7 @@
               "height": 136.0
             },
             {
-              "id": 13,
+              "id": 12,
               "image": "color_1.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -220,7 +220,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 14,
               "image": "color_3.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -235,7 +235,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 15,
               "image": "color_4.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -250,7 +250,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 16,
               "image": "color_5.svg",
               "path": "M146.341 95.0286C146.281 97.707 145.867 100.266 143.935 102.3C141.909 104.434 139.267 105.416 136.469 106.015C136.119 106.09 135.637 105.864 135.299 105.65C124.588 98.8942 113.886 92.1215 103.182 85.3512C84.8297 73.7446 66.4795 62.1356 48.1148 50.5485C47.7377 50.31 47.2001 50.1981 46.7525 50.2273C42.1741 50.5363 37.5981 50.8842 33.0221 51.2272C27.9304 51.6091 22.8387 51.9959 17.7494 52.3827C17.0293 52.4363 16.5939 52.1832 16.5282 51.3926C16.1876 47.3348 15.8227 43.2794 15.4845 39.2216C15.3994 38.2072 15.8154 37.706 16.8712 37.582C20.3427 37.1781 23.8167 36.8084 27.2882 36.424C27.8282 36.3632 28.5459 36.3997 28.5532 35.6942C28.5581 35.3025 28.1445 34.7843 27.7747 34.5289C19.9462 29.0796 12.0957 23.6619 4.25018 18.2369C3.24059 17.5387 3.16518 17.3051 3.64929 16.2031C5.40086 12.2012 7.15973 8.20183 8.92103 4.20242C9.36378 3.20013 9.76275 3.08336 10.6653 3.66478C29.103 15.539 47.5383 27.4156 65.976 39.2898C86.3307 52.3973 106.685 65.5 127.04 78.6052C132.888 82.3711 138.727 86.154 144.595 89.8882C145.534 90.4842 146.037 91.214 146.096 92.3088C146.142 93.2162 146.256 94.1212 146.341 95.0286Z",
               "position": {
@@ -265,7 +265,7 @@
               "height": 52.0
             },
             {
-              "id": 13,
+              "id": 17,
               "image": "color_6.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -282,10 +282,28 @@
           ],
           "width": 213.0,
           "height": 348.0
-        },
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "age": 3,
+      "level": 1,
+      "orderIndex": 0,
+      "gameName": "Game tô màu",
+      "createDate": 0,
+      "lastUpdate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_parrot/",
+      "gameData": [
         {
-          "id": 1,
-          "parentId": 0,
+          "id": 0,
+          "parentId": 1,
           "gameType": 0,
           "background": "background_image.png",
           "items": [
@@ -500,7 +518,7 @@
               "height": 46.0
             },
             {
-              "id": 14,
+              "id": 15,
               "image": "pig_14.svg",
               "path": "M160.56 90.07C160.56 87.9709 162.217 85.6112 165.74 83.1911C54.4462 81.5148 3.39807 58.9715 3.39807 43.6581C3.39807 27.7068 58.788 3.90997 178.482 3.90997C298.176 3.90997 353.565 27.7068 353.565 43.6581C353.565 53.3913 332.955 66.0391 289.685 74.6888C308.894 79.0003 317.725 85.2299 317.725 90.07C317.725 98.142 293.199 110.061 239.142 110.061C185.085 110.061 160.56 98.142 160.56 90.07Z",
               "position": {
@@ -514,7 +532,7 @@
               "height": 114.0
             },
             {
-              "id": 15,
+              "id": 16,
               "image": "pig_15.svg",
               "path": "M4.22509 21.5099C2.85082 24.9305 14.7247 36.2985 14.7247 36.2985C14.7322 36.1965 40.311 15.9298 40.3148 15.9298C40.311 15.9298 26.0926 2.77228 22.034 4.13145C19.3458 5.03379 20.2331 16.028 18.3944 17.8628C16.4991 19.7543 5.33508 18.7538 4.22509 21.5099Z",
               "position": {
@@ -528,7 +546,7 @@
               "height": 40.0
             },
             {
-              "id": 16,
+              "id": 17,
               "image": "pig_16.svg",
               "path": "M15.2702 39.5326C15.2702 39.5326 3.72486 24.3628 3.72864 24.3024C3.73619 24.2004 29.315 3.93372 29.3188 3.93372C29.3225 3.93749 52.738 22.8073 57.6763 34.8133C59.4206 39.0531 66.3826 51.18 56.2567 59.5691C43.2427 70.3518 34.5402 60.5998 31.5878 58.0815C28.2918 55.2726 15.2702 39.5326 15.2702 39.5326Z",
               "position": {
@@ -542,7 +560,7 @@
               "height": 68.0
             },
             {
-              "id": 12,
+              "id": 18,
               "image": "pig_model.svg",
               "position": {
                 "dx": 38.0,
@@ -554,7 +572,7 @@
               "height": 136.0
             },
             {
-              "id": 13,
+              "id": 19,
               "image": "color_1.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -569,7 +587,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 20,
               "image": "color_2.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -584,7 +602,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 21,
               "image": "color_3.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -599,7 +617,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 22,
               "image": "color_4.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -620,7 +638,7 @@
       ]
     },
     {
-      "id": 1002,
+      "id": 2,
       "levelScore": 16,
       "tags": [
         1,
@@ -635,7 +653,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 0,
+          "parentId": 2,
           "gameType": 0,
           "background": "background_image.png",
           "items": [
@@ -766,7 +784,7 @@
               "height": 153.0
             },
             {
-              "id": 12,
+              "id": 9,
               "image": "fruit_model.svg",
               "position": {
                 "dx": 38.0,
@@ -778,7 +796,7 @@
               "height": 136.0
             },
             {
-              "id": 13,
+              "id": 10,
               "image": "color_1.svg",
               "position": {
                 "dx": 655.0,
@@ -792,7 +810,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 11,
               "image": "color_2.svg",
               "position": {
                 "dx": 724.0,
@@ -806,7 +824,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 12,
               "image": "color_3.svg",
               "position": {
                 "dx": 655.0,
@@ -834,7 +852,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 14,
               "image": "color_5.svg",
               "position": {
                 "dx": 655.0,
@@ -848,7 +866,7 @@
               "height": 52.0
             },
             {
-              "id": 13,
+              "id": 15,
               "image": "color_6.svg",
               "position": {
                 "dx": 724.0,
@@ -864,10 +882,26 @@
           ],
           "width": 213.0,
           "height": 348.0
-        },
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "levelScore": 16,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_fruit/",
+      "gameData": [
         {
-          "id": 1,
-          "parentId": 0,
+          "id": 0,
+          "parentId": 3,
           "gameType": 10,
           "background": "background_image.png",
           "items": [
@@ -1194,7 +1228,7 @@
               "height": 40.0
             },
             {
-              "id": 12,
+              "id": 23,
               "image": "santa_model.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1207,7 +1241,7 @@
               "height": 136.0
             },
             {
-              "id": 13,
+              "id": 24,
               "image": "color_1.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1222,7 +1256,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 25,
               "image": "color_2.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1237,7 +1271,7 @@
               "height": 53.0
             },
             {
-              "id": 13,
+              "id": 26,
               "image": "color_3.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1252,7 +1286,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 27,
               "image": "color_4.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1267,7 +1301,7 @@
               "height": 55.0
             },
             {
-              "id": 13,
+              "id": 28,
               "image": "color_5.svg",
               "path": "M146.341 95.0286C146.281 97.707 145.867 100.266 143.935 102.3C141.909 104.434 139.267 105.416 136.469 106.015C136.119 106.09 135.637 105.864 135.299 105.65C124.588 98.8942 113.886 92.1215 103.182 85.3512C84.8297 73.7446 66.4795 62.1356 48.1148 50.5485C47.7377 50.31 47.2001 50.1981 46.7525 50.2273C42.1741 50.5363 37.5981 50.8842 33.0221 51.2272C27.9304 51.6091 22.8387 51.9959 17.7494 52.3827C17.0293 52.4363 16.5939 52.1832 16.5282 51.3926C16.1876 47.3348 15.8227 43.2794 15.4845 39.2216C15.3994 38.2072 15.8154 37.706 16.8712 37.582C20.3427 37.1781 23.8167 36.8084 27.2882 36.424C27.8282 36.3632 28.5459 36.3997 28.5532 35.6942C28.5581 35.3025 28.1445 34.7843 27.7747 34.5289C19.9462 29.0796 12.0957 23.6619 4.25018 18.2369C3.24059 17.5387 3.16518 17.3051 3.64929 16.2031C5.40086 12.2012 7.15973 8.20183 8.92103 4.20242C9.36378 3.20013 9.76275 3.08336 10.6653 3.66478C29.103 15.539 47.5383 27.4156 65.976 39.2898C86.3307 52.3973 106.685 65.5 127.04 78.6052C132.888 82.3711 138.727 86.154 144.595 89.8882C145.534 90.4842 146.037 91.214 146.096 92.3088C146.142 93.2162 146.256 94.1212 146.341 95.0286Z",
               "position": {
@@ -1282,7 +1316,7 @@
               "height": 52.0
             },
             {
-              "id": 13,
+              "id": 29,
               "image": "color_6.svg",
               "path": "M1.86 36.3327C1.54525 10.1339 41.6813 2.18094 41.6854 2.17761C43.753 10.6522 46.7018 40.1156 45.4801 64.6767C40.8283 64.7056 24.485 64.9032 24.4813 64.9039C24.4795 64.9025 2.14224 59.8306 1.86 36.3327Z",
               "position": {
@@ -1303,7 +1337,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 4,
       "levelScore": 8,
       "tags": [
         1,
@@ -1319,8 +1353,8 @@
       "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
       "gameData": [
         {
-          "id": 1,
-          "parentId": 1,
+          "id": 0,
+          "parentId": 4,
           "gameType": 1,
           "stepAssets": "unicorn_jigsaw/",
           "background": "background_image.png",
@@ -1374,6 +1408,7 @@
               "height": 184.0
             },
             {
+              "id": 4,
               "image": "unicorn_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -1385,6 +1420,7 @@
               "height": 184.0
             },
             {
+              "id": 5,
               "image": "unicorn_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -1396,6 +1432,7 @@
               "height": 144.0
             },
             {
+              "id": 6,
               "image": "unicorn_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -1407,6 +1444,7 @@
               "height": 144.0
             },
             {
+              "id": 7,
               "image": "unicorn_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -1418,6 +1456,7 @@
               "height": 184.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -1429,6 +1468,7 @@
               "height": 286.0
             },
             {
+              "id": 8,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -1445,7 +1485,7 @@
         },
         {
           "id": 1,
-          "parentId": 1,
+          "parentId": 4,
           "gameType": 1,
           "stepAssets": "park_jigsaw/",
           "background": "background_image.png",
@@ -1548,6 +1588,7 @@
               "height": 184.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -1559,6 +1600,7 @@
               "height": 286.0
             },
             {
+              "id": 8,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -1576,7 +1618,7 @@
       ]
     },
     {
-      "id": 102,
+      "id": 5,
       "levelScore": 16,
       "tags": [
         1,
@@ -1593,7 +1635,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 102,
+          "parentId": 5,
           "gameType": 1,
           "stepAssets": "halloween_jigsaw/",
           "background": "background_image.png",
@@ -1647,7 +1689,7 @@
               "height": 165.0
             },
             {
-              "id": 0,
+              "id": 4,
               "image": "halloween_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -1659,7 +1701,7 @@
               "height": 183.0
             },
             {
-              "id": 1,
+              "id": 5,
               "image": "halloween_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -1671,7 +1713,7 @@
               "height": 143.0
             },
             {
-              "id": 2,
+              "id": 6,
               "image": "halloween_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -1683,7 +1725,7 @@
               "height": 143.0
             },
             {
-              "id": 3,
+              "id": 7,
               "image": "halloween_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -1695,6 +1737,7 @@
               "height": 183.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -1706,6 +1749,7 @@
               "height": 286.0
             },
             {
+              "id": 9,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -1722,7 +1766,7 @@
         },
         {
           "id": 1,
-          "parentId": 102,
+          "parentId": 5,
           "gameType": 1,
           "stepAssets": "santa_jigsaw/",
           "background": "background_image.png",
@@ -1776,7 +1820,7 @@
               "height": 165.0
             },
             {
-              "id": 0,
+              "id": 4,
               "image": "santa_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -1788,7 +1832,7 @@
               "height": 183.0
             },
             {
-              "id": 1,
+              "id": 5,
               "image": "santa_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -1800,7 +1844,7 @@
               "height": 143.0
             },
             {
-              "id": 2,
+              "id": 6,
               "image": "santa_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -1812,7 +1856,7 @@
               "height": 143.0
             },
             {
-              "id": 3,
+              "id": 7,
               "image": "santa_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -1824,6 +1868,7 @@
               "height": 183.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -1835,6 +1880,7 @@
               "height": 286.0
             },
             {
+              "id": 9,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -1852,7 +1898,7 @@
       ]
     },
     {
-      "id": 103,
+      "id": 6,
       "levelScore": 16,
       "tags": [
         1,
@@ -1868,8 +1914,8 @@
       "gameAssets": "/assets/images/game_jigsaw_2/jigsaw_1/",
       "gameData": [
         {
-          "id": 1,
-          "parentId": 103,
+          "id": 0,
+          "parentId": 6,
           "gameType": 1,
           "stepAssets": "ocean_jigsaw/",
           "background": "background_image.png",
@@ -1923,7 +1969,7 @@
               "height": 165.0
             },
             {
-              "id": 0,
+              "id": 4,
               "image": "ocean_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -1935,7 +1981,7 @@
               "height": 143.0
             },
             {
-              "id": 1,
+              "id": 5,
               "image": "ocean_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -1947,7 +1993,7 @@
               "height": 183.0
             },
             {
-              "id": 2,
+              "id": 6,
               "image": "ocean_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -1959,7 +2005,7 @@
               "height": 143.0
             },
             {
-              "id": 3,
+              "id": 7,
               "image": "ocean_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -1971,6 +2017,7 @@
               "height": 183.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -1982,6 +2029,7 @@
               "height": 286.0
             },
             {
+              "id": 9,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -1998,7 +2046,7 @@
         },
         {
           "id": 1,
-          "parentId": 103,
+          "parentId": 6,
           "gameType": 1,
           "stepAssets": "toys_jigsaw/",
           "background": "background_image.png",
@@ -2052,7 +2100,7 @@
               "height": 165.0
             },
             {
-              "id": 0,
+              "id": 4,
               "image": "toys_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -2064,7 +2112,7 @@
               "height": 183.0
             },
             {
-              "id": 1,
+              "id": 5,
               "image": "toys_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -2076,7 +2124,7 @@
               "height": 143.0
             },
             {
-              "id": 2,
+              "id": 6,
               "image": "toys_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -2088,7 +2136,7 @@
               "height": 143.0
             },
             {
-              "id": 3,
+              "id": 7,
               "image": "toys_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -2100,6 +2148,7 @@
               "height": 183.0
             },
             {
+              "id": 8,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -2111,6 +2160,7 @@
               "height": 286.0
             },
             {
+              "id": 9,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -2128,7 +2178,7 @@
       ]
     },
     {
-      "id": 104,
+      "id": 7,
       "levelScore": 16,
       "tags": [
         1,
@@ -2145,7 +2195,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 104,
+          "parentId": 7,
           "gameType": 1,
           "stepAssets": "unicorn_jigsaw/",
           "background": "background_image.png",
@@ -2259,7 +2309,7 @@
               "height": 111.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "unicorn_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -2271,7 +2321,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "unicorn_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -2283,7 +2333,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "unicorn_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -2295,7 +2345,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "unicorn_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -2307,7 +2357,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "unicorn_jigsaw_5.png",
               "groupId": 4,
               "position": {
@@ -2319,7 +2369,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "unicorn_jigsaw_6.png",
               "groupId": 5,
               "position": {
@@ -2331,7 +2381,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "unicorn_jigsaw_7.png",
               "groupId": 6,
               "position": {
@@ -2343,7 +2393,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "unicorn_jigsaw_8.png",
               "groupId": 7,
               "position": {
@@ -2355,7 +2405,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "unicorn_jigsaw_9.png",
               "groupId": 8,
               "position": {
@@ -2367,6 +2417,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -2378,6 +2429,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -2394,7 +2446,7 @@
         },
         {
           "id": 1,
-          "parentId": 104,
+          "parentId": 7,
           "gameType": 1,
           "stepAssets": "park_jigsaw/",
           "background": "background_image.png",
@@ -2508,7 +2560,7 @@
               "height": 123.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "park_1.png",
               "groupId": 0,
               "position": {
@@ -2520,7 +2572,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "park_2.png",
               "groupId": 1,
               "position": {
@@ -2532,7 +2584,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "park_3.png",
               "groupId": 2,
               "position": {
@@ -2544,7 +2596,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "park_4.png",
               "groupId": 3,
               "position": {
@@ -2556,7 +2608,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "park_5.png",
               "groupId": 4,
               "position": {
@@ -2568,7 +2620,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "park_6.png",
               "groupId": 5,
               "position": {
@@ -2580,7 +2632,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "park_7.png",
               "groupId": 6,
               "position": {
@@ -2592,7 +2644,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "park_8.png",
               "groupId": 7,
               "position": {
@@ -2604,7 +2656,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "park_9.png",
               "groupId": 8,
               "position": {
@@ -2616,6 +2668,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -2627,6 +2680,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -2644,7 +2698,7 @@
       ]
     },
     {
-      "id": 105,
+      "id": 8,
       "levelScore": 16,
       "tags": [
         1,
@@ -2661,7 +2715,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 105,
+          "parentId": 8,
           "gameType": 1,
           "stepAssets": "halloween_jigsaw/",
           "background": "background_image.png",
@@ -2775,7 +2829,7 @@
               "height": 111.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "halloween_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -2787,7 +2841,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "halloween_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -2799,7 +2853,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "halloween_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -2811,7 +2865,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "halloween_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -2823,7 +2877,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "halloween_jigsaw_5.png",
               "groupId": 4,
               "position": {
@@ -2835,7 +2889,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "halloween_jigsaw_6.png",
               "groupId": 5,
               "position": {
@@ -2847,7 +2901,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "halloween_jigsaw_7.png",
               "groupId": 6,
               "position": {
@@ -2859,7 +2913,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "halloween_jigsaw_8.png",
               "groupId": 7,
               "position": {
@@ -2871,7 +2925,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "halloween_jigsaw_9.png",
               "groupId": 8,
               "position": {
@@ -2883,6 +2937,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -2894,6 +2949,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -2910,7 +2966,7 @@
         },
         {
           "id": 1,
-          "parentId": 105,
+          "parentId": 8,
           "gameType": 1,
           "stepAssets": "santa_jigsaw/",
           "background": "background_image.png",
@@ -3024,7 +3080,7 @@
               "height": 123.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "santa_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -3036,7 +3092,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "santa_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -3048,7 +3104,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "santa_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -3060,7 +3116,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "santa_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -3072,7 +3128,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "santa_jigsaw_5.png",
               "groupId": 4,
               "position": {
@@ -3084,7 +3140,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "santa_jigsaw_6.png",
               "groupId": 5,
               "position": {
@@ -3096,7 +3152,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "santa_jigsaw_7.png",
               "groupId": 6,
               "position": {
@@ -3108,7 +3164,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "santa_jigsaw_8.png",
               "groupId": 7,
               "position": {
@@ -3120,7 +3176,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "santa_jigsaw_9.png",
               "groupId": 8,
               "position": {
@@ -3132,6 +3188,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -3143,6 +3200,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -3160,7 +3218,7 @@
       ]
     },
     {
-      "id": 106,
+      "id": 9,
       "levelScore": 16,
       "tags": [
         1,
@@ -3177,7 +3235,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 106,
+          "parentId": 9,
           "gameType": 1,
           "stepAssets": "ocean_jigsaw/",
           "background": "background_image.png",
@@ -3291,7 +3349,7 @@
               "height": 123.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "ocean_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -3303,7 +3361,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "ocean_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -3315,7 +3373,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "ocean_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -3327,7 +3385,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "ocean_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -3339,7 +3397,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "ocean_jigsaw_5.png",
               "groupId": 4,
               "position": {
@@ -3351,7 +3409,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "ocean_jigsaw_6.png",
               "groupId": 5,
               "position": {
@@ -3363,7 +3421,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "ocean_jigsaw_7.png",
               "groupId": 6,
               "position": {
@@ -3375,7 +3433,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "ocean_jigsaw_8.png",
               "groupId": 7,
               "position": {
@@ -3387,7 +3445,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "ocean_jigsaw_9.png",
               "groupId": 8,
               "position": {
@@ -3399,6 +3457,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -3410,6 +3469,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -3426,7 +3486,7 @@
         },
         {
           "id": 1,
-          "parentId": 106,
+          "parentId": 9,
           "gameType": 1,
           "stepAssets": "toys_jigsaw/",
           "background": "background_image.png",
@@ -3540,7 +3600,7 @@
               "height": 123.0
             },
             {
-              "id": 0,
+              "id": 9,
               "image": "toys_jigsaw_1.png",
               "groupId": 0,
               "position": {
@@ -3552,7 +3612,7 @@
               "height": 123.0
             },
             {
-              "id": 1,
+              "id": 10,
               "image": "toys_jigsaw_2.png",
               "groupId": 1,
               "position": {
@@ -3564,7 +3624,7 @@
               "height": 96.0
             },
             {
-              "id": 2,
+              "id": 11,
               "image": "toys_jigsaw_3.png",
               "groupId": 2,
               "position": {
@@ -3576,7 +3636,7 @@
               "height": 123.0
             },
             {
-              "id": 3,
+              "id": 12,
               "image": "toys_jigsaw_4.png",
               "groupId": 3,
               "position": {
@@ -3588,7 +3648,7 @@
               "height": 96.0
             },
             {
-              "id": 4,
+              "id": 13,
               "image": "toys_jigsaw_5.png",
               "groupId": 4,
               "position": {
@@ -3600,7 +3660,7 @@
               "height": 150.0
             },
             {
-              "id": 5,
+              "id": 14,
               "image": "toys_jigsaw_6.png",
               "groupId": 5,
               "position": {
@@ -3612,7 +3672,7 @@
               "height": 96.0
             },
             {
-              "id": 6,
+              "id": 15,
               "image": "toys_jigsaw_7.png",
               "groupId": 6,
               "position": {
@@ -3624,7 +3684,7 @@
               "height": 123.0
             },
             {
-              "id": 7,
+              "id": 16,
               "image": "toys_jigsaw_8.png",
               "groupId": 7,
               "position": {
@@ -3636,7 +3696,7 @@
               "height": 96.0
             },
             {
-              "id": 8,
+              "id": 17,
               "image": "toys_jigsaw_9.png",
               "groupId": 8,
               "position": {
@@ -3648,6 +3708,7 @@
               "height": 123.0
             },
             {
+              "id": 18,
               "image": "shadow_image.png",
               "groupId": 3,
               "position": {
@@ -3659,6 +3720,7 @@
               "height": 286.0
             },
             {
+              "id": 19,
               "image": "completed_image.png",
               "groupId": 3,
               "position": {
@@ -3676,7 +3738,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 10,
       "levelScore": 16,
       "tags": [
         1,
@@ -3694,7 +3756,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 2,
+          "parentId": 10,
           "gameType": 2,
           "items": [
             {
@@ -3842,8 +3904,8 @@
           "height": 284.0
         },
         {
-          "id": 0,
-          "parentId": 2,
+          "id": 1,
+          "parentId": 10,
           "gameType": 2,
           "items": [
             {
@@ -3991,8 +4053,8 @@
           "height": 284.0
         },
         {
-          "id": 0,
-          "parentId": 2,
+          "id": 2,
+          "parentId": 10,
           "gameType": 2,
           "items": [
             {
@@ -4142,7 +4204,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 11,
       "levelScore": 8,
       "tags": [
         1,
@@ -4159,7 +4221,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 3,
+          "parentId": 11,
           "gameType": 3,
           "background": "background_image.png",
           "items": [
@@ -4324,7 +4386,7 @@
               "height": 93.0
             },
             {
-              "id": 3,
+              "id": 10,
               "image": "left_target.png",
               "groupId": 0,
               "position": {
@@ -4340,7 +4402,7 @@
               "height": 202.0
             },
             {
-              "id": 4,
+              "id": 11,
               "image": "right_target.png",
               "groupId": 1,
               "position": {
@@ -4356,7 +4418,7 @@
               "height": 205.0
             },
             {
-              "id": 5,
+              "id": 12,
               "image": "conveyor.png",
               "groupId": 0,
               "position": {
@@ -4376,7 +4438,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 12,
       "levelScore": 8,
       "tags": [
         1,
@@ -4392,8 +4454,8 @@
       "gameAssets": "/assets/images/game_choose_pair_6/",
       "gameData": [
         {
-          "id": 1,
-          "parentId": 4,
+          "id": 0,
+          "parentId": 12,
           "gameType": 4,
           "background": "background_image.png",
           "items": [
@@ -4500,7 +4562,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 13,
       "levelScore": 8,
       "tags": [
         1,
@@ -4517,7 +4579,7 @@
       "gameData": [
         {
           "id": 0,
-          "parentId": 5,
+          "parentId": 13,
           "gameType": 5,
           "background": "background_image.png",
           "items": [
@@ -4656,8 +4718,8 @@
           "height": 284.0
         },
         {
-          "id": 0,
-          "parentId": 5,
+          "id": 1,
+          "parentId": 13,
           "gameType": 5,
           "background": "background_image.png",
           "items": [
@@ -4796,8 +4858,8 @@
           "height": 284.0
         },
         {
-          "id": 0,
-          "parentId": 5,
+          "id": 2,
+          "parentId": 13,
           "gameType": 5,
           "background": "background_image.png",
           "items": [
@@ -4938,7 +5000,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 14,
       "levelScore": 8,
       "tags": [
         1,
@@ -4954,13 +5016,14 @@
       "gameAssets": "/assets/images/game_draw_alphabet_3/draw_A/",
       "gameData": [
         {
-          "id": 1,
-          "parentId": 6,
+          "id": 0,
+          "parentId": 14,
           "gameType": 6,
           "image": "alphabet.svg",
           "background": "background_image.png",
           "items": [
             {
+              "id": 0,
               "image": "A_1.svg",
               "path": "M81.6839 176.033L77.5709 185.786C74.4675 193.146 71.3639 200.506 68.26 207.866C64.5041 216.88 60.7485 225.895 56.9928 234.909C52.4418 245.833 47.8909 256.757 43.3395 267.68L43.3033 267.767L43.2639 267.852C41.3404 272.018 38.4264 275.413 34.5986 277.965L34.5544 277.994L34.5096 278.022C30.8373 280.359 26.6989 281.486 22.2449 281.486C15.9379 281.486 10.4096 279.386 6.06354 275.04L5.99297 274.97L5.92528 274.897C1.94009 270.58 -0.0007066 265.251 1.92977e-07 259.24L6.68611e-07 259.239C0.000835407 256.251 0.910188 252.995 2.30295 249.654L2.30859 249.64L2.31431 249.627C21.6949 203.891 41.0663 158.152 60.4381 112.412C73.6585 81.1969 86.879 49.9811 100.103 18.7655L100.12 18.7253L100.138 18.6854C102.474 13.4275 105.758 9.04589 110.035 5.68131C114.834 1.84832 120.556 0.000679206 126.936 4.75635e-07L126.942 0L126.948 1.28421e-05C128.218 0.00285286 129.489 0.00285286 130.761 1.28421e-05L130.767 4.75635e-07H130.773C137.156 4.75635e-07 142.833 1.85338 147.44 5.80341L150.113 8.09447L146.887 16.4842C141.847 29.5886 134.456 48.808 133.535 51.1937C133.534 51.201 133.533 51.2059 133.532 51.2085C133.521 51.2393 133.503 51.2855 133.497 51.3018C133.486 51.328 133.477 51.3503 133.474 51.3588C133.465 51.3808 133.455 51.4053 133.446 51.4271C133.427 51.4733 133.4 51.538 133.367 51.6182C133.301 51.7799 133.202 52.0184 133.073 52.3284C132.816 52.949 132.437 53.8635 131.949 55.0406C130.972 57.3951 129.556 60.8041 127.804 65.0238C124.298 73.4634 119.444 85.1478 114.05 98.1298C110.907 105.695 107.58 113.702 104.231 121.764C96.085 141.369 87.803 161.302 81.689 176.021L81.6839 176.033Z",
               "position": {
@@ -4981,6 +5044,7 @@
               "height": 282.0
             },
             {
+              "id": 1,
               "image": "A_2.svg",
               "path": "M17.6424 0.244339C17.6424 0.244339 19.6373 0.992447 23.2157 3.53264C26.7941 6.07283 31.2667 11.3022 33.6434 16.6498L33.6612 16.6899L33.6783 16.7303C52.2479 60.5741 70.8199 104.416 89.3919 148.258C103.418 181.369 117.444 214.48 131.469 247.592L131.475 247.606L131.481 247.619C132.873 250.961 133.78 254.218 133.78 257.205C133.78 263.302 131.653 268.652 127.405 272.934C123.272 277.37 117.804 279.45 111.536 279.45C107.082 279.45 102.89 278.325 99.0531 276.087L98.8359 275.96L98.6325 275.812C95.0951 273.239 92.3905 269.871 90.5191 265.816L90.48 265.731L90.444 265.645C82.1339 245.706 73.8255 225.768 65.5198 205.828C62.3347 198.276 59.1497 190.723 55.9649 183.171L52.0966 173.998L52.0915 173.985C48.1399 164.474 43.2827 152.783 38.1421 140.41C32.0579 125.766 25.5768 110.167 19.7305 96.0942C14.3372 83.1122 9.48348 71.4277 5.97869 62.9881C4.22632 58.7684 2.811 55.3594 1.83403 53.0048C1.3456 51.8277 0.966397 50.9133 0.709313 50.2927C0.580897 49.9827 0.482283 49.7444 0.415562 49.5828C0.382453 49.5026 0.355869 49.438 0.337028 49.3921C0.328103 49.3703 0.318248 49.3462 0.309532 49.3247C0.306139 49.3163 0.297411 49.2947 0.287466 49.2694C0.281276 49.2536 0.264193 49.2092 0.253061 49.1796C0.229309 49.114 0.137225 47.4595 0.687576 45.6222L0.342791 45.4744C0.299043 45.5765 8.83512 23.3819 14.2304 9.35382C14.7193 8.08257 15.1824 6.87839 15.611 5.76395L17.6424 0.244339Z",
               "position": {
@@ -5001,6 +5065,7 @@
               "height": 280.0
             },
             {
+              "id": 2,
               "image": "A_3.svg",
               "path": "M141.417 42.4803L134.015 42.4805C107.665 42.4812 81.1177 42.4808 54.6222 42.4804C38.9911 42.4802 23.3778 42.4799 7.83349 42.4799H0.430176L3.21143 35.6189C5.38659 30.253 7.69103 24.8957 9.97112 19.5951L9.98517 19.5624C12.2771 14.2343 14.5442 8.96313 16.6773 3.70034L17.9395 0.586273L21.2996 0.586389C54.5675 0.587535 87.3074 0.587535 120.578 0.586389L123.938 0.586273L125.2 3.70034C127.335 8.9663 129.596 14.2403 131.88 19.5681L131.89 19.5909C134.164 24.8954 136.462 30.2535 138.637 35.6196L141.417 42.4803Z",
               "position": {
@@ -5021,6 +5086,7 @@
               "height": 42.0
             },
             {
+              "id": 3,
               "image": "A_4.svg",
               "path": "M157.793 41.9197C164.043 53.8996 167.149 66.9488 167.149 80.9849C167.148 117.161 167.148 153.336 167.149 189.512C167.149 195.734 164.8 201.125 160.253 205.377C155.97 209.627 150.619 211.757 144.52 211.757C138.39 211.757 133.016 209.605 128.723 205.311C124.429 201.018 122.278 195.643 122.277 189.514C122.276 186.19 122.276 182.865 122.277 179.54V149.248V149.248C122.276 138.511 122.276 127.773 122.277 117.034V117.033L122.277 89.0485C122.277 89.047 122.277 89.0455 122.277 89.044C122.276 88.0199 122.276 86.9942 122.277 85.9679C122.277 69.8045 118.23 59.3611 111.317 53.2868L111.289 53.2616L111.261 53.2359C104.41 47.0275 92.9821 43.4067 75.8772 43.4067C66.4217 43.4067 58.0716 44.1537 50.7937 45.6079C43.6189 47.0932 35.508 49.3332 26.4484 52.3528L26.2668 52.4133L26.0812 52.4598C23.8615 53.0149 21.7508 53.376 19.8866 53.376C14.6756 53.376 10.098 51.4069 6.38836 47.6973C2.61115 43.9201 0.710205 39.1872 0.710205 33.8168C0.710205 29.5379 1.75201 25.5735 4.07436 22.1793C6.38589 18.8009 9.72152 16.344 13.7243 14.6502M157.793 41.9197C151.691 29.4694 142.025 19.4651 129.03 11.8807C116.069 4.16453 100.312 0.451368 82.0138 0.450775C58.8153 0.450186 36.0414 5.19916 13.7259 14.6495",
               "position": {
@@ -5041,6 +5107,7 @@
               "height": 212.0
             },
             {
+              "id": 4,
               "image": "A_5.svg",
               "path": "M144.85 38.345L139.864 38.3454C125.929 38.3466 111.995 38.3466 98.0627 38.3454C79.0329 38.3454 65.5256 40.8616 56.9448 45.3507C52.7278 47.5569 49.8354 50.1689 47.9815 53.0787C46.1406 55.9679 45.1434 59.4313 45.1433 63.6528C45.1433 71.6033 47.7259 77.6143 52.6904 82.184C57.7218 86.5864 66.6885 89.3453 80.8054 89.3453C91.2107 89.3459 101.286 86.8739 111.086 81.8626C121.071 76.4989 129.391 69.9661 136.11 62.2876L144.85 52.2982V97.8943L143.436 99.3466C123.504 119.818 98.1469 130 67.7673 130C55.8147 130 44.599 127.549 34.1857 122.616L34.1623 122.605L34.139 122.594C23.8756 117.601 15.6332 110.347 9.50652 100.877L9.48884 100.85L9.47152 100.822C3.303 91.0089 0.270643 79.8455 0.27124 67.4885C0.271883 47.0399 8.39121 30.4737 24.4865 18.2635L24.5029 18.2511L24.5193 18.2388C40.8155 6.08612 64.0377 0.377047 93.4602 0.377047C108.926 0.37819 124.394 0.37819 139.863 0.377047L144.85 0.376678V38.345Z",
               "position": {
@@ -5061,6 +5128,7 @@
               "height": 130.0
             },
             {
+              "id": 5,
               "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_1.png",
               "position": {
                 "dx": 180.0,
@@ -5072,6 +5140,7 @@
               "height": 254.0
             },
             {
+              "id": 6,
               "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_2.png",
               "position": {
                 "dx": 312.0,
@@ -5083,6 +5152,7 @@
               "height": 232.0
             },
             {
+              "id": 7,
               "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_3.png",
               "position": {
                 "dx": 250.0,
@@ -5094,6 +5164,7 @@
               "height": 24.0
             },
             {
+              "id": 8,
               "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_4.png",
               "position": {
                 "dx": 479.0,
@@ -5105,6 +5176,7 @@
               "height": 184.0
             },
             {
+              "id": 9,
               "image": "assets/images/game_draw_alphabet_3/draw_A/tutorial_5.png",
               "position": {
                 "dx": 475.0,
@@ -5121,7 +5193,7 @@
         },
         {
           "id": 1,
-          "parentId": 6,
+          "parentId": 14,
           "gameType": 602,
           "background": "background_image.png",
           "items": [
@@ -5193,7 +5265,7 @@
         },
         {
           "id": 2,
-          "parentId": 6,
+          "parentId": 14,
           "gameType": 603,
           "background": "background_image_3.png",
           "items": [
