@@ -56,21 +56,21 @@ class ItemModel {
     type = json['type'] == null ? 0 : json['type'];
     position = json['position'] == null
         ? Offset(0, 0)
-        : Offset(json['position']['dx'], json['position']['dy']);
+        : Offset(json['position']['dx'].toDouble(), json['position']['dy'].toDouble());
     groupId = json['groupId'] == null ? 0 : json['groupId'];
     id = json['id'] == null ? 0 : json['id'];
-    height = json['height'] == null ? 0 : json['height'];
-    width = json['width'] == null ? 0 : json['width'];
+    height = json['height'] == null ? 0 : json['height'].toDouble();
+    width = json['width'] == null ? 0 : json['width'].toDouble();
     color = json['color'] == null ? '' : json['color'];
     duration = json['duration'] == null ? 0 : json['duration'];
     count = json['count'] == null ? 0 : json['count'];
     canDraw = json['canDraw'] == null ? false : json['canDraw'];
     startPosition = json['startPosition'] == null
         ? Offset(0, 0)
-        : Offset(json['startPosition']['dx'], json['startPosition']['dy']);
+        : Offset(json['startPosition']['dx'].toDouble(), json['startPosition']['dy'].toDouble());
     endPosition = json['endPosition'] == null
         ? Offset(0, 0)
-        : Offset(json['endPosition']['dx'], json['endPosition']['dy']);
+        : Offset(json['endPosition']['dx'].toDouble(), json['endPosition']['dy'].toDouble());
     path = json['path'] == null ? '' : json['path'];
     status = 0;
   }

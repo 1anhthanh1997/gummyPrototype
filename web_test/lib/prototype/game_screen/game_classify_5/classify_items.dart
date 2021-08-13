@@ -112,13 +112,13 @@ class _ClassifyItemState extends State<ClassifyItem>
         curve: Interval(0.0, 0.75, curve: Curves.easeInOutBack),
       ),
     );
-    isDisplaySkipScreen=screenModel.isDisplaySkipScreen;
-   Timer(Duration(milliseconds: 800),(){
+    isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
+    Timer(Duration(milliseconds: 800), () {
       setState(() {
-        isDisplaySkipScreen=false;
+        isDisplaySkipScreen = false;
       });
-      screenModel.isDisplaySkipScreen=false;
-   });
+      screenModel.isDisplaySkipScreen = false;
+    });
     super.didChangeDependencies();
 
     controller.forward();
@@ -416,6 +416,7 @@ class _ClassifyItemState extends State<ClassifyItem>
         : Container();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Listener(
@@ -427,7 +428,7 @@ class _ClassifyItemState extends State<ClassifyItem>
             child: Stack(
               children: [
                 displayBackground(),
-                // displayNormalItem(),
+                // displayTargetBackground(),
                 displayTargetItem(),
                 displayDraggableItem(),
                 BasicItem(),

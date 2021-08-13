@@ -4,11 +4,11 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -47,6 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   int currentStep;
   Timer timer;
   int periodicTime = 200;
+  DocumentReference gummyData=FirebaseFirestore.instance.collection('gummy').doc('game-data');
 
   Future<void> loadGameData() async {
     // final response = await http.get(Uri.parse(
@@ -54,6 +55,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // var allGameData = json.decode(response.body);
     var jsonData = await rootBundle.loadString('assets/game_data.json');
     var allGameData = json.decode(jsonData);
+    // DocumentSnapshot doc=await gummyData.get();
+    // // var allGameData = json.decode(doc.data());
+    // Map<String, dynamic> allGameData=doc.data();
+    // print('Doc data');
+    // print(allGameData['assetsUrl']);
 
     assetsUrl = allGameData['assetsUrl'];
     gameDataJson = allGameData['data'];

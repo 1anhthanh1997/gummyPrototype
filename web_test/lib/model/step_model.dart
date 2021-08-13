@@ -34,6 +34,6 @@ class StepModel {
     stepAssets = json['stepAssets'] == null ? '' : json['stepAssets'];
     background = json['background'] == null ? '' : json['background'];
     items = json['items'] == null ? [] : getItemList(json['items']);
-    height = json['height'] == null ? 0 : json['height'];
+    height = json['height'] == null ? 0 : json['height'].toDouble();
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -14,7 +15,7 @@ import 'package:web_test/prototype/general_screen/loading_screen.dart';
 import 'package:web_test/prototype/general_screen/main_game_route.dart';
 import 'package:web_test/provider/screen_model.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
@@ -62,15 +63,36 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Offset currentOffset = Offset(0, 315);
   int duration = 0;
+  bool _initialized = false;
+  bool _error = false;
+
+  @override
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
+  }
+
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch (e) {
+      // Set `_error` state to true if Firebase initialization fails
+      setState(() {
+        _error = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
-      child: MaterialApp(
-        home:LoadingScreen(),
-      )
-    );
+        providers: [ChangeNotifierProvider(create: (context) => ScreenModel())],
+        child: MaterialApp(
+          home: _initialized?LoadingScreen():Container(),
+        ));
   }
 }
-

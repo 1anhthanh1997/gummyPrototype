@@ -32,6 +32,12 @@ const BALLOON_SHARD_6='assets/images/common/balloon_shards/balloon_shard_6.svg';
 const BALLOON_SHARD_7='assets/images/common/balloon_shards/balloon_shard_7.svg';
 const BALLOON_SHARD_8='assets/images/common/balloon_shards/balloon_shard_8.svg';
 
+const SCRATCHER_SHARD_1='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_1.svg';
+const SCRATCHER_SHARD_2='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_2.svg';
+const SCRATCHER_SHARD_3='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_3.svg';
+const SCRATCHER_SHARD_4='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_4.svg';
+
+
 
 
 const BACKGROUND_GAME_MUSIC = 'music/background_game_music.mp3';

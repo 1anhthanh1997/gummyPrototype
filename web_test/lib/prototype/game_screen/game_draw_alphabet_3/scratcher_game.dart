@@ -205,8 +205,17 @@ class _ScratcherGameState extends State<ScratcherGame>
                 ];
                 if (offset != null) {
                   Iterable.generate(1).forEach((i) {
+                    List<String> scratcherShardList = [
+                      SCRATCHER_SHARD_1,
+                      SCRATCHER_SHARD_2,
+                      SCRATCHER_SHARD_3,
+                      SCRATCHER_SHARD_4
+                    ];
+                    Random random = Random();
+                    String scratcherShardUrl =
+                    scratcherShardList[random.nextInt(scratcherShardList.length)];
                     particles.add(SquareParticle(particlesTime, ratio, 0, 0,
-                        '', randomSize, 1, 50, 50));
+                        scratcherShardUrl, randomSize, 1, 50, 50));
                   });
                   print(offset);
                   setState(() {
@@ -315,7 +324,7 @@ class _ScratcherGameState extends State<ScratcherGame>
         return Stack(
           overflow: Overflow.visible,
           children: [
-            ...particles.map((it) => it.buildWidget(time, Colors.grey, true))
+            ...particles.map((it) => it.buildWidget(time, Colors.grey, false))
           ],
         );
       },
