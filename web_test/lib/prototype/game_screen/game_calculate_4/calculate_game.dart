@@ -53,10 +53,11 @@ class _CalculateGameState extends State<CalculateGame> {
   bool isScale = true;
   bool isFinishStep = false;
   int translateTime = 500;
+  ParentGameModel allGameData;
 
   void getGameData() {
     stepIndex = screenModel.currentStep;
-    ParentGameModel allGameData = screenModel.currentGame;
+    allGameData = screenModel.currentGame;
     for (int idx = 0;
         idx < allGameData.gameData[stepIndex].items.length;
         idx++) {
@@ -137,7 +138,7 @@ class _CalculateGameState extends State<CalculateGame> {
     for (int index = 0; index < sourceModel.length; index++) {
       ItemModel item = sourceModel[index];
       sourceModel[index].position =
-          Offset(197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
+          Offset(259 * ratio + 341 / 3 * index * ratio, 43 * ratio);
     }
     bonusHeight = (screenHeight * 1.2 - 111 * ratio) / 2;
     isDisplaySkipScreen = screenModel.isDisplaySkipScreen;
@@ -297,8 +298,8 @@ class _CalculateGameState extends State<CalculateGame> {
     return Stack(
       children: [
         AnimatedPositioned(
-            top: (screenHeight * 1.2 - 79 * ratio) / 2,
-            left: 186 * ratio,
+            top: (screenHeight * 1.2 - 79 * ratio) / 2+25*ratio,
+            left: 186 * ratio+5*ratio,
             duration: Duration(milliseconds: translateTime),
             child: FadeAnimation(
                 delayTime: 0,
@@ -317,8 +318,8 @@ class _CalculateGameState extends State<CalculateGame> {
         // ),
         AnimatedPositioned(
             duration: Duration(milliseconds: translateTime),
-            top: (screenHeight * 1.2 - 79 * ratio) / 2,
-            left: 367 * ratio,
+            top: (screenHeight * 1.2 - 79 * ratio) / 2+25*ratio,
+            left: 367 * ratio+5*ratio,
             child: FadeAnimation(
                 delayTime: 400,
                 beginValue: 0.0,
@@ -337,21 +338,21 @@ class _CalculateGameState extends State<CalculateGame> {
             ),
         AnimatedPositioned(
             duration: Duration(milliseconds: translateTime),
-            top: (screenHeight * 1.2 - 62 * ratio) / 2,
-            left: 274 * ratio,
+            top: (screenHeight * 1.2 - 62 * ratio) / 2+25*ratio,
+            left: 274 * ratio+5*ratio,
             child: FadeAnimation(
                 delayTime: 200,
                 beginValue: 0.0,
                 endValue: 1.0,
                 isFade: !isFinishStep,
                 time: 500,
-            // child: TranslateCalculation(
-            //     isScale: !isFinishStep,
-            //     beginValue: 12.5,
-            //     endValue: -12.5 * ratio,
-            //     curve: Curves.easeOutQuad,
-            //     time: 250,
-            //     delayTime: 200,
+                // child: TranslateCalculation(
+                //     isScale: !isFinishStep,
+                //     beginValue: 12.5,
+                //     endValue: -12.5 * ratio,
+                //     curve: Curves.easeOutQuad,
+                //     time: 250,
+                //     delayTime: 200,
                 child: Container(
                   height: 62 * ratio,
                   width: 62 * ratio,
@@ -364,8 +365,8 @@ class _CalculateGameState extends State<CalculateGame> {
             ),
         AnimatedPositioned(
             duration: Duration(milliseconds: translateTime),
-            top: (screenHeight * 1.2 - 39 * ratio) / 2,
-            left: 456 * ratio,
+            top: (screenHeight * 1.2 - 39 * ratio) / 2+25*ratio,
+            left: 456 * ratio+5*ratio,
             child: FadeAnimation(
                 delayTime: 600,
                 beginValue: 0.0,
@@ -410,8 +411,9 @@ class _CalculateGameState extends State<CalculateGame> {
       );
     } else {
       return Container(
-        height: 100 * ratio,
-        width: 419 / 3 * ratio,
+        height: 96 * ratio,
+        width: 341 / 3 * ratio,
+
         alignment: Alignment.center,
         child: Container(
           height: height * ratio,
@@ -436,8 +438,8 @@ class _CalculateGameState extends State<CalculateGame> {
         ItemModel item = targetModel[index];
         int sourceIndex = getSourceIndex(item.groupId);
         return Positioned(
-            top: bonusHeight,
-            left: item.position.dx * ratio,
+            top: bonusHeight+25*ratio,
+            left: item.position.dx * ratio+40*ratio,
             child: DragTarget<int>(
               builder: (context, candidateData, rejectedData) {
                 String fullInitUrl = assetFolder + item.image;
@@ -457,10 +459,10 @@ class _CalculateGameState extends State<CalculateGame> {
                         //   curve: Curves.easeOutQuad,
                         //   time: 250,
                         //   delayTime: 1000,
-                          child: displayItemImage(item.height * 1.4,
-                              item.width * 1.4, fullInitUrl, 0, false),
-                        )
-                // )
+                        child: displayItemImage(item.height * 1.4,
+                            item.width * 1.4, fullInitUrl, 0, false),
+                      )
+                    // )
                     : AnimatedMatchedTarget(
                         child: FadeAnimation(
                         delayTime: 1000,
@@ -506,8 +508,8 @@ class _CalculateGameState extends State<CalculateGame> {
                     getGameData();
                     for (int index = 0; index < sourceModel.length; index++) {
                       ItemModel item = sourceModel[index];
-                      sourceModel[index].position = Offset(
-                          197 * ratio + 419 / 3 * index * ratio, 20 * ratio);
+                      sourceModel[index].position =
+                          Offset(259 * ratio + 341 / 3 * index * ratio, 43 * ratio);
                     }
                   } else {
                     if (timer != null) {
@@ -540,7 +542,6 @@ class _CalculateGameState extends State<CalculateGame> {
           number = secondRandomValue;
           randomIndex++;
         }
-
         return AnimatedPositioned(
             duration: Duration(milliseconds: item.duration),
             top: item.position.dy,
@@ -610,15 +611,15 @@ class _CalculateGameState extends State<CalculateGame> {
         print(index);
         print(197 * ratio + 419 / 3 * index * ratio + 419 / 6 * ratio);
         print(item.position.dx);
-        startPosition = Offset(item.position.dx + 419 / 6 * ratio,
+        startPosition = Offset(item.position.dx + 341 / 6 * ratio,
             item.position.dy + item.height / 2 * ratio);
         break;
       }
     }
 
     ItemModel item = targetModel[0];
-    endPosition = Offset(item.position.dx * ratio + 110 / 2 * ratio,
-        bonusHeight + 110 / 2 * ratio);
+    endPosition = Offset(item.position.dx * ratio + 110 / 2 * ratio+25*ratio,
+        bonusHeight + 110 / 2 * ratio+40*ratio);
 
     return isDisplayTutorialWidget
         ? TutorialWidget(
@@ -635,8 +636,25 @@ class _CalculateGameState extends State<CalculateGame> {
         : Container();
   }
 
+  Widget displayNoteBackground() {
+    String imageName = 'note_background.png';
+    return Stack(
+      children: [
+        Positioned(
+            left: 67 * ratio,
+            top: screenHeight / 2 - 331 * ratio / 2 + 4 * ratio,
+            child: Container(
+              height: 331 * ratio,
+              width: 681 * ratio,
+              child: Image.asset(assetFolder + imageName),
+            )),
+      ],
+    );
+  }
+
   List<Widget> displayScreen() {
     List<Widget> widgets = [];
+    widgets.add(displayNoteBackground());
     widgets.add(displayNormalItem());
     widgets.add(displayCalculation());
     widgets.add(displayTarget());
@@ -657,7 +675,11 @@ class _CalculateGameState extends State<CalculateGame> {
         onPointerUp: onPointerTap,
         child: Scaffold(
           body: Container(
-              color: HexColor('#DE2463'),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: FileImage(File(assetFolder +
+                          allGameData.gameData[stepIndex].background)),
+                      fit: BoxFit.fill)),
               child: Stack(
                 children: displayScreen(),
               )),

@@ -70,7 +70,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
     assetFolder = allGameData.gameAssets;
 
     for (int index = 0; index < alphabetData.length; index++) {
-      print(alphabetData[index].type);
       if (alphabetData[index].type == 1) {
         setState(() {
           _alphabetPoint.add([]);
@@ -166,7 +165,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   addPoints(String action, Offset position) {
-    print(position);
+    // print(position);
     if (!alphabetPath[currentIndex].contains(Offset(
         position.dx - imagePosition[currentIndex].dx * ratio,
         position.dy - imagePosition[currentIndex].dy * ratio - bonusHeight))) {
@@ -249,7 +248,6 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   Widget displayDrawTutorial() {
     if (currentIndex < drawTutorial.length) {
       ItemModel item = drawTutorial[currentIndex];
-      print(item.image);
       return Positioned(
           top: item.position.dy * ratio + bonusHeight,
           left: item.position.dx * ratio,
@@ -258,7 +256,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
               : Container(
                   height: item.height * ratio,
                   width: item.width * ratio,
-                  child: Image.asset(item.image),
+                  child: Image.asset(screenModel.localPath+assetFolder+item.image),
                 ));
     } else {
       return Container();
@@ -341,17 +339,19 @@ class _DrawAlphabetState extends State<DrawAlphabet>
   }
 
   void onPanStartAction(Offset localPosition) {
-    // print(localPosition);
+    print(currentColor);
+    print(localPosition);
     // print(startPosition[currentIndex]);
 
     if (currentColor != '' &&
         localPosition.dx <
-            startPosition[currentIndex].dx * ratio + 50 * ratio &&
+            startPosition[currentIndex].dx * ratio + 60 * ratio &&
         localPosition.dx > startPosition[currentIndex].dx * ratio &&
         localPosition.dy >
             startPosition[currentIndex].dy * ratio + bonusHeight &&
         localPosition.dy <
-            startPosition[currentIndex].dy * ratio + bonusHeight + 50 * ratio) {
+            startPosition[currentIndex].dy * ratio + bonusHeight + 60 * ratio) {
+      print('Start');
       addPoints('start', localPosition);
     }
   }
@@ -422,6 +422,9 @@ class _DrawAlphabetState extends State<DrawAlphabet>
                   fit: BoxFit.fill)),
           child: GestureDetector(
               behavior: HitTestBehavior.translucent,
+              onTapDown: (details){
+                onPanStartAction(details.localPosition);
+              },
               onPanStart: (details) {
                 onPanStartAction(details.localPosition);
               },
