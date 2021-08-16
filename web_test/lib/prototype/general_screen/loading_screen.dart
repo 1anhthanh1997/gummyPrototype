@@ -281,6 +281,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       await downloadAssets();
     });
     screenModel.getDeviceId();
+    screenModel.playAudioBackground(HOME_MUSIC);
     getCurrentPlayGameSF();
     addAnimation();
 

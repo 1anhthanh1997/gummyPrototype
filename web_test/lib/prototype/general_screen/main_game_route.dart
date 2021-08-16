@@ -127,7 +127,7 @@ class _MainGameRouteState extends State<MainGameRoute> with WidgetsBindingObserv
           )
         : Consumer<ScreenModel>(
             builder: (context, ScreenModel value, child) {
-              // screenModel.playTutorial();
+              screenModel.playTutorial();
               print('Id:');
               print(screenModel
                   .currentGame.gameData[screenModel.currentStep].gameType);

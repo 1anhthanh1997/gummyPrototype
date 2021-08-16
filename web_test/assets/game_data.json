@@ -1,7 +1,7 @@
 {
   "assetsUrl": "https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip",
-  "backgroundMenuMusic": "home_music.mp3",
-  "backgroundGameMusic": "background_game_music.mp3",
+  "backgroundMenuMusic": "/assets/music/home_music.mp3",
+  "backgroundGameMusic": "/assets/music/background_game_music.mp3",
   "data": [
     {
       "id": 0,
@@ -1009,13 +1009,13 @@
               "id": 8,
               "image": "grape_model.svg",
               "position": {
-                "dx": 74.0,
-                "dy": 87.0
+                "dx": 38.0,
+                "dy": 89.0
               },
               "type": 3,
               "canDraw": false,
-              "width": 74.0,
-              "height": 112.0
+              "width": 143.0,
+              "height": 136.0
             },
             {
               "id": 9,
@@ -5393,8 +5393,8 @@
                 "dy": 174.0
               },
               "startPosition": {
-                "dx": 248.0,
-                "dy": 154.0
+                "dx": 333.0,
+                "dy": 178.0
               },
               "endPosition": {
                 "dx": 248.0,
@@ -5499,13 +5499,13 @@
               "id": 9,
               "image": "tutorial_5.png",
               "position": {
-                "dx": 480.0,
-                "dy": 140.0
+                "dx": 488.0,
+                "dy": 145.0
               },
               "type": 0,
               "status": 0,
-              "width": 130.0,
-              "height": 168.0
+              "width": 123.0,
+              "height": 160.0
             }
           ],
           "width": 213.0,
@@ -5790,25 +5790,25 @@
               "id": 2,
               "image": "tutorial_1.png",
               "position": {
-                "dx": 180.0,
+                "dx": 240.0,
                 "dy": 64.0
               },
               "type": 0,
               "status": 0,
-              "width": 119.0,
-              "height": 254.0
+              "width": 207.0,
+              "height": 242.0
             },
             {
               "id": 3,
               "image": "tutorial_2.png",
               "position": {
-                "dx": 312.0,
-                "dy": 83.0
+                "dx": 487.0,
+                "dy": 136.0
               },
               "type": 0,
               "status": 0,
-              "width": 107.0,
-              "height": 232.0
+              "width": 152.0,
+              "height": 170.0
             }
           ],
           "width": 213.0,
