@@ -84,6 +84,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       itemData.add(allGameData.gameData[stepIndex].items[idx].copy());
     }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
+    Random answerAmountRandom = Random();
+    int answerAmount = answerAmountRandom.nextInt(3) + 2;
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].type == 0) {
         questionPositionTmp = itemData[index].position;
@@ -91,20 +93,30 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
             Offset(screenWidth / 2, screenHeight + 125 * ratio);
         questionData = itemData[index];
         Random random = Random();
-        questionData.groupId = random.nextInt(3);
-      } else {
+        questionData.groupId = random.nextInt(9);
+      }
+    }
+    for (int index = 0; index < itemData.length; index++) {
+      if (itemData[index].type == 1) {
         Random random = Random();
         String chosenColor = colors[random.nextInt(colors.length)];
         Random positionRandom = Random();
         Offset chosenPosition = offsets[positionRandom.nextInt(offsets.length)];
-        if (itemData[index].groupId != questionData.groupId) {
-          int chosenGroupId = questionData.groupId;
-          while (chosenGroupId == questionData.groupId) {
-            Random idRandom = Random();
-            chosenGroupId = idRandom.nextInt(9);
+
+        print('Answer amount:');
+        print(answerAmount);
+        if (index <= answerAmount) {
+          itemData[index].groupId = questionData.groupId;
+          itemData[index].image = genImageLink(itemData[index].groupId);
+        } else {
+          List<int> groupId = [];
+          for (int i = 0; i < 9; i++) {
+            groupId.add(i);
           }
-          itemData[index].groupId = chosenGroupId;
-          itemData[index].image = genImageLink(chosenGroupId);
+          groupId.remove(questionData.groupId);
+          Random idRandom = Random();
+          itemData[index].groupId = groupId[idRandom.nextInt(groupId.length)];
+          itemData[index].image = genImageLink(itemData[index].groupId);
         }
 
         answerPositionTmp.add(chosenPosition);
@@ -117,6 +129,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         offsets.remove(chosenPosition);
       }
     }
+
     for (int index = 0; index < itemData.length; index++) {
       if (itemData[index].groupId == questionData.groupId &&
           itemData[index].type == 1) {
@@ -155,7 +168,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
   }
 
   void resetState() {
-    isScale=[];
+    isScale = [];
     itemData = [];
     questionPositionTmp = Offset(0, 0);
     answerPositionTmp = [];
@@ -282,14 +295,38 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
         {
           return 'assets/images/game_memory_number_7/number/three.png';
         }
+      case 3:
+        {
+          return 'assets/images/game_memory_number_7/number/four.png';
+        }
+      case 4:
+        {
+          return 'assets/images/game_memory_number_7/number/five.png';
+        }
+      case 5:
+        {
+          return 'assets/images/game_memory_number_7/number/six.png';
+        }
+      case 6:
+        {
+          return 'assets/images/game_memory_number_7/number/seven.png';
+        }
+      case 7:
+        {
+          return 'assets/images/game_memory_number_7/number/eight.png';
+        }
+      case 8:
+        {
+          return 'assets/images/game_memory_number_7/number/nine.png';
+        }
     }
   }
 
   Widget _square(int index) {
     ItemModel item = answerData[index];
     return Container(
-      height: item.height * ratio,
-      width: item.width * ratio,
+      height: 194 * ratio,
+      width: 60 * ratio,
       child: SvgPicture.file(
         File(assetFolder + item.image),
         color: HexColor(item.color),
@@ -349,8 +386,8 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
       Random random = Random();
       String balloonShardUrl =
           balloonShardList[random.nextInt(balloonShardList.length)];
-      particles[index]
-          .add(SquareParticle(time, ratio, 197, 87, balloonShardUrl,[],400,150,150));
+      particles[index].add(SquareParticle(
+          time, ratio, 197, 87, balloonShardUrl, [], 400, 150, 150));
     });
   }
 
@@ -398,7 +435,7 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                     child: _square(index))
                 : Container(),
             ...particles[index]
-                .map((it) => it.buildWidget(time, HexColor(item.color),false))
+                .map((it) => it.buildWidget(time, HexColor(item.color), false))
           ],
         );
       },
@@ -418,14 +455,13 @@ class _GameMemoryNumberState extends State<GameMemoryNumber> {
                 duration: Duration(milliseconds: answerDuration),
                 curve: Curves.fastOutSlowIn,
                 child: BubbleAnimation(
-                  child:BubbleScale(
-                    isScale: isScale[index],
-                    beginValue: 1.0,
-                    endValue: 1.1,
-                    time: 100,
-                    child:_buildParticle(index),
-                  )
-                ))
+                    child: BubbleScale(
+                  isScale: isScale[index],
+                  beginValue: 1.0,
+                  endValue: 1.1,
+                  time: 100,
+                  child: _buildParticle(index),
+                )))
             : AnimatedPositioned(
                 left: item.position.dx * ratio,
                 top: item.position.dy * ratio,
