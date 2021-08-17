@@ -256,7 +256,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
               : Container(
                   height: item.height * ratio,
                   width: item.width * ratio,
-                  child: Image.asset(screenModel.localPath+assetFolder+item.image),
+                  child: Image.file(File(screenModel.localPath+assetFolder+item.image)),
                 ));
     } else {
       return Container();

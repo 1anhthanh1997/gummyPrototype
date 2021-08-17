@@ -646,7 +646,7 @@ class _CalculateGameState extends State<CalculateGame> {
             child: Container(
               height: 331 * ratio,
               width: 681 * ratio,
-              child: Image.asset(assetFolder + imageName),
+              child: Image.file(File(assetFolder + imageName)),
             )),
       ],
     );
