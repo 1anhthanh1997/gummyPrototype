@@ -47,14 +47,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
   int currentStep;
   Timer timer;
   int periodicTime = 200;
-  DocumentReference gummyData=FirebaseFirestore.instance.collection('gummy').doc('game-data');
+  DocumentReference gummyData =
+      FirebaseFirestore.instance.collection('gummy').doc('game-data');
+  var allGameData;
+  int lastUpdate=-1;
 
   Future<void> loadGameData() async {
     // final response = await http.get(Uri.parse(
     //     'https://dev-dot-micro-enigma-235001.appspot.com/dataapi?type=gummy-get-data&lastUpdate=-1'));
     // var allGameData = json.decode(response.body);
     var jsonData = await rootBundle.loadString('assets/game_data.json');
-    var allGameData = json.decode(jsonData);
+    allGameData = json.decode(jsonData);
     // DocumentSnapshot doc=await gummyData.get();
     // // var allGameData = json.decode(doc.data());
     // Map<String, dynamic> allGameData=doc.data();
@@ -82,6 +85,30 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // });
 
     // setState(() {});
+  }
+
+  Future<void> setLastUpdateSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    prefs.setInt('lastUpdate', lastUpdate);
+  }
+
+  Future<void> getLastUpdateSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    int lastUpdateSF = prefs.getInt('lastUpdate') ?? -1;
+    if (lastUpdateSF < allGameData['lastUpdate']) {
+      setState(() {
+        lastUpdate = allGameData['lastUpdate'];
+      });
+      setLastUpdateSF();
+      await downloadAssets();
+    } else {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+          ModalRoute.withName("/Home"));
+    }
   }
 
   Future<void> getCurrentPlayGameSF() async {
@@ -167,6 +194,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         ZipFile.extractToDirectory(
                 zipFile: zipFile, destinationDir: destinationDir)
             .whenComplete(() {
+          zipFile.delete();
           setState(() {
             isComplete = true;
           });
@@ -278,7 +306,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     screenModel = Provider.of<ScreenModel>(context, listen: false);
     screenModel.setContext(context);
     loadGameData().whenComplete(() async {
-      await downloadAssets();
+      getLastUpdateSF();
     });
     screenModel.getDeviceId();
     screenModel.playAudioBackground(HOME_MUSIC);

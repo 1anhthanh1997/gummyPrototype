@@ -2,6 +2,7 @@
   "assetsUrl": "https://storage.googleapis.com/micro-enigma-235001.appspot.com/gummy/assets.zip",
   "backgroundMenuMusic": "/assets/music/home_music.mp3",
   "backgroundGameMusic": "/assets/music/background_game_music.mp3",
+  "lastUpdate": 118,
   "data": [
     {
       "id": 0,
@@ -1045,7 +1046,6 @@
               "width": 57.0,
               "height": 53.0
             }
-
           ],
           "width": 213.0,
           "height": 348.0
@@ -3474,7 +3474,7 @@
           "id": 0,
           "parentId": 10,
           "gameType": 2,
-          "background":"background.png",
+          "background": "background.png",
           "items": [
             {
               "id": 0,
@@ -3612,7 +3612,7 @@
           "id": 1,
           "parentId": 10,
           "gameType": 2,
-          "background":"background.png",
+          "background": "background.png",
           "items": [
             {
               "id": 0,
@@ -3742,7 +3742,6 @@
               "width": 419.0,
               "height": 109.0
             }
-
           ],
           "width": 213.0,
           "height": 284.0
@@ -3751,7 +3750,7 @@
           "id": 2,
           "parentId": 10,
           "gameType": 2,
-          "background":"background.png",
+          "background": "background.png",
           "items": [
             {
               "id": 0,
@@ -4705,6 +4704,7 @@
           "gameType": 6,
           "image": "alphabet.svg",
           "background": "background_image.png",
+          "audioUrl": "music/alphabet_audio/a.wav",
           "items": [
             {
               "id": 0,
@@ -4886,6 +4886,7 @@
               "groupId": 0,
               "type": 1,
               "image": "ant.png",
+              "audioUrl": "music/alphabet_audio/ant.wav",
               "width": 124.0,
               "height": 81.0
             },
@@ -4893,6 +4894,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/apple.wav",
               "image": "apple.png",
               "width": 69.0,
               "height": 81.0
@@ -4901,6 +4903,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/airplane.wav",
               "image": "airplane.png",
               "width": 125.0,
               "height": 44.0
@@ -4909,6 +4912,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/arrow.wav",
               "image": "arrow.png",
               "width": 117.0,
               "height": 13.0
@@ -4917,6 +4921,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/ambulance.wav",
               "image": "ambulance.png",
               "width": 120.0,
               "height": 83.0
@@ -4925,6 +4930,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/avocado.wav",
               "image": "avocado.png",
               "width": 60.0,
               "height": 77.0
@@ -4933,6 +4939,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/axe.wav",
               "image": "axe.png",
               "width": 71.0,
               "height": 78.0
@@ -4941,9 +4948,15 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/alligator.wav",
               "image": "alligator.png",
               "width": 140.0,
               "height": 63.0
+            },
+            {
+              "id": 8,
+              "type": 3,
+              "image": "scratcher.png"
             }
           ]
         },
@@ -4958,6 +4971,7 @@
               "groupId": 0,
               "type": 1,
               "image": "ant.png",
+              "audioUrl": "music/alphabet_audio/ant.wav",
               "width": 124.0,
               "height": 81.0
             },
@@ -4965,6 +4979,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/apple.wav",
               "image": "apple.png",
               "width": 69.0,
               "height": 81.0
@@ -4973,6 +4988,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/airplane.wav",
               "image": "airplane.png",
               "width": 125.0,
               "height": 44.0
@@ -4981,6 +4997,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/arrow.wav",
               "image": "arrow.png",
               "width": 117.0,
               "height": 13.0
@@ -4989,6 +5006,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/ambulance.wav",
               "image": "ambulance.png",
               "width": 120.0,
               "height": 83.0
@@ -4997,6 +5015,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/avocado.wav",
               "image": "avocado.png",
               "width": 60.0,
               "height": 77.0
@@ -5005,6 +5024,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/axe.wav",
               "image": "axe.png",
               "width": 71.0,
               "height": 78.0
@@ -5013,6 +5033,7 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/alligator.wav",
               "image": "alligator.png",
               "width": 140.0,
               "height": 63.0
@@ -5339,6 +5360,7 @@
           "id": 0,
           "parentId": 17,
           "gameType": 6,
+          "audioUrl": "music/alphabet_audio/b.wav",
           "image": "alphabet.svg",
           "background": "background_image.png",
           "items": [
@@ -5521,6 +5543,7 @@
               "id": 0,
               "groupId": 0,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/ball.wav",
               "image": "ball.png",
               "width": 79.0,
               "height": 79.0
@@ -5529,6 +5552,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/banana.wav",
               "image": "banana.png",
               "width": 84.0,
               "height": 115.0
@@ -5537,6 +5561,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bear.wav",
               "image": "bear.png",
               "width": 87.0,
               "height": 115.0
@@ -5545,6 +5570,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bee.wav",
               "image": "bee.png",
               "width": 80.0,
               "height": 80.0
@@ -5553,6 +5579,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bell.wav",
               "image": "bell.png",
               "width": 88.0,
               "height": 97.0
@@ -5561,6 +5588,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bicycle.wav",
               "image": "bicycle.png",
               "width": 124.0,
               "height": 79.0
@@ -5569,6 +5597,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/book.wav",
               "image": "book.png",
               "width": 77.0,
               "height": 97.0
@@ -5577,9 +5606,15 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audio": "music/alphabet_audio/butterfly.wav",
               "image": "butterfly.png",
               "width": 97.0,
               "height": 88.0
+            },
+            {
+              "id": 8,
+              "type": 3,
+              "image": "scratcher.png"
             }
           ]
         },
@@ -5593,6 +5628,7 @@
               "id": 0,
               "groupId": 0,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/ball.wav",
               "image": "ball.png",
               "width": 79.0,
               "height": 79.0
@@ -5601,6 +5637,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/banana.wav",
               "image": "banana.png",
               "width": 84.0,
               "height": 115.0
@@ -5609,6 +5646,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bear.wav",
               "image": "bear.png",
               "width": 87.0,
               "height": 115.0
@@ -5617,6 +5655,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bee.wav",
               "image": "bee.png",
               "width": 80.0,
               "height": 80.0
@@ -5625,6 +5664,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bell.wav",
               "image": "bell.png",
               "width": 88.0,
               "height": 97.0
@@ -5633,6 +5673,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/bicycle.wav",
               "image": "bicycle.png",
               "width": 124.0,
               "height": 79.0
@@ -5641,6 +5682,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/book.wav",
               "image": "book.png",
               "width": 77.0,
               "height": 97.0
@@ -5649,6 +5691,7 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audio": "music/alphabet_audio/butterfly.wav",
               "image": "butterfly.png",
               "width": 97.0,
               "height": 88.0
@@ -5741,6 +5784,7 @@
           "id": 0,
           "parentId": 18,
           "gameType": 6,
+          "audioUrl": "music/alphabet_audio/c.wav",
           "image": "alphabet.svg",
           "background": "background_image.png",
           "items": [
@@ -5824,6 +5868,7 @@
               "id": 0,
               "groupId": 0,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/car.wav",
               "image": "car.png",
               "width": 150.0,
               "height": 84.0
@@ -5832,6 +5877,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cake.wav",
               "image": "cake.png",
               "width": 99.0,
               "height": 72.0
@@ -5840,6 +5886,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cat.wav",
               "image": "cat.png",
               "width": 70.0,
               "height": 110.0
@@ -5848,6 +5895,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/crab.wav",
               "image": "crab.png",
               "width": 105.0,
               "height": 69.0
@@ -5856,6 +5904,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/carrot.wav",
               "image": "carrot.png",
               "width": 40.0,
               "height": 105.0
@@ -5864,6 +5913,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cactus.wav",
               "image": "cactus.png",
               "width": 72.0,
               "height": 119.0
@@ -5872,6 +5922,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cake.wav",
               "image": "cake.png",
               "width": 88.0,
               "height": 81.0
@@ -5880,9 +5931,15 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cheese.wav",
               "image": "cheese.png",
               "width": 104.0,
               "height": 85.0
+            },
+            {
+              "id": 8,
+              "type": 3,
+              "image": "scratcher.png"
             }
           ]
         },
@@ -5896,6 +5953,7 @@
               "id": 0,
               "groupId": 0,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/car.wav",
               "image": "car.png",
               "width": 150.0,
               "height": 84.0
@@ -5904,6 +5962,7 @@
               "id": 1,
               "groupId": 1,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cake.wav",
               "image": "cake.png",
               "width": 99.0,
               "height": 72.0
@@ -5912,6 +5971,7 @@
               "id": 2,
               "groupId": 2,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cat.wav",
               "image": "cat.png",
               "width": 70.0,
               "height": 110.0
@@ -5920,6 +5980,7 @@
               "id": 3,
               "groupId": 3,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/crab.wav",
               "image": "crab.png",
               "width": 105.0,
               "height": 69.0
@@ -5928,6 +5989,7 @@
               "id": 4,
               "groupId": 4,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/carrot.wav",
               "image": "carrot.png",
               "width": 40.0,
               "height": 105.0
@@ -5936,6 +5998,7 @@
               "id": 5,
               "groupId": 5,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cactus.wav",
               "image": "cactus.png",
               "width": 72.0,
               "height": 119.0
@@ -5944,6 +6007,7 @@
               "id": 6,
               "groupId": 6,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cake.wav",
               "image": "cake.png",
               "width": 88.0,
               "height": 81.0
@@ -5952,6 +6016,7 @@
               "id": 7,
               "groupId": 7,
               "type": 1,
+              "audioUrl": "music/alphabet_audio/cheese.wav",
               "image": "cheese.png",
               "width": 104.0,
               "height": 85.0
@@ -6021,6 +6086,2142 @@
               "height": 85.0
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_santa/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 19,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "santa_colored.svg",
+              "position": {
+                "dx": 341.0,
+                "dy": 173.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "type": 0,
+              "canDraw": false,
+              "width": 131.0,
+              "height": 68.0
+            },
+            {
+              "id": 1,
+              "image": "santa_1.svg",
+              "path": "M27.0139 7.7076C26.9824 12.615 26.8916 27.6078 26.8807 39.0601C26.8807 39.062 26.8807 39.064 26.8807 39.067C26.8837 40.8278 26.8768 43.9093 26.8738 45.0404C26.253 46.6857 23.4044 53.3402 16.3848 53.3036C9.11251 53.2671 6.27979 46.281 5.67969 44.6021C5.6866 43.5589 5.70633 40.7133 5.72311 39.0087C5.72311 39.0058 5.72311 39.0028 5.72311 38.9998C5.77838 29.9164 5.89288 12.9763 5.92841 7.70365C7.85407 6.9328 11.6442 5.70002 16.1844 5.67238C20.9813 5.64277 24.9945 6.917 27.0139 7.7076Z",
+              "position": {
+                "dx": 389.0,
+                "dy": 170.0
+              },
+              "color": "#E52E32",
+              "type": 0,
+              "canDraw": true,
+              "width": 32.0,
+              "height": 58.0
+            },
+            {
+              "id": 2,
+              "image": "santa_2.svg",
+              "path": "M110.573 19.8009L110.576 19.8019L110.366 19.6992C109.28 19.186 103.496 16.6109 96.1418 16.6563C89.0955 16.6987 83.5791 19.2107 82.5447 19.7101L82.3443 19.8098C81.5409 20.2164 80.9902 21.0495 80.9902 22.0118C80.9902 22.0158 80.8539 42.2051 80.7829 53.4383C73.3191 57.6884 66.4199 64.2392 59.5769 69.8721C52.9481 75.3283 46.4398 79.985 39.2997 79.9761C25.447 79.9574 11.3584 72.6081 6.94838 58.8304C1.75175 42.597 13.4883 28.1806 22.9706 19.794C22.9706 19.793 22.9706 19.793 22.9706 19.793C29.5638 13.9608 38.8802 10.4776 49.0642 8.32787C64.8456 4.9967 82.7036 4.91281 96.3431 4.89998C110.092 4.88616 128.1 4.93453 144.015 8.26668C154.287 10.4174 163.683 13.9163 170.333 19.794C179.82 28.1806 191.468 42.4173 186.348 58.8481C181.867 73.2259 167.047 79.6701 153.947 79.9771C146.745 80.1459 140.104 75.4822 133.343 69.9984C126.364 64.3379 119.331 57.7328 111.805 53.5103C111.824 39.7978 111.947 22.0286 111.947 22.0286C111.952 21.3712 111.693 20.7396 111.23 20.2727C111.037 20.0783 110.815 19.9193 110.573 19.8009Z",
+              "position": {
+                "dx": 309.0,
+                "dy": 153.0
+              },
+              "color": "#E7898A",
+              "type": 0,
+              "canDraw": true,
+              "width": 192.0,
+              "height": 85.0
+            },
+            {
+              "id": 3,
+              "image": "santa_3.svg",
+              "path": "M253.597 153.189C246.506 170.157 238.24 182.606 225.893 191.427C207.134 204.832 179.155 209.889 132.427 210.232C54.5893 210.806 26.2916 191.594 9.97531 154.707C4.30591 141.887 4.24472 117.879 8.74549 93.6925C13.2581 69.4396 22.3929 44.9666 35.5537 31.3892C43.7341 22.9493 55.825 17.2108 69.2346 13.3022C89.7832 7.31205 113.432 5.66275 131.444 5.68743C149.305 5.71112 172.69 7.45911 193.041 13.4542C206.328 17.3677 218.321 23.0737 226.485 31.3991C239.604 44.7771 249.288 68.1348 254.271 91.6938C259.239 115.183 259.564 138.91 253.597 153.189Z",
+              "position": {
+                "dx": 275.0,
+                "dy": 121.0
+              },
+              "color": "#FFE6C7",
+              "canDraw": true,
+              "type": 0,
+              "width": 263.0,
+              "height": 215.0
+            },
+            {
+              "id": 4,
+              "image": "santa_4.svg",
+              "path": "M48.5851 25.5682C49.7478 31.1912 47.8863 39.108 44.8996 45.4643C42.9808 49.5476 40.6179 53.012 38.1444 54.6337C34.151 57.2522 28.1628 57.6964 22.4726 56.51C16.7578 55.3187 11.2779 52.4593 8.40574 48.0829C6.80678 45.6469 5.9619 42.0572 5.63914 38.2019C5.13083 32.1495 5.95992 25.424 7.80662 21.0476C9.7619 16.4116 13.9962 11.7401 18.5611 8.77512C21.4047 6.92842 24.3677 5.71834 26.9784 5.80125C30.123 5.89995 33.7996 7.55123 37.2423 10.0168C42.5761 13.8375 47.3661 19.6717 48.5851 25.5682Z",
+              "position": {
+                "dx": 255.0,
+                "dy": 158.0
+              },
+              "color": "#E7898A",
+              "canDraw": true,
+              "type": 0,
+              "width": 54.0,
+              "height": 62.0
+            },
+            {
+              "id": 5,
+              "image": "santa_5.svg",
+              "path": "M5.51409 25.5682C6.73403 19.6717 11.524 13.8375 16.8578 10.0168C20.3005 7.55123 23.9771 5.89995 27.1208 5.80125C29.7314 5.71834 32.6954 6.92842 35.539 8.77512C40.104 11.7401 44.3382 16.4116 46.2945 21.0476C48.1402 25.424 48.9693 32.1486 48.461 38.2019C48.1382 42.0572 47.2933 45.6469 45.6944 48.0829C42.8222 52.4593 37.3413 55.3187 31.6275 56.51C25.9364 57.6964 19.9482 57.2522 15.9547 54.6337C13.4813 53.012 11.1184 49.5476 9.1996 45.4643C6.2129 39.108 4.35139 31.1912 5.51409 25.5682Z",
+              "position": {
+                "dx": 505.0,
+                "dy": 158.0
+              },
+              "color": "#E7898A",
+              "type": 0,
+              "canDraw": true,
+              "width": 54.0,
+              "height": 62.0
+            },
+            {
+              "id": 6,
+              "image": "santa_6.svg",
+              "path": "M210.859 52.5937C210.683 52.6559 209.962 52.9027 209.496 52.9806C208.711 53.1119 207.903 53.1652 207.301 53.1859C198.631 44.7164 186.231 38.7627 172.478 34.711C151.668 28.5807 127.757 26.7685 109.491 26.7439C91.0778 26.7182 66.9038 28.4316 45.8963 34.5551C32.1245 38.5702 19.7138 44.4963 11.0261 52.9688C10.4872 52.8356 9.83376 52.653 9.20108 52.422C8.69968 52.2384 7.92488 51.7982 7.8015 51.7271C6.43449 49.532 4.69043 45.1586 6.72763 40.2679C8.92768 34.9864 12.8422 31.6019 15.512 30.1293C40.522 16.3319 80.5375 5.0878 109.1 5.26744C138.345 5.45102 177.862 15.257 203.064 30.0948C205.389 31.4638 211.075 34.8275 212.832 40.1001C214.466 45.0026 212.435 50.5338 210.859 52.5937Z",
+              "position": {
+                "dx": 297.0,
+                "dy": 95.0
+              },
+              "color": "#FFE6C7",
+              "type": 0,
+              "canDraw": true,
+              "width": 218.0,
+              "height": 58.0
+            },
+            {
+              "id": 7,
+              "image": "santa_7.svg",
+              "path": "M40.9389 23.1176C40.7139 24.6721 40.0329 28.3468 38.273 31.9109C36.8458 34.8028 34.706 37.6701 31.3521 39.0125C25.0697 41.5274 18.82 42.5825 13.7507 39.4971C8.45634 36.2735 4.76393 29.6763 5.61374 22.9439C6.66096 14.6648 11.8882 7.87416 20.7565 6.08471C24.2258 5.38393 27.6893 6.26139 30.6059 7.50403C33.9114 8.9125 36.5438 10.8253 37.7736 11.7985C37.7765 11.8173 37.7785 11.836 37.7815 11.8548C38.0578 13.7528 39.0863 17.843 39.9934 20.6343C40.326 21.6588 40.6606 22.5264 40.9389 23.1176Z",
+              "position": {
+                "dx": 255.0,
+                "dy": 83.0
+              },
+              "color": "#FFE6C7",
+              "type": 0,
+              "canDraw": true,
+              "width": 46.0,
+              "height": 46.0
+            },
+            {
+              "id": 8,
+              "image": "santa_8.svg",
+              "path": "M209.849 81.6681C183.948 67.8825 146.339 58.3361 118.138 58.1594C90.7041 57.9867 54.2004 67.0159 28.5992 79.7839C30.4913 73.2479 33.5649 62.981 35.6929 57.6521C35.9959 56.8921 35.9031 56.0305 35.4442 55.3524C34.9852 54.6753 34.2193 54.2696 33.401 54.2696C33.3991 54.2696 20.6311 57.0303 12.2888 58.1752C10.5724 58.4111 8.6053 58.5187 7.54623 58.5621L5.74197 51.9492C6.04005 51.2948 6.72109 50.4736 7.63309 49.454C9.69299 47.1533 12.9274 44.2445 17.0235 41.0229C33.2342 28.2717 62.7815 10.7581 87.6996 7.03217C112.533 3.31903 144.327 5.08874 164.6 16.4581C186.763 28.8886 197.296 50.9621 206.014 69.0541C207.416 71.9658 208.871 77.5088 209.849 81.6681Z",
+              "position": {
+                "dx": 288.0,
+                "dy": 46.0
+              },
+              "color": "#E52E32",
+              "type": 0,
+              "canDraw": true,
+              "width": 216.0,
+              "height": 89.0
+            },
+            {
+              "id": 9,
+              "image": "santa_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 10,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#E52E32",
+              "type": 1,
+              "canDraw": false,
+              "count": 2,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 11,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#FFE6C7",
+              "type": 1,
+              "count": 3,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 12,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 192.0
+              },
+              "color": "#E7898A",
+              "type": 1,
+              "count": 3,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_avocado/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 20,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "avocado_1.svg",
+              "path": "M47.8868 113.375C38.5748 113.243 25.5008 108.871 18.8768 102.321C10.4968 94.034 5.2168 81.85 5.2168 65.483C5.2168 49.328 12.8798 30.901 23.8238 18.668C30.8658 10.797 39.2538 5.45905 47.8878 5.33605C56.6838 5.21005 65.4408 10.869 72.8838 19.047C84.4378 31.743 92.7938 50.644 92.7938 65.483C92.7938 85.202 87.5738 94.08 79.1438 102.31C72.1618 109.125 57.8338 113.515 47.8868 113.375Z",
+              "position": {
+                "dx": 357.0,
+                "dy": 180.0
+              },
+              "color": "#A95537",
+              "type": 0,
+              "canDraw": true,
+              "width": 98.0,
+              "height": 119.0
+            },
+            {
+              "id": 1,
+              "image": "avocado_2.svg",
+              "path": "M174.061 177.688C167.105 238.835 102.465 235.492 90.1705 235.424C78.0345 235.356 13.4265 238.348 6.70149 177.696C3.94049 152.796 9.95749 135.293 17.0515 120.174C21.9245 109.789 27.2885 100.492 30.8235 90.7658C38.6655 69.1838 45.3915 39.0418 59.5495 20.9748C67.4895 10.8428 78.3995 5.4668 90.9085 5.4668C103.483 5.4668 111.899 9.0928 122.806 21.1128C127.266 26.0278 131.413 34.9368 135.342 45.1728C141.429 61.0328 146.877 80.0448 151.626 93.1168C154.304 100.485 157.934 106.86 161.567 113.494C169.715 128.368 177.823 144.627 174.061 177.688Z",
+              "position": {
+                "dx": 315.0,
+                "dy": 70.0
+              },
+              "color": "#84D147",
+              "type": 0,
+              "canDraw": true,
+              "width": 180.0,
+              "height": 241.0
+            },
+            {
+              "id": 2,
+              "image": "avocado_3.svg",
+              "path": "M111.311 281.317C96.1378 281.232 15.3498 282.829 6.94177 207.058C3.50077 176.057 9.96677 156.569 18.0018 139.593C23.4998 127.979 29.7018 117.504 34.0888 105.441C39.9768 89.2514 45.6178 68.1164 53.8348 49.6873C59.1738 37.7123 65.5868 26.8843 73.9628 19.4613C90.5438 4.76435 109.208 5.47634 112.231 5.47334C115.272 5.46934 134.061 4.69534 150.754 19.4623C159.136 26.8773 165.55 37.7043 170.887 49.6783C179.103 68.1094 184.738 89.2514 190.626 105.441C190.626 105.441 190.626 105.441 190.626 105.442C193.947 114.573 198.383 122.141 202.793 129.898C212.73 147.375 222.462 165.881 217.773 207.051C209.071 283.459 126.687 281.403 111.311 281.317Z",
+              "position": {
+                "dx": 294.0,
+                "dy": 48.0
+              },
+              "color": "#439423",
+              "canDraw": true,
+              "type": 0,
+              "width": 224.0,
+              "height": 287.0
+            },
+            {
+              "id": 3,
+              "image": "avocado_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 4,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#84D147",
+              "type": 1,
+              "canDraw": false,
+              "count": 1,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 11,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#A95537",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 12,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 192.0
+              },
+              "color": "#439423",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_train/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 21,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "train_colored.svg",
+              "position": {
+                "dx": 283.0,
+                "dy": 254.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "canDraw": false,
+              "type": 0,
+              "width": 228.0,
+              "height": 37.0
+            },
+            {
+              "id": 1,
+              "image": "train_1.svg",
+              "path": "M86.8154 18.7792C86.8154 25.9411 80.9602 31.7752 73.8215 31.7752H18.6374C11.4765 31.7752 5.64346 25.92 5.64346 18.7792C5.64346 11.6173 11.4986 5.78331 18.6374 5.78331H73.8215C80.9602 5.78331 86.8154 11.6395 86.8154 18.7792Z",
+              "position": {
+                "dx": 269.0,
+                "dy": 63.0
+              },
+              "color": "#FCC40E",
+              "type": 0,
+              "canDraw": true,
+              "width": 92.0,
+              "height": 37.0
+            },
+            {
+              "id": 2,
+              "image": "train_2.svg",
+              "path": "M152.441 10.2582V29.7737C152.441 32.4174 150.276 34.5839 147.632 34.5839H10.2431C7.59945 34.5839 5.43396 32.4174 5.43396 29.7727V10.2582C5.43396 7.61451 7.59945 5.44701 10.2431 5.44701H147.632C150.276 5.44701 152.441 7.61451 152.441 10.2582Z",
+              "position": {
+                "dx": 399.0,
+                "dy": 61.0
+              },
+              "color": "#008F46",
+              "type": 0,
+              "canDraw": true,
+              "width": 158.0,
+              "height": 40.0
+            },
+            {
+              "id": 3,
+              "image": "train_3.svg",
+              "path": "M50.9615 46.9412C50.9615 48.0828 50.0202 49.0241 48.8796 49.0241H7.1545C6.01287 49.0241 5.07257 48.0828 5.07257 46.9412V7.36645C5.07257 6.22482 6.01287 5.28352 7.1545 5.28352H48.8796C50.0202 5.28352 50.9615 6.22482 50.9615 7.36645V46.9412Z",
+              "position": {
+                "dx": 449.0,
+                "dy": 120.0
+              },
+              "color": "#FCC40E",
+              "canDraw": true,
+              "type": 0,
+              "width": 57.0,
+              "height": 54.0
+            },
+            {
+              "id": 4,
+              "image": "train_4.svg",
+              "path": "M7.10612 46.2291V46.228C1.74426 29.8777 10.6639 12.278 27.0103 6.9161C43.3576 1.55525 60.9533 10.4759 66.3142 26.8253C71.675 43.1736 62.7554 60.7723 46.409 66.1342C30.0395 71.4961 12.4428 62.5774 7.10612 46.2291Z",
+              "position": {
+                "dx": 258.0,
+                "dy": 243.0
+              },
+              "color": "#FCC40E",
+              "canDraw": true,
+              "type": 0,
+              "width": 73.0,
+              "height": 73.0
+            },
+            {
+              "id": 5,
+              "image": "train_5.svg",
+              "path": "M8.11178 59.3854C1.06162 37.8141 12.8122 14.627 34.3563 7.54962C55.8994 0.498456 79.1067 12.2511 86.182 33.7972C93.2311 55.3685 81.4806 78.5566 59.9364 85.6329C38.3692 92.7093 15.1871 80.9546 8.11178 59.3854Z",
+              "position": {
+                "dx": 348.0,
+                "dy": 223.0
+              },
+              "color": "#FCC40E",
+              "canDraw": true,
+              "type": 0,
+              "width": 94.0,
+              "height": 93.0
+            },
+            {
+              "id": 6,
+              "image": "train_6.svg",
+              "path": "M7.55758 59.3864C0.506411 37.8141 12.258 14.627 33.8011 7.54962C55.3452 0.498457 78.5515 12.2511 85.6268 33.7972C92.6769 55.3685 80.9253 78.5566 59.3822 85.6329C37.815 92.7092 14.6077 80.9566 7.55758 59.3864Z",
+              "position": {
+                "dx": 449.0,
+                "dy": 223.0
+              },
+              "color": "#FCC40E",
+              "canDraw": true,
+              "type": 0,
+              "width": 93.0,
+              "height": 93.0
+            },
+            {
+              "id": 7,
+              "image": "train_7.svg",
+              "path": "M283.57 43.9264C283.57 46.5711 281.403 48.7375 278.76 48.7375H10.7378C8.09407 48.7375 5.92758 46.5711 5.92758 43.9264V10.7434C5.92758 8.09972 8.09407 5.93323 10.7378 5.93323H278.76C281.403 5.93323 283.57 8.09972 283.57 10.7434V43.9264Z",
+              "position": {
+                "dx": 262.0,
+                "dy": 216.0
+              },
+              "color": "#F37C20",
+              "canDraw": true,
+              "type": 0,
+              "width": 289.0,
+              "height": 54.0
+            },
+            {
+              "id": 8,
+              "image": "train_8.svg",
+              "path": "M118.385 180.636H118.358V178.119C118.358 180.764 116.193 182.93 113.549 182.93H10.3257C7.68202 182.93 5.51553 180.764 5.51553 178.119V10.6449C5.51553 8.00119 7.68202 5.83469 10.3257 5.83469H113.574C116.218 5.83469 118.385 8.00119 118.385 10.6449V180.636Z",
+              "position": {
+                "dx": 416.0,
+                "dy": 72.0
+              },
+              "color": "#F37C20",
+              "canDraw": true,
+              "type": 0,
+              "width": 124.0,
+              "height": 188.0
+            },
+            {
+              "id": 9,
+              "image": "train_9.svg",
+              "path": "M5.81909 10.3691C5.81909 7.62777 8.06008 5.40289 10.7843 5.40289H249.967C252.708 5.40289 254.932 7.64489 254.932 10.3691V97.8352C254.932 100.577 252.691 102.802 249.967 102.802H10.7843C8.04297 102.802 5.81909 100.559 5.81909 97.8352V10.3691Z",
+              "position": {
+                "dx": 277.0,
+                "dy": 152.0
+              },
+              "color": "#1B8AF1",
+              "canDraw": true,
+              "type": 0,
+              "width": 260.0,
+              "height": 108.0
+            },
+            {
+              "id": 10,
+              "image": "train_10.svg",
+              "path": "M40.6669 78.8754L40.6679 78.7948V50.8922H46.7959L46.9046 50.8912C51.4571 50.8328 55.184 47.1049 55.2424 42.5514L55.2434 42.4437V13.9632C55.2434 9.36041 51.4923 5.57408 46.9046 5.51569L46.7959 5.51469H13.5656C8.96486 5.51469 5.17854 9.26578 5.11914 13.8555V13.9632V42.4437C5.11914 47.0455 8.86923 50.8328 13.4579 50.8912L13.5656 50.8922H19.7198V78.7948C19.7198 82.1906 22.4783 84.9913 25.878 85.0346L25.9585 85.0356H34.4292L34.5087 85.0346C37.8672 84.9923 40.6236 82.251 40.6669 78.8754Z",
+              "position": {
+                "dx": 285.0,
+                "dy": 84.0
+              },
+              "color": "#008F46",
+              "canDraw": true,
+              "type": 0,
+              "width": 61.0,
+              "height": 91.0
+            },
+            {
+              "id": 11,
+              "image": "train_11.svg",
+              "path": "M33.7101 51.6503V51.5718V15.3264H36.7364H36.7978C39.3861 15.2931 41.5133 13.1669 41.5465 10.5776V10.5162C41.5465 7.8866 39.4042 5.72212 36.7202 5.70501H36.7364V3.18817L36.7202 5.70501H10.7294C8.11289 5.70501 5.95345 7.84431 5.92023 10.4538L5.91922 10.5162C5.91922 13.1337 8.05853 15.2931 10.668 15.3264H10.7294H14.103V51.5718C14.103 54.9121 16.3913 57.0333 18.4712 57.0666H18.5205H29.2926H29.3419C31.4057 57.0333 33.6739 54.9454 33.7101 51.6503Z",
+              "position": {
+                "dx": 348.0,
+                "dy": 111.0
+              },
+              "color": "#FCC40E",
+              "canDraw": true,
+              "type": 0,
+              "width": 47.0,
+              "height": 63.0
+            },
+            {
+              "id": 12,
+              "image": "train_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 13,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#FCC40E",
+              "type": 1,
+              "canDraw": false,
+              "count": 5,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 14,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#008F46",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 15,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 187.0
+              },
+              "color": "#F37C20",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 16,
+              "image": "color_4.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#1B8AF1",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_monkey/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 22,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "monkey_colored.svg",
+              "position": {
+                "dx": 315.0,
+                "dy": 93.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "canDraw": false,
+              "type": 0,
+              "width": 229.0,
+              "height": 93.0
+            },
+            {
+              "id": 1,
+              "image": "monkey_1.svg",
+              "path": "M132.912 126.517C120.767 128.921 59.8828 138.409 6.50372 100.128C7.84205 97.4875 10.6585 92.4616 14.7479 87.8866C18.3294 83.8818 22.8931 80.1759 28.3719 78.9865C30.2182 78.6183 31.2046 77.7217 31.7086 76.7914C32.4124 75.4898 32.3532 73.5506 30.7752 71.4737L30.7742 71.4727C23.2236 61.5454 9.82812 39.1285 27.0428 17.8203C39.2367 2.72533 56.3952 3.85454 68.8268 10.6666C77.0057 15.1487 83.2556 22.0372 84.4736 28.5351L84.4756 28.5483C85.0836 31.6034 85.7629 33.4049 86.4015 34.38C87.0849 35.4226 87.8673 35.9152 88.5987 36.1468C89.4821 36.4263 90.4093 36.3682 91.3753 35.904L91.7681 35.7153L93.8051 33.6742L93.9398 33.4742C94.5243 32.6123 112.027 14.911 136.143 26.9172C149.852 34.5943 152.143 47.7174 148.614 60.1031C144.966 72.91 135.246 85.0233 124.967 90.0165C122.994 90.9754 121.9 92.2188 121.491 93.4705C121.028 94.8863 121.221 96.6011 122.833 98.5086C127.312 103.817 134.547 112.08 132.912 126.517Z",
+              "position": {
+                "dx": 344.0,
+                "dy": 84.0
+              },
+              "color": "#FAEAD8",
+              "type": 0,
+              "canDraw": true,
+              "width": 156.0,
+              "height": 135.0
+            },
+            {
+              "id": 2,
+              "image": "monkey_2.svg",
+              "path": "M107.236 20.5747L109.357 20.6981L110.934 14.2482L117.812 23.7859L137.385 11.5104C136.255 16.4679 134.98 21.3918 133.753 26.3268C133.583 27.0103 133.387 27.6876 133.192 28.3649L135.09 29.2942C156.015 39.5438 173.72 55.0805 184.88 75.6481C188.102 81.5869 191.681 90.5135 193.252 97.248C194.343 101.929 195.729 111.454 195.729 111.454C196.79 123.124 194.686 170.877 142.705 174.06C89.1733 177.338 57.4595 165.348 23.5983 143.526C-6.02135 118.168 3.99469 81.7583 29.5974 49.7547C55.4642 17.4227 107.236 20.5747 107.236 20.5747Z",
+              "position": {
+                "dx": 323.0,
+                "dy": 38.0
+              },
+              "color": "#A14E21",
+              "type": 0,
+              "canDraw": true,
+              "width": 202.0,
+              "height": 180.0
+            },
+            {
+              "id": 3,
+              "image": "monkey_3.svg",
+              "path": "M52.5395 31.1552L52.5374 31.2062C52.5374 41.4895 47.536 58.241 40.3221 68.3968C38.5105 70.947 36.5673 73.0718 34.5067 74.504C31.9168 76.3044 29.1504 76.9317 26.3237 75.5261C15.0173 69.7239 9.00608 61.7909 6.75581 53.2927C3.35287 40.4419 8.42158 26.4578 16.1486 17.0161C21.4591 10.5284 28.0079 6.10338 34.0324 6.10338C43.724 6.10338 48.2909 12.2115 50.4718 18.2687C52.7914 24.7125 52.5395 31.1552 52.5395 31.1552Z",
+              "position": {
+                "dx": 293.0,
+                "dy": 79.0
+              },
+              "color": "#FAEAD8",
+              "canDraw": true,
+              "type": 0,
+              "width": 58.0,
+              "height": 82.0
+            },
+            {
+              "id": 4,
+              "image": "monkey_4.svg",
+              "path": "M16.8481 19.4099L16.8767 19.369C16.9032 19.3272 20.3572 13.876 25.8931 9.85488C31.0781 6.0888 38.2135 3.58555 46.0261 8.96131C48.5192 10.6791 50.4471 13.4833 51.8354 16.9046C54.0857 22.4486 54.8823 29.5789 54.0387 36.8234C52.7769 47.6667 47.8388 58.815 38.2583 65.2629C31.8921 69.5472 23.4908 71.7087 12.8321 70.4101C9.78419 70.0021 7.93072 67.964 6.87189 65.0711C6.02218 62.7474 5.65903 59.9198 5.64271 56.8147C5.57845 44.4311 11.045 27.8438 16.8481 19.4099Z",
+              "position": {
+                "dx": 499.0,
+                "dy": 126.0
+              },
+              "color": "#FAEAD8",
+              "canDraw": true,
+              "type": 0,
+              "width": 60.0,
+              "height": 76.0
+            },
+            {
+              "id": 5,
+              "image": "monkey_5.svg",
+              "path": "M120.568 132.057H85.9647V139.04C85.9647 139.044 85.9055 139.997 85.0803 140.784C84.2938 141.533 82.9433 142.03 80.7573 142.03C78.5713 142.03 77.2217 141.533 76.4352 140.784C75.61 139.997 75.5508 139.044 75.5508 139.04V32.4456L75.5162 32.2375C75.5162 32.2375 75.0316 28.9876 72.0275 26.4119C70.1965 24.843 67.3872 23.4578 63.0275 23.4578C51.82 23.4578 50.5286 33.4045 50.5286 33.4045L50.5031 33.584V140.035C50.4368 140.182 49.5177 142.03 45.2967 142.03C43.1107 142.03 41.7611 141.533 40.9746 140.784C40.1494 139.997 40.0902 139.044 40.0902 139.04V132.057H8.08871C7.38691 131.7 5.73746 130.393 5.73746 126.85C5.73746 123.46 7.59296 122.002 8.14787 121.643H26.8161L25.7083 5.28732H101.43L99.2133 121.643H119.89C120.703 122.293 122.533 124.176 122.533 127.959C122.533 131.293 120.681 132.016 120.568 132.057Z",
+              "position": {
+                "dx": 354.0,
+                "dy": 193.0
+              },
+              "color": "#A14E21",
+              "canDraw": true,
+              "type": 0,
+              "width": 128.0,
+              "height": 148.0
+            },
+            {
+              "id": 6,
+              "image": "monkey_6.svg",
+              "path": "M30.1425 113.708C16.8674 113.708 6.09647 102.937 6.09647 89.6622V29.822C6.09647 16.5468 16.8674 5.77698 30.1425 5.77698C43.4177 5.77698 54.1875 16.5468 54.1875 29.822V89.6622C54.1875 102.937 43.4177 113.708 30.1425 113.708Z",
+              "position": {
+                "dx": 387.0,
+                "dy": 187.0
+              },
+              "color": "#FAEAD8",
+              "canDraw": true,
+              "type": 0,
+              "width": 60.0,
+              "height": 119.0
+            },
+            {
+              "id": 7,
+              "image": "monkey_7.svg",
+              "path": "M11.223 68.3087H23.9004C26.6423 68.3087 28.304 65.3179 26.8504 62.9891L26.8443 62.9789C24.6674 59.5668 18.7256 49.5426 16.4182 38.5871C14.2454 28.2762 15.3165 17.0321 26.9034 10.3435C37.8743 4.01192 47.4598 7.43118 55.7081 13.5628C64.6806 20.232 72.1669 30.0124 78.2128 35.5095C91.3778 47.4769 108.479 45.2593 121.643 35.685C127.747 31.2457 135.09 22.0701 144.479 14.9919C153.268 8.36556 163.957 3.62021 177.345 7.32815C185.233 9.51313 189.652 15.4152 191.418 22.8138C194.252 34.6884 190.499 50.2597 182.902 61.8813L182.897 61.8895C181.441 64.154 183.074 67.2009 185.801 67.2009H193.865C194.748 67.3703 200.383 68.7219 200.383 75.7318C200.383 78.0096 199.84 79.6223 198.99 80.7383C197.145 83.1599 194.068 83.1548 194.068 83.1548H10.1152C10.1111 83.1548 8.79623 83.0762 7.71189 81.8562C6.71835 80.7382 6.01654 78.8379 6.01654 75.7318C6.01654 72.7001 6.83464 70.8395 7.96691 69.7481C9.42153 68.3465 11.223 68.3087 11.223 68.3087Z",
+              "position": {
+                "dx": 315.0,
+                "dy": 242.0
+              },
+              "color": "#A14E21",
+              "canDraw": true,
+              "type": 0,
+              "width": 206.0,
+              "height": 89.0
+            },
+            {
+              "id": 8,
+              "image": "monkey_8.svg",
+              "path": "M103.884 80.363C104.132 79.4766 105.977 72.5514 105.147 65.5965C104.503 60.2045 102.266 54.8624 96.9679 51.8134C93.7751 49.9763 89.4021 48.9491 83.4225 49.4479C56.9283 51.6553 50.0265 52.4734 27.9196 52.4734C6.40131 52.4734 -0.887067 27.7092 12.1422 15.5929C17.4231 10.6823 21.3555 7.49149 24.4738 6.21743C25.5214 5.79002 26.413 5.58907 27.2097 5.79308C27.9472 5.98179 28.5378 6.5316 29.1131 7.31807C31.4144 10.4629 28.8193 12.6775 26.1559 14.9594C23.8169 16.9628 21.1454 18.9091 19.2766 20.9594C17.6761 22.7139 16.6285 24.5827 16.398 26.5433C15.9369 30.4603 16.3663 33.546 17.9607 35.9146C19.552 38.2781 22.3684 40.0704 27.176 41.015C32.5446 42.0697 40.7408 42.1493 52.9245 41.3087C65.4081 40.4478 77.3704 38.7443 87.5884 39.0554C97.0302 39.3421 104.93 41.2996 110.012 47.9065C112.446 51.0718 113.712 55.8518 114.386 60.8706C115.456 68.8567 114.922 77.4732 114.278 81.9778C114.121 83.0815 113.358 83.8517 112.409 84.3627C111.161 85.0349 109.588 85.2879 108.098 85.1482C106.522 85.0003 104.984 84.4474 104.211 83.2223C103.75 82.4919 103.638 81.5382 103.883 80.3712L103.884 80.363Z",
+              "position": {
+                "dx": 254.0,
+                "dy": 189.0
+              },
+              "color": "#A14E21",
+              "canDraw": true,
+              "type": 0,
+              "width": 121.0,
+              "height": 91.0
+            },
+            {
+              "id": 10,
+              "image": "monkey_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 11,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#A14E21",
+              "type": 1,
+              "canDraw": false,
+              "count": 4,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 12,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#FAEAD8",
+              "type": 1,
+              "count": 4,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_ice_cream/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 23,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "ice_cream_colored.svg",
+              "path": "M104.36 101.563H106.86V99.695L105.068 99.166L104.36 101.563ZM43.7622 95.663L42.0072 93.883L43.7622 95.663ZM94.3572 95.654L93.0862 93.501L94.3572 95.654ZM19.3442 56.065L20.1422 58.434L21.9642 57.821L21.8392 55.902L19.3442 56.065ZM115.482 145.354L115.483 145.243V99.685L117.27 99.153L117.477 99.091C126.141 96.415 132.436 88.392 132.535 78.906L132.536 78.68C132.536 69.275 126.444 61.271 117.964 58.426L118.759 56.056L116.264 55.894L118.759 56.056L117.964 58.426L116.139 57.815L116.264 55.894L116.288 55.509C116.331 54.738 116.356 53.961 116.362 53.18L116.364 52.789C116.364 26.792 95.3542 5.70299 69.3572 5.53799L69.0512 5.53699C43.0152 5.53699 21.9032 26.526 21.7392 52.483L21.7382 52.789C21.7382 53.835 21.7722 54.874 21.8392 55.902L19.3442 56.065L20.1422 58.434C11.7392 61.263 5.68716 69.159 5.59316 78.46L5.59216 78.68C5.59216 90.393 15.0262 99.891 26.7052 100.038L26.9812 100.04C32.8432 100.04 38.1442 97.691 42.0072 93.883L43.3762 92.534L45.0322 93.51L43.7622 95.663L45.0322 93.51C51.9602 97.594 60.0212 99.965 68.6402 100.038L69.0512 100.04C77.8322 100.04 86.0452 97.656 93.0862 93.501L94.7432 92.523L96.1132 93.874L94.3572 95.654L96.1132 93.874C98.5102 96.239 101.46 98.041 104.749 99.069L105.068 99.166L104.36 101.563H106.86V145.243C106.86 147.573 108.723 149.486 111.06 149.546L111.172 149.547C113.511 149.547 115.423 147.683 115.482 145.354ZM117.983 101.549L117.27 99.153L117.983 101.549Z",
+              "position": {
+                "dx": 345.0,
+                "dy": 195.0
+              },
+              "color": "#FF5959",
+              "type": 0,
+              "canDraw": false,
+              "width": 122.0,
+              "height": 152.0
+            },
+            {
+              "id": 0,
+              "image": "ice_cream_1.svg",
+              "path": "M104.36 101.563H106.86V99.695L105.068 99.166L104.36 101.563ZM43.7622 95.663L42.0072 93.883L43.7622 95.663ZM94.3572 95.654L93.0862 93.501L94.3572 95.654ZM19.3442 56.065L20.1422 58.434L21.9642 57.821L21.8392 55.902L19.3442 56.065ZM115.482 145.354L115.483 145.243V99.685L117.27 99.153L117.477 99.091C126.141 96.415 132.436 88.392 132.535 78.906L132.536 78.68C132.536 69.275 126.444 61.271 117.964 58.426L118.759 56.056L116.264 55.894L118.759 56.056L117.964 58.426L116.139 57.815L116.264 55.894L116.288 55.509C116.331 54.738 116.356 53.961 116.362 53.18L116.364 52.789C116.364 26.792 95.3542 5.70299 69.3572 5.53799L69.0512 5.53699C43.0152 5.53699 21.9032 26.526 21.7392 52.483L21.7382 52.789C21.7382 53.835 21.7722 54.874 21.8392 55.902L19.3442 56.065L20.1422 58.434C11.7392 61.263 5.68716 69.159 5.59316 78.46L5.59216 78.68C5.59216 90.393 15.0262 99.891 26.7052 100.038L26.9812 100.04C32.8432 100.04 38.1442 97.691 42.0072 93.883L43.3762 92.534L45.0322 93.51L43.7622 95.663L45.0322 93.51C51.9602 97.594 60.0212 99.965 68.6402 100.038L69.0512 100.04C77.8322 100.04 86.0452 97.656 93.0862 93.501L94.7432 92.523L96.1132 93.874L94.3572 95.654L96.1132 93.874C98.5102 96.239 101.46 98.041 104.749 99.069L105.068 99.166L104.36 101.563H106.86V145.243C106.86 147.573 108.723 149.486 111.06 149.546L111.172 149.547C113.511 149.547 115.423 147.683 115.482 145.354ZM117.983 101.549L117.27 99.153L117.983 101.549Z",
+              "position": {
+                "dx": 338.0,
+                "dy": 32.0
+              },
+              "color": "#FF5959",
+              "type": 0,
+              "canDraw": true,
+              "width": 138.0,
+              "height": 155.0
+            },
+            {
+              "id": 1,
+              "image": "ice_cream_2.svg",
+              "path": "M5.5545 88.9926L3.0545 88.9696L5.5545 88.9926ZM15.2955 74.8266L15.6545 77.3006L18.5165 76.8856L17.6915 74.1136L15.2955 74.8266ZM12.8995 75.5396L15.2955 74.8266C14.4565 74.9476 13.6425 75.1426 12.8595 75.4026L12.8995 75.5396ZM123.345 74.8256V74.8266L125.741 75.5386L125.781 75.4006C124.998 75.1406 124.183 74.9466 123.345 74.8256C123.583 74.0236 123.804 73.2146 124.007 72.3986C123.906 72.3826 123.804 72.3666 123.702 72.3516L123.345 74.8256ZM15.2955 74.8266L14.9375 72.3526C14.8355 72.3676 14.7335 72.3826 14.6335 72.3996C14.8355 73.2156 15.0575 74.0246 15.2955 74.8266ZM53.8945 114.151L53.8965 114.005V100.762H104.038L104.759 101.438L104.857 101.532C106.879 103.48 108.131 106.342 108.17 109.379L108.171 109.526V137.473C108.171 140.615 110.334 142.584 112.36 142.584L112.455 142.583C114.422 142.523 116.483 140.627 116.547 137.619L116.549 137.473V109.526C116.549 106.381 117.851 103.423 119.946 101.427L121.671 103.237L119.946 101.427L120.638 100.769L121.592 100.738L121.742 100.732C128.035 100.457 133.009 95.3636 133.087 89.1186L133.088 88.9696C133.088 83.0326 128.694 78.1256 122.987 77.3006L123.345 74.8266V74.8256L120.948 74.1136L123.345 74.8266L122.987 77.3006L120.124 76.8866L120.948 74.1136L121.081 73.6586C122.391 69.1046 123.116 64.2986 123.162 59.3406L123.164 58.8446C123.164 29.2656 99.2365 5.24759 69.6565 5.06059L69.3085 5.05958C39.6855 5.05958 15.6655 28.9606 15.4785 58.4966L15.4775 58.8446C15.4775 64.1586 16.2545 69.2806 17.6915 74.1136L15.2955 74.8266L15.6545 77.3006C10.0085 78.1186 5.6785 82.9616 5.5565 88.8536L5.5545 88.9926V88.9956L3.0545 88.9696L5.5545 88.9956C5.5215 92.2526 6.2075 95.3326 7.2405 97.5136C7.7575 98.6056 8.3125 99.3676 8.8095 99.8246C9.2985 100.275 9.60251 100.321 9.71951 100.321L9.84451 100.322C15.0505 100.395 18.7655 105.052 18.8815 110.185L18.8845 110.432V131.16C18.8845 134.295 21.0665 136.27 23.0735 136.27C25.0785 136.27 27.2185 134.35 27.2855 131.306L27.2865 131.16V119.217C27.2865 114.007 30.9965 109.183 36.2775 109.108L36.4025 109.107C38.7245 109.107 40.9195 109.82 42.5865 111.081C44.2275 112.321 45.4785 114.208 45.5175 116.49L45.5185 116.599C45.5185 117.019 45.7395 117.592 46.4765 118.145C47.2135 118.699 48.3465 119.116 49.7075 119.116C51.7015 119.116 53.8285 117.207 53.8945 114.151Z",
+              "position": {
+                "dx": 337.0,
+                "dy": 98.0
+              },
+              "color": "#AA7063",
+              "type": 0,
+              "canDraw": true,
+              "width": 138.0,
+              "height": 148.0
+            },
+            {
+              "id": 2,
+              "image": "ice_cream_3.svg",
+              "path": "M52.5886 139.587L7.20557 5.11281H114.15L67.6466 139.576C66.0056 144.069 63.1556 146.54 60.1066 146.54C57.0656 146.54 54.2296 144.081 52.5966 139.609L52.5886 139.587Z",
+              "position": {
+                "dx": 345.0,
+                "dy": 195.0
+              },
+              "color": "#FFBF37",
+              "canDraw": true,
+              "type": 0,
+              "width": 122.0,
+              "height": 152.0
+            },
+            {
+              "id": 3,
+              "image": "ice_cream_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 4,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 671.0,
+                "dy": 122.0
+              },
+              "color": "#FF5959",
+              "type": 1,
+              "canDraw": false,
+              "count": 1,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 5,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#AA7063",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 6,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#FFBF37",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_chicken/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 24,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "chicken_colored.svg",
+              "position": {
+                "dx": 367.0,
+                "dy": 114.0
+              },
+              "path": "M104.36 101.563H106.86V99.695L105.068 99.166L104.36 101.563ZM43.7622 95.663L42.0072 93.883L43.7622 95.663ZM94.3572 95.654L93.0862 93.501L94.3572 95.654ZM19.3442 56.065L20.1422 58.434L21.9642 57.821L21.8392 55.902L19.3442 56.065ZM115.482 145.354L115.483 145.243V99.685L117.27 99.153L117.477 99.091C126.141 96.415 132.436 88.392 132.535 78.906L132.536 78.68C132.536 69.275 126.444 61.271 117.964 58.426L118.759 56.056L116.264 55.894L118.759 56.056L117.964 58.426L116.139 57.815L116.264 55.894L116.288 55.509C116.331 54.738 116.356 53.961 116.362 53.18L116.364 52.789C116.364 26.792 95.3542 5.70299 69.3572 5.53799L69.0512 5.53699C43.0152 5.53699 21.9032 26.526 21.7392 52.483L21.7382 52.789C21.7382 53.835 21.7722 54.874 21.8392 55.902L19.3442 56.065L20.1422 58.434C11.7392 61.263 5.68716 69.159 5.59316 78.46L5.59216 78.68C5.59216 90.393 15.0262 99.891 26.7052 100.038L26.9812 100.04C32.8432 100.04 38.1442 97.691 42.0072 93.883L43.3762 92.534L45.0322 93.51L43.7622 95.663L45.0322 93.51C51.9602 97.594 60.0212 99.965 68.6402 100.038L69.0512 100.04C77.8322 100.04 86.0452 97.656 93.0862 93.501L94.7432 92.523L96.1132 93.874L94.3572 95.654L96.1132 93.874C98.5102 96.239 101.46 98.041 104.749 99.069L105.068 99.166L104.36 101.563H106.86V145.243C106.86 147.573 108.723 149.486 111.06 149.546L111.172 149.547C113.511 149.547 115.423 147.683 115.482 145.354ZM117.983 101.549L117.27 99.153L117.983 101.549Z",
+              "color": "#FF5959",
+              "type": 0,
+              "canDraw": false,
+              "width": 108.0,
+              "height": 42.0
+            },
+            {
+              "id": 1,
+              "image": "chicken_1.svg",
+              "path": "M39.265 10.8766C36.1684 12.6639 30.4722 15.8837 27.6353 17.0618C27.6353 17.0628 27.6353 17.0628 27.6353 17.0628C22.6747 19.1248 13.3263 22.5124 7.61097 23.6419C7.06843 23.749 6.46123 23.8217 5.92981 23.8702C6.10661 23.1802 6.3501 22.3346 6.64208 21.5748C8.01711 17.9953 10.4378 13.3145 12.8696 9.82693C14.2305 7.874 15.4863 6.26357 16.5977 5.77256C17.8666 5.21083 20.2136 5.4624 22.9363 5.90693C27.7565 6.69295 33.5729 8.45392 37.5838 10.1017C38.1577 10.3381 38.7366 10.6109 39.265 10.8766Z",
+              "position": {
+                "dx": 416.0,
+                "dy": 130.0
+              },
+              "color": "#F19A00",
+              "type": 0,
+              "canDraw": true,
+              "width": 47.0,
+              "height": 29.0
+            },
+            {
+              "id": 2,
+              "image": "chicken_2.svg",
+              "path": "M36.8455 11.2654C36.3555 11.8999 35.5927 12.5232 34.641 13.1183C31.1989 15.2662 25.4664 16.8322 19.0913 15.9795C16.1029 15.5804 12.7729 13.6699 10.0976 11.8554C15.5684 10.5511 23.073 7.91115 27.973 5.95822C29.1096 6.94933 30.8584 8.37084 32.4729 9.26598C33.6287 9.9055 34.8633 10.4117 35.9453 10.8602C36.2292 10.9774 36.5545 11.126 36.8455 11.2654Z",
+              "position": {
+                "dx": 417.0,
+                "dy": 146.0
+              },
+              "color": "#F19A00",
+              "canDraw": true,
+              "type": 0,
+              "width": 43.0,
+              "height": 22.0
+            },
+            {
+              "id": 3,
+              "image": "chicken_3.svg",
+              "path": "M143.289 37.4007C146.095 35.4286 150.146 29.7315 146.142 24.0576C141.986 18.1705 135.949 18.1998 129.981 20.3922C119.76 24.1465 109.625 34.0101 106.665 36.9592C106.06 37.5614 105.694 37.923 105.62 37.9847C103.989 39.3425 102.544 38.1382 102.358 37.9766C102.142 37.7937 100.856 36.7087 101.727 34.9315C101.755 34.8729 101.933 34.5739 102.236 34.0798C103.527 31.9814 107.817 24.7981 108.414 17.8603C108.759 13.8706 107.798 9.9395 103.66 7.52284C96.9626 3.61193 90.1258 6.09426 84.3398 11.0943C75.9916 18.3069 69.6559 30.762 68.7648 39.7386C70.4682 39.3668 72.0251 39.1001 72.0251 39.1001C73.4001 38.8707 74.7024 39.8012 74.9318 41.1762C75.1601 42.5513 74.2306 43.8536 72.8556 44.0829C72.8556 44.0829 68.7466 44.7447 67.1008 45.3973L67.0554 45.4145C56.825 49.4648 48.3354 50.067 36.244 65.3701C17.3088 89.3326 23.0301 122.218 24.9033 130.666C35.5024 130.478 48.2758 137.369 50.8722 138.862C51.1561 139.026 51.3511 139.143 51.3511 139.143L51.3491 139.142C52.0907 139.582 52.5867 140.391 52.5867 141.314C52.5867 142.708 51.4552 143.84 50.061 143.84C50.06 143.84 49.3709 143.827 48.3525 143.241C45.8732 141.814 33.0423 134.62 23.2807 135.833L23.2544 135.836C17.9877 136.499 12.0309 138.411 8.33621 145.35C2.98561 155.398 6.08827 164.791 10.2366 171.361C13.507 176.541 19.2213 179.631 23.5828 182.538L37.8908 190.001C39.1072 190.635 39.5952 192.126 38.989 193.356C38.3828 194.588 36.9047 195.109 35.66 194.532C35.66 194.532 28.3949 191.154 23.5353 188.413C22.1875 191.483 19.6931 196.367 16.2439 199.805C14.1738 201.868 11.5934 202.789 9.4425 203.529C9.09798 203.647 8.67971 203.82 8.32206 203.975C8.99089 204.675 10.0456 205.716 11.1742 206.621C22.5947 215.777 54.1446 233.82 77.5141 236.596C109.132 240.355 129.447 233.995 146.377 225.259C175.156 210.408 183.566 175.067 184.982 168.157C185.229 166.949 185.43 166.311 185.431 166.31C185.553 166.068 185.712 165.845 185.904 165.653C185.906 165.651 198.133 151.521 203.302 145.404H203.303C209.148 138.486 214.193 128.06 214.255 118.992C214.293 113.486 212.412 108.502 207.365 105.444C204.933 103.97 202.085 104.181 199.118 105.216C195.967 106.314 192.709 108.346 189.57 110.758C190.281 121.872 189.782 130.791 189.782 130.793C189.782 132.187 188.65 133.318 187.256 133.318C185.862 133.318 184.73 132.187 184.73 130.793C184.73 130.791 185.269 121.307 184.44 109.774C183.803 100.892 182.367 90.7642 179.18 82.9364C169.64 59.5174 150.087 45.8398 144.786 42.4593C143.149 43.4939 141.113 44.6921 141.113 44.6921C139.911 45.3983 138.362 44.9962 137.656 43.795C136.95 42.5927 137.352 41.0439 138.553 40.3377C138.553 40.3377 141.92 38.3625 143.289 37.4007Z",
+              "position": {
+                "dx": 297.0,
+                "dy": 43.0
+              },
+              "color": "#FFD215",
+              "canDraw": true,
+              "type": 0,
+              "width": 220.0,
+              "height": 243.0
+            },
+            {
+              "id": 4,
+              "image": "chicken_4.svg",
+              "path": "M16.2017 7.18541C16.4574 7.40565 19.0266 9.63137 21.1987 11.8106C27.6364 18.2715 36.9333 28.4706 36.9343 28.4726C37.5263 29.0647 38.373 29.3243 39.1954 29.1667C40.0178 29.0091 40.7088 28.4544 41.0402 27.6856C41.0402 27.6856 42.0818 25.279 43.9529 23.2079C45.0087 22.04 46.3282 20.9195 47.9588 20.6932C49.4258 20.4902 50.335 20.6154 50.8634 21.063C51.2878 21.4227 51.314 21.9329 51.314 21.9329C51.313 22.8876 51.8515 23.7615 52.7042 24.1909C53.5569 24.6203 54.5793 24.5324 55.3462 23.9626C55.3462 23.9626 56.8495 22.8593 58.9156 22.2612C60.7321 21.7359 63.0629 21.5853 65.0563 23.3999C65.3442 23.6615 65.3391 24.0101 65.2613 24.3637C65.132 24.9507 64.8289 25.5538 64.4531 26.158C62.7517 28.8939 59.5632 31.5753 58.7287 31.9259C58.7277 31.9269 58.7277 31.9269 58.7267 31.9269C57.3617 32.5017 57.1213 33.5302 57.1637 34.4011C57.1829 34.7931 57.2971 35.9196 58.6489 36.6137C59.2146 36.9047 61.7728 37.6695 63.7863 38.7707C64.251 39.0253 64.8805 39.5305 65.0876 39.7012C65.0946 40.4771 64.6764 41.1601 64.0843 41.7966C63.0882 42.8675 61.6141 43.7697 59.932 44.5527C54.5915 47.0411 47.1788 48.2535 43.8226 47.8655C43.3912 47.525 41.6959 46.1702 40.2168 44.8073C30.9502 36.2712 10.9926 15.4578 10.4379 14.6273L10.4389 14.6294C10.3521 14.492 8.15261 11.5176 6.77959 8.59479C6.46337 7.92193 6.1916 7.2541 6.02288 6.63579C5.95418 6.38018 5.91174 6.0084 5.89355 5.82048C6.02489 5.74269 6.21382 5.73157 6.39871 5.68712C7.12714 5.51739 7.99702 5.51537 8.90125 5.58104C11.9574 5.8023 15.3561 6.87423 16.2017 7.18541Z",
+              "position": {
+                "dx": 438.0,
+                "dy": 237.0
+              },
+              "color": "#F19A00",
+              "canDraw": true,
+              "type": 0,
+              "width": 71.0,
+              "height": 53.0
+            },
+            {
+              "id": 5,
+              "image": "chicken_5.svg",
+              "path": "M24.5546 13.4922C24.6274 13.3043 24.688 13.0952 24.7314 12.8628C24.9668 11.5908 26.3045 5.09962 32.6735 5.83512C38.7515 6.5383 38.702 13.1487 38.6767 14.4318C38.6757 14.4813 38.6757 14.5298 38.6767 14.5773C38.4726 16.8909 35.6367 49.2349 35.6367 49.239C35.5569 50.0351 35.859 50.8211 36.451 51.3596C36.452 51.3596 41.7491 54.8735 45.5226 58.9278C46.6218 60.1099 47.5917 61.3313 48.1777 62.5184C48.5131 63.1994 48.7919 63.8278 48.5808 64.3997C48.409 64.8644 47.9615 65.0654 47.4826 65.2281C46.8673 65.4372 46.1661 65.5302 45.4448 65.5666C42.5209 65.7141 39.3021 64.9038 38.6858 64.7421C38.2039 64.6159 37.9301 64.629 37.9301 64.629C36.8976 64.629 35.9681 65.2574 35.5852 66.2172C35.5842 66.2172 35.2649 66.8547 35.5215 67.9307C35.6266 68.3732 35.9065 69.7199 35.7559 71.1788C35.6417 72.2689 35.3043 73.4985 34.1051 74.1613C30.6033 76.095 27.2905 74.23 24.8021 72.1326C22.1622 69.9089 20.3578 67.2214 20.0224 66.7062C19.5101 65.9192 18.9737 65.7292 18.9727 65.7282C18.6221 65.5524 18.2351 65.4615 17.8431 65.4615C17.8421 65.4615 17.146 65.3584 16.2721 66.0081C15.9458 66.2515 14.209 67.5104 12.1106 68.3328C10.4315 68.9915 8.39875 69.6421 7.11364 68.0984C4.93137 65.4766 6.39632 62.7286 8.48665 60.3069C12.2137 55.9868 18.3705 52.6093 19.5617 51.9718C20.5235 51.4576 20.8003 50.8484 20.8003 50.8474C20.965 50.5483 21.067 50.22 21.1004 49.8815C21.1014 49.8775 24.6173 13.4246 24.6183 13.4205L24.5546 13.4922Z",
+              "position": {
+                "dx": 349.0,
+                "dy": 256.0
+              },
+              "color": "#F19A00",
+              "canDraw": true,
+              "type": 0,
+              "width": 54.0,
+              "height": 80.0
+            },
+            {
+              "id": 6,
+              "image": "chicken_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 7,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#F19A00",
+              "type": 1,
+              "canDraw": false,
+              "count": 4,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 8,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#FFD215",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_boat/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 25,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "boat_1.svg",
+              "path": "M44.9313 5.87789C44.8489 6.06018 44.7117 6.33754 44.5667 6.53257C44.1923 7.03926 43.666 7.5685 42.9986 8.12518L37.6396 12.512C34.6053 14.9974 33.2548 18.2052 33.4018 21.3022C33.5488 24.3982 35.1963 27.4668 38.4648 29.6582C38.4599 29.6543 47.4961 35.7464 47.4961 35.7464C48.1753 36.2041 48.7996 36.8078 49.2112 37.2449C48.6046 37.3841 47.8509 37.4478 46.9561 37.4478H14.264C9.49109 37.4478 5.61493 33.552 5.61493 28.8046V14.0448C5.61493 9.27382 9.51461 5.40157 14.264 5.40157H42.043C42.9927 5.40157 43.7885 5.48488 44.4226 5.66619C44.5902 5.71421 44.7892 5.80536 44.9313 5.87789Z",
+              "position": {
+                "dx": 393.0,
+                "dy": 45.0
+              },
+              "color": "#F91559",
+              "type": 0,
+              "canDraw": true,
+              "width": 55.0,
+              "height": 43.0
+            },
+            {
+              "id": 1,
+              "image": "boat_2.svg",
+              "path": "M251.286 5.69861C249.997 13.7146 247.964 20.0909 245.906 24.9599C245.906 24.9599 31.9724 24.9599 11.3175 24.9599C9.24469 20.0919 7.22674 13.7156 5.92325 5.69861C31.747 5.69861 225.488 5.69861 251.286 5.69861Z",
+              "position": {
+                "dx": 274.0,
+                "dy": 263.0
+              },
+              "color": "#F91559",
+              "canDraw": true,
+              "type": 0,
+              "width": 257.0,
+              "height": 30.0
+            },
+            {
+              "id": 2,
+              "image": "boat_3.svg",
+              "path": "M20.3895 5.16861V216.088H5.22397V5.16861H20.3895Z",
+              "position": {
+                "dx": 398.0,
+                "dy": 69.0
+              },
+              "color": "#446FDF",
+              "canDraw": true,
+              "type": 0,
+              "width": 26.0,
+              "height": 221.0
+            },
+            {
+              "id": 3,
+              "image": "boat_4.svg",
+              "path": "M128 167H5L5.01951 166.894C5.24583 165.775 5.74335 164.211 6.6779 162.021C9.72154 154.879 17.158 141.652 34.4247 117.139C62.9579 76.6025 89.2424 31.6978 109.522 13.6185C113.564 10.0146 117.319 7.50873 120.809 6.47835C123.399 5.71365 125.806 5.83619 128 7.06069V167Z",
+              "position": {
+                "dx": 279.0,
+                "dy": 86.0
+              },
+              "color": "#2FEEA9",
+              "canDraw": true,
+              "type": 0,
+              "width": 134.0,
+              "height": 175.0
+            },
+            {
+              "id": 4,
+              "image": "boat_5.svg",
+              "path": "M112.398 152.172V149.823C112.853 150.076 112.943 150.895 112.888 151.788C112.639 152.113 112.398 152.172 112.398 152.172ZM110.959 149.722H5.72284V8.33497C10.2547 3.39249 16.0361 5.58392 22.7191 11.3399C41.9902 27.9373 67.0064 73.7819 89.642 108.026H89.643C106.469 133.47 110.519 144.276 110.952 148.91C110.977 149.191 110.973 149.477 110.959 149.722Z",
+              "position": {
+                "dx": 406.0,
+                "dy": 103.0
+              },
+              "color": "#2FEEA9",
+              "canDraw": true,
+              "type": 0,
+              "width": 116.0,
+              "height": 155.0
+            },
+            {
+              "id": 5,
+              "image": "boat_6.svg",
+              "path": "M217.755 5.6996C219.57 6.52285 226.852 10.251 228.463 17.6917C229.753 23.6583 227.284 31.7233 216.523 42.5275C187.877 71.2886 155.173 72.056 116.963 72.056C78.7525 72.056 46.0721 71.2886 17.4023 42.5275C6.64112 31.7125 4.17135 23.6456 5.46308 17.6789C7.07333 10.2402 14.3562 6.5199 16.1693 5.69861C16.1703 5.69861 116.963 5.69861 116.963 5.69861H217.754L217.755 5.6996Z",
+              "position": {
+                "dx": 285.0,
+                "dy": 263.0
+              },
+              "color": "#446FDF",
+              "canDraw": true,
+              "type": 0,
+              "width": 234.0,
+              "height": 77.0
+            },
+            {
+              "id": 6,
+              "image": "boat_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 7,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#2FEEA9",
+              "type": 1,
+              "canDraw": false,
+              "count": 2,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 8,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#F91559",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 9,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#446FDF",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_fish/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 26,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "fish_colored.svg",
+              "position": {
+                "dx": 333.0,
+                "dy": 164.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "type": 0,
+              "canDraw": false,
+              "width": 67.0,
+              "height": 67.0
+            },
+            {
+              "id": 1,
+              "image": "fish_1.svg",
+              "path": "M10.6601 47.3606C9.81485 46.8731 8.28779 45.4627 8.2848 45.4597C5.40213 42.6279 4.53095 38.2002 6.14672 34.4862C6.5853 33.6748 7.02786 32.8545 7.605 32.1358C8.53897 30.9726 9.38823 29.6449 10.6601 28.8644C23.2394 21.1434 36.1277 13.9317 49.008 6.72406C53.7287 3.99788 59.7652 5.61564 62.4914 10.3364C64.6145 14.0145 64.1032 18.498 61.5325 21.588L57.2693 26.7104L63.3885 29.3518C71.0846 32.6731 71.2132 43.8659 63.6297 47.3815L57.983 50.001L61.7727 54.937C64.1341 58.0141 64.5477 62.3271 62.4914 65.8886C59.7652 70.6093 53.7287 72.2271 49.008 69.5009L10.6601 47.3606Z",
+              "position": {
+                "dx": 416.0,
+                "dy": 161.0
+              },
+              "color": "#F86502",
+              "type": 0,
+              "canDraw": true,
+              "width": 75.0,
+              "height": 76.0
+            },
+            {
+              "id": 2,
+              "image": "fish_2.svg",
+              "path": "M85.0005 19.7535C87.2263 21.2536 90.6443 23.9329 93.8758 26.9302C80.2878 29.2178 68.4232 33.6066 57.3301 44.9569L57.3231 44.9639C54.0906 48.2831 51.1262 51.9144 48.6761 55.8477C46.4872 59.3613 43.5078 67.1421 43.5078 67.1421C41.1365 74.8492 40.8066 82.9549 41.7375 91.9737C42.6626 100.93 47.7062 108.755 54.1853 114.748C56.6632 117.04 62.2023 120.932 62.2023 120.932C71.3607 126.87 86.4538 132.107 101.112 134.847C88.4823 144.289 70.7925 149.147 57.9461 151.703C52.9333 152.701 49.7406 153.226 43.1898 153.296C26.8926 141.268 16.4145 125.045 10.0192 105.764L9.96238 105.844C10.0182 105.617 9.91552 105.411 9.79392 105.222C9.78694 105.185 9.77897 105.17 9.76501 105.143C8.223 101.956 7.51928 98.3969 6.94813 94.9033C6.23444 90.5324 5.92943 81.6571 5.92943 81.6571C5.77493 72.5277 6.59926 63.5079 7.85719 57.9508C17.1252 37.9855 29.3706 17.8995 47.8787 5.51155C56.3473 6.64588 62.5133 8.14303 67.9328 10.2662C73.731 12.5378 78.7827 15.564 85.0005 19.7535Z",
+              "position": {
+                "dx": 277.0,
+                "dy": 120.0
+              },
+              "color": "#FED42C",
+              "canDraw": true,
+              "type": 0,
+              "width": 113.0,
+              "height": 159.0
+            },
+            {
+              "id": 3,
+              "image": "fish_3.svg",
+              "path": "M8.62856 9.40489C12.7173 5.91518 16.1692 5.03005 19.2512 5.77364C22.3173 6.51425 25.3225 8.7829 28.3438 12.2028C28.2859 15.7494 28.1025 19.3148 27.9082 22.9222L27.8573 23.8611C27.642 27.8392 27.4237 31.8732 27.3579 35.9041C27.2314 43.6331 27.663 51.4877 29.7153 59.3473C27.7427 60.6481 25.8997 61.6937 24.0377 62.1771C21.9774 62.7114 19.0478 61.4594 17.1829 59.8118C15.9539 58.7263 14.5534 56.6819 14.5933 54.9854C14.6421 52.9001 15.6877 50.6195 17.3782 48.1854C18.7438 46.2218 19.6001 44.3049 19.8403 42.4161C20.1353 40.1055 19.5243 38.1409 18.4199 36.5122C17.5477 35.2243 16.3615 34.1957 15.3319 33.3943C14.977 33.1172 14.6481 32.8709 14.3311 32.6327C13.8616 32.2799 12.9984 31.5891 12.816 31.4426C8.27172 27.5821 5.69406 23.1195 5.10496 19.0068C4.57667 15.3237 5.70303 11.8988 8.62657 9.40688L8.62856 9.40489Z",
+              "position": {
+                "dx": 250.0,
+                "dy": 166.0
+              },
+              "color": "#F86502",
+              "canDraw": true,
+              "type": 0,
+              "width": 36.0,
+              "height": 68.0
+            },
+            {
+              "id": 4,
+              "image": "fish_4.svg",
+              "path": "M55.8785 137.152C54.0524 138.841 49.5709 140.687 49.5709 140.687C47.2295 141.165 44.607 140.927 41.5618 140.038L41.5579 140.067L41.5429 140.054L41.5459 140.034C29.8737 136.672 17.5854 129.143 7.15517 121.848C8.444 119.56 9.96109 116.444 10.8951 113.915C20.0405 89.184 17.6363 52.2775 6.38367 28.1187C13.9223 19.5304 22.349 12.1842 32.6915 7.69575L31.7077 7.89909L32.7075 7.68977C35.7895 6.34014 42.5536 5.47295 42.5536 5.47295C45.3625 5.64638 48.0987 6.78869 50.6933 9.49094C51.9841 10.8426 53.1454 12.3467 54.0534 13.9804C54.8588 15.4317 55.3233 17.0545 55.7799 18.6503C56.4248 21.8848 56.0679 25.4184 54.7512 29.3437C53.6039 32.7427 49.857 38.9297 49.857 38.9297C48.8672 40.4597 47.8296 41.9648 46.769 43.5029L46.5906 43.761C45.4443 45.4246 44.2751 47.1261 43.1627 48.8715L43.1557 48.8834C36.8979 58.7575 33.7352 67.6617 34.1877 76.5011C35.1546 95.3929 52.6809 105.868 58.497 122.728C60.3351 128.075 60.0959 133.05 55.9991 137.037L55.8785 137.152ZM55.8915 137.14L55.9782 137.058C55.9503 137.085 55.9214 137.113 55.8915 137.14L55.5715 137.445L55.8785 137.152L55.8915 137.14ZM31.6968 7.88813L31.6988 7.88912L31.6997 7.8941C31.7007 7.8961 31.7008 7.89909 31.7008 7.89909V7.90208L31.6988 7.90108C31.6978 7.89909 31.6968 7.8961 31.6968 7.8961C31.6968 7.89311 31.6968 7.89112 31.6968 7.88813ZM31.6968 7.84825C31.6968 7.86121 31.6958 7.87616 31.6988 7.88912C31.6998 7.89211 31.7037 7.8971 31.7037 7.8971L31.7067 7.90009L31.7077 7.89909C31.7067 7.88912 31.7057 7.88215 31.7037 7.87318C31.7017 7.8642 31.6998 7.85623 31.6968 7.84825Z",
+              "position": {
+                "dx": 495.0,
+                "dy": 122.0
+              },
+              "color": "#F86502",
+              "canDraw": true,
+              "type": 0,
+              "width": 65.0,
+              "height": 146.0
+            },
+            {
+              "id": 5,
+              "image": "fish_5.svg",
+              "path": "M179.689 149.45L178.417 146.958C175.924 150.402 172.947 154.515 170.561 158.136C156.086 180.096 135.257 192.612 108.217 202.2C91.9992 207.951 79.684 207.148 59.1235 202.977C39.8908 199.075 22.2539 194.009 7.54048 181.905C7.60926 181.884 7.68202 181.865 7.75877 181.845C8.49439 181.66 9.37255 181.628 10.4122 181.632C10.791 181.634 11.2186 181.643 11.6661 181.652C12.5832 181.673 13.5769 181.692 14.4332 181.662L14.492 181.66H14.482C30.8062 181.038 44.5168 174.593 59.2432 165.064L71.2364 157.303L57.0194 155.919C42.0807 154.463 30.1593 151.449 20.8195 142.224C11.2365 132.759 5.70144 122.109 5.67452 108.47L5.66754 108.476L5.66854 108.465L5.67352 108.46C5.6187 94.2727 9.02567 83.5514 16.6171 75.3201C24.4089 66.8704 36.7569 60.7612 54.8065 56.3136L63.2143 54.2423L57.1988 48.0135C47.249 37.7068 34.8102 34.3028 22.6974 31.3165L22.6895 31.3145C21.0189 30.9048 19.2167 30.6925 17.592 30.5071L17.1484 30.4563C15.5874 30.2759 14.2009 30.1054 12.9599 29.7446C12.0678 29.4854 11.3432 29.1575 10.7939 28.6212L10.5517 28.3561C20.0191 20.044 31.4013 14.7521 43.4423 10.8258C68.6388 2.61038 100.187 3.31112 127.36 16.6141C147.781 26.6097 167.423 41.4038 177.664 57.5456C187.034 72.3128 191.933 85.3436 192.746 98.4243C193.559 111.504 190.299 124.858 183.097 140.291L183.096 140.293C182.996 140.508 182.572 141.132 181.796 142.244C180.937 143.475 179.824 145.015 178.573 146.742L179.846 149.234L179.844 149.237L178.568 146.749L178.419 146.954L179.69 149.449L179.689 149.45Z",
+              "position": {
+                "dx": 317.0,
+                "dy": 95.0
+              },
+              "color": "#FCAD03",
+              "canDraw": true,
+              "type": 0,
+              "width": 198.0,
+              "height": 212.0
+            },
+            {
+              "id": 6,
+              "image": "fish_6.svg",
+              "path": "M18.3655 20.8591C14.1571 16.7544 10.2358 12.5291 7.56641 7.59405C21.911 4.9546 35.2189 4.73431 48.7332 7.31496C50.2882 11.6828 50.658 15.8145 49.7469 19.2513C48.7741 22.9185 46.2193 25.9008 41.683 27.5784C34.881 30.0942 25.7107 28.021 18.3655 20.8591Z",
+              "position": {
+                "dx": 375.0,
+                "dy": 297.0
+              },
+              "color": "#F86502",
+              "canDraw": true,
+              "type": 0,
+              "width": 56.0,
+              "height": 34.0
+            },
+            {
+              "id": 7,
+              "image": "fish_7.svg",
+              "path": "M95.0066 44.3031C84.9372 39.5425 74.3026 36.4684 60.6976 34.6094C41.9234 32.0447 26.8581 34.2526 10.6506 38.2227L10.6097 38.1569C10.2838 37.6346 9.96878 37.1273 9.67673 36.6428L9.67573 36.6409C8.81552 35.2234 8.06096 33.8828 7.50675 32.4973C6.1621 29.1182 5.37565 25.9116 5.59593 23.011C5.78931 20.4752 6.81998 18.1168 9.1913 16.0206C13.9948 11.8122 20.6761 13.3283 24.4629 17.7729C26.9588 20.7054 29.2105 22.8425 31.2798 24.1433C33.8874 25.784 36.771 26.4628 39.6457 25.4232C42.1795 24.5071 43.9907 22.4279 45.2865 20.218H45.2875C46.3899 18.3361 47.3917 15.9329 48.3865 13.2745C50.5514 7.4892 55.9031 4.23373 61.8758 5.86047L62.5307 5.94818L61.8977 5.86645H61.8987C64.598 6.60007 66.2247 7.90585 67.1647 9.66017C68.2711 11.7275 68.624 14.5125 68.4505 17.9493L68.4495 17.9812C68.4485 18.0121 68.3508 22.7179 68.8423 25.0902C69.4084 27.8274 70.9056 31.2423 74.4162 32.7006V32.7016C77.9029 34.1499 81.4215 33.0226 84.0191 31.7826C84.9441 31.341 85.904 30.8207 86.8161 30.3243C86.9945 30.2276 89.313 28.9866 90.2759 28.5819C91.7362 27.9689 92.9941 27.631 94.2221 27.9699C95.5877 28.3467 97.1805 29.5957 99.1213 32.5312L99.1223 32.5322C99.9566 33.7941 100.286 34.8467 100.284 35.7766C100.281 36.7345 99.9426 37.6865 99.3814 38.7082C98.6608 40.0159 97.6371 41.3097 96.4589 42.6703C96.109 43.075 95.4641 43.7957 95.0066 44.3031Z",
+              "position": {
+                "dx": 350.0,
+                "dy": 61.0
+              },
+              "color": "#F86502",
+              "canDraw": true,
+              "type": 0,
+              "width": 106.0,
+              "height": 51.0
+            },
+            {
+              "id": 8,
+              "image": "fish_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 9,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#FED42C",
+              "type": 1,
+              "canDraw": false,
+              "count": 1,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 8,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#FCAD03",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 9,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#F86502",
+              "type": 1,
+              "count": 5,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_ladybug/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 27,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "ladybug_colored.svg",
+              "position": {
+                "dx": 369.0,
+                "dy": 47.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "type": 0,
+              "canDraw": false,
+              "width": 85.0,
+              "height": 63.0
+            },
+            {
+              "id": 1,
+              "image": "ladybug_1.svg",
+              "path": "M31.0089 7.31581C35.0938 10.8739 37.6766 16.1107 37.6766 21.9466C37.6766 32.652 28.985 41.3446 18.2796 41.3446C13.9268 41.3446 9.90812 39.9077 6.6701 37.4824C12.9645 26.0395 21.2316 15.8298 31.0089 7.31581Z",
+              "position": {
+                "dx": 308.0,
+                "dy": 134.0
+              },
+              "color": "#423131",
+              "type": 0,
+              "canDraw": true,
+              "width": 43.0,
+              "height": 47.0
+            },
+            {
+              "id": 2,
+              "image": "ladybug_2.svg",
+              "path": "M11.9849 7.31581C21.7622 15.8328 30.0273 26.0405 36.3237 37.4834C33.0857 39.9077 29.067 41.3446 24.7152 41.3446C14.0098 41.3446 5.3172 32.652 5.3172 21.9466C5.3172 16.1107 7.901 10.8739 11.9849 7.31581Z",
+              "position": {
+                "dx": 472.0,
+                "dy": 134.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 43.0,
+              "height": 47.0
+            },
+            {
+              "id": 3,
+              "image": "ladybug_3.svg",
+              "path": "M32.527 59.9231C47.4375 59.9231 59.5248 47.8358 59.5248 32.9253C59.5248 18.0148 47.4375 5.92746 32.527 5.92746C17.6165 5.92746 5.52917 18.0148 5.52917 32.9253C5.52917 47.8358 17.6165 59.9231 32.527 59.9231Z",
+              "position": {
+                "dx": 339.0,
+                "dy": 173.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 65.0,
+              "height": 65.0
+            },
+            {
+              "id": 4,
+              "image": "ladybug_4.svg",
+              "path": "M32.4872 59.9231C47.3977 59.9231 59.485 47.8358 59.485 32.9253C59.485 18.0148 47.3977 5.92746 32.4872 5.92746C17.5767 5.92746 5.48932 18.0148 5.48932 32.9253C5.48932 47.8358 17.5767 59.9231 32.4872 59.9231Z",
+              "position": {
+                "dx": 419.0,
+                "dy": 173.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 65.0,
+              "height": 65.0
+            },
+            {
+              "id": 5,
+              "image": "ladybug_5.svg",
+              "path": "M6.65121 11.302C11.1616 7.9175 16.7636 5.91168 22.8312 5.91168C37.7309 5.91168 49.8281 18.0088 49.8281 32.9095C49.8281 41.305 45.987 48.8106 39.9665 53.7654C25.6358 42.6426 14.1136 28.072 6.65021 11.302H6.65121Z",
+              "position": {
+                "dx": 304.0,
+                "dy": 258.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 55.0,
+              "height": 61.0
+            },
+            {
+              "id": 6,
+              "image": "ladybug_6.svg",
+              "path": "M15.1387 53.7644C9.12022 48.8106 5.27814 41.3051 5.27814 32.9095C5.27814 18.0088 17.3753 5.91168 32.276 5.91168C38.3426 5.91168 43.9457 7.91751 48.455 11.301C40.9916 28.0731 29.4684 42.6436 15.1397 53.7644H15.1387Z",
+              "position": {
+                "dx": 464.0,
+                "dy": 258.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 55.0,
+              "height": 61.0
+            },
+            {
+              "id": 7,
+              "image": "ladybug_7.svg",
+              "path": "M6.65894 66.3952L14.8558 7.54903C15.2582 4.66522 19.4234 4.66522 19.8257 7.54903L28.0286 66.4373C24.5869 66.7624 21.094 66.928 17.564 66.928C13.8835 66.928 10.2451 66.7474 6.65894 66.3952Z",
+              "position": {
+                "dx": 394.0,
+                "dy": 268.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 34.0,
+              "height": 72.0
+            },
+            {
+              "id": 8,
+              "image": "ladybug_8.svg",
+              "path": "M115.551 225.935C176.51 225.935 225.926 176.518 225.926 115.559C225.926 54.6008 176.51 5.18401 115.551 5.18401C54.5924 5.18401 5.1756 54.6008 5.1756 115.559C5.1756 176.518 54.5924 225.935 115.551 225.935Z",
+              "position": {
+                "dx": 296.0,
+                "dy": 109.0
+              },
+              "color": "#ED2222",
+              "canDraw": true,
+              "type": 0,
+              "width": 231.0,
+              "height": 231.0
+            },
+            {
+              "id": 9,
+              "image": "ladybug_9.svg",
+              "path": "M64.515 122.763C96.8325 122.763 123.031 96.5645 123.031 64.247C123.031 31.9295 96.8325 5.73099 64.515 5.73099C32.1975 5.73099 5.99896 31.9295 5.99896 64.247C5.99896 96.5645 32.1975 122.763 64.515 122.763Z",
+              "position": {
+                "dx": 347.0,
+                "dy": 74.0
+              },
+              "color": "#423131",
+              "canDraw": true,
+              "type": 0,
+              "width": 129.0,
+              "height": 128.0
+            },
+            {
+              "id": 10,
+              "image": "ladybug_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 11,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#423131",
+              "type": 1,
+              "canDraw": false,
+              "count": 8,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 12,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#ED2222",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_helicopter/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 28,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "helicopter_1.svg",
+              "path": "M36.2751 37.9933L38.1671 38.0798L46.5117 12.4166C51.0166 6.15984 58.4346 3.48832 63.3958 6.92937C68.3421 10.3734 68.4306 18.2637 64.1504 24.6765C64.1494 24.6775 42.7107 41.7515 42.7107 41.7515L43.1989 43.3652C43.4653 44.247 43.5747 45.1936 43.4992 46.1679C43.184 49.9908 40.082 52.9337 36.3536 53.1196L34.6425 53.2051L25.8465 80.2533C21.3406 86.5101 13.9226 89.1826 8.9624 85.7395C4.00117 82.2965 3.92659 74.4062 8.20678 67.9944C8.20777 67.9924 30.0173 50.641 30.0173 50.641L29.1493 48.8504C28.5787 47.6752 28.3082 46.3349 28.4226 44.937C28.7546 40.8776 32.2325 37.8094 36.2751 37.9933Z",
+              "position": {
+                "dx": 506.0,
+                "dy": 137.0
+              },
+              "color": "#E82D22",
+              "type": 0,
+              "canDraw": true,
+              "width": 73.0,
+              "height": 93.0
+            },
+            {
+              "id": 2,
+              "image": "helicopter_2.svg",
+              "path": "M18.3533 87.0896V87.0876C14.2123 86.4871 10.2075 85.6013 6.3608 84.441C5.85076 81.3111 5.63402 78.0689 5.72648 74.7223C5.77321 73.3682 5.89649 72.015 6.0506 70.6619C8.39302 50.5415 23.6297 30.8317 46.1263 18.5688L46.1283 18.5678C50.1291 16.3775 54.3804 14.4557 58.8187 12.7854L59.8686 12.3907C68.2082 9.34928 77.2399 7.26635 86.7796 6.4481H86.7845C87.909 6.34669 89.0524 6.26118 90.2027 6.18164C95.7854 15.255 98.608 25.5832 97.7241 36.3239V36.3249C95.159 67.9595 61.9277 90.827 23.7231 87.718C21.9017 87.5609 20.128 87.3402 18.3533 87.0896Z",
+              "position": {
+                "dx": 279.0,
+                "dy": 130.0
+              },
+              "color": "#2D8FEE",
+              "canDraw": true,
+              "type": 0,
+              "width": 103.0,
+              "height": 93.0
+            },
+            {
+              "id": 3,
+              "image": "helicopter_3.svg",
+              "path": "M155.739 19.088C155.688 19.0493 156.182 19.3982 153.71 18.052C145.178 13.406 133.67 8.88022 118.735 6.75852H118.734C110.704 5.61217 103.009 5.51175 95.7545 5.83885C100.999 15.2523 103.562 25.7932 102.678 36.7158V36.7168C99.8965 70.8082 64.4728 96.0121 23.3134 92.6595C17.866 92.2171 12.6005 91.2855 7.55878 89.9373C8.67332 93.8934 10.284 97.6426 12.3858 101.159L11.7276 101.553L11.7296 101.556L12.3888 101.164C24.0502 120.763 50.2244 133.055 86.3848 134.17C137.206 135.741 173.627 107.982 179.638 78.8963L179.994 77.1703L188.242 76.0627C188.242 76.0627 260.978 73.424 260.995 73.423H261.012C277.74 73.0452 285.989 63.0025 284.799 51.9257V51.9247C284.318 47.4337 282.564 42.6763 278.572 39.0901C274.438 35.3756 267.983 32.9735 258.319 33.1157L174.5 32.7916L174.402 32.7836C174.121 32.7598 173.669 32.6822 173.134 32.3372C172.855 32.1573 172.291 31.6711 171.469 30.9075C169.418 29.0065 165.164 25.0594 158.446 20.8299C156.14 19.3794 155.778 19.1179 155.739 19.088Z",
+              "position": {
+                "dx": 279.0,
+                "dy": 130.0
+              },
+              "color": "#F6C412",
+              "canDraw": true,
+              "type": 0,
+              "width": 290.0,
+              "height": 140.0
+            },
+            {
+              "id": 4,
+              "image": "helicopter_4.svg",
+              "path": "M148.078 10.4394C151.511 10.4543 154.599 12.057 156.786 14.5833L157.63 15.5587L158.914 15.4294C161.04 15.2157 162.656 15.1918 162.656 15.1918L162.81 15.1848L278.864 6.29737C285.464 6.37492 290.764 11.7468 290.737 18.3445C290.71 24.9373 285.352 30.2644 278.76 30.2843C278.749 30.2843 162.778 19.6291 162.778 19.6291L159.854 19.3606L160.071 22.2887C160.071 22.2887 160.154 23.3734 160.153 23.9311C160.15 24.3169 160.134 24.6987 160.103 25.0765L159.886 27.753L161.866 27.7609L161.803 44.0783C156.93 44.2056 152.216 44.5446 147.658 45.0537H147.655C142.97 45.5876 138.44 46.3164 134.086 47.239L134.162 27.6506L136.08 27.6585L135.88 24.9771C135.852 24.5883 135.838 24.1936 135.84 23.7959C135.843 23.2769 135.872 22.7639 135.925 22.2598L136.244 19.2712L17.2721 29.1131C10.6604 29.0316 5.36411 23.6468 5.39096 17.049C5.4178 10.4662 10.7688 5.12318 17.3655 5.11025C17.3695 5.11025 133.451 15.0775 133.451 15.0775H133.557C133.562 15.0775 135.107 15.1162 137.152 15.334L138.431 15.4692L139.281 14.5038C141.493 11.9904 144.624 10.4334 148.078 10.4394Z",
+              "position": {
+                "dx": 234.0,
+                "dy": 93.0
+              },
+              "color": "#E82D22",
+              "canDraw": true,
+              "type": 0,
+              "width": 296.0,
+              "height": 54.0
+            },
+            {
+              "id": 5,
+              "image": "helicopter_5.svg",
+              "path": "M101.29 35.6827L101.291 38.1712L131.325 38.1215V48.9736L28.3652 49.0054C12.4166 49.0054 5.88649 33.9467 5.13187 21.3319H15.6936C16.2285 30.9948 19.9997 38.1513 28.3652 38.1513H44.8993V5.25903H58.8326L58.8495 38.1692L88.2083 38.1494V5.25903H101.275L101.29 35.6827Z",
+              "position": {
+                "dx": 304.0,
+                "dy": 248.0
+              },
+              "color": "#E82D22",
+              "canDraw": true,
+              "type": 0,
+              "width": 137.0,
+              "height": 54.0
+            },
+            {
+              "id": 10,
+              "image": "helicopter_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 11,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#E82D22",
+              "type": 1,
+              "canDraw": false,
+              "count": 3,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 12,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#F6C412",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 13,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#2D8FEE",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_snail/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 29,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "snail_colored.svg",
+              "position": {
+                "dx": 255.0,
+                "dy": 65.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "type": 0,
+              "canDraw": false,
+              "width": 93.0,
+              "height": 134.0
+            },
+            {
+              "id": 1,
+              "image": "snail_1.svg",
+              "path": "M41.0141 77.6857C60.8987 77.6857 77.0182 61.5662 77.0182 41.6816C77.0182 21.7971 60.8987 5.67751 41.0141 5.67751C21.1296 5.67751 5.01001 21.7971 5.01001 41.6816C5.01001 61.5662 21.1296 77.6857 41.0141 77.6857Z",
+              "position": {
+                "dx": 462.0,
+                "dy": 104.0
+              },
+              "color": "#68B4DF",
+              "type": 0,
+              "canDraw": true,
+              "width": 83.0,
+              "height": 83.0
+            },
+            {
+              "id": 2,
+              "image": "snail_2.svg",
+              "path": "M62.1391 118.636C93.349 118.636 118.65 93.3355 118.65 62.1256C118.65 30.9158 93.349 5.6152 62.1391 5.6152C30.9293 5.6152 5.62872 30.9158 5.62872 62.1256C5.62872 93.3355 30.9293 118.636 62.1391 118.636Z",
+              "position": {
+                "dx": 428.0,
+                "dy": 99.0
+              },
+              "color": "#477CCC",
+              "canDraw": true,
+              "type": 0,
+              "width": 124.0,
+              "height": 124.0
+            },
+            {
+              "id": 3,
+              "image": "snail_3.svg",
+              "path": "M86.3152 166.716C130.922 166.716 167.083 130.555 167.083 85.9477C167.083 41.3406 130.922 5.17944 86.3152 5.17944C41.7081 5.17944 5.54694 41.3406 5.54694 85.9477C5.54694 130.555 41.7081 166.716 86.3152 166.716Z",
+              "position": {
+                "dx": 386.0,
+                "dy": 92.0
+              },
+              "color": "#68B4DF",
+              "canDraw": true,
+              "type": 0,
+              "width": 173.0,
+              "height": 172.0
+            },
+            {
+              "id": 4,
+              "image": "snail_4.svg",
+              "path": "M120.071 234.694C183.324 234.694 234.6 183.417 234.6 120.165C234.6 56.9128 183.324 5.6366 120.071 5.6366C56.8191 5.6366 5.54297 56.9128 5.54297 120.165C5.54297 183.417 56.8191 234.694 120.071 234.694Z",
+              "position": {
+                "dx": 330.0,
+                "dy": 83.0
+              },
+              "color": "#477CCC",
+              "canDraw": true,
+              "type": 0,
+              "width": 240.0,
+              "height": 240.0
+            },
+            {
+              "id": 5,
+              "image": "snail_5.svg",
+              "path": "M54.1992 270.652L54.1882 273.16L54.1942 270.652H54.1992ZM23.0431 192.228L20.5353 192.224H23.0431V192.228ZM20.5353 192.113L23.0431 192.118V192.113H20.5353ZM78.0529 114.882L76.2874 116.664L80.5606 120.896V114.882H78.0529ZM78.0529 67.2062H80.5606V65.3053L78.73 64.7917L78.0529 67.2062ZM75.5451 112.634C76.4178 113.341 77.2544 114.092 78.0519 114.882H75.5451V112.634ZM78.0529 111.465V114.882L79.8173 113.1C79.2476 112.535 78.6587 111.989 78.0529 111.465ZM34.039 108.781C33.5274 109.126 33.0249 109.483 32.5334 109.853L34.039 111.858V108.781ZM212.005 162.633L212.34 162.635C226.522 162.792 238.315 172.929 241.015 186.356L241.164 187.1L241.702 187.636L292.326 238.188L292.467 238.329C304.296 250.366 295.864 270.743 278.989 270.902L278.789 270.903H143.85L143.653 270.902C142.74 270.894 141.854 270.827 140.998 270.706L140.816 270.68L140.443 273.16L140.816 270.68L140.63 270.652H54.4741L54.4881 273.16H54.4871L54.4741 270.652C54.4149 270.652 54.3547 270.653 54.2955 270.653L54.1992 270.652H54.114L54.1029 273.16L54.114 270.652H52.6344C36.291 270.652 23.0431 257.403 23.0431 241.061V192.228V192.118L20.5353 192.113H23.0431V186.405V186.378V186.383H20.5353L23.0431 186.378V48.2998L21.2124 47.7863L20.5353 50.2007L21.2124 47.7863C12.1665 45.2464 5.53705 36.9358 5.53705 27.0834L5.53905 26.8055C5.68751 15.0603 15.255 5.58401 27.0364 5.58401L27.3143 5.58601C39.0605 5.73447 48.5368 15.302 48.5368 27.0834L48.5348 27.3101C48.4365 36.8997 42.0568 44.9916 33.3088 47.6549L34.039 50.0543L33.3088 47.6549L31.5313 48.1955V116.878L35.5457 113.863L34.039 111.858C34.8475 111.251 35.6841 110.678 36.5468 110.145V111.858H34.039L35.5457 113.863C40.7688 109.94 47.2568 107.616 54.2955 107.616L54.6968 107.619C63.1138 107.724 70.7262 111.155 76.2874 116.664L78.0519 114.882H80.5606V67.2062H78.0529L78.73 64.7917L78.5183 64.7305C69.5807 62.1225 63.0546 53.865 63.0546 44.0888L63.0566 43.811C63.205 32.0657 72.7726 22.5895 84.5539 22.5895L84.8318 22.5915C96.578 22.74 106.054 32.3075 106.054 44.0888L106.053 44.3165C105.955 53.8299 99.6746 61.8687 91.0319 64.5961L90.8263 64.6603L89.0488 65.201V162.633H212.005ZM91.5565 67.0597L90.8263 64.6603L91.5565 67.0597Z",
+              "position": {
+                "dx": 246.0,
+                "dy": 56.0
+              },
+              "color": "#F2BB2D",
+              "canDraw": true,
+              "type": 0,
+              "width": 303.0,
+              "height": 276.0
+            },
+            {
+              "id": 6,
+              "image": "snail_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 7,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#F2BB2D",
+              "type": 1,
+              "canDraw": false,
+              "count": 1,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 8,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#68B4DF",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 9,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#477CCC",
+              "type": 1,
+              "count": 2,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "levelScore": 8,
+      "tags": [
+        1,
+        2
+      ],
+      "gameType": 0,
+      "orderIndex": 0,
+      "gameName": "Coloring game",
+      "parentId": 0,
+      "createDate": 0,
+      "gameAssets": "/assets/images/game_coloring_image_1/coloring_flower/",
+      "gameData": [
+        {
+          "id": 0,
+          "parentId": 30,
+          "gameType": 0,
+          "background": "background_image.png",
+          "items": [
+            {
+              "id": 0,
+              "image": "flower_colored.svg",
+              "position": {
+                "dx": 359.0,
+                "dy": 100.0
+              },
+              "path": "M36.9354 71.253L36.8059 71.9917L36.9353 71.253C22.1371 68.659 7.90588 57.2659 2.68888 42.1786C-2.51064 27.1402 2.96225 10.4504 16.406 4.02184L16.0824 3.34521L16.406 4.02183C29.4278 -2.20508 47.1372 0.729976 58.8451 10.5104L58.8451 10.5104C65.2472 15.8575 70.2315 23.1812 73.1246 31.129C75.4307 37.4639 76.74 44.7939 74.5219 50.9016C68.4309 66.4478 53.0386 74.0764 36.9354 71.253Z",
+              "color": "#E1EFA5",
+              "type": 0,
+              "canDraw": false,
+              "width": 89.0,
+              "height": 157.0
+            },
+            {
+              "id": 1,
+              "image": "flower_1.svg",
+              "path": "M43.6716 5.46788C64.526 5.46788 81.3506 22.2915 81.3506 43.1468C81.3495 64.0011 64.526 80.8257 43.6716 80.8257C22.8163 80.8257 5.9917 64.0022 5.9917 43.1468C5.9917 22.2915 22.8153 5.46788 43.6716 5.46788Z",
+              "position": {
+                "dx": 364.0,
+                "dy": 75.0
+              },
+              "color": "#F4D118",
+              "type": 0,
+              "canDraw": true,
+              "width": 87.0,
+              "height": 87.0
+            },
+            {
+              "id": 2,
+              "image": "flower_2.svg",
+              "path": "M128.847 148.697C121.157 154.02 114.423 155.563 108.651 154.856C95.0738 153.19 87.0296 139.503 85.0494 135.82C84.7751 135.31 84.6222 134.996 84.5946 134.938C84.0756 133.864 83.2997 133.694 83.2925 133.69C82.6603 133.421 81.9476 133.418 81.3134 133.682C81.3062 133.685 80.517 133.854 79.9929 134.939C79.9653 134.996 79.8124 135.311 79.5391 135.821C77.5589 139.504 69.5198 153.193 55.9439 154.863C50.1726 155.574 43.4386 154.032 35.7462 148.712C27.805 143.22 23.8885 137.276 22.5109 131.439C19.2663 117.701 29.7261 104.929 32.6067 101.67C33.0064 101.217 33.2593 100.954 33.3062 100.906C34.2983 99.8761 34.0148 98.8727 34.0138 98.8646C33.9802 98.5362 33.8823 98.2171 33.7263 97.9265C33.7212 97.9173 33.349 96.8314 31.846 96.606C31.7879 96.5968 31.4718 96.5489 30.9507 96.448C27.1688 95.7077 12.9117 92.3254 7.53701 80.4503C5.24275 75.3805 4.64012 68.7771 7.06898 60.2047C9.63549 51.1429 13.858 45.5745 18.7605 42.3411C30.2594 34.7568 45.0885 39.8582 48.9357 41.353C49.4669 41.559 49.781 41.6977 49.8391 41.7232C51.1188 42.286 51.9447 41.7099 51.9519 41.7058C52.2772 41.5549 52.5668 41.3367 52.8023 41.0665C52.8084 41.0594 53.565 40.4486 53.408 39.0914C53.4019 39.0333 53.3662 38.7202 53.3295 38.1982C53.0623 34.3917 52.6402 19.8859 62.7451 11.5521C67.0685 7.9863 73.3212 5.61964 82.2749 5.61862C91.2286 5.6176 97.4813 7.98222 101.806 11.546C111.913 19.8777 111.495 34.3836 111.23 38.19C111.193 38.7131 111.157 39.0272 111.15 39.0843C110.966 40.6902 112.05 41.3439 112.06 41.351C112.222 41.4846 112.399 41.5978 112.588 41.6875C112.596 41.6916 113.429 42.2819 114.721 41.713C114.779 41.6875 115.094 41.5488 115.624 41.3428C119.472 39.846 134.299 34.7394 145.8 42.3207C150.703 45.5531 154.928 51.1205 157.498 60.1813C159.929 68.7526 159.328 75.3571 157.035 80.4279C151.664 92.305 137.408 95.6914 133.625 96.4316C133.105 96.5336 132.789 96.5815 132.731 96.5897C131.498 96.7753 131.102 97.5268 131.097 97.5329C130.741 97.9836 130.548 98.5393 130.548 99.1134C130.548 99.1215 130.39 99.977 131.27 100.891C131.317 100.94 131.57 101.203 131.971 101.654C134.852 104.913 145.316 117.682 142.077 131.421C140.701 137.256 136.787 143.203 128.847 148.697Z",
+              "position": {
+                "dx": 325.0,
+                "dy": 34.0
+              },
+              "color": "#F82E77",
+              "canDraw": true,
+              "type": 0,
+              "width": 165.0,
+              "height": 161.0
+            },
+            {
+              "id": 3,
+              "image": "flower_3.svg",
+              "path": "M19.317 132.496C18.9478 133.637 17.3388 137.591 12.5586 137.587C7.78651 137.584 6.18562 133.636 5.81854 132.498V5.78828H19.317V132.496Z",
+              "position": {
+                "dx": 395.0,
+                "dy": 150.0
+              },
+              "color": "#69BB17",
+              "canDraw": true,
+              "type": 0,
+              "width": 25.0,
+              "height": 143.0
+            },
+            {
+              "id": 4,
+              "image": "flower_4.svg",
+              "path": "M48.7995 5.4119C48.2479 8.75643 47.1007 14.3779 44.9492 20.2135C42.8191 25.9909 39.6939 32.0243 35.0268 35.9827C26.3688 43.3274 11.1685 44.0483 5.3778 44.0595C5.31866 41.8856 5.35027 38.3698 5.87234 34.3655C6.71663 27.8926 8.7988 20.0697 14.1001 14.8072C18.5438 10.3971 24.5436 8.01717 30.372 6.72015C37.8411 5.05706 45.0777 5.18146 48.7995 5.4119Z",
+              "position": {
+                "dx": 419.0,
+                "dy": 207.0
+              },
+              "color": "#69BB17",
+              "canDraw": true,
+              "type": 0,
+              "width": 55.0,
+              "height": 50.0
+            },
+            {
+              "id": 5,
+              "image": "flower_5.svg",
+              "path": "M67.9926 61.0396C60.7428 61.0865 38.1917 60.39 25.5692 49.6825C15.659 41.2763 10.6035 26.3106 8.06244 15.7244C7.07335 11.6028 6.47379 8.12678 6.1424 5.91613C10.9389 5.56435 21.6924 5.19625 32.817 7.67303C41.0233 9.50029 49.4591 12.8683 55.7148 19.077C68.218 31.4875 68.2965 53.8417 67.9926 61.0396Z",
+              "position": {
+                "dx": 323.0,
+                "dy": 189.0
+              },
+              "color": "#69BB17",
+              "canDraw": true,
+              "type": 0,
+              "width": 74.0,
+              "height": 67.0
+            },
+            {
+              "id": 5,
+              "image": "flower_6.svg",
+              "path": "M192.485 60.4613C189.013 60.4919 183.527 60.5184 176.575 60.5419C132.244 60.6877 28.6117 60.6591 6.71631 60.4583C11.5179 51.5239 25.2223 28.2927 42.6241 17.9053C56.2367 9.77952 77.3051 5.76713 98.498 5.86706C119.7 5.968 141.057 10.1884 155.235 18.8036C173.274 29.7682 187.392 51.7554 192.485 60.4613Z",
+              "position": {
+                "dx": 308.0,
+                "dy": 279.0
+              },
+              "color": "#9C5B05",
+              "canDraw": true,
+              "type": 0,
+              "width": 200.0,
+              "height": 66.0
+            },
+            {
+              "id": 6,
+              "image": "flower_model.svg",
+              "position": {
+                "dx": 38.0,
+                "dy": 89.0
+              },
+              "type": 3,
+              "canDraw": false,
+              "width": 143.0,
+              "height": 136.0
+            },
+            {
+              "id": 7,
+              "image": "color_1.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 122.0
+              },
+              "color": "#69BB17",
+              "type": 1,
+              "canDraw": false,
+              "count": 3,
+              "width": 55.0,
+              "height": 53.0
+            },
+            {
+              "id": 8,
+              "image": "color_2.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 122.0
+              },
+              "color": "#F82E77",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 9,
+              "image": "color_3.svg",
+              "position": {
+                "dx": 669.0,
+                "dy": 187.0
+              },
+              "color": "#F4D118",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            },
+            {
+              "id": 10,
+              "image": "color_4.svg",
+              "position": {
+                "dx": 739.0,
+                "dy": 187.0
+              },
+              "color": "#9C5B05",
+              "type": 1,
+              "count": 1,
+              "canDraw": false,
+              "width": 57.0,
+              "height": 53.0
+            }
+          ],
+          "width": 213.0,
+          "height": 348.0
         }
       ]
     }

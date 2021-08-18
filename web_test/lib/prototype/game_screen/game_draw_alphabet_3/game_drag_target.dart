@@ -340,6 +340,7 @@ class _GameDragTargetState extends State<GameDragTarget>
                 item.status = 1;
                 sourceModel[sourceIndex].status = 1;
               });
+              screenModel.playObjectNameSound(sourceModel[sourceIndex].audioUrl);
               if (count == sourceModel.length) {
                 screenModel.playGameItemSound(CORRECT);
                 Timer(Duration(milliseconds: 1000), () {

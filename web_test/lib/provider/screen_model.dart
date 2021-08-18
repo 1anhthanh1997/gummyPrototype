@@ -16,6 +16,7 @@ import 'package:web_test/model/user_model.dart';
 import 'package:web_test/prototype/general_screen/winning_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:web_test/provider/music_controller.dart';
+import 'package:web_test/provider/secondMusicController.dart';
 
 class ScreenModel extends ChangeNotifier {
   double screenWidth;
@@ -39,7 +40,8 @@ class ScreenModel extends ChangeNotifier {
   Offset endPosition;
   bool isFromShowResult = false;
   MusicController musicController = MusicController();
-  bool isDisplaySkipScreen=false;
+  SecondMusicController secondMusicController=SecondMusicController();
+  bool isDisplaySkipScreen = false;
 
   void playAudioBackground(String url) {
     musicController.playAudioBackground(url);
@@ -54,6 +56,16 @@ class ScreenModel extends ChangeNotifier {
   }
 
   void stopGameItemSound(AudioPlayer audioPlayer) {
+    musicController.stopGameItemSound(audioPlayer);
+  }
+
+  void playObjectNameSound(String url) {
+    String newUrl = localPath +'/'+ url;
+    print(newUrl);
+    musicController.playObjectNamePlayer(url);
+  }
+
+  void stopObjectNameSound(AudioPlayer audioPlayer) {
     musicController.stopGameItemSound(audioPlayer);
   }
 
@@ -137,7 +149,7 @@ class ScreenModel extends ChangeNotifier {
       //   nextGame();
       // }else{
       // SchedulerBinding.instance.addPostFrameCallback((_) {
-        showResultDialog(currentContext);
+      showResultDialog(currentContext);
       // });
 
       // }
@@ -245,7 +257,7 @@ class ScreenModel extends ChangeNotifier {
     logBasicEvent('skip_game_${currentGameId}_from_step_${currentStep}',
         currentGameId, currentStep, 'skip_game');
     // randomWithPiority(typeList);
-    isDisplaySkipScreen=true;
+    isDisplaySkipScreen = true;
     changeTypeScore();
     getNextGameId();
     minusUserScore();

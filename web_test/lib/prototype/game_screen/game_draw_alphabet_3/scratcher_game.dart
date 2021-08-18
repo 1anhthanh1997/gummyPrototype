@@ -8,6 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:web_test/config/id_config.dart';
 import 'package:web_test/model/item_model.dart';
 import 'package:web_test/model/parent_game_model.dart';
+import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/animation/scratcher_particles.dart';
 import 'package:web_test/prototype/game_screen/game_draw_alphabet_3/animation/scratcher_scale.dart';
 import 'package:web_test/prototype/general_screen/tap_tutorial_widget.dart';
 import 'package:web_test/provider/screen_model.dart';
@@ -62,8 +63,10 @@ class _ScratcherGameState extends State<ScratcherGame>
   Timer secondTimer;
   Timer thirdTimer;
   Offset particlesPosition = Offset(0, 0);
-  List<SquareParticle> particles = [];
+  List<ScratcherParticle> particles = [];
   Duration particlesTime;
+  bool isDisplayScratcherParticles = true;
+  String scratcherImage = '';
 
   void loadAlphabetData() {
     stepIndex = screenModel.currentStep;
@@ -71,7 +74,11 @@ class _ScratcherGameState extends State<ScratcherGame>
     for (int idx = 0;
         idx < allGameData.gameData[stepIndex].items.length;
         idx++) {
-      imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
+      if (allGameData.gameData[stepIndex].items[idx].type == 3) {
+        scratcherImage = allGameData.gameData[stepIndex].items[idx].image;
+      } else {
+        imageData.add(allGameData.gameData[stepIndex].items[idx].copy());
+      }
     }
     assetFolder = screenModel.localPath + allGameData.gameAssets;
     imageData.map((item) {
@@ -191,36 +198,57 @@ class _ScratcherGameState extends State<ScratcherGame>
               brushSize: 30 * ratio,
               threshold: 60,
               color: HexColor('#00FFFFFF'),
-              image: Image.asset(
-                'assets/images/game_draw_alphabet_3/draw_A/scratcher.png',
+              image: Image.file(
+                File(assetFolder + scratcherImage),
                 fit: BoxFit.fill,
               ),
               onChange: (value, offset) {
-                List<double> randomSize = [
-                  5.0 * 0.75,
-                  7.5 * 0.75,
-                  10.0 * 0.75,
-                  13.5 * 0.75,
-                  17.5 * 0.75
-                ];
-                if (offset != null) {
-                  Iterable.generate(1).forEach((i) {
-                    List<String> scratcherShardList = [
-                      SCRATCHER_SHARD_1,
-                      SCRATCHER_SHARD_2,
-                      SCRATCHER_SHARD_3,
-                      SCRATCHER_SHARD_4
-                    ];
-                    Random random = Random();
-                    String scratcherShardUrl =
-                    scratcherShardList[random.nextInt(scratcherShardList.length)];
-                    particles.add(SquareParticle(particlesTime, ratio, 0, 0,
-                        scratcherShardUrl, randomSize, 1, 50, 50));
-                  });
-                  print(offset);
+                if (isDisplayScratcherParticles) {
+                  List<double> randomSize = [
+                    5.0 * 0.75,
+                    7.5 * 0.75,
+                    10.0 * 0.75,
+                    13.5 * 0.75,
+                    17.5 * 0.75
+                  ];
+                  if (offset != null) {
+                    Iterable.generate(1).forEach((i) {
+                      List<String> scratcherShardList = [
+                        SCRATCHER_SHARD_1,
+                        SCRATCHER_SHARD_2,
+                        SCRATCHER_SHARD_3,
+                        SCRATCHER_SHARD_4
+                      ];
+                      Random random = Random();
+                      String scratcherShardUrl = scratcherShardList[
+                          random.nextInt(scratcherShardList.length)];
+                      particles.add(ScratcherParticle(
+                          particlesTime,
+                          ratio,
+                          0,
+                          0,
+                          scratcherShardUrl,
+                          randomSize,
+                          100,
+                          50,
+                          50,
+                          offset));
+                    });
+                    // setState(() {
+                    //   particlesPosition = Offset(offset.dx, offset.dy);
+                    // });
+                  }
+                }
+                if (isDisplayScratcherParticles) {
+                  // screenModel.playGameItemSound(SWEEPING_2);
+                  //  particles=[];
                   setState(() {
-                    particlesPosition =
-                        Offset(offset.dx, offset.dy );
+                    isDisplayScratcherParticles = false;
+                  });
+                  firstTimer = Timer(Duration(milliseconds: 50), () {
+                    setState(() {
+                      isDisplayScratcherParticles = true;
+                    });
                   });
                 }
 
@@ -241,6 +269,7 @@ class _ScratcherGameState extends State<ScratcherGame>
               },
               onThreshold: () {
                 item.status = 1;
+                screenModel.playObjectNameSound(item.audioUrl);
                 for (int index = 0; index < isEnable.length; index++) {
                   setState(() {
                     isEnable[index] = false;
@@ -332,14 +361,7 @@ class _ScratcherGameState extends State<ScratcherGame>
   }
 
   Widget displayParticles() {
-    return Positioned(
-        top: particlesPosition.dy,
-        left: particlesPosition.dx,
-        child: Container(
-          height: 197 * ratio,
-          width: 87 * ratio,
-          child: _buildParticle(),
-        ));
+    return _buildParticle();
   }
 
   Widget displayTutorialWidget() {

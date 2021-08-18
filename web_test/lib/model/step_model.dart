@@ -7,6 +7,7 @@ class StepModel {
   String stepAssets;
   String background;
   List<ItemModel> items;
+  String audioUrl;
   double height;
 
   StepModel(
@@ -16,6 +17,7 @@ class StepModel {
       this.stepAssets,
       this.background,
       this.items,
+      this.audioUrl,
       this.height});
 
   List<ItemModel> getItemList(List itemListJson) {
@@ -35,5 +37,6 @@ class StepModel {
     background = json['background'] == null ? '' : json['background'];
     items = json['items'] == null ? [] : getItemList(json['items']);
     height = json['height'] == null ? 0 : json['height'].toDouble();
+    audioUrl = json['audioUrl'] == null ? '' : json['audioUrl'];
   }
 }

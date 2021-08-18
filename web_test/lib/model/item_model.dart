@@ -16,6 +16,7 @@ class ItemModel {
   Offset startPosition = Offset(0, 0);
   Offset endPosition = Offset(0, 0);
   String path;
+  String audioUrl;
 
   ItemModel(
       {this.id = 0,
@@ -32,7 +33,8 @@ class ItemModel {
       this.canDraw,
       this.startPosition,
       this.endPosition,
-      this.path});
+      this.path,
+      this.audioUrl});
 
   ItemModel copy() => ItemModel(
       id: this.id,
@@ -49,14 +51,16 @@ class ItemModel {
       canDraw: this.canDraw,
       startPosition: this.startPosition,
       endPosition: this.endPosition,
-      path: this.path);
+      path: this.path,
+      audioUrl: this.audioUrl);
 
   ItemModel.fromJson(Map<String, dynamic> json) {
     image = json['image'] == null ? '' : json['image'];
     type = json['type'] == null ? 0 : json['type'];
     position = json['position'] == null
         ? Offset(0, 0)
-        : Offset(json['position']['dx'].toDouble(), json['position']['dy'].toDouble());
+        : Offset(json['position']['dx'].toDouble(),
+            json['position']['dy'].toDouble());
     groupId = json['groupId'] == null ? 0 : json['groupId'];
     id = json['id'] == null ? 0 : json['id'];
     height = json['height'] == null ? 0 : json['height'].toDouble();
@@ -67,11 +71,14 @@ class ItemModel {
     canDraw = json['canDraw'] == null ? false : json['canDraw'];
     startPosition = json['startPosition'] == null
         ? Offset(0, 0)
-        : Offset(json['startPosition']['dx'].toDouble(), json['startPosition']['dy'].toDouble());
+        : Offset(json['startPosition']['dx'].toDouble(),
+            json['startPosition']['dy'].toDouble());
     endPosition = json['endPosition'] == null
         ? Offset(0, 0)
-        : Offset(json['endPosition']['dx'].toDouble(), json['endPosition']['dy'].toDouble());
+        : Offset(json['endPosition']['dx'].toDouble(),
+            json['endPosition']['dy'].toDouble());
     path = json['path'] == null ? '' : json['path'];
     status = 0;
+    audioUrl = json['audioUrl'] == null ? '' : json['audioUrl'];
   }
 }

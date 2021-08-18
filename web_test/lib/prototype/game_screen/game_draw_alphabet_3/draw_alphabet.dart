@@ -390,6 +390,7 @@ class _DrawAlphabetState extends State<DrawAlphabet>
             scaleNumber = false;
           });
           screenModel.playGameItemSound(CORRECT);
+          screenModel.playObjectNameSound(allGameData.gameData[stepIndex].audioUrl);
           Timer(Duration(milliseconds: 1500), () {
             screenModel.setContext(context);
             screenModel.nextStep();

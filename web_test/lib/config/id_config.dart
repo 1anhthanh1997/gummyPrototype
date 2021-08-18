@@ -37,9 +37,6 @@ const SCRATCHER_SHARD_2='assets/images/game_draw_alphabet_3/draw_A/scratcher_par
 const SCRATCHER_SHARD_3='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_3.svg';
 const SCRATCHER_SHARD_4='assets/images/game_draw_alphabet_3/draw_A/scratcher_particles_4.svg';
 
-
-
-
 const BACKGROUND_GAME_MUSIC = 'music/background_game_music.mp3';
 const HOME_MUSIC = 'music/home_music.mp3';
 const BALLOON_POP_A = 'music/game_sound/balloon_pop_a.wav';
